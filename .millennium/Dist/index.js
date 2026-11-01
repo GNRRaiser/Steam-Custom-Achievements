@@ -1,4 +1,4 @@
-/* Steam Custom Achievements v0.30.0
+/* Steam Custom Achievements v0.30.1
  * Millennium 3.6.2 loose-file plugin: Xbox 360 achievement lists for Steam games
  * that have none, with read-only Lua detectors for games whose saves are mapped.
  * The entrypoint runs in SharedJSContext. UI belongs to popup.window.document.
@@ -8,7 +8,7 @@
   "use strict";
   const hostWindow = window;
   const PLUGIN_NAME = "steam-custom-achievements";
-  const BUILD_VERSION = "0.30.0";
+  const BUILD_VERSION = "0.30.1";
   const SHARE_BUILD = false;
   const ROOT_ID = "sca-ac2-root";
   const STYLE_ID = "sca-ac2-css";
@@ -955,7 +955,7 @@ function createTracker(window) {
 #${DIALOG_ID} .sca-record-file li[data-verdict="rising"]{color:#d9a35b}
 #${DIALOG_ID} .sca-record-badge{margin-left:8px;padding:1px 6px;border-radius:8px;background:rgba(255,255,255,.1);font-family:inherit;font-size:11px}
 #${DIALOG_ID} .sca-version{margin-top:16px;font-size:11px;color:#6f767e;text-align:center}
-.${STAT_CLASS}{display:flex;align-items:center;gap:10px;cursor:pointer;flex:none;background:none;border:0;padding:0 4px;color:inherit;font:inherit;text-align:left}
+.${STAT_CLASS}{display:flex;align-items:center;gap:10px;cursor:pointer;flex:none;background:none;border:0;padding:0 4px;color:inherit;font:inherit;text-align:left;align-self:flex-start;height:auto;min-height:0;margin-top:0;margin-bottom:0}
 .${STAT_CLASS} svg{width:var(--sca-stat-icon,24px);height:var(--sca-stat-icon,24px);flex:none;color:var(--sca-stat-icon-color,#8b929a);opacity:var(--sca-stat-icon-opacity,1)}
 .${STAT_CLASS} .sca-stat-label{color:var(--sca-stat-label,#8b929a);font-size:var(--sca-stat-label-size,12px);font-weight:var(--sca-stat-label-weight,700);letter-spacing:var(--sca-stat-label-spacing,.5px);text-transform:uppercase;line-height:1.3}
 .${STAT_CLASS} .sca-stat-row{display:flex;align-items:center;gap:6px}
@@ -1622,7 +1622,7 @@ function createTracker(window) {
     const path=node=>{const parts=[];for(let n=node,i=0;n&&n!==document.body&&i<6;n=n.parentElement,i++)parts.push(`${n.tagName.toLowerCase()}${n.className&&typeof n.className==="string"?"."+n.className.trim().split(/\s+/).slice(0,2).join("."):""}`);return parts.join(" < ");};
     const seen=node=>{if(!node.getClientRects().length)return false;for(let n=node;n&&n!==document.body;n=n.parentElement){const look=window.getComputedStyle(n);if(look.visibility==="hidden"||look.opacity==="0")return false;}return true;};
     return {playTimeLabels:labels.length,shown:labels.filter(seen).length,placed:stats.length,statShown:stats.filter(seen).length,
-      found:headerItems().length,stats:stats.slice(0,3).map(stat=>{const box=stat.getBoundingClientRect();let clip=null;for(let n=stat.parentElement;n&&n!==document.body;n=n.parentElement){const look=window.getComputedStyle(n);if(look.overflow!=="visible"){const outer=n.getBoundingClientRect();if(box.right>outer.right+1||box.bottom>outer.bottom+1||box.left<outer.left-1){clip=`${n.tagName.toLowerCase()}.${String(n.className).split(" ")[0]}`;break;}}}return {seen:seen(stat),x:Math.round(box.x),y:Math.round(box.y),w:Math.round(box.width),h:Math.round(box.height),clippedBy:clip,after:path(stat.previousElementSibling)};}),labels:labels.slice(0,3).map(label=>({path:path(label),seen:seen(label),row:normal(label.parentElement?.parentElement?.parentElement?.textContent||"").slice(0,120)}))};
+      found:headerItems().length,stats:stats.slice(0,3).map(stat=>{const box=stat.getBoundingClientRect();let clip=null;for(let n=stat.parentElement;n&&n!==document.body;n=n.parentElement){const look=window.getComputedStyle(n);if(look.overflow!=="visible"){const outer=n.getBoundingClientRect();if(box.right>outer.right+1||box.bottom>outer.bottom+1||box.left<outer.left-1){clip=`${n.tagName.toLowerCase()}.${String(n.className).split(" ")[0]}`;break;}}}return {seen:seen(stat),x:Math.round(box.x),y:Math.round(box.y),w:Math.round(box.width),h:Math.round(box.height),clippedBy:clip,after:path(stat.previousElementSibling),beside:(()=>{const near=stat.previousElementSibling||stat.nextElementSibling;if(!near)return null;const other=near.getBoundingClientRect();return {y:Math.round(other.y),h:Math.round(other.height)};})()};}),labels:labels.slice(0,3).map(label=>({path:path(label),seen:seen(label),row:normal(label.parentElement?.parentElement?.parentElement?.textContent||"").slice(0,120)}))};
   }
   function headerItem(label) {
     let text;
