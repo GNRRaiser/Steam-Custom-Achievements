@@ -6,7 +6,7 @@ import os
 import re
 from pathlib import Path
 
-VERSION = '0.29.0'
+VERSION = '0.30.0'
 BASE = Path(__file__).resolve().parent
 ROOT = BASE.parent
 PLUGIN = ROOT
@@ -207,6 +207,27 @@ for slug in ORDER:
             elif 'stat' in rule:
                 assert set(rule) == {'stat', 'need', 'label'} and rule['need'] > 0, slug
                 out.update(stat=stats[rule['stat']], need=rule['need'], label=rule['label'])
+            elif {'global', 'globals', 'questVar'} & set(rule):
+                # A counter the game's own achievement scripts keep: a global variable, a quest
+                # script variable (its index in the script), or a list of globals each at least 1.
+                assert set(rule) <= {'global', 'globals', 'questVar', 'need', 'label', 'done', 'doneValue'} and rule['need'] > 0, slug
+                def key(ref):
+                    assert ref['plugin'] in plugins and re.fullmatch(r'[0-9A-F]{1,6}', ref['id']), slug
+                    return ref['plugin'].lower() + ':' + ref['id'] + ('#%d' % ref['var'] if 'var' in ref else '')
+                if 'global' in rule:
+                    out['global'] = key(rule['global'])
+                elif 'globals' in rule:
+                    out['globals'] = [key(ref) for ref in rule['globals']]
+                    assert len(out['globals']) == rule['need'], slug
+                else:
+                    assert 'var' in rule['questVar'], slug
+                    out['questVar'] = key(rule['questVar'])
+                out.update(need=rule['need'], label=rule['label'])
+                if rule.get('done'):
+                    out['doneKeys'] = [key(ref) for ref in rule['done']]
+                if 'doneValue' in rule:
+                    out['doneKeys'] = out.get('doneKeys', []) + [out['questVar']]
+                    out['doneValue'] = rule['doneValue']
             else:
                 assert set(rule) == {'level', 'karma'} and rule['karma'] in ('good', 'neutral', 'bad'), slug
                 out.update(level=rule['level'], karma=rule['karma'])

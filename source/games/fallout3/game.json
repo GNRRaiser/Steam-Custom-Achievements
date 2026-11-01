@@ -6,7 +6,7 @@
   "detector": "fallout3",
   "setupHint": "Save once in Fallout 3, or select a .fos file in Settings.",
   "pathPlaceholder": "Path to Documents\\My Games\\Fallout3\\Saves (or a .fos file)",
-  "trackingNote": "Fallout 3 lost its Games for Windows Live achievements in the 2021 Steam update and never got Steam ones, so these are the Xbox 360 list (base game and the five DLCs). The plugin reads your newest save in Documents\\My Games\\Fallout3\\Saves: finished quests, the Pip-Boy statistics (people and creatures killed, locks, terminals, speech, locations, bobbleheads) and your level and karma. A save only holds your karma now, so a level achievement unlocks for the karma you have when the save is read. Weaponsmith, The Bigger They Are..., Mill Worker, Bog Walker and Alien Archivist are marked by hand for now.",
+  "trackingNote": "Fallout 3 lost its Games for Windows Live achievements in the 2021 Steam update and never got Steam ones, so these are the Xbox 360 list (base game and the five DLCs). The plugin reads your newest save in Documents\\My Games\\Fallout3\\Saves: finished quests, the Pip-Boy statistics (people and creatures killed, locks, terminals, speech, locations, bobbleheads) and your level and karma. A save only holds your karma now, so a level achievement unlocks for the karma you have when the save is read. Weaponsmith, The Bigger They Are..., Mill Worker, Alien Archivist and Bog Walker come from the counters the game's own achievement scripts keep in the save.",
   "autoTag": "Unlocks automatically from your newest Fallout 3 save",
   "saveFolders": [
     [
@@ -610,7 +610,47 @@
       "detail": "Made one of every custom weapon",
       "group": "Challenges",
       "points": 30,
-      "icon": "gear"
+      "icon": "gear",
+      "rule": {
+        "globals": [
+          {
+            "plugin": "Fallout3.esm",
+            "id": "BAFEC"
+          },
+          {
+            "plugin": "Fallout3.esm",
+            "id": "BAFED"
+          },
+          {
+            "plugin": "Fallout3.esm",
+            "id": "BAFEE"
+          },
+          {
+            "plugin": "Fallout3.esm",
+            "id": "BAFEF"
+          },
+          {
+            "plugin": "Fallout3.esm",
+            "id": "BAFF0"
+          },
+          {
+            "plugin": "Fallout3.esm",
+            "id": "BAFF1"
+          },
+          {
+            "plugin": "Fallout3.esm",
+            "id": "BAFF2"
+          }
+        ],
+        "need": 7,
+        "label": "Custom weapons made",
+        "done": [
+          {
+            "plugin": "Fallout3.esm",
+            "id": "A6AD3"
+          }
+        ]
+      }
     },
     {
       "name": "Doesn't Play Well with Others",
@@ -701,7 +741,15 @@
       "detail": "Kill all the Super Mutant Behemoths",
       "group": "Challenges",
       "points": 20,
-      "icon": "skull"
+      "icon": "skull",
+      "rule": {
+        "global": {
+          "plugin": "Fallout3.esm",
+          "id": "A3031"
+        },
+        "need": 5,
+        "label": "Behemoths killed"
+      }
     },
     {
       "name": "Yes, I Play with Dolls",
@@ -837,7 +885,23 @@
       "detail": "Found All 100 Steel Ingots",
       "group": "The Pitt",
       "points": 20,
-      "icon": "gear"
+      "icon": "gear",
+      "rule": {
+        "questVar": {
+          "plugin": "ThePitt.esm",
+          "id": "A686",
+          "var": 1
+        },
+        "need": 100,
+        "label": "Steel ingots turned in",
+        "done": [
+          {
+            "plugin": "ThePitt.esm",
+            "id": "A686",
+            "var": 45
+          }
+        ]
+      }
     },
     {
       "name": "Death From Above",
@@ -971,7 +1035,16 @@
       "detail": "Discovered all locations within Point Lookout",
       "group": "Point Lookout",
       "points": 40,
-      "icon": "plane"
+      "icon": "plane",
+      "rule": {
+        "questVar": {
+          "plugin": "PointLookout.esm",
+          "id": "103A1",
+          "var": 1
+        },
+        "need": 29,
+        "label": "Point Lookout map markers"
+      }
     },
     {
       "name": "Not of This World",
@@ -1008,7 +1081,17 @@
       "detail": "Collected all Alien Captive Recordings",
       "group": "Mothership Zeta",
       "points": 20,
-      "icon": "music"
+      "icon": "music",
+      "rule": {
+        "questVar": {
+          "plugin": "Zeta.esm",
+          "id": "3419",
+          "var": 1
+        },
+        "need": 25,
+        "label": "Alien captive recordings",
+        "doneValue": -1
+      }
     },
     {
       "name": "This Galaxy Ain't Big Enough...",

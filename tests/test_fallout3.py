@@ -29,8 +29,9 @@ def player(karma):
     return b'\x00\x01\x02' + bytes(24) + b'|' + b''.join(struct.pack('<f', v) + b'|' for v in floats)
 
 
-def save(level=1, karma=0.0, stats=None, quests=(), plugins=PLUGINS, cut=False):
-    """quests: (plugin, form id without load-order byte, quest flags byte)."""
+def save(level=1, karma=0.0, stats=None, quests=(), plugins=PLUGINS, cut=False, globals_=None, qvars=None):
+    """quests: (plugin, form id without load-order byte, quest flags byte); globals_: {(plugin, id): value};
+    qvars: {(plugin, quest id): {variable index: value}} stored as script-only quest change forms."""
     w, h = 4, 2
     head = struct.pack('<I', 0x30) + b'|' + struct.pack('<I', w) + b'|' + struct.pack('<I', h) + b'|'
     head += struct.pack('<I', 7) + b'|' + field('Lone Wanderer') + field('Wanderer') + struct.pack('<I', level) + b'|'
@@ -42,15 +43,24 @@ def save(level=1, karma=0.0, stats=None, quests=(), plugins=PLUGINS, cut=False):
     for name, value in (stats or {}).items():
         values[STATS[name]] = value
     misc = struct.pack('<I', 26) + b'|' + b''.join(struct.pack('<I', v) + b'|' for v in values)
-    global1 = struct.pack('<II', 0, len(misc)) + misc + struct.pack('<II', 1, 3) + b'ab|'
     form_ids, forms = [], b''
+    gv = b''
+    for (plugin, low), value in (globals_ or {}).items():
+        form_ids.append((plugins.index(plugin) << 24) | low)
+        gv += len(form_ids).to_bytes(3, 'big') + b'|' + struct.pack('<f', value) + b'|'
+    gv = struct.pack('<H', (len(globals_ or {}) << 2) | 1) + b'|' + gv
+    global1 = struct.pack('<II', 0, len(misc)) + misc + struct.pack('<II', 3, len(gv)) + gv
+    for (plugin, low), values in (qvars or {}).items():
+        form_ids.append((plugins.index(plugin) << 24) | low)
+        body = bytes([len(values) << 2]) + b'|' + b''.join(struct.pack('<I', i) + b'|' + struct.pack('<d', v) + b'|' for i, v in values.items()) + b'\x00|\x00|'
+        forms += change_form(len(form_ids), 0x40000000, 9, body)
     for plugin, low, qflags in quests:
         form_ids.append((plugins.index(plugin) << 24) | low)
         forms += change_form(len(form_ids), 0xE0000002, 9, bytes([qflags]) + b'|' + b'\x00|')
     # The player reference: ref ID 0x400014 (a Fallout3.esm form), with a u16 length (type | 0x40).
     data = player(karma)
     forms += (0x400014).to_bytes(3, 'big') + struct.pack('<I', 0xB0400832) + bytes([1 | 0x40, 21]) + struct.pack('<H', len(data)) + data
-    count = len(quests) + 1
+    count = len(quests) + len(qvars or {}) + 1
     global2 = struct.pack('<II', 1000, 0)
     table_at = len(out)
     g1 = table_at + 4 * 8
@@ -107,5 +117,17 @@ print('PASS level achievements follow the karma the save holds (good >= 250, bad
 for broken in (b'not a save', save(cut=True), save()[:1000]):
     parsed = D[b'parse'](D[b'summarize'](broken))
     assert isinstance(parsed, tuple) and parsed[0] is None, broken[:20]
+F, PITT, ZETA, PL = 'Fallout3.esm', 'ThePitt.esm', 'Zeta.esm', 'PointLookout.esm'
+weapons = {(F, low): 1.0 for low in range(0xBAFEC, 0xBAFF3)}
+assert earned(save(globals_={**weapons, (F, 0xBAFF2): 0.0, (F, 0xA3031): 4.0})) == set()
+assert earned(save(globals_={**weapons, (F, 0xA3031): 5.0})) == {'Weaponsmith', 'The Bigger They Are...'}
+assert earned(save(globals_={(F, 0xA6AD3): 1.0})) == {'Weaponsmith'}
+print('PASS Weaponsmith needs all 7 custom weapon counters (or the game\'s own done flag); 5 Behemoths killed')
+
+assert earned(save(qvars={(PITT, 0xA686): {1: 99.0}, (ZETA, 0x3419): {1: 24.0}, (PL, 0x103A1): {1: 28.0}})) == set()
+assert earned(save(qvars={(PITT, 0xA686): {1: 100.0}, (ZETA, 0x3419): {1: 25.0}, (PL, 0x103A1): {1: 29.0}})) == {'Mill Worker', 'Alien Archivist', 'Bog Walker'}
+assert earned(save(qvars={(PITT, 0xA686): {28: 2.0, 45: 1.0}, (ZETA, 0x3419): {1: -1.0}})) == {'Mill Worker', 'Alien Archivist'}
+print('PASS DLC quest script counters: 100 ingots (or the achievement flag), 25 recordings (-1 once awarded), 29 Point Lookout markers')
+
 print('PASS files that are not Fallout 3 saves, or are cut short, are not read')
 print('All Fallout 3 detector tests passed.')

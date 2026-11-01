@@ -20,7 +20,7 @@ The achievements come from each game's Xbox 360 list, plus the PS3 platinum. Mas
 | Call of Duty 4: Modern Warfare | 7940 | 37 | 24 |
 | Call of Duty: World at War | 10090 | 67 | 22 |
 | Fable III | 105400 | 60 | 60 |
-| Fallout 3 - Game of the Year Edition | 22370 | 72 | 67 |
+| Fallout 3 - Game of the Year Edition | 22370 | 72 | 72 |
 | Mass Effect | 17460 | 50 | 45 |
 | Mass Effect 2 | 24980 | 63 | 61 |
 | Thrillville: Off the Rails | 6080 | 50 | 18 |

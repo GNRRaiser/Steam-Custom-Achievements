@@ -70,6 +70,11 @@ a short summary, so the 5-20 MB file is only re-read when it changes. Rules:
 | `{"quests": [...], "started": true}` | ... or is running |
 | `{"stat": "People Killed", "need": 300, "label": "People Killed"}` | a Pip-Boy misc statistic (named from `statNames`) reaches `need` |
 | `{"level": 14, "karma": "good"}` | the level reaches 14 with karma >= 250 (`bad` <= -250, `neutral` between) |
+| `{"global": {"plugin": "Fallout3.esm", "id": "A3031"}, "need": 5, "label": "..."}` | a global variable (here BehemothsKilled) reaches `need` |
+| `{"globals": [7 refs], "need": 7, "label": "...", "done": [ref]}` | every listed global is at least 1, or a `done` global is |
+| `{"questVar": {"plugin": "Zeta.esm", "id": "3419", "var": 1}, "need": 25, "doneValue": -1}` | a quest script variable (index from the script's SLSD) reaches `need`, or equals `doneValue` |
+
+The IDs come from the game's own achievement scripts (AddAchievement) in the .esm files.
 
 ## Mass Effect (`"detector": "me1"`)
 

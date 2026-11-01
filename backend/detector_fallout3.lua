@@ -43,6 +43,49 @@ local function f32(s, at)
     return sign * (1 + mantissa / 8388608) * 2 ^ (exponent - 127)
 end
 
+local function f64(s, at)
+    local lo, hi = u32(s, at), u32(s, at + 4)
+    if not hi then return nil end
+    local sign = hi >= 2147483648 and -1 or 1
+    local exponent = math.floor(hi / 1048576) % 2048
+    local mantissa = (hi % 1048576) * 4294967296 + lo
+    if exponent == 2047 then return nil end
+    if exponent == 0 then return sign * mantissa * 2 ^ -1074 end
+    return sign * (1 + mantissa / 4503599627370496) * 2 ^ (exponent - 1023)
+end
+
+-- A variable-size count: the low 2 bits of the first byte give its size (1, 2 or 4 bytes).
+local function vsval(s, at)
+    local first = s:byte(at)
+    if not first then return nil end
+    local code = first % 4
+    if code == 0 then return math.floor(first / 4), 1 end
+    if code == 1 then local v = u16(s, at); return v and math.floor(v / 4), 2 end
+    if code == 2 then local v = u32(s, at); return v and math.floor(v / 4), 4 end
+    return nil
+end
+
+-- A quest's script variables, at the end of its change form data: count '|', then
+-- (u32 variable index '|' f64 value '|') per variable, then 00 '|' 00 '|'.
+local function quest_vars(data)
+    local n = #data
+    if n < 6 or data:sub(n - 2, n - 2) ~= '|' or data:sub(n, n) ~= '|' then return nil end
+    for count = 0, 63 do
+        local start = n - 4 - (2 + 14 * count) + 1
+        if start < 1 then return nil end
+        if data:byte(start) == count * 4 and data:sub(start + 1, start + 1) == '|' then
+            local vars, ok = {}, true
+            for i = 0, count - 1 do
+                local at = start + 2 + i * 14
+                if data:sub(at + 4, at + 4) ~= '|' or data:sub(at + 13, at + 13) ~= '|' then ok = false; break end
+                vars[u32(data, at)] = f64(data, at + 5)
+            end
+            if ok then return vars end
+        end
+    end
+    return nil
+end
+
 -- A '|'-separated string field: u16 length, '|', bytes, '|'.
 local function field(s, at)
     local n = u16(s, at)
@@ -104,6 +147,30 @@ local function misc_stats(s, h)
     return nil
 end
 
+-- Global data type 3 = global variables: vsval count '|', then (3-byte ref ID '|' f32 '|').
+local function global_vars(s, h, form_id)
+    local p = h.global1 + 1
+    for _ = 1, h.global1Count do
+        local kind, len = u32(s, p), u32(s, p + 4)
+        if not len then return nil end
+        if kind == 3 then
+            local count, size = vsval(s, p + 8)
+            if not count or s:sub(p + 8 + size, p + 8 + size) ~= '|' or size + 1 + count * 9 ~= len then return nil end
+            local globals = {}
+            for i = 0, count - 1 do
+                local at = p + 9 + size + i * 9
+                local a, b, c = s:byte(at, at + 2)
+                if s:sub(at + 3, at + 3) ~= '|' or s:sub(at + 8, at + 8) ~= '|' then return nil end
+                local fid = form_id((a * 256 + b) * 256 + c)
+                if fid then globals[fid] = f32(s, at + 4) end
+            end
+            return globals
+        end
+        p = p + 8 + len
+    end
+    return nil
+end
+
 local function karma(data)
     if not data or data:sub(28, 28) ~= '|' then return nil end
     local count, p = 0, 28
@@ -124,7 +191,7 @@ local function change_forms(s, h)
         if kind ~= 0 or value < 1 or value > formCount then return nil end
         return u32(s, h.formIds + 5 + (value - 1) * 4)
     end
-    local quests, player = {}, nil
+    local quests, player, vars = {}, nil, {}
     local p, stop = h.changeForms + 1, h.global2 + 1
     for _ = 1, h.changeFormCount do
         local a, b, c = s:byte(p, p + 2)
@@ -139,6 +206,12 @@ local function change_forms(s, h)
         local kind = kindByte % 64
         if kind == QUEST_TYPE then
             local flags = u32(s, p + 3)
+            if flags >= 1073741824 and math.floor(flags / 1073741824) % 2 == 1 then
+                local fid = form_id((a * 256 + b) * 256 + c)
+                local plugin = fid and h.plugins[math.floor(fid / 16777216)]
+                local list = plugin and quest_vars(s:sub(dataAt, dataAt + len - 1))
+                if list then vars[plugin .. ':' .. string.format('%X', fid % 16777216)] = list end
+            end
             if flags % 4 >= 2 and len >= 2 then
                 local fid = form_id((a * 256 + b) * 256 + c)
                 local questFlags = s:byte(dataAt)
@@ -156,7 +229,7 @@ local function change_forms(s, h)
         p = dataAt + len
     end
     if p ~= stop then return nil end
-    return quests, player
+    return quests, player, vars, form_id
 end
 
 -- The summary text that read() hands to parse(): one "key value" per line.
@@ -165,8 +238,9 @@ local function summarize(s)
     if not h then return 'error ' .. reason end
     local stats = misc_stats(s, h)
     if not stats then return 'error No Pip-Boy statistics in this save' end
-    local quests, player = change_forms(s, h)
+    local quests, player, vars, form_id = change_forms(s, h)
     if not quests then return 'error Unknown change form layout' end
+    local globals = global_vars(s, h, form_id) or {}
     local lines = { 'fo3 1', 'level ' .. h.level }
     local k = karma(player)
     if k then lines[#lines + 1] = 'karma ' .. k end
@@ -175,6 +249,23 @@ local function summarize(s)
     for key in pairs(quests) do keys[#keys + 1] = key end
     table.sort(keys)
     for _, key in ipairs(keys) do lines[#lines + 1] = 'quest ' .. key .. ' ' .. quests[key] end
+    local function num(v) return string.format('%.6g', v) end
+    keys = {}
+    for fid in pairs(globals) do keys[#keys + 1] = fid end
+    table.sort(keys)
+    for _, fid in ipairs(keys) do
+        local plugin = h.plugins[math.floor(fid / 16777216)]
+        if plugin and globals[fid] then lines[#lines + 1] = 'global ' .. plugin .. ':' .. string.format('%X', fid % 16777216) .. ' ' .. num(globals[fid]) end
+    end
+    keys = {}
+    for key in pairs(vars) do keys[#keys + 1] = key end
+    table.sort(keys)
+    for _, key in ipairs(keys) do
+        local idx = {}
+        for i in pairs(vars[key]) do idx[#idx + 1] = i end
+        table.sort(idx)
+        for _, i in ipairs(idx) do lines[#lines + 1] = 'qvar ' .. key .. ' ' .. i .. ' ' .. num(vars[key][i]) end
+    end
     return table.concat(lines, '\n')
 end
 D.summarize = summarize
@@ -201,7 +292,7 @@ function D.parse(text)
     if text:sub(1, 6) == 'error ' then return nil, text:sub(7) end
     if text:sub(1, 5) == MAGIC:sub(1, 5) then text = summarize(text); if text:sub(1, 6) == 'error ' then return nil, text:sub(7) end end
     if text:sub(1, 6) ~= 'fo3 1\n' then return nil, 'Not a Fallout 3 save' end
-    local parsed = { stats = {}, quests = {}, done = 0 }
+    local parsed = { stats = {}, quests = {}, globals = {}, qvars = {}, done = 0 }
     for line in text:gmatch('[^\n]+') do
         local word, rest = line:match('^(%S+) (.*)$')
         if word == 'level' then parsed.level = tonumber(rest)
@@ -209,6 +300,12 @@ function D.parse(text)
         elseif word == 'stat' then
             local i, v = rest:match('^(%d+) (%d+)$')
             if i then parsed.stats[tonumber(i)] = tonumber(v) end
+        elseif word == 'global' then
+            local key, v = rest:match('^(%S+) (%S+)$')
+            if key then parsed.globals[key] = tonumber(v) end
+        elseif word == 'qvar' then
+            local key, i, v = rest:match('^(%S+) (%d+) (%S+)$')
+            if key then parsed.qvars[key .. '#' .. i] = tonumber(v) end
         elseif word == 'quest' then
             local key, state = rest:match('^(%S+) (%S+)$')
             if key then
@@ -238,10 +335,30 @@ local function rule_met(parsed, rule)
         return false
     end
     if rule.stat then return (parsed.stats[rule.stat] or 0) >= rule.need end
+    if rule.globals or rule.global or rule.questVar then
+        for _, key in ipairs(rule.doneKeys or {}) do
+            local v = parsed.globals[key] or parsed.qvars[key]
+            if v and (rule.doneValue and v == rule.doneValue or not rule.doneValue and v >= 1) then return true end
+        end
+        local have = D.have(parsed, rule)
+        return have ~= nil and have >= rule.need
+    end
     if rule.level then
         return (parsed.level or 0) >= rule.level and karma_kind(parsed.karma) == rule.karma
     end
     return false
+end
+
+-- Progress of a counter rule: a global, a quest script variable, or how many of a list of globals are at least 1.
+function D.have(parsed, rule)
+    if rule.global then return parsed.globals[rule.global] end
+    if rule.questVar then return parsed.qvars[rule.questVar] end
+    if rule.globals then
+        local n = 0
+        for _, key in ipairs(rule.globals) do if (parsed.globals[key] or 0) >= 1 then n = n + 1 end end
+        return n
+    end
+    return nil
 end
 
 function D.evaluate(parsed, game)
@@ -257,6 +374,9 @@ function D.counts(parsed, game)
     for _, rule in ipairs(game.rules) do
         if rule.stat and parsed.stats[rule.stat] then
             counts[tostring(rule.index)] = { have = math.min(parsed.stats[rule.stat], rule.need), need = rule.need, label = rule.label }
+        elseif rule.global or rule.questVar or rule.globals then
+            local have = D.have(parsed, rule)
+            if have and have >= 0 then counts[tostring(rule.index)] = { have = math.min(math.floor(have), rule.need), need = rule.need, label = rule.label } end
         elseif rule.level and parsed.level then
             counts[tostring(rule.index)] = { have = math.min(parsed.level, rule.level), need = rule.level,
                 label = 'Level (' .. (karma_kind(parsed.karma) or 'unknown') .. ' karma now)' }

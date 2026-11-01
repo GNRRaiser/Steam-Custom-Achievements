@@ -1815,6 +1815,12 @@ return {
       level = 20,
       karma = "good",
     }, {
+      index = 39,
+      globals = { "fallout3.esm:BAFEC", "fallout3.esm:BAFED", "fallout3.esm:BAFEE", "fallout3.esm:BAFEF", "fallout3.esm:BAFF0", "fallout3.esm:BAFF1", "fallout3.esm:BAFF2" },
+      need = 7,
+      label = "Custom weapons made",
+      doneKeys = { "fallout3.esm:A6AD3" },
+    }, {
       index = 40,
       stat = 2,
       need = 300,
@@ -1849,6 +1855,11 @@ return {
       stat = 14,
       need = 1,
       label = "Pants Exploded",
+    }, {
+      index = 47,
+      global = "fallout3.esm:A3031",
+      need = 5,
+      label = "Behemoths killed",
     }, {
       index = 48,
       stat = 16,
@@ -1902,6 +1913,12 @@ return {
         id = "108B",
       } },
     }, {
+      index = 57,
+      questVar = "thepitt.esm:A686#1",
+      need = 100,
+      label = "Steel ingots turned in",
+      doneKeys = { "thepitt.esm:A686#45" },
+    }, {
       index = 58,
       quests = { {
         plugin = "brokensteel.esm",
@@ -1953,6 +1970,11 @@ return {
         id = "584B",
       } },
     }, {
+      index = 67,
+      questVar = "pointlookout.esm:103A1#1",
+      need = 29,
+      label = "Point Lookout map markers",
+    }, {
       index = 68,
       quests = { {
         plugin = "zeta.esm",
@@ -1964,6 +1986,13 @@ return {
         plugin = "zeta.esm",
         id = "803",
       } },
+    }, {
+      index = 70,
+      questVar = "zeta.esm:3419#1",
+      need = 25,
+      label = "Alien captive recordings",
+      doneKeys = { "zeta.esm:3419#1" },
+      doneValue = -1,
     }, {
       index = 71,
       quests = { {
