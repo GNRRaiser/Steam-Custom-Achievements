@@ -549,7 +549,7 @@ html.sca-page-open body>*:not(#${DIALOG_ID}){visibility:hidden}
     },{passive:true});
     const picker=el("input","sca-picker");picker.type="file";picker.accept="image/*";picker.hidden=true;
     picker.onchange=()=>{const files=Array.from(picker.files||[]);picker.value="";void applyPictures(files);};
-    const pagePicker=el("input","sca-page-picker");pagePicker.type="file";pagePicker.accept=".mhtml,.mht,multipart/related";pagePicker.hidden=true;
+    const pagePicker=el("input","sca-page-picker");pagePicker.type="file";pagePicker.accept=".mhtml,.mht,.html,.htm,multipart/related,text/html";pagePicker.hidden=true;
     pagePicker.onchange=()=>{const file=pagePicker.files?.[0];pagePicker.value="";if(file)void importPage(file);};
     dialog.append(close,head,body,picker,pagePicker);overlay.appendChild(dialog);
     document.body.appendChild(overlay);
@@ -714,7 +714,7 @@ html.sca-page-open body>*:not(#${DIALOG_ID}){visibility:hidden}
     const pictures=el("div","sca-panel");
     pictures.append(el("h3","","Achievement pictures"),
       el("p","",`Click any achievement's picture in My Achievements to replace it with an image from your PC. To load many at once, pick several images named by list number (1.png to ${game.achievements.length}.png) or by achievement name (for example ${game.achievements[0].name.replace(/[^A-Za-z0-9 ]/g,"")}.jpg).`),
-      el("p","","To use the real Xbox pictures, open the game's achievement list (TrueAchievements, Exophase…) in Chrome or Edge, scroll until every picture has loaded, press Ctrl+S and save as \"Webpage, Single File\". Then choose that .mhtml file with Load from saved page. If the page lists how many players have each achievement (for example Exophase's percentages), those unlock rates are loaded too and shown like Steam's global percentages, with rare ones (under 10%) in gold."));
+      el("p","","To use the real Xbox pictures, open the game's achievement list (TrueAchievements, Exophase…) in Chrome or Edge, scroll until every picture has loaded, press Ctrl+S and save as \"Webpage, Single File\". Then choose that .mhtml file with Load from saved page. If the page lists how many players have each achievement (TrueAchievements and Exophase do), those unlock rates are loaded too and shown like Steam's global percentages, with rare ones (under 10%) in gold. A page saved as \"Webpage, Complete\" (.html) loads only the rates."));
     const pictureButtons=el("div","sca-buttons");
     const many=el("button","sca-small","Choose pictures…");many.onclick=()=>{pictureTarget=null;const picker=document.querySelector(`#${DIALOG_ID} .sca-picker`);picker.multiple=true;picker.click();};
     const fromPage=el("button","sca-small sca-from-page","Load from saved page…");fromPage.onclick=()=>document.querySelector(`#${DIALOG_ID} .sca-page-picker`).click();
@@ -745,7 +745,7 @@ html.sca-page-open body>*:not(#${DIALOG_ID}){visibility:hidden}
     body.append(auto,...(SHARE_BUILD?[]:[buildPopupPanel(),buildCapturePanel(),buildRecordPanel()]),pictures,data,el("div","sca-version",`v${BUILD_VERSION} · ${game.platform} achievement list · Local only · Not connected to your Steam account's achievements`));
     updateCapturePanel();
   }
-  function slug(text){return String(text).toLowerCase().replace(/\.[a-z0-9]+$/,"").replace(/[^a-z0-9]+/g,"");}
+  function slug(text){return String(text).normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().replace(/\.[a-z0-9]+$/,"").replace(/[^a-z0-9]+/g,"");}
   function indexForFile(name) {
     const number=/^0*(\d{1,3})(?!\d)/.exec(name);
     if(number){const index=Number(number[1])-1;if(game.achievements[index])return index;}

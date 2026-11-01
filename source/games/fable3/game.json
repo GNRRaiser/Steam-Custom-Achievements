@@ -52,6 +52,7 @@
  "achievements": [
   {
    "name": "The Guild Seal",
+   "rarity": 95,
    "detail": "Unleash your heroic potential.",
    "group": "Story",
    "points": 10,
@@ -60,6 +61,7 @@
   },
   {
    "name": "And So It Begins",
+   "rarity": 75,
    "detail": "Win the support of the Dwellers.",
    "group": "Story",
    "points": 20,
@@ -68,6 +70,7 @@
   },
   {
    "name": "Swift Justice",
+   "rarity": 72,
    "detail": "Win the support of the Swift Brigade.",
    "group": "Story",
    "points": 20,
@@ -76,6 +79,7 @@
   },
   {
    "name": "The Resistance",
+   "rarity": 65,
    "detail": "Win the support of Bowerstone.",
    "group": "Story",
    "points": 50,
@@ -84,6 +88,7 @@
   },
   {
    "name": "Distant Friends",
+   "rarity": 62,
    "detail": "Win the support of Aurora.",
    "group": "Story",
    "points": 20,
@@ -92,6 +97,7 @@
   },
   {
    "name": "The Ruler of Albion",
+   "rarity": 62,
    "detail": "Become the ruler of Albion.",
    "group": "Story",
    "points": 80,
@@ -100,6 +106,7 @@
   },
   {
    "name": "For Albion!",
+   "rarity": 55,
    "detail": "This is where you *spoiler* the great, big *spoiler* and then it all *spoiler*.",
    "group": "Story",
    "points": 80,
@@ -108,6 +115,7 @@
   },
   {
    "name": "Save The Princess!",
+   "rarity": 67,
    "detail": "Rescue the princess from the evil Baron.",
    "group": "Quests",
    "points": 10,
@@ -116,6 +124,7 @@
   },
   {
    "name": "Ghost Brothers",
+   "rarity": 47,
    "detail": "Make sure Max and Sam get home in time for tea.",
    "group": "Quests",
    "points": 10,
@@ -124,6 +133,7 @@
   },
   {
    "name": "Tragical-Comical-Historical",
+   "rarity": 75,
    "detail": "Help the celebrated thespians Lambert and Pinch put on the world's greatest play.",
    "group": "Quests",
    "points": 10,
@@ -132,6 +142,7 @@
   },
   {
    "name": "The Dark Sanctum",
+   "rarity": 30,
    "detail": "Reinstate an ancient, evil temple.",
    "group": "Quests",
    "points": 10,
@@ -140,6 +151,7 @@
   },
   {
    "name": "Island Paradise",
+   "rarity": 28,
    "detail": "Establish the island of Driftwood.",
    "group": "Quests",
    "points": 10,
@@ -148,6 +160,7 @@
   },
   {
    "name": "Knight Jumps Chesty",
+   "rarity": 27,
    "detail": "Defeat Chesty at his own game.",
    "group": "Quests",
    "points": 10,
@@ -156,6 +169,7 @@
   },
   {
    "name": "Coronation Chicken",
+   "rarity": 33,
    "detail": "Perform a royal judgement while dressed as a chicken.",
    "group": "Kingdom",
    "points": 10,
@@ -164,6 +178,7 @@
   },
   {
    "name": "Spellweaver",
+   "rarity": 68,
    "detail": "Combine two gauntlets to cast a 'woven' spell.",
    "group": "Combat",
    "points": 5,
@@ -172,6 +187,7 @@
   },
   {
    "name": "Archmage",
+   "rarity": 25,
    "detail": "Cast all 15 possible spell combinations.",
    "group": "Combat",
    "points": 20,
@@ -180,6 +196,7 @@
   },
   {
    "name": "Total Warrior",
+   "rarity": 85,
    "detail": "Kill enemies with melee, ranged and spell attacks.",
    "group": "Combat",
    "points": 10,
@@ -188,6 +205,7 @@
   },
   {
    "name": "Pull!",
+   "rarity": 74,
    "detail": "Send an enemy flying into the air and kill him while he's airborne.",
    "group": "Combat",
    "points": 10,
@@ -196,6 +214,7 @@
   },
   {
    "name": "Gunning For Glory",
+   "rarity": 44,
    "detail": "Kill 500 enemies using firearms.",
    "group": "Combat",
    "points": 20,
@@ -209,6 +228,7 @@
   },
   {
    "name": "If It Bleeds, We Can Kill It",
+   "rarity": 49,
    "detail": "Kill 500 enemies using melee weapons.",
    "group": "Combat",
    "points": 20,
@@ -222,6 +242,7 @@
   },
   {
    "name": "Wizard's Revenge",
+   "rarity": 55,
    "detail": "Kill 500 enemies using magic.",
    "group": "Combat",
    "points": 20,
@@ -235,6 +256,7 @@
   },
   {
    "name": "Super Hero",
+   "rarity": 29,
    "detail": "Fully upgrade your Melee, Ranged, and Magic abilities on the Road to Rule.",
    "group": "Combat",
    "points": 50,
@@ -243,6 +265,7 @@
   },
   {
    "name": "You Can't Bring Me Down",
+   "rarity": 27,
    "detail": "Complete Fable III without being knocked out in combat.",
    "group": "Combat",
    "points": 50,
@@ -251,6 +274,7 @@
   },
   {
    "name": "My Weapon's Better Than Yours",
+   "rarity": 25,
    "detail": "Complete 3 unique upgrades on one of the legendary weapons found around Albion.",
    "group": "Combat",
    "points": 25,
@@ -259,6 +283,7 @@
   },
   {
    "name": "I Am The Keymaster",
+   "rarity": 11,
    "detail": "Collect all 50 Silver Keys and 4 Gold Keys.",
    "group": "Collectibles",
    "points": 30,
@@ -272,6 +297,7 @@
   },
   {
    "name": "Flower Power",
+   "rarity": 13,
    "detail": "Collect all 30 Auroran flowers.",
    "group": "Collectibles",
    "points": 30,
@@ -285,6 +311,7 @@
   },
   {
    "name": "Gnome Invasion",
+   "rarity": 15,
    "detail": "Destroy all 50 gnomes.",
    "group": "Collectibles",
    "points": 30,
@@ -298,6 +325,7 @@
   },
   {
    "name": "Brightwall Book Club",
+   "rarity": 9,
    "detail": "Collect all 30 rare books for the Brightwall Academy.",
    "group": "Collectibles",
    "points": 30,
@@ -306,6 +334,7 @@
   },
   {
    "name": "Digger",
+   "rarity": 41,
    "detail": "Dig up 50 items.",
    "group": "Collectibles",
    "points": 15,
@@ -319,6 +348,7 @@
   },
   {
    "name": "We Need Guns, Lots Of Guns",
+   "rarity": 4,
    "detail": "Collect all 50 legendary weapons. They won't all appear in your world, so trade with other Heroes!",
    "group": "Collectibles",
    "points": 20,
@@ -327,6 +357,7 @@
   },
   {
    "name": "Fashion Victim",
+   "rarity": 5,
    "detail": "Collect every item of clothing.",
    "group": "Collectibles",
    "points": 20,
@@ -335,6 +366,7 @@
   },
   {
    "name": "He's a Woman. She's a Man",
+   "rarity": 77,
    "detail": "Wear a full set of clothing intended for the opposite sex.",
    "group": "Life in Albion",
    "points": 5,
@@ -343,6 +375,7 @@
   },
   {
    "name": "Dye Hippie, Dye",
+   "rarity": 22,
    "detail": "Dye each part of an outfit you're wearing a different colour and have long hair.",
    "group": "Life in Albion",
    "points": 5,
@@ -351,6 +384,7 @@
   },
   {
    "name": "Hand in Hand",
+   "rarity": 99,
    "detail": "Hold hands with someone.",
    "group": "Life in Albion",
    "points": 5,
@@ -359,6 +393,7 @@
   },
   {
    "name": "Long Distance Relationship",
+   "rarity": 25,
    "detail": "Get married to another Xbox LIVE player.",
    "group": "Online",
    "points": 10,
@@ -367,6 +402,7 @@
   },
   {
    "name": "Cross-Dimensional Conception",
+   "rarity": 17,
    "detail": "Have a child with another Xbox LIVE player.",
    "group": "Online",
    "points": 10,
@@ -375,6 +411,7 @@
   },
   {
    "name": "Online Merger",
+   "rarity": 29,
    "detail": "Enter into a business partnership with another Xbox LIVE player.",
    "group": "Online",
    "points": 10,
@@ -383,6 +420,7 @@
   },
   {
    "name": "Barrel of Laughs",
+   "rarity": 43,
    "detail": "Kill 30 enemies with explosive barrels.",
    "group": "Combat",
    "points": 10,
@@ -391,6 +429,7 @@
   },
   {
    "name": "We Can Be Heroes",
+   "rarity": 16,
    "detail": "Earn 1,000 gold in henchman wages in another Hero's world.",
    "group": "Online",
    "points": 10,
@@ -399,6 +438,7 @@
   },
   {
    "name": "Kaboom!",
+   "rarity": 20,
    "detail": "Score 2000 on the Mourningwood Fort mortar game.",
    "group": "Life in Albion",
    "points": 10,
@@ -407,6 +447,7 @@
   },
   {
    "name": "Lute Hero Tour",
+   "rarity": 17,
    "detail": "Play in each town as a 5 star lute player.",
    "group": "Life in Albion",
    "points": 10,
@@ -415,6 +456,7 @@
   },
   {
    "name": "Touched By A Hero",
+   "rarity": 68,
    "detail": "Use touch expressions to interact with 20 different people.",
    "group": "Life in Albion",
    "points": 10,
@@ -423,6 +465,7 @@
   },
   {
    "name": "Popularity Contest",
+   "rarity": 12,
    "detail": "Make 20 Friends.",
    "group": "Life in Albion",
    "points": 15,
@@ -436,6 +479,7 @@
   },
   {
    "name": "Remodelling",
+   "rarity": 25,
    "detail": "Remodel 5 different houses by changing the furniture.",
    "group": "Life in Albion",
    "points": 10,
@@ -444,6 +488,7 @@
   },
   {
    "name": "Magnate Personality",
+   "rarity": 44,
    "detail": "Build a property empire worth 2,000,000 gold.",
    "group": "Life in Albion",
    "points": 50,
@@ -452,6 +497,7 @@
   },
   {
    "name": "Crime Spree",
+   "rarity": 13,
    "detail": "Get a 15,000 gold bounty placed on your head.",
    "group": "Life in Albion",
    "points": 10,
@@ -460,6 +506,7 @@
   },
   {
    "name": "Henry VIII",
+   "rarity": 10,
    "detail": "As ruler of Albion, get married 6 times and kill 2 of your spouses.",
    "group": "Kingdom",
    "points": 10,
@@ -468,6 +515,7 @@
   },
   {
    "name": "Chest Grandmaster",
+   "rarity": 21,
    "detail": "Unlock all of the chests on the Road To Rule.",
    "group": "Story",
    "points": 40,
@@ -476,6 +524,7 @@
   },
   {
    "name": "Tough Love",
+   "rarity": 29,
    "detail": "Save the maximum amount of Albion citizens.",
    "group": "Kingdom",
    "points": 10,
@@ -484,6 +533,7 @@
   },
   {
    "name": "Adopt Or Die",
+   "rarity": 28,
    "detail": "Adopt a child.",
    "group": "Life in Albion",
    "points": 5,
@@ -492,6 +542,7 @@
   },
   {
    "name": "A Revolutionary Idea",
+   "rarity": 52,
    "detail": "Find all of General Turner's diaries.",
    "group": "Traitor's Keep (DLC)",
    "points": 30,
@@ -500,6 +551,7 @@
   },
   {
    "name": "A Slow Day At The Office",
+   "rarity": 100,
    "detail": "Survive an assassination attempt.",
    "group": "Traitor's Keep (DLC)",
    "points": 20,
@@ -508,6 +560,7 @@
   },
   {
    "name": "Diary Of A Sad Man",
+   "rarity": 54,
    "detail": "Find all of Professor Faraday's diaries.",
    "group": "Traitor's Keep (DLC)",
    "points": 30,
@@ -516,6 +569,7 @@
   },
   {
    "name": "I, Robot. You, Idiot",
+   "rarity": 65,
    "detail": "Help Huxley end his Loneliness Mode.",
    "group": "Traitor's Keep (DLC)",
    "points": 20,
@@ -524,6 +578,7 @@
   },
   {
    "name": "Keeping It Real",
+   "rarity": 56,
    "detail": "Decide the future of the Keep.",
    "group": "Traitor's Keep (DLC)",
    "points": 20,
@@ -532,6 +587,7 @@
   },
   {
    "name": "Lab Notes",
+   "rarity": 49,
    "detail": "Find all of Witchcraft Mary's diaries.",
    "group": "Traitor's Keep (DLC)",
    "points": 30,
@@ -540,6 +596,7 @@
   },
   {
    "name": "Science And Industry",
+   "rarity": 92,
    "detail": "Defeat Professor Faraday.",
    "group": "Traitor's Keep (DLC)",
    "points": 20,
@@ -548,6 +605,7 @@
   },
   {
    "name": "Set Them Free!",
+   "rarity": 34,
    "detail": "Open all Demon Doors.",
    "group": "Traitor's Keep (DLC)",
    "points": 40,
@@ -556,6 +614,7 @@
   },
   {
    "name": "Unnatural Laws",
+   "rarity": 88,
    "detail": "Defeat Witchcraft Mary.",
    "group": "Traitor's Keep (DLC)",
    "points": 20,
@@ -564,6 +623,7 @@
   },
   {
    "name": "Who Are You?",
+   "rarity": 86,
    "detail": "Defeat General Turner.",
    "group": "Traitor's Keep (DLC)",
    "points": 20,

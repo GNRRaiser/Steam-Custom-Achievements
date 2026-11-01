@@ -101,6 +101,7 @@
  "achievements": [
   {
    "name": "Earn a Winged Dagger",
+   "rarity": 100,
    "detail": "Complete 'F.N.G.'",
    "group": "Campaign",
    "points": 20,
@@ -114,6 +115,7 @@
   },
   {
    "name": "Make the Jump",
+   "rarity": 97,
    "detail": "Infiltrate a cargo ship",
    "group": "Campaign",
    "points": 20,
@@ -127,6 +129,7 @@
   },
   {
    "name": "Dancing in the Dark",
+   "rarity": 94,
    "detail": "Kill the power",
    "group": "Campaign",
    "points": 20,
@@ -140,6 +143,7 @@
   },
   {
    "name": "Save the Bacon",
+   "rarity": 87,
    "detail": "Protect 'War Pig', the Abrams tank",
    "group": "Campaign",
    "points": 20,
@@ -153,6 +157,7 @@
   },
   {
    "name": "Death From Above",
+   "rarity": 85,
    "detail": "Operate an AC-130 gun ship",
    "group": "Campaign",
    "points": 20,
@@ -166,6 +171,7 @@
   },
   {
    "name": "Wrong Number",
+   "rarity": 81,
    "detail": "Find Al-Asad's safehouse",
    "group": "Campaign",
    "points": 20,
@@ -179,6 +185,7 @@
   },
   {
    "name": "Piggyback Ride",
+   "rarity": 78,
    "detail": "Carry Cpt. MacMillan to safety",
    "group": "Campaign",
    "points": 20,
@@ -192,6 +199,7 @@
   },
   {
    "name": "Desperate Measures",
+   "rarity": 77,
    "detail": "Corner Zakhaev's Son",
    "group": "Campaign",
    "points": 20,
@@ -205,6 +213,7 @@
   },
   {
    "name": "Win the War",
+   "rarity": 74,
    "detail": "Complete the game on any difficulty",
    "group": "Campaign",
    "points": 40,
@@ -218,6 +227,7 @@
   },
   {
    "name": "Deep and Hard",
+   "rarity": 30,
    "detail": "Complete the game on Hardened or Veteran difficulty",
    "group": "Campaign",
    "points": 90,
@@ -232,6 +242,7 @@
   },
   {
    "name": "The Package",
+   "rarity": 52,
    "detail": "Complete 'Crew Expendable' on Veteran difficulty",
    "group": "Veteran",
    "points": 40,
@@ -245,6 +256,7 @@
   },
   {
    "name": "The Rescue",
+   "rarity": 51,
    "detail": "Complete 'Blackout' on Veteran difficulty",
    "group": "Veteran",
    "points": 40,
@@ -258,6 +270,7 @@
   },
   {
    "name": "The Search",
+   "rarity": 42,
    "detail": "Complete 'Charlie Don't Surf' on Veteran difficulty",
    "group": "Veteran",
    "points": 40,
@@ -271,6 +284,7 @@
   },
   {
    "name": "The Bog",
+   "rarity": 36,
    "detail": "Complete 'The Bog' and 'War Pig' on Veteran difficulty",
    "group": "Veteran",
    "points": 40,
@@ -286,6 +300,7 @@
   },
   {
    "name": "The Escape",
+   "rarity": 37,
    "detail": "Complete 'Hunted' and 'Death From Above' on Veteran difficulty",
    "group": "Veteran",
    "points": 40,
@@ -301,6 +316,7 @@
   },
   {
    "name": "The First Horseman",
+   "rarity": 36,
    "detail": "Complete 'Shock and Awe' on Veteran difficulty",
    "group": "Veteran",
    "points": 40,
@@ -314,6 +330,7 @@
   },
   {
    "name": "The Second Horseman",
+   "rarity": 32,
    "detail": "Complete 'Safehouse' on Veteran difficulty",
    "group": "Veteran",
    "points": 40,
@@ -327,6 +344,7 @@
   },
   {
    "name": "The Shot",
+   "rarity": 29,
    "detail": "Complete 'All Ghillied Up' and 'One Shot, One Kill' on Veteran difficulty",
    "group": "Veteran",
    "points": 40,
@@ -342,6 +360,7 @@
   },
   {
    "name": "The Third Horseman",
+   "rarity": 28,
    "detail": "Complete 'Heat' and 'The Sins of the Father' on Veteran difficulty",
    "group": "Veteran",
    "points": 40,
@@ -357,6 +376,7 @@
   },
   {
    "name": "The Ultimatum",
+   "rarity": 24,
    "detail": "Complete 'Ultimatum', 'All In', and 'No Fighting in the War Room' on Veteran difficulty",
    "group": "Veteran",
    "points": 40,
@@ -373,6 +393,7 @@
   },
   {
    "name": "The Fourth Horseman",
+   "rarity": 30,
    "detail": "Complete 'Game Over' on Veteran difficulty",
    "group": "Veteran",
    "points": 40,
@@ -386,6 +407,7 @@
   },
   {
    "name": "Mile High Club",
+   "rarity": 18,
    "detail": "Sky dive to safety on Veteran difficulty",
    "group": "Veteran",
    "points": 20,
@@ -399,6 +421,7 @@
   },
   {
    "name": "Look Sharp",
+   "rarity": 38,
    "detail": "Find 15 enemy intel items",
    "group": "Intel",
    "points": 20,
@@ -411,6 +434,7 @@
   },
   {
    "name": "Eyes and Ears",
+   "rarity": 22,
    "detail": "Find 30 enemy intel items",
    "group": "Intel",
    "points": 20,
@@ -423,6 +447,7 @@
   },
   {
    "name": "Down Boy Down",
+   "rarity": 76,
    "detail": "Survive a dog attack",
    "group": "Challenges",
    "points": 20,
@@ -430,6 +455,7 @@
   },
   {
    "name": "New Squadron Record",
+   "rarity": 43,
    "detail": "Complete the cargo ship mockup in less than 20 seconds",
    "group": "Challenges",
    "points": 20,
@@ -437,6 +463,7 @@
   },
   {
    "name": "Rescue Roycewicz",
+   "rarity": 83,
    "detail": "Save Pvt. Roycewicz on the stairs",
    "group": "Challenges",
    "points": 20,
@@ -444,6 +471,7 @@
   },
   {
    "name": "Your Show Sucks",
+   "rarity": 27,
    "detail": "Destroy all the TVs showing Al-Asad's speech",
    "group": "Challenges",
    "points": 20,
@@ -451,6 +479,7 @@
   },
   {
    "name": "Man of the People",
+   "rarity": 60,
    "detail": "Save the farmer",
    "group": "Challenges",
    "points": 10,
@@ -458,6 +487,7 @@
   },
   {
    "name": "Straight Flush",
+   "rarity": 80,
    "detail": "Kill 5 enemies with one shot while in the AC-130 gunship",
    "group": "Challenges",
    "points": 20,
@@ -465,6 +495,7 @@
   },
   {
    "name": "Ghillies In The Mist",
+   "rarity": 62,
    "detail": "Complete 'All Ghillied Up' without alerting any enemies",
    "group": "Challenges",
    "points": 20,
@@ -472,6 +503,7 @@
   },
   {
    "name": "No Rest for the Weary",
+   "rarity": 75,
    "detail": "Stab an injured crawling enemy",
    "group": "Challenges",
    "points": 10,
@@ -479,6 +511,7 @@
   },
   {
    "name": "Daredevil",
+   "rarity": 85,
    "detail": "Kill an enemy while blinded by a flashbang in the single player campaign",
    "group": "Challenges",
    "points": 10,
@@ -486,6 +519,7 @@
   },
   {
    "name": "Roadkill",
+   "rarity": 82,
    "detail": "Kill 2 enemies by blowing up a car in the single player campaign",
    "group": "Challenges",
    "points": 10,
@@ -493,6 +527,7 @@
   },
   {
    "name": "Bird on the Ground",
+   "rarity": 45,
    "detail": "Shoot down an enemy helicopter with an RPG in the single player campaign",
    "group": "Challenges",
    "points": 20,
@@ -500,6 +535,7 @@
   },
   {
    "name": "Four of a Kind",
+   "rarity": 84,
    "detail": "Kill 4 enemies in a row with headshots in the single player campaign",
    "group": "Challenges",
    "points": 20,
@@ -507,6 +543,7 @@
   },
   {
    "name": "Three of a Kind",
+   "rarity": 56,
    "detail": "Kill 3 enemies in a row with your knife in the single player campaign",
    "group": "Challenges",
    "points": 10,

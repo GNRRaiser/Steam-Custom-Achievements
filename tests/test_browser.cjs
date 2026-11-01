@@ -161,7 +161,8 @@ async function harness(origin) {
   assert.equal(status.windows[0].dialogOpen,true);
   await main.locator('.sca-editor').getByRole('button',{name:'Close',exact:true}).click();
   // A page saved as "Webpage, Single File": names paired with their pictures, badges ignored.
-  const qp=text=>text.replace(/=/g,'=3D').replace(/.{70}/g,'$&=\r\n');
+  // Quoted-printable as Chrome writes it: '=' and every non-ASCII UTF-8 byte become =XX.
+  const qp=text=>[...Buffer.from(text,'utf8')].map(b=>b===61||b>127?'='+b.toString(16).toUpperCase().padStart(2,'0'):String.fromCharCode(b)).join('').replace(/.{70}/g,'$&=\r\n');
   const item=(name,src,alt='')=>`<li class="ach"><a href="/a"><img src="${src}" alt="${alt}"></a><div><a class="title" href="/a">${name}</a> <img src="/gs.png" alt=""> 30</div><p>About ${name}</p></li>`;
   const html=`<html><body><ul>${item('The Pain of Betrayal','https://www.trueachievements.com/imagestore/3.png')}${item('Bloody Sunday','/imagestore/6.png')}${item('x','/imagestore/7.png','Undertaker')}${item('Not in this game','/imagestore/9.png')}</ul></body></html>`;
   const part=(type,location,body,encoding)=>`------MultipartBoundary--t----\r\nContent-Type: ${type}\r\nContent-Transfer-Encoding: ${encoding}\r\nContent-Location: ${location}\r\n\r\n${body}\r\n`;
@@ -216,7 +217,20 @@ async function harness(origin) {
     await main.getByRole('button',{name:'Show spoilers',exact:true}).click();
     assert.equal(await main.locator('.sca-ach').count(),51);
     assert.equal(await host.evaluate(()=>localStorage.getItem('sca:reveal:33230:v1')),'true');
+    // A TrueAchievements page saved as "Webpage, Complete" (.html): the rate sits in a tooltip
+    // attribute, a description's own percentage is ignored, and accents in names still match.
     await main.getByRole('tab',{name:'SETTINGS'}).click();
+    {
+      const list=JSON.parse(require('fs').readFileSync(require('path').join(__dirname,'..','source','games','ac2','achievements.json'),'utf8'));
+      const rows=list.map((a,i)=>`<li><a class="title" data-af="20" href="/a">${a.name.replace('à','a')}</a><p>${a.detail}</p><div class="progress-bar" data-af="1,000 tracked gamers (${30+i}% - TA Ratio = 1.50)"><span style="width: ${30+i}%;"></span></div></li>`).join('');
+      chooser=main.waitForEvent('filechooser');
+      await main.getByRole('button',{name:'Load from saved page…',exact:true}).click();
+      await (await chooser).setFiles({name:'AC2 _ TrueAchievements.html',mimeType:'text/html',buffer:Buffer.from(`<!DOCTYPE html><html><body><ul class="ach-panels">${rows}</ul></body></html>`)});
+      await host.waitForFunction(()=>JSON.parse(localStorage.getItem('sca:rarity:33230:v1'))['0']===30);
+      assert.match(await main.locator('.sca-feedback').innerText(),/50 unlock rates loaded from the saved page/);
+      const ta=await host.evaluate(()=>JSON.parse(localStorage.getItem('sca:rarity:33230:v1')));
+      assert.equal(ta['44'],74,'Podestà: 80% in its description is not the rate');assert.equal(ta['0'],30);
+    }
     await main.getByRole('button',{name:'Clear unlock rates',exact:true}).click();
     assert.equal(await host.evaluate(()=>localStorage.getItem('sca:rarity:33230:v1')),'{}');
     console.log('PASS unlock rates from a saved page (rare in gold, sort by rarity), category counts, hidden story spoilers');

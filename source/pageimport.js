@@ -31,7 +31,16 @@
     return new window.Blob([bytes],{type:part.type});
   }
   // Returns [{index, blob}] for every achievement whose picture could be found.
+  const labelSelector="a,span,div,h1,h2,h3,h4,h5,p,td,strong,b";
   function picturesFromPage(text) {
+    // A page saved as "Webpage, Complete" (.html) keeps its pictures in a separate folder,
+    // so only the unlock rates can be read from it.
+    if(!/boundary=/i.test(text.slice(0,4000))&&/<html|<!doctype html/i.test(text.slice(0,4000))){
+      const doc=new window.DOMParser().parseFromString(text,"text/html");
+      const rates=ratesFromPage(doc,key=>[...doc.querySelectorAll(labelSelector)].filter(node=>node.children.length<=2&&slug(node.textContent||"")===key));
+      if(!rates.size)throw new Error("Not a saved single-file webpage (.mhtml), and no unlock rates were found in it");
+      return {pictures:[],rates};
+    }
     const parts=mhtmlParts(text);
     const page=parts.find(p=>p.type==="text/html");
     if(!page)throw new Error("The saved page has no HTML");
@@ -62,7 +71,7 @@
     const usable=all.filter(x=>uses.get(x.url)<=2);
     const order=new Map([...doc.querySelectorAll("*")].map((node,i)=>[node,i]));
     const found=new Map();
-    const labelsFor=key=>[...doc.querySelectorAll("a,span,div,h1,h2,h3,h4,h5,p,td,strong,b")].filter(node=>node.children.length<=2&&slug(node.textContent||"")===key);
+    const labelsFor=key=>[...doc.querySelectorAll(labelSelector)].filter(node=>node.children.length<=2&&slug(node.textContent||"")===key);
     const rates=ratesFromPage(doc,labelsFor);
     game.achievements.forEach((a,index)=>{
       const key=slug(a.name);
@@ -95,9 +104,14 @@
       for(const label of nodes){
         for(let box=label.parentElement,depth=0;box&&box!==doc.body&&depth<6;box=box.parentElement,depth++){
           if([...owner].some(([node,other])=>other!==index&&box.contains(node)))break;
-          const text=(box.textContent||"").replace(label.textContent||"","");
+          // Sites also put the rate in an attribute, e.g. TrueAchievements' "473,147 tracked
+          // gamers (99% - TA Ratio = 1.00)" tooltip; styles (width: 99%) are not rates.
+          const attributes=[box,...box.querySelectorAll("*")].flatMap(node=>[...node.attributes].filter(a=>a.name!=="style"&&a.value.includes("%")).map(a=>a.value));
+          const text=[(box.textContent||"").replace(label.textContent||""," "),...attributes].join(" ");
           const all=[...text.matchAll(/(?:^|[^\d.,])(\d{1,3}(?:[.,]\d{1,2})?)\s?%/g)].map(m=>Number(m[1].replace(",",".")));
-          const values=[...new Set(all.filter(v=>v>=0&&v<=100))];
+          // A percentage from the achievement's own description ("Reach 80% of...") is not its rate.
+          const own=[...String(game.achievements[index].detail||"").matchAll(/(\d{1,3}(?:[.,]\d{1,2})?)\s?%/g)].map(m=>Number(m[1].replace(",",".")));
+          const values=[...new Set(all.filter(v=>v>=0&&v<=100&&!own.includes(v)))];
           if(values.length===1){rates.set(index,values[0]);break;}
           if(values.length>1)break;
         }

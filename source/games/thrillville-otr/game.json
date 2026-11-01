@@ -17,6 +17,7 @@
  "achievements": [
   {
    "name": "Bandito Beater",
+   "rarity": 29,
    "detail": "Completed Bandito Chinchilla.",
    "group": "Minigames",
    "points": 20,
@@ -24,6 +25,7 @@
   },
   {
    "name": "Casanova",
+   "rarity": 13,
    "detail": "Became sweethearts with 10 park guests.",
    "group": "Park Life",
    "points": 10,
@@ -31,6 +33,7 @@
   },
   {
    "name": "Challenge Champ",
+   "rarity": 22,
    "detail": "Won 10 challenges with park guests on any minigames.",
    "group": "Park Life",
    "points": 10,
@@ -38,6 +41,7 @@
   },
   {
    "name": "Chatter Box",
+   "rarity": 20,
    "detail": "Filled your MyCrowd list.",
    "group": "Park Life",
    "points": 10,
@@ -45,6 +49,7 @@
   },
   {
    "name": "Coaster Boaster",
+   "rarity": 69,
    "detail": "Designed a rollercoaster.",
    "group": "Building",
    "points": 10,
@@ -58,6 +63,7 @@
   },
   {
    "name": "Coaster Dropper",
+   "rarity": 20,
    "detail": "Built a coaster with a drop height of over 300 ft.",
    "group": "Building",
    "points": 10,
@@ -65,6 +71,7 @@
   },
   {
    "name": "Coaster Speedster",
+   "rarity": 57,
    "detail": "Built a coaster with a top speed over 80 mph.",
    "group": "Building",
    "points": 10,
@@ -72,6 +79,7 @@
   },
   {
    "name": "Crackshot",
+   "rarity": 18,
    "detail": "Got a X5 combo multiplier in a shooting gallery.",
    "group": "Minigames",
    "points": 10,
@@ -79,6 +87,7 @@
   },
   {
    "name": "Critics",
+   "rarity": 40,
    "detail": "Completed the 'Bribery 101!' mission in Thrillville Stunts.",
    "group": "Missions",
    "points": 30,
@@ -91,6 +100,7 @@
   },
   {
    "name": "Disc Jockey",
+   "rarity": 27,
    "detail": "Collected all the Hypnodiscs.",
    "group": "Collectibles",
    "points": 10,
@@ -103,6 +113,7 @@
   },
   {
    "name": "Flippin' Great",
+   "rarity": 56,
    "detail": "Performed a 720 backflip in Stunt Rider.",
    "group": "Minigames",
    "points": 10,
@@ -110,6 +121,7 @@
   },
   {
    "name": "Fore!",
+   "rarity": 9,
    "detail": "Completed a round of timed mini golf on hard.",
    "group": "Minigames",
    "points": 10,
@@ -117,6 +129,7 @@
   },
   {
    "name": "Games Master",
+   "rarity": 2,
    "detail": "Completed all arcade games.",
    "group": "Minigames",
    "points": 40,
@@ -124,6 +137,7 @@
   },
   {
    "name": "Hypnosis",
+   "rarity": 20,
    "detail": "Completed the 'Trance-Cendtal' mission in Thrillville Giant.",
    "group": "Missions",
    "points": 30,
@@ -136,6 +150,7 @@
   },
   {
    "name": "Karting Krazy",
+   "rarity": 9,
    "detail": "Came 1st in 20 races.",
    "group": "Minigames",
    "points": 10,
@@ -143,6 +158,7 @@
   },
   {
    "name": "King of the Ring",
+   "rarity": 44,
    "detail": "Won a match by knockout on Robo K.O. without losing any health.",
    "group": "Minigames",
    "points": 15,
@@ -150,6 +166,7 @@
   },
   {
    "name": "Lunar Lunatic",
+   "rarity": 1,
    "detail": "Completed Event Horizon 2 on hard difficulty.",
    "group": "Minigames",
    "points": 15,
@@ -157,6 +174,7 @@
   },
   {
    "name": "Money Maker",
+   "rarity": 24,
    "detail": "Achieved a combined park value of $100,000",
    "group": "Park Life",
    "points": 10,
@@ -164,6 +182,7 @@
   },
   {
    "name": "Party Dude",
+   "rarity": 17,
    "detail": "Played 20 party games with your friends.",
    "group": "Party Play",
    "points": 10,
@@ -171,6 +190,7 @@
   },
   {
    "name": "Party Host",
+   "rarity": 9,
    "detail": "Completed a four player battle or co-op game in party play.",
    "group": "Party Play",
    "points": 10,
@@ -178,6 +198,7 @@
   },
   {
    "name": "Perfect Clearance",
+   "rarity": 6,
    "detail": "Pocketed all the balls in one turn at the table.",
    "group": "Minigames",
    "points": 15,
@@ -185,6 +206,7 @@
   },
   {
    "name": "Propaganda",
+   "rarity": 40,
    "detail": "Collected all the anti-Thrillville propaganda boards.",
    "group": "Collectibles",
    "points": 10,
@@ -197,6 +219,7 @@
   },
   {
    "name": "Putt putt power",
+   "rarity": 49,
    "detail": "Designed a minigolf course.",
    "group": "Building",
    "points": 10,
@@ -209,6 +232,7 @@
   },
   {
    "name": "Robots",
+   "rarity": 23,
    "detail": "Completed the 'Clearance Sale' mission in Thrillville Otherworlds.",
    "group": "Missions",
    "points": 30,
@@ -221,6 +245,7 @@
   },
   {
    "name": "Sabotage",
+   "rarity": 27,
    "detail": "Completed the 'Alien Antics' mission in Thrillville Explorer.",
    "group": "Missions",
    "points": 30,
@@ -233,6 +258,7 @@
   },
   {
    "name": "Sideshow Superstar",
+   "rarity": 3,
    "detail": "Got a 5 star rating score on all sideshow games.",
    "group": "Minigames",
    "points": 20,
@@ -240,6 +266,7 @@
   },
   {
    "name": "Smooth Move",
+   "rarity": 53,
    "detail": "Got a 60 note combo in the entertainer mini game.",
    "group": "Minigames",
    "points": 10,
@@ -247,6 +274,7 @@
   },
   {
    "name": "Sparkling Secret",
+   "rarity": 23,
    "detail": "Discovered all the secret areas on Sparkle Quest level 1.",
    "group": "Minigames",
    "points": 10,
@@ -254,6 +282,7 @@
   },
   {
    "name": "Spoon Time",
+   "rarity": 8,
    "detail": "Got 30.000 points in 3 moves on Trampolines.",
    "group": "Minigames",
    "points": 15,
@@ -261,6 +290,7 @@
   },
   {
    "name": "Sprint King",
+   "rarity": 29,
    "detail": "Got a best lap time under 4'90\" seconds on the first track on Autosprint 2.",
    "group": "Minigames",
    "points": 15,
@@ -268,6 +298,7 @@
   },
   {
    "name": "Squadron Ace!",
+   "rarity": 29,
    "detail": "Completed Squadron Ace.",
    "group": "Minigames",
    "points": 20,
@@ -275,6 +306,7 @@
   },
   {
    "name": "Stunt Rider!",
+   "rarity": 31,
    "detail": "Completed Stunt Rider.",
    "group": "Minigames",
    "points": 20,
@@ -282,6 +314,7 @@
   },
   {
    "name": "Super Sparkler",
+   "rarity": 17,
    "detail": "Completed Sparkle Quest.",
    "group": "Minigames",
    "points": 20,
@@ -289,6 +322,7 @@
   },
   {
    "name": "Tank Commander",
+   "rarity": 22,
    "detail": "Completed Tank Frenzy.",
    "group": "Minigames",
    "points": 20,
@@ -296,6 +330,7 @@
   },
   {
    "name": "Teamwork",
+   "rarity": 25,
    "detail": "Completed a minigame in coop mode.",
    "group": "Party Play",
    "points": 10,
@@ -303,6 +338,7 @@
   },
   {
    "name": "The Green",
+   "rarity": 12,
    "detail": "Found all Mortimer's cash drops hidden in all parks.",
    "group": "Collectibles",
    "points": 10,
@@ -310,6 +346,7 @@
   },
   {
    "name": "The Rainbow",
+   "rarity": 26,
    "detail": "Collect all the Nano Paint Sprayers.",
    "group": "Collectibles",
    "points": 10,
@@ -322,6 +359,7 @@
   },
   {
    "name": "Thrillville Explorer",
+   "rarity": 46,
    "detail": "Unlocked Thrillville Explorer.",
    "group": "Parks",
    "points": 40,
@@ -358,6 +396,7 @@
   },
   {
    "name": "Thrillville Giant",
+   "rarity": 51,
    "detail": "Unlocked Thrillville Giant.",
    "group": "Parks",
    "points": 40,
@@ -394,6 +433,7 @@
   },
   {
    "name": "Thrillville Holiday",
+   "rarity": 31,
    "detail": "Unlocked Thrillville Holiday.",
    "group": "Parks",
    "points": 60,
@@ -430,6 +470,7 @@
   },
   {
    "name": "Thrillville Otherworlds",
+   "rarity": 67,
    "detail": "Unlocked Thrillville Otherworlds.",
    "group": "Parks",
    "points": 40,
@@ -467,6 +508,7 @@
   },
   {
    "name": "Thrillville Phenomenon",
+   "rarity": 24,
    "detail": "Reached park owner level 10.",
    "group": "Park Life",
    "points": 60,
@@ -478,6 +520,7 @@
   },
   {
    "name": "Thrillville Sensation",
+   "rarity": 42,
    "detail": "Reached park owner level 5.",
    "group": "Park Life",
    "points": 40,
@@ -489,6 +532,7 @@
   },
   {
    "name": "Thrillville Superstar",
+   "rarity": 18,
    "detail": "Ranked in the top ten on an online leaderboard for Thrillville: Off the Rails.",
    "group": "Online",
    "points": 50,
@@ -496,6 +540,7 @@
   },
   {
    "name": "Thrillville Talent",
+   "rarity": 74,
    "detail": "Reached park owner level 2.",
    "group": "Park Life",
    "points": 20,
@@ -507,6 +552,7 @@
   },
   {
    "name": "Traitor",
+   "rarity": 17,
    "detail": "Completed the 'Traitors Arena' mission in Thrillville Holiday.",
    "group": "Missions",
    "points": 30,
@@ -519,6 +565,7 @@
   },
   {
    "name": "UFO Survivor",
+   "rarity": 12,
    "detail": "Survived without being knocked out of the arena in Saucer Sumo on normal difficulty.",
    "group": "Minigames",
    "points": 15,
@@ -526,6 +573,7 @@
   },
   {
    "name": "White Knuckle Ace",
+   "rarity": 3,
    "detail": "Built all WHOA pieces.",
    "group": "Building",
    "points": 10,
@@ -533,6 +581,7 @@
   },
   {
    "name": "Whoa",
+   "rarity": 63,
    "detail": "Finished a coaster using a whoa piece.",
    "group": "Building",
    "points": 10,
@@ -546,6 +595,7 @@
   },
   {
    "name": "Winner!",
+   "rarity": 14,
    "detail": "Successfully won 20 multiplayer battle games.",
    "group": "Party Play",
    "points": 20,
