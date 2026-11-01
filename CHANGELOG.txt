@@ -1,4 +1,4 @@
-STEAM CUSTOM ACHIEVEMENTS v0.34.1 - MULTI-GAME
+STEAM CUSTOM ACHIEVEMENTS v0.34.2 - MULTI-GAME
 
 Adds the Xbox 360 achievement list to the Steam Library page of games whose
 Steam version has no achievements. Each supported game gets the same ACHIEVEMENTS
@@ -19,6 +19,14 @@ GAMES IN THIS BUILD
 
 Automatic entries unlock by themselves a few seconds after the game writes its
 progress. Everything else has a "Mark as unlocked" button in the popup.
+
+NEW IN v0.34.2
+- Built-in unlock rates for Assassin's Creed, Assassin's Creed Brotherhood
+  and Fallout 3 too, so all 10 games now have them.
+- Saved pages: Brotherhood's Morse-code achievement name no longer stops the
+  page's rates and pictures from matching, and a description that has its
+  own percentage (AC1's "See 85% of all the memory glitches") no longer
+  hides the real rate.
 
 NEW IN v0.34.1
 - Built-in unlock rates: the real Xbox 360 percentages (share of tracked

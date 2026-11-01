@@ -12,6 +12,7 @@
   "achievements": [
     {
       "name": "The Eagle and The Apple - 1191",
+      "rarity": 52,
       "detail": "Completed Assassin's Creed.",
       "group": "Story",
       "points": 100,
@@ -19,6 +20,7 @@
     },
     {
       "name": "Visions of the Future",
+      "rarity": 48,
       "detail": "A strange vision has appeared to you. What could it mean?",
       "group": "Story",
       "points": 50,
@@ -26,6 +28,7 @@
     },
     {
       "name": "Personal Vendetta",
+      "rarity": 11,
       "detail": "Every Templar has fallen to your hand.",
       "group": "Collectibles",
       "points": 40,
@@ -38,6 +41,7 @@
     },
     {
       "name": "Keeper of the Lions Passant",
+      "rarity": 12,
       "detail": "You've collected every Flag in the Kingdom belonging to Richard.",
       "group": "Collectibles",
       "points": 25,
@@ -50,6 +54,7 @@
     },
     {
       "name": "Keeper of the Creed",
+      "rarity": 28,
       "detail": "You've collected every Masyaf Flag.",
       "group": "Collectibles",
       "points": 10,
@@ -62,6 +67,7 @@
     },
     {
       "name": "Keeper of the Four Gospels",
+      "rarity": 12,
       "detail": "You've collected every Jerusalem Flag.",
       "group": "Collectibles",
       "points": 20,
@@ -74,6 +80,7 @@
     },
     {
       "name": "Keeper of the Crescent",
+      "rarity": 12,
       "detail": "You've collected every Damascus Flag.",
       "group": "Collectibles",
       "points": 20,
@@ -86,6 +93,7 @@
     },
     {
       "name": "Absolute Symbiosis",
+      "rarity": 49,
       "detail": "Desmond and Altair have been completely synchronized.",
       "group": "Story",
       "points": 45,
@@ -93,6 +101,7 @@
     },
     {
       "name": "The Blood of a Corrupt Merchant",
+      "rarity": 80,
       "detail": "You've slain Tamir, Black Market Merchant in Damascus.",
       "group": "Assassinations",
       "points": 25,
@@ -105,6 +114,7 @@
     },
     {
       "name": "The Blood of a Doctor",
+      "rarity": 71,
       "detail": "You've slain Garnier de Naplouse, Hospitalier Leader in Acre.",
       "group": "Assassinations",
       "points": 25,
@@ -117,6 +127,7 @@
     },
     {
       "name": "The Blood of a Slave Trader",
+      "rarity": 70,
       "detail": "You've slain Talal, Slave Trader of Jerusalem.",
       "group": "Assassinations",
       "points": 25,
@@ -129,6 +140,7 @@
     },
     {
       "name": "The Blood of the Merchant King",
+      "rarity": 60,
       "detail": "You've slain Abul Nuqoud, Merchant King of Damascus.",
       "group": "Assassinations",
       "points": 25,
@@ -141,6 +153,7 @@
     },
     {
       "name": "The Blood of a Regent",
+      "rarity": 59,
       "detail": "You've slain Majd Addin, Regent of Jerusalem.",
       "group": "Assassinations",
       "points": 25,
@@ -153,6 +166,7 @@
     },
     {
       "name": "The Blood of a Liege-Lord",
+      "rarity": 59,
       "detail": "You've slain William of Montferrat, Liege-Lord of Acre.",
       "group": "Assassinations",
       "points": 25,
@@ -165,6 +179,7 @@
     },
     {
       "name": "The Blood of a Teutonic Leader",
+      "rarity": 54,
       "detail": "You've slain Sibrand, the Teutonic Leader of Acre.",
       "group": "Assassinations",
       "points": 25,
@@ -177,6 +192,7 @@
     },
     {
       "name": "The Blood of a Scribe",
+      "rarity": 54,
       "detail": "You've slain Jubair, the Scribe of Damascus.",
       "group": "Assassinations",
       "points": 25,
@@ -189,6 +205,7 @@
     },
     {
       "name": "The Blood of a Nemesis",
+      "rarity": 52,
       "detail": "You've slain Robert de Sable, but there is one more...",
       "group": "Assassinations",
       "points": 25,
@@ -201,6 +218,7 @@
     },
     {
       "name": "Fearless",
+      "rarity": 34,
       "detail": "You've discovered every Reach High Point.",
       "group": "Collectibles",
       "points": 25,
@@ -213,6 +231,7 @@
     },
     {
       "name": "Hungerer of Knowledge",
+      "rarity": 30,
       "detail": "You've witnessed Altair's Memorable Moments in all their splendor.",
       "group": "Activities",
       "points": 20,
@@ -220,6 +239,7 @@
     },
     {
       "name": "Defender of the People: Acre",
+      "rarity": 38,
       "detail": "The people of Acre will be forever grateful for what you've done.",
       "group": "Activities",
       "points": 20,
@@ -227,6 +247,7 @@
     },
     {
       "name": "Defender of the People:Jerusalem",
+      "rarity": 38,
       "detail": "The people of Jerusalem will be forever grateful for what you've done.",
       "group": "Activities",
       "points": 20,
@@ -234,6 +255,7 @@
     },
     {
       "name": "Defender of the People: Damascus",
+      "rarity": 39,
       "detail": "The people of Damascus will be forever grateful for what you've done.",
       "group": "Activities",
       "points": 20,
@@ -241,6 +263,7 @@
     },
     {
       "name": "Conversationalist",
+      "rarity": 19,
       "detail": "You've made a friend within the walls of Abstergo Industries.",
       "group": "Story",
       "points": 20,
@@ -248,6 +271,7 @@
     },
     {
       "name": "Disciple of the Creed",
+      "rarity": 52,
       "detail": "You've fully honored the tenets of the Creed. You are a Master Assassin.",
       "group": "Challenges",
       "points": 30,
@@ -255,6 +279,7 @@
     },
     {
       "name": "Eagle's Will",
+      "rarity": 66,
       "detail": "You remain undefeated for over 100 battles.",
       "group": "Challenges",
       "points": 20,
@@ -262,6 +287,7 @@
     },
     {
       "name": "Eagle's Flight",
+      "rarity": 36,
       "detail": "Survival at its best, for over 10 minutes, nothing was able to hinder your flight.",
       "group": "Challenges",
       "points": 20,
@@ -269,6 +295,7 @@
     },
     {
       "name": "Eagle's Prey",
+      "rarity": 53,
       "detail": "Over 100 city guards have fallen to your hunt.",
       "group": "Challenges",
       "points": 20,
@@ -276,6 +303,7 @@
     },
     {
       "name": "Blade in the Crowd",
+      "rarity": 63,
       "detail": "Like a Blade in the Crowd, your target never knew his death laid wait within his very shadow.",
       "group": "Challenges",
       "points": 30,
@@ -283,6 +311,7 @@
     },
     {
       "name": "Eagle's Challenge",
+      "rarity": 44,
       "detail": "You were bold enough to challenge 25 soldiers in a single fight... and win.",
       "group": "Challenges",
       "points": 20,
@@ -290,6 +319,7 @@
     },
     {
       "name": "Eagle's Swiftness",
+      "rarity": 67,
       "detail": "Over 100 people have witnessed your deadly performance with a blade.",
       "group": "Challenges",
       "points": 20,
@@ -297,6 +327,7 @@
     },
     {
       "name": "Eagle's Dive",
+      "rarity": 26,
       "detail": "Nothing can hinder the descent of an Eagle. Over 50 people have fallen to your relentless attacks.",
       "group": "Challenges",
       "points": 20,
@@ -304,6 +335,7 @@
     },
     {
       "name": "Eagle's Talon",
+      "rarity": 58,
       "detail": "Over 50 people have felt the deadly sting of your blade.",
       "group": "Challenges",
       "points": 15,
@@ -311,6 +343,7 @@
     },
     {
       "name": "Eagle's Dance",
+      "rarity": 60,
       "detail": "You've soared with the eagles and landed safely over 50 times.",
       "group": "Challenges",
       "points": 10,
@@ -318,6 +351,7 @@
     },
     {
       "name": "The hands of a Thief",
+      "rarity": 30,
       "detail": "You've gathered quite a supply of throwing knives.",
       "group": "Activities",
       "points": 15,
@@ -325,6 +359,7 @@
     },
     {
       "name": "March of the Pious",
+      "rarity": 50,
       "detail": "Scholars know you well and have helped you over 20 times.",
       "group": "Activities",
       "points": 5,
@@ -332,6 +367,7 @@
     },
     {
       "name": "Eagle's Eye",
+      "rarity": 42,
       "detail": "Over 75 guards were felled by your knives.",
       "group": "Challenges",
       "points": 15,
@@ -339,6 +375,7 @@
     },
     {
       "name": "Enemy of the Poor",
+      "rarity": 30,
       "detail": "You managed to scare away 25 beggars. I hope you're proud of yourself.",
       "group": "Activities",
       "points": 5,
@@ -346,6 +383,7 @@
     },
     {
       "name": "Gifted Escapist",
+      "rarity": 48,
       "detail": "The Merchants of the land now know you VERY well.",
       "group": "Activities",
       "points": 5,
@@ -353,6 +391,7 @@
     },
     {
       "name": "Keeper of the Black Cross",
+      "rarity": 13,
       "detail": "You've collected every Teutonic Flag in Acre.",
       "group": "Collectibles",
       "points": 10,
@@ -365,6 +404,7 @@
     },
     {
       "name": "Keeper of the Order",
+      "rarity": 13,
       "detail": "You've collected every Templar Flag in Acre.",
       "group": "Collectibles",
       "points": 10,
@@ -377,6 +417,7 @@
     },
     {
       "name": "Keeper of the 8 Virtues",
+      "rarity": 15,
       "detail": "You've collected every Hospitalier Flag in Acre.",
       "group": "Collectibles",
       "points": 10,
@@ -389,6 +430,7 @@
     },
     {
       "name": "Welcome to the Animus",
+      "rarity": 100,
       "detail": "You've successfully completed the Animus tutorial.",
       "group": "Story",
       "points": 20,
@@ -401,6 +443,7 @@
     },
     {
       "name": "Hero of Masyaf",
+      "rarity": 94,
       "detail": "You've protected Masyaf from the Templar invasion.",
       "group": "Story",
       "points": 20,
@@ -413,6 +456,7 @@
     },
     {
       "name": "The Punishment for Treason",
+      "rarity": 90,
       "detail": "You have found the traitor and have brought him before Al Mualim.",
       "group": "Story",
       "points": 20,

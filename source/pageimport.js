@@ -32,12 +32,19 @@
   }
   // Returns [{index, blob}] for every achievement whose picture could be found.
   const labelSelector="a,span,div,h1,h2,h3,h4,h5,p,td,strong,b";
+  // Elements whose text is an achievement's name. A name of only symbols (Brotherhood's
+  // Morse-code one) has an empty slug, so it is matched on its exact text instead.
+  function labelFinder(doc) {
+    const nodes=[...doc.querySelectorAll(labelSelector)].filter(node=>node.children.length<=2);
+    return (key,name)=>key?nodes.filter(node=>slug(node.textContent||"")===key)
+      :nodes.filter(node=>name&&(node.textContent||"").replace(/\s+/g," ").trim()===String(name).replace(/\s+/g," ").trim());
+  }
   function picturesFromPage(text) {
     // A page saved as "Webpage, Complete" (.html) keeps its pictures in a separate folder,
     // so only the unlock rates can be read from it.
     if(!/boundary=/i.test(text.slice(0,4000))&&/<html|<!doctype html/i.test(text.slice(0,4000))){
       const doc=new window.DOMParser().parseFromString(text,"text/html");
-      const rates=ratesFromPage(doc,key=>[...doc.querySelectorAll(labelSelector)].filter(node=>node.children.length<=2&&slug(node.textContent||"")===key));
+      const rates=ratesFromPage(doc,labelFinder(doc));
       if(!rates.size)throw new Error("Not a saved single-file webpage (.mhtml), and no unlock rates were found in it");
       return {pictures:[],rates};
     }
@@ -71,13 +78,13 @@
     const usable=all.filter(x=>uses.get(x.url)<=2);
     const order=new Map([...doc.querySelectorAll("*")].map((node,i)=>[node,i]));
     const found=new Map();
-    const labelsFor=key=>[...doc.querySelectorAll(labelSelector)].filter(node=>node.children.length<=2&&slug(node.textContent||"")===key);
+    const labelsFor=labelFinder(doc);
     const rates=ratesFromPage(doc,labelsFor);
     game.achievements.forEach((a,index)=>{
       const key=slug(a.name);
-      const direct=usable.find(x=>slug(x.img.getAttribute("alt")||"")===key||slug(x.img.getAttribute("title")||"")===key);
+      const direct=key&&usable.find(x=>slug(x.img.getAttribute("alt")||"")===key||slug(x.img.getAttribute("title")||"")===key);
       if(direct){found.set(index,direct.url);return;}
-      const labels=labelsFor(key);
+      const labels=labelsFor(key,a.name);
       for(const label of labels){
         for(let box=label.parentElement,depth=0;box&&depth<6;box=box.parentElement,depth++){
           const inside=usable.filter(x=>box.contains(x.img));
@@ -97,7 +104,7 @@
   // Unlock rates: the percentage written next to each achievement's name ("12.3%"), looked
   // for in the smallest part of the page around the name that holds no other achievement.
   function ratesFromPage(doc,labelsFor) {
-    const labels=game.achievements.map(a=>labelsFor(slug(a.name)));
+    const labels=game.achievements.map(a=>labelsFor(slug(a.name),a.name));
     const owner=new Map();labels.forEach((nodes,index)=>{for(const node of nodes)owner.set(node,index);});
     const rates=new Map();
     labels.forEach((nodes,index)=>{
@@ -113,6 +120,10 @@
           const own=[...String(game.achievements[index].detail||"").matchAll(/(\d{1,3}(?:[.,]\d{1,2})?)\s?%/g)].map(m=>Number(m[1].replace(",",".")));
           const values=[...new Set(all.filter(v=>v>=0&&v<=100&&!own.includes(v)))];
           if(values.length===1){rates.set(index,values[0]);break;}
+          // Text and tooltip disagree (a page's description can say "See 85% of..."): a single
+          // rate held in an attribute is the one the site shows on its bar.
+          const fromAttributes=[...new Set([...attributes.join(" ").matchAll(/(?:^|[^\d.,])(\d{1,3}(?:[.,]\d{1,2})?)\s?%/g)].map(m=>Number(m[1].replace(",","."))).filter(v=>v>=0&&v<=100))];
+          if(fromAttributes.length===1){rates.set(index,fromAttributes[0]);break;}
           if(values.length>1)break;
         }
         if(rates.has(index))break;

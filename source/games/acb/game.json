@@ -20,6 +20,7 @@
   "achievements": [
     {
       "name": "Technical Difficulties",
+      "rarity": 98,
       "detail": "Attempt to access DNA Sequence 9 for the first time.",
       "group": "Story",
       "points": 10,
@@ -37,6 +38,7 @@
     },
     {
       "name": "Battle Wounds",
+      "rarity": 93,
       "detail": "Complete DNA Sequence 1.",
       "group": "Story",
       "points": 20,
@@ -107,6 +109,7 @@
     },
     {
       "name": "Sanctuary! Sanctuary!",
+      "rarity": 91,
       "detail": "Find a secure place to hide and re-enter the Animus.",
       "group": "Story",
       "points": 20,
@@ -173,6 +176,7 @@
     },
     {
       "name": "Rome in Ruins",
+      "rarity": 85,
       "detail": "Complete DNA Sequence 2.",
       "group": "Story",
       "points": 20,
@@ -230,6 +234,7 @@
     },
     {
       "name": "Fixer-Upper",
+      "rarity": 79,
       "detail": "Complete DNA Sequence 3.",
       "group": "Story",
       "points": 20,
@@ -281,6 +286,7 @@
     },
     {
       "name": "Principessa in Another Castello",
+      "rarity": 76,
       "detail": "Complete DNA Sequence 4.",
       "group": "Story",
       "points": 20,
@@ -323,6 +329,7 @@
     },
     {
       "name": "Fundraiser",
+      "rarity": 74,
       "detail": "Complete DNA Sequence 5.",
       "group": "Story",
       "points": 20,
@@ -358,6 +365,7 @@
     },
     {
       "name": "Forget Paris",
+      "rarity": 72,
       "detail": "Complete DNA Sequence 6.",
       "group": "Story",
       "points": 20,
@@ -387,6 +395,7 @@
     },
     {
       "name": "Bloody Sunday",
+      "rarity": 70,
       "detail": "Complete DNA Sequence 7.",
       "group": "Story",
       "points": 20,
@@ -409,6 +418,7 @@
     },
     {
       "name": "Vittoria Agli Assassini",
+      "rarity": 69,
       "detail": "Complete DNA Sequence 8.",
       "group": "Story",
       "points": 20,
@@ -423,6 +433,7 @@
     },
     {
       "name": "Requiescat In Pace",
+      "rarity": 69,
       "detail": "Complete DNA Sequence 9.",
       "group": "Story",
       "points": 20,
@@ -435,6 +446,7 @@
     },
     {
       "name": "A Knife to the Heart",
+      "rarity": 67,
       "detail": "Secure the Apple of Eden.",
       "group": "Story",
       "points": 50,
@@ -447,6 +459,7 @@
     },
     {
       "name": "Perfect Recall",
+      "rarity": 58,
       "detail": "Achieve 100% Synchronization in any Sequence other than Sequence 1.",
       "group": "Story",
       "points": 30,
@@ -454,6 +467,7 @@
     },
     {
       "name": "Déjà Vu",
+      "rarity": 58,
       "detail": "Replay a Memory.",
       "group": "Story",
       "points": 20,
@@ -461,6 +475,7 @@
     },
     {
       "name": "Undertaker 2.0",
+      "rarity": 68,
       "detail": "Discover the Shrine in the Catacombe di Roma.",
       "group": "Lairs of Romulus",
       "points": 20,
@@ -473,6 +488,7 @@
     },
     {
       "name": "Golden Boy",
+      "rarity": 85,
       "detail": "Discover the Shrine in the Terme di Traiano.",
       "group": "Lairs of Romulus",
       "points": 20,
@@ -485,6 +501,7 @@
     },
     {
       "name": "Gladiator",
+      "rarity": 69,
       "detail": "Discover the Shrine in Il Colosseo.",
       "group": "Lairs of Romulus",
       "points": 20,
@@ -497,6 +514,7 @@
     },
     {
       "name": "Plumber",
+      "rarity": 55,
       "detail": "Discover the Shrine in the Cloaca Maxima.",
       "group": "Lairs of Romulus",
       "points": 20,
@@ -509,6 +527,7 @@
     },
     {
       "name": "One-Man Wrecking Crew",
+      "rarity": 59,
       "detail": "Discover the Shrine in Palazzo Laterano.",
       "group": "Lairs of Romulus",
       "points": 20,
@@ -521,6 +540,7 @@
     },
     {
       "name": "Amen",
+      "rarity": 55,
       "detail": "Discover the Shrine in the Basilica di San Pietro.",
       "group": "Lairs of Romulus",
       "points": 20,
@@ -533,6 +553,7 @@
     },
     {
       "name": "Bang!",
+      "rarity": 76,
       "detail": "Destroy the Machine Gun.",
       "group": "Leonardo's machines",
       "points": 20,
@@ -545,6 +566,7 @@
     },
     {
       "name": "Splash!",
+      "rarity": 65,
       "detail": "Destroy the Naval Cannon.",
       "group": "Leonardo's machines",
       "points": 20,
@@ -557,6 +579,7 @@
     },
     {
       "name": "Boom!",
+      "rarity": 60,
       "detail": "Destroy the Bomber.",
       "group": "Leonardo's machines",
       "points": 20,
@@ -569,6 +592,7 @@
     },
     {
       "name": "Kaboom!",
+      "rarity": 60,
       "detail": "Destroy the Tank.",
       "group": "Leonardo's machines",
       "points": 20,
@@ -581,6 +605,7 @@
     },
     {
       "name": "Home Improvement",
+      "rarity": 70,
       "detail": "Renovate 5 buildings in the Antico district.",
       "group": "Rome",
       "points": 20,
@@ -588,6 +613,7 @@
     },
     {
       "name": "Tower Offense",
+      "rarity": 62,
       "detail": "Burn All Borgia Towers.",
       "group": "Rome",
       "points": 20,
@@ -615,6 +641,7 @@
     },
     {
       "name": "Show Off",
+      "rarity": 53,
       "detail": "Complete 10 Guild Challenges.",
       "group": "Rome",
       "points": 20,
@@ -622,6 +649,7 @@
     },
     {
       "name": ".. .- -- .- .-.. .. ...- .",
+      "rarity": 26,
       "detail": "Solve all of Subject 16's puzzles.",
       "group": "Collectibles",
       "points": 20,
@@ -629,6 +657,7 @@
     },
     {
       "name": "Perfectionist",
+      "rarity": 35,
       "detail": "Earn 3 gold medals in the Animus Virtual Training Program.",
       "group": "Rome",
       "points": 20,
@@ -636,6 +665,7 @@
     },
     {
       "name": "Brotherhood",
+      "rarity": 77,
       "detail": "Recruit 3 Assassins.",
       "group": "Brotherhood",
       "points": 20,
@@ -643,6 +673,7 @@
     },
     {
       "name": "Welcome to the Brotherhood",
+      "rarity": 55,
       "detail": "Train a recruit up to the Rank of Assassin.",
       "group": "Brotherhood",
       "points": 20,
@@ -650,6 +681,7 @@
     },
     {
       "name": "Capture the Flag",
+      "rarity": 14,
       "detail": "Remove All Borgia Flags in Rome.",
       "group": "Collectibles",
       "points": 30,
@@ -666,6 +698,7 @@
     },
     {
       "name": "In Memoriam",
+      "rarity": 37,
       "detail": "Collect All Feathers.",
       "group": "Collectibles",
       "points": 20,
@@ -685,6 +718,7 @@
     },
     {
       "name": "Dust to Dust",
+      "rarity": 49,
       "detail": "Find 1 Artifact in 2012.",
       "group": "Collectibles",
       "points": 20,
@@ -692,6 +726,7 @@
     },
     {
       "name": "Serial Killer",
+      "rarity": 47,
       "detail": "Perform an Execution Streak of 10 kills.",
       "group": "Rome",
       "points": 20,
@@ -699,6 +734,7 @@
     },
     {
       "name": "Spring Cleaning",
+      "rarity": 42,
       "detail": "Kill a guard with a broom.",
       "group": "Rome",
       "points": 10,
@@ -706,6 +742,7 @@
     },
     {
       "name": "Your Wish is Granted",
+      "rarity": 56,
       "detail": "Throw money in a well.",
       "group": "Rome",
       "points": 10,
@@ -713,6 +750,7 @@
     },
     {
       "name": "Fly Like an Eagle",
+      "rarity": 34,
       "detail": "Jump with the parachute off the top of Castel Sant'Angelo.",
       "group": "Rome",
       "points": 10,
@@ -720,6 +758,7 @@
     },
     {
       "name": "The Gloves Come Off",
+      "rarity": 27,
       "detail": "Win the highest bet at the Fights.",
       "group": "Rome",
       "points": 10,
@@ -727,6 +766,7 @@
     },
     {
       "name": "Mailer Daemon",
+      "rarity": 68,
       "detail": "Access your email in 2012.",
       "group": "Collectibles",
       "points": 20,
@@ -734,6 +774,7 @@
     },
     {
       "name": "Synchronization Established",
+      "rarity": 59,
       "detail": "Complete an entire Session with at least one kill (Multiplayer Only).",
       "group": "Multiplayer",
       "points": 10,
@@ -741,6 +782,7 @@
     },
     {
       "name": "Needle in a Haystack",
+      "rarity": 21,
       "detail": "Kill your target while hidden in a hay bale (Multiplayer Only).",
       "group": "Multiplayer",
       "points": 5,
@@ -748,6 +790,7 @@
     },
     {
       "name": "Strong Closer",
+      "rarity": 12,
       "detail": "Take the lead 10 seconds before the end of a session and go on to win (Multiplayer Only).",
       "group": "Multiplayer",
       "points": 20,
@@ -755,6 +798,7 @@
     },
     {
       "name": "Fast Learner",
+      "rarity": 31,
       "detail": "Kill your target and escape your pursuer in less than 10 seconds (Multiplayer Only).",
       "group": "Multiplayer",
       "points": 25,
@@ -762,6 +806,7 @@
     },
     {
       "name": "Job skills",
+      "rarity": 26,
       "detail": "During Open Conflict, kill your target and escape (Multiplayer Only).",
       "group": "Multiplayer",
       "points": 20,
@@ -769,6 +814,7 @@
     },
     {
       "name": "Download Complete",
+      "rarity": 5,
       "detail": "Reach Level 50 (Multiplayer Only).",
       "group": "Multiplayer",
       "points": 40,
@@ -776,6 +822,7 @@
     },
     {
       "name": "Role Model",
+      "rarity": 6,
       "detail": "Get all the Co-op bonuses in 1 session (Multiplayer Only).",
       "group": "Multiplayer",
       "points": 20,
@@ -783,6 +830,7 @@
     },
     {
       "name": "Overachiever",
+      "rarity": 26,
       "detail": "Score 750 points or more on a single kill (Multiplayer Only).",
       "group": "Multiplayer",
       "points": 20,
@@ -790,6 +838,7 @@
     },
     {
       "name": "Abstergo Employee of the Month",
+      "rarity": 3,
       "detail": "Get every single bonus at least once (Multiplayer Only).",
       "group": "Multiplayer",
       "points": 20,
@@ -797,6 +846,7 @@
     },
     {
       "name": "Ahead of the Curve",
+      "rarity": 28,
       "detail": "Perform a double or triple escape (Multiplayer Only).",
       "group": "Multiplayer",
       "points": 20,
@@ -804,6 +854,7 @@
     },
     {
       "name": "Strong-Arm",
+      "rarity": 60,
       "detail": "Throw a Long Weapon, Heavy Weapon, and Smoke bomb more than 10 m at a guard.",
       "group": "The Da Vinci Disappearance",
       "points": 10,
@@ -811,6 +862,7 @@
     },
     {
       "name": "High Roller",
+      "rarity": 67,
       "detail": "Win 10000 florins playing Hazard.",
       "group": "The Da Vinci Disappearance",
       "points": 20,
@@ -818,6 +870,7 @@
     },
     {
       "name": "il Principe",
+      "rarity": 37,
       "detail": "Receive 100% synch in ACB and full synch in all missions of the Da Vinci Disappearance.",
       "group": "The Da Vinci Disappearance",
       "points": 100,
@@ -825,6 +878,7 @@
     },
     {
       "name": "Airstrike",
+      "rarity": 73,
       "detail": "Kill 10 guards with a single arrow storm.",
       "group": "The Da Vinci Disappearance",
       "points": 20,
@@ -832,6 +886,7 @@
     },
     {
       "name": "GPS",
+      "rarity": 91,
       "detail": "Complete the Da Vinci Disappearance.",
       "group": "The Da Vinci Disappearance",
       "points": 20,
@@ -845,6 +900,7 @@
     },
     {
       "name": "Clowning Around",
+      "rarity": 58,
       "detail": "Beat up the 5 thirsty harlequins.",
       "group": "The Da Vinci Disappearance",
       "points": 30,
@@ -865,6 +921,7 @@
     },
     {
       "name": "Special Delivery",
+      "rarity": 69,
       "detail": "Double Assassinate from a parachute.",
       "group": "The Da Vinci Disappearance",
       "points": 20,
@@ -872,6 +929,7 @@
     },
     {
       "name": "Grand Theft Dressage",
+      "rarity": 66,
       "detail": "Steal 5 horses from their riders, while remaining on horseback.",
       "group": "The Da Vinci Disappearance",
       "points": 20,
@@ -879,6 +937,7 @@
     },
     {
       "name": "Going Up",
+      "rarity": 80,
       "detail": "Kill a guard with the bag that drops from a lift.",
       "group": "The Da Vinci Disappearance",
       "points": 5,
@@ -886,6 +945,7 @@
     },
     {
       "name": "Easy Come, Easy Go",
+      "rarity": 75,
       "detail": "Pay 500 florins to an orator, then pickpocket him afterward.",
       "group": "The Da Vinci Disappearance",
       "points": 5,
