@@ -73,6 +73,8 @@ for t in tests/test_*.cjs; do node "$t"; done
 python source/package.py ../steam-custom-achievements-vX.Y.Z-share.zip --share   # release ZIP
 ```
 
+GitHub runs all of these automatically on every pull request and every push to `main` (`.github/workflows/tests.yml`); the result shows as a green tick or red cross on the PR.
+
 `package.py` must write the ZIP outside the repo folder. For an extra check before sharing, put words that must never ship (your name, Windows username, Steam ID) one per line in `source/private_terms.txt`; that file is git-ignored, and `--share` refuses to build if any of them appear in the package.
 
 ## Repo layout

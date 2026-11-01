@@ -1,0 +1,94 @@
+# Runs the plugin's tests on every pull request and every push to main.
+# A green tick on the PR means all of them passed; a red cross means one failed
+# (open "Details" next to the cross to see which test and why).
+name: Tests
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: tests-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build is up to date and share ZIP packs
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Rebuild the plugin from source/
+        run: python source/build.py
+      - name: Generated files match what is committed
+        run: |
+          if ! git diff --exit-code --stat; then
+            echo "::error::Generated files are out of date. Run 'python source/build.py' and commit the result."
+            exit 1
+          fi
+      - name: Share ZIP builds
+        run: |
+          python source/package.py "$RUNNER_TEMP/share.zip" --share
+          python - "$RUNNER_TEMP/share.zip" <<'PY'
+          import sys, zipfile
+          names = zipfile.ZipFile(sys.argv[1]).namelist()
+          bad = [n for n in names if n.lower().endswith(('.sav', '.prf', '.bin', '.pro', '.fos'))]
+          assert not bad, f'save files in the share ZIP: {bad}'
+          print(f'{len(names)} files, no saves')
+          PY
+
+  detectors:
+    name: Save detector tests (Python + LuaJIT)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install lupa
+      - name: Run tests/test_*.py
+        run: |
+          failed=0
+          for t in tests/test_*.py; do
+            echo "::group::$t"
+            python "$t" || { echo "::error file=$t::$t failed"; failed=1; }
+            echo "::endgroup::"
+          done
+          exit $failed
+
+  frontend:
+    name: Steam page tests (jsdom + Chromium)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      SCA_TEST_MODULES: ${{ runner.temp }}/deps/node_modules
+      SCA_PLAYWRIGHT_MODULE: ${{ runner.temp }}/deps/node_modules/playwright
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install jsdom and Playwright (outside the plugin folder)
+        run: |
+          mkdir -p "$RUNNER_TEMP/deps" && cd "$RUNNER_TEMP/deps"
+          npm init -y > /dev/null
+          npm install jsdom playwright
+          npx playwright install --with-deps chromium
+      - name: Run tests/test_*.cjs
+        run: |
+          failed=0
+          for t in tests/test_*.cjs; do
+            echo "::group::$t"
+            node "$t" || { echo "::error file=$t::$t failed"; failed=1; }
+            echo "::endgroup::"
+          done
+          exit $failed
