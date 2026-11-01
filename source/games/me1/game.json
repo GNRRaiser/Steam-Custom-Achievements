@@ -1,0 +1,537 @@
+{
+  "appId": 17460,
+  "title": "Mass Effect",
+  "platform": "Xbox 360",
+  "detector": "me1",
+  "setupHint": "Start Mass Effect once, or select Profile.MassEffectProfile in Settings.",
+  "pathPlaceholder": "Path to Documents\\BioWare\\Mass Effect\\Save\\Profile.MassEffectProfile (or the Save folder)",
+  "trackingNote": "Mass Effect on PC keeps the Xbox 360 achievements in its own profile (Documents\\BioWare\\Mass Effect\\Save\\Profile.MassEffectProfile, shared by all characters). The plugin reads that file, so 45 achievements unlock by themselves a few seconds after the game records them. Scholar, Completionist, Tactician and Medal of Exploration are marked by hand until their profile slots are confirmed.",
+  "autoTag": "Unlocks automatically from your Mass Effect profile",
+  "achievements": [
+    {
+      "name": "Medal of Honor",
+      "detail": "Complete 1 Mass Effect Playthrough on any setting",
+      "group": "Story",
+      "points": 100,
+      "icon": "medal",
+      "rule": {
+        "id": 1
+      }
+    },
+    {
+      "name": "Medal of Heroism",
+      "detail": "Complete Feros",
+      "group": "Story",
+      "points": 25,
+      "icon": "medal",
+      "rule": {
+        "id": 2
+      }
+    },
+    {
+      "name": "Distinguished Service Medal",
+      "detail": "Complete Eden Prime",
+      "group": "Story",
+      "points": 25,
+      "icon": "medal",
+      "rule": {
+        "id": 3
+      }
+    },
+    {
+      "name": "Council Legion of Merit",
+      "detail": "Complete Virmire",
+      "group": "Story",
+      "points": 25,
+      "icon": "medal",
+      "rule": {
+        "id": 4
+      }
+    },
+    {
+      "name": "Honorarium of Corporate Service",
+      "detail": "Complete Noveria",
+      "group": "Story",
+      "points": 25,
+      "icon": "medal",
+      "rule": {
+        "id": 5
+      }
+    },
+    {
+      "name": "Long Service Medal",
+      "detail": "Complete 2 Mass Effect Playthroughs on any setting",
+      "group": "Story",
+      "points": 25,
+      "icon": "medal",
+      "rule": {
+        "id": 6
+      }
+    },
+    {
+      "name": "Distinguished Combat Medal",
+      "detail": "Complete 1 Mass Effect playthrough on the Hardcore difficulty setting. Do not change the setting.",
+      "group": "Story",
+      "points": 25,
+      "icon": "medal",
+      "rule": {
+        "id": 7
+      }
+    },
+    {
+      "name": "Medal of Valor",
+      "detail": "Complete 1 Mass Effect playthrough on the Insanity difficulty setting. Do not change the setting.",
+      "group": "Story",
+      "points": 50,
+      "icon": "medal",
+      "rule": {
+        "id": 8
+      }
+    },
+    {
+      "name": "Pistol Expert",
+      "detail": "Register 150 Pistol Kills",
+      "group": "Combat",
+      "points": 10,
+      "icon": "target",
+      "rule": {
+        "id": 9,
+        "stat": "PistolKills",
+        "label": "Pistol kills"
+      }
+    },
+    {
+      "name": "Shotgun Expert",
+      "detail": "Register 150 Shotgun Kills",
+      "group": "Combat",
+      "points": 15,
+      "icon": "target",
+      "rule": {
+        "id": 10,
+        "stat": "ShotgunKills",
+        "label": "Shotgun kills"
+      }
+    },
+    {
+      "name": "Assault Rifle Expert",
+      "detail": "Register 150 Assault Rifle Kills",
+      "group": "Combat",
+      "points": 15,
+      "icon": "target",
+      "rule": {
+        "id": 11,
+        "stat": "AssaultRifleKills",
+        "label": "Assault rifle kills"
+      }
+    },
+    {
+      "name": "Sniper Expert",
+      "detail": "Register 150 Sniper Rifle Kills",
+      "group": "Combat",
+      "points": 15,
+      "icon": "target",
+      "rule": {
+        "id": 12,
+        "stat": "SniperRifleKills",
+        "label": "Sniper rifle kills"
+      }
+    },
+    {
+      "name": "Lift Mastery",
+      "detail": "Use biotic Lift 75 times",
+      "group": "Talents",
+      "points": 15,
+      "icon": "bolt",
+      "rule": {
+        "id": 13,
+        "stat": "LiftUses",
+        "label": "Lift uses"
+      }
+    },
+    {
+      "name": "Throw Mastery",
+      "detail": "Use biotic Throw 75 times",
+      "group": "Talents",
+      "points": 15,
+      "icon": "bolt",
+      "rule": {
+        "id": 14,
+        "stat": "ThrowUses",
+        "label": "Throw uses"
+      }
+    },
+    {
+      "name": "Warp Mastery",
+      "detail": "Use biotic Warp 75 times",
+      "group": "Talents",
+      "points": 15,
+      "icon": "bolt",
+      "rule": {
+        "id": 15,
+        "stat": "WarpUses",
+        "label": "Warp uses"
+      }
+    },
+    {
+      "name": "Singularity Mastery",
+      "detail": "Use biotic Singularity 75 times",
+      "group": "Talents",
+      "points": 15,
+      "icon": "bolt",
+      "rule": {
+        "id": 16,
+        "stat": "SpacialUses",
+        "label": "Singularity uses"
+      }
+    },
+    {
+      "name": "Barrier Mastery",
+      "detail": "Use biotic Barrier 75 times",
+      "group": "Talents",
+      "points": 15,
+      "icon": "bolt",
+      "rule": {
+        "id": 17,
+        "stat": "ShieldUses",
+        "label": "Barrier uses"
+      }
+    },
+    {
+      "name": "Stasis Mastery",
+      "detail": "Use biotic Stasis 75 times",
+      "group": "Talents",
+      "points": 15,
+      "icon": "bolt",
+      "rule": {
+        "id": 18,
+        "stat": "StasisUses",
+        "label": "Stasis uses"
+      }
+    },
+    {
+      "name": "Damping Specialist",
+      "detail": "Use Damping Field 75 times",
+      "group": "Talents",
+      "points": 15,
+      "icon": "bolt",
+      "rule": {
+        "id": 19,
+        "stat": "ElectronicsUses",
+        "label": "Damping uses"
+      }
+    },
+    {
+      "name": "AI Hacking Specialist",
+      "detail": "Use AI Hacking 75 times",
+      "group": "Talents",
+      "points": 15,
+      "icon": "bolt",
+      "rule": {
+        "id": 20,
+        "stat": "DecryptionUses",
+        "label": "AI Hacking uses"
+      }
+    },
+    {
+      "name": "Overload Specialist",
+      "detail": "Use Shield Overload 75 times",
+      "group": "Talents",
+      "points": 15,
+      "icon": "bolt",
+      "rule": {
+        "id": 21,
+        "stat": "EMPUses",
+        "label": "Overload uses"
+      }
+    },
+    {
+      "name": "Sabotage Specialist",
+      "detail": "Use Sabotage 75 times",
+      "group": "Talents",
+      "points": 15,
+      "icon": "bolt",
+      "rule": {
+        "id": 22,
+        "stat": "SabotageUses",
+        "label": "Sabotage uses"
+      }
+    },
+    {
+      "name": "First Aid Specialist",
+      "detail": "Use medi-gel 150 times",
+      "group": "Talents",
+      "points": 15,
+      "icon": "heart",
+      "rule": {
+        "id": 23,
+        "stat": "HealingUses",
+        "label": "Medi-gel uses"
+      }
+    },
+    {
+      "name": "Neural Shock Specialist",
+      "detail": "Use Neural Shock 75 times",
+      "group": "Talents",
+      "points": 15,
+      "icon": "bolt",
+      "rule": {
+        "id": 24,
+        "stat": "NeuralShockUses",
+        "label": "Neural Shock uses"
+      }
+    },
+    {
+      "name": "Scholar",
+      "detail": "Find all primary Alien: Council Races, Extinct Races and Non-Council Races codex entries",
+      "group": "Character",
+      "points": 25,
+      "icon": "book"
+    },
+    {
+      "name": "Completionist",
+      "detail": "Complete the majority of the game",
+      "group": "Story",
+      "points": 25,
+      "icon": "star"
+    },
+    {
+      "name": "Tactician",
+      "detail": "Complete playthrough with shield damage greater than health damage",
+      "group": "Combat",
+      "points": 25,
+      "icon": "shield"
+    },
+    {
+      "name": "Medal of Exploration",
+      "detail": "Land on an uncharted world",
+      "group": "Story",
+      "points": 50,
+      "icon": "eye"
+    },
+    {
+      "name": "Rich",
+      "detail": "Exceed 1,000,000 Credits",
+      "group": "Character",
+      "points": 25,
+      "icon": "coins",
+      "rule": {
+        "id": 30,
+        "stat": "Money",
+        "label": "Credits"
+      }
+    },
+    {
+      "name": "Dog of War",
+      "detail": "Register 150 organic enemy kills",
+      "group": "Combat",
+      "points": 25,
+      "icon": "skull",
+      "rule": {
+        "id": 31,
+        "stat": "OrganicKills",
+        "label": "Organic kills"
+      }
+    },
+    {
+      "name": "Geth Hunter",
+      "detail": "Register 250 synthetic enemy kills",
+      "group": "Combat",
+      "points": 25,
+      "icon": "skull",
+      "rule": {
+        "id": 32,
+        "stat": "MachineKills",
+        "label": "Synthetic kills"
+      }
+    },
+    {
+      "name": "Soldier Ally",
+      "detail": "Complete the majority of the game with the Alliance soldier squad member",
+      "group": "Squad",
+      "points": 20,
+      "icon": "shield",
+      "rule": {
+        "id": 33
+      }
+    },
+    {
+      "name": "Sentinel Ally",
+      "detail": "Complete the majority of the game with the Alliance sentinel squad member",
+      "group": "Squad",
+      "points": 20,
+      "icon": "shield",
+      "rule": {
+        "id": 34
+      }
+    },
+    {
+      "name": "Krogan Ally",
+      "detail": "Complete the majority of the game with the krogan squad member",
+      "group": "Squad",
+      "points": 20,
+      "icon": "shield",
+      "rule": {
+        "id": 35
+      }
+    },
+    {
+      "name": "Turian Ally",
+      "detail": "Complete the majority of the game with the turian squad member",
+      "group": "Squad",
+      "points": 20,
+      "icon": "shield",
+      "rule": {
+        "id": 36
+      }
+    },
+    {
+      "name": "Quarian Ally",
+      "detail": "Complete the majority of the game with the quarian squad member",
+      "group": "Squad",
+      "points": 20,
+      "icon": "shield",
+      "rule": {
+        "id": 37
+      }
+    },
+    {
+      "name": "Asari Ally",
+      "detail": "Complete the majority of the game with the asari squad member",
+      "group": "Squad",
+      "points": 20,
+      "icon": "shield",
+      "rule": {
+        "id": 38
+      }
+    },
+    {
+      "name": "Power Gamer",
+      "detail": "Reach 50th level with one character",
+      "group": "Character",
+      "points": 20,
+      "icon": "star",
+      "rule": {
+        "id": 39,
+        "stat": "Level50",
+        "label": "Level"
+      }
+    },
+    {
+      "name": "Extreme Power Gamer",
+      "detail": "Reach 60th level with one character",
+      "group": "Character",
+      "points": 50,
+      "icon": "star",
+      "rule": {
+        "id": 40,
+        "stat": "Level60",
+        "label": "Level"
+      }
+    },
+    {
+      "name": "Renegade",
+      "detail": "Accumulate 75% of total Renegade points",
+      "group": "Character",
+      "points": 15,
+      "icon": "fist",
+      "rule": {
+        "id": 41
+      }
+    },
+    {
+      "name": "Paragon",
+      "detail": "Accumulate 75% of total Paragon points",
+      "group": "Character",
+      "points": 15,
+      "icon": "crown",
+      "rule": {
+        "id": 42
+      }
+    },
+    {
+      "name": "Paramour",
+      "detail": "Complete any romance subplot",
+      "group": "Character",
+      "points": 10,
+      "icon": "heart",
+      "rule": {
+        "id": 43
+      }
+    },
+    {
+      "name": "Spectre Inductee",
+      "detail": "Become a Spectre",
+      "group": "Story",
+      "points": 15,
+      "icon": "insignia",
+      "rule": {
+        "id": 44
+      }
+    },
+    {
+      "name": "Charismatic",
+      "detail": "Use Charm or Intimidate to resolve an impossible situation",
+      "group": "Character",
+      "points": 10,
+      "icon": "letter",
+      "rule": {
+        "id": 45
+      }
+    },
+    {
+      "name": "Search and Rescue",
+      "detail": "Locate Dr. T'soni in the Artemis Tau cluster",
+      "group": "Story",
+      "points": 10,
+      "icon": "eye",
+      "rule": {
+        "id": 46
+      }
+    },
+    {
+      "name": "Colonial Savior",
+      "detail": "Complete the Bring Down the Sky mission.",
+      "group": "Downloadable content",
+      "points": 50,
+      "icon": "skull",
+      "rule": {
+        "id": 47
+      }
+    },
+    {
+      "name": "Undisputed",
+      "detail": "You completed Ahern's survival mission",
+      "group": "Downloadable content",
+      "points": 50,
+      "icon": "skull",
+      "rule": {
+        "id": 48
+      }
+    },
+    {
+      "name": "New Sheriff in Town",
+      "detail": "Took first place in a combat scenario on Pinnacle Station",
+      "group": "Downloadable content",
+      "points": 50,
+      "icon": "star",
+      "rule": {
+        "id": 49
+      }
+    },
+    {
+      "name": "Best of the Best",
+      "detail": "Took first place in 12 combat scenarios on Pinnacle Station",
+      "group": "Downloadable content",
+      "points": 50,
+      "icon": "star",
+      "rule": {
+        "id": 50
+      }
+    }
+  ],
+  "completion": {
+    "name": "N7 Elite",
+    "detail": "Acquire all trophies.",
+    "picture": "platinum.webp"
+  }
+}

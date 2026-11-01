@@ -1,0 +1,69 @@
+[
+  {
+    "index": 36,
+    "name": "Show Your Colors",
+    "kind": "tasks",
+    "label": "Regions visited in the Auditore cape",
+    "tasks": [
+      "C962822F",
+      "C9628230",
+      "C9628232",
+      "C9628233",
+      "C9628234",
+      "C9628235"
+    ],
+    "proof": "The game's definition of '48 - Show your Colors' (Game Bootstrap Settings in DataPC.forge) checks the accomplishments Wear Auditore Cape in Firenze, Moutains, Toscana, Venezia, Villa and Wetlands (not Roma); each is saved with its completion flag in the save's AccomplishmentManagerData."
+  },
+  {
+    "index": 43,
+    "name": "Art Connoisseur",
+    "kind": "tasks",
+    "label": "Paintings bought (Florence, Venice)",
+    "tasks": [
+      "BACDC7D8",
+      "BACDC7D7"
+    ],
+    "proof": "'45 - Art Connoisseur' checks Buy Firenze Painting and Buy Venezia Painting. In a 27-save pcsavegames playthrough the Florence one completes in Sequence 4 and the Venice one in Sequence 7."
+  },
+  {
+    "index": 45,
+    "name": "Perfect Harmony",
+    "kind": "tasks",
+    "label": "Wetland dyes used (Ebony, Ivory)",
+    "tasks": [
+      "BACDC7E3",
+      "BACDC7E4"
+    ],
+    "proof": "'47 - Perfect Harmony' checks Tint Wetland Ebony and Tint Wetland Ivory."
+  },
+  {
+    "index": 37,
+    "name": "Handy Man",
+    "kind": "villa",
+    "label": "Stronghold buildings upgraded",
+    "need": 1,
+    "base": [
+      0,
+      0,
+      1,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "proof": "VillaSaveData keeps one level per building (5 shops up to 3, 6 renovations up to 1). Every new game starts at 0 0 1 1 0 0 0 0 0 0 0 (all of a tester's early saves and the pack until Sequence 4); any level above that is an upgrade."
+  },
+  {
+    "index": 44,
+    "name": "Podestà of Monteriggioni",
+    "kind": "villaValue",
+    "label": "Stronghold value (80% of 150,000)",
+    "need": 120000,
+    "max": 150000,
+    "proof": "VillaSaveData keeps the stronghold's value (1280 on a new game: the Blacksmith's 500 and the Doctor's 750 plus 30). The game's villa manager (Game Bootstrap Settings in DataPC.forge) holds 150000 next to the 0.1 income rate (the saves pay 10% of the value every 20 minutes), and the game's own values add up to exactly that: shops 54,000, renovations 21,000, building bonuses 30,000, collections 27,500 (paintings 3,600, weapons 10,850, armour 11,140, feathers 1,000, portraits 450, codex 150, seals 150, models 160) and collection bonuses 17,500. 80% is 120,000."
+  }
+]

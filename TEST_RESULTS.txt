@@ -1,0 +1,235 @@
+Steam Custom Achievements v0.28.0 verification - 2026-10-31
+PASS a new save in %APPDATA%\Ubisoft\Assassin's Creed\Saved Games is found; nothing unlocked
+PASS objective M03_S20_Animus_Tutorial_Complete finished unlocks Welcome to the Animus
+PASS references to an objective and objectives still open do not count
+PASS 'Memory Block 1 - Masyaf' and FreeMission_FM11 unlock Hero of Masyaf and The Punishment for Treason
+PASS the FinishEllipse after Tamir (DA2DC25A) unlocks The Blood of a Corrupt Merchant
+PASS a cut-off save is not trusted (earned unlocks stay); missing files are refused
+PASS the Assassin's Creed folder can be pasted in Settings; the .sav in Saved Games is used
+PASS flag lists in the progress block are counted (Kingdom 2/100, Damascus 1/100); nothing unlocks early
+PASS 100 Kingdom flags unlock Keeper of the Lions Passant; 100 Damascus flags unlock Keeper of the Crescent
+PASS 90 viewpoints are not enough; all 91 unlock Fearless
+PASS 60 Templars, 20 Masyaf flags, 100 Jerusalem flags and the 33 Teutonic, 34 Templar and 33 Hospitalier flags in Acre unlock their achievements
+PASS the white-room objectives of Garnier, Talal, Abul Nuqoud, William, Majd Addin, Sibrand and Jubair, and Memory Block 7 after Robert, unlock the other eight Blood achievements
+PASS the game's own record unlocks what it says (Blade in the Crowd, Absolute Symbiosis, then all 44); Eagle's Talon shows 13/50 and counts past the target stop at it
+PASS a record state other than 1 or 2 makes the detector ignore the record
+PASS a list that does not fit the layout stops the walk, so nothing after it is counted
+All Assassin's Creed detector tests passed.
+PASS the Steam save in Saved Games is found; the opening memory alone unlocks nothing
+PASS Sequence 1 unlocks Battle Wounds at its outro, not before
+PASS reaching Sequence 4 unlocks Sequences 1-3, Sanctuary and the Terme di Traiano lair (Halls of Nero)
+PASS Sequence 9 started unlocks Technical Difficulties; the ending unlocks the last two story achievements
+PASS all four Rome flag districts unlock Capture the Flag; lairs, machines, feathers and the DLC unlock
+PASS a cut-off save is not trusted (earned unlocks stay)
+PASS Reset to locked holds what the save already has until an older save; earning it again unlocks it
+PASS the achievement record in OPTIONS unlocks single-player and DLC achievements; multiplayer stays manual
+PASS Ubisoft Connect saves (scrambled) decode to the same missions
+All Brotherhood detector tests passed.
+PASS all 26 rules require a completed mission record of the correct type
+PASS statuette/feather rules need every distinct ID; duplicates and slot -1 never count
+PASS game task rules need the completed flag (or count-only glyphs), the threshold and an exact layout
+PASS Art Connoisseur, Perfect Harmony and Show Your Colors need every accomplishment in the game's checklist
+PASS Handy Man unlocks when a stronghold building is above its new-game level; odd levels are not trusted
+PASS Podesta of Monteriggioni unlocks at 120000, 80% of the 150000 in the game's villa manager; the count shows the value
+PASS duplicates, truncation, corrupt header, unknown format and wrong flag layout
+PASS new-game intro: Abstergo escape and entering the Animus unlock the first three
+PASS watcher waits for stable snapshots, grants only after completion and persists once
+PASS Steam-library save discovery, automatic-state retention and privacy-limited status
+PASS invalid save selection does not replace the selected path or modify the game save
+PASS a newer save slot is picked up without restarting Steam
+PASS a chosen slot file still follows a new game in another slot, and Reset to locked does not block it
+All LuaJIT 2.1 detector/watcher tests passed. Windows Steam integration remains a client-side check.
+PASS a hero save written during play is copied (before and after) and its stat changes are logged
+PASS later saves add one copy each, only after the file stops changing; game folder untouched
+PASS Thrillville capture works from a pasted folder and falls back to prefixed files
+PASS Mass Effect 2 profile changes are logged as numbered settings
+PASS Assassin's Creed save changes are logged as named story objectives
+PASS Mass Effect profile changes are logged as achievement slots and counters
+PASS Brotherhood: the Saved Games folder is found on its own; saves are decompressed into named missions
+PASS capture stays on after Steam restarts
+PASS the size limit stops capture and remembers it; turning capture off clears it
+PASS Thrillville capture finds AppData\Local\LucasArts\Thrillville 07\Save and logs park missions by name
+All capture tests passed.
+PASS CoD 4 profile found through the Steam library; finished missions unlock, nothing else does
+PASS Veteran digits and intel counter (14 of 15 shows progress, 15 unlocks)
+PASS Deep and Hard ignores the epilogue; two-level Veteran awards need both levels
+PASS a profiles folder resolves to the campaign config; configs without progress are refused
+PASS World at War profile found under LOCALAPPDATA\Activision\CoDWaW
+PASS World at War 100% Regular run: story and Death Cards unlock, Hardened and Veteran do not
+PASS manual-only games never read files; unknown app IDs are rejected
+All Call of Duty detector tests passed.
+PASS newest hero save found under Saved Games; fail-quest copies are ignored; 49 of 50 gnomes shows progress
+PASS a 100% hero (values from a real save) unlocks all 8 statistic achievements and nothing else
+PASS a profile folder resolves to its newest hero save; other files are refused
+PASS a half-written save is not trusted; earned unlocks stay
+PASS XLiveEmu's Achievements.txt in the game folder (found through the Steam library list) unlocks The Guild Seal (69) and Hand in Hand (105)
+PASS IDs added later unlock too (75 For Albion!, 129 Adopt Or Die, Traitor's Keep 130 and 139); a file that is not a list of IDs is ignored and earned unlocks stay
+All Fable III detector tests passed.
+PASS a new profile under Documents\BioWare\Mass Effect\Save is found; nothing unlocked; counters show progress
+PASS achievement slots unlock their Xbox achievement; a counter at its target unlocks too
+PASS 150 organic kills and level 50 unlock Dog of War and Power Gamer, not Extreme Power Gamer
+PASS the slot layout is checked against counters the game already marked unlocked
+PASS a cut-off profile is not trusted (earned unlocks stay); missing files are refused
+All Mass Effect detector tests passed.
+PASS a new profile under Documents\BioWare\Mass Effect 2\BIOGame\Profile is found; nothing unlocked
+PASS bit 1 of setting 0x32 and bit 16 of 0x33 unlock Missing in Action and Fashionista
+PASS geth, Horizon, top-bit, Shadow Broker, Zaeed and Arrival IDs map to their Xbox achievements
+PASS a cut-off profile is not trusted (earned unlocks stay); missing files are refused
+PASS the Mass Effect 2 folder can be pasted in Settings; Player1.prf inside it is used
+All Mass Effect 2 detector tests passed.
+PASS Fable III: the gnome counter reaching 50 is listed first, the plugin rule agrees, copies are saved
+PASS CoD 4: config.cfg lines are paired by dvar; intel counting toward 15 is flagged
+PASS Thrillville: pasted folder, binary counter 19 -> 20 matches "1st in 20 races"; temp-folder fallback
+PASS narrowing: progress, no-progress and progress recordings leave only the race counter 20 -> 21 -> 22
+PASS no change gives an empty report; Cancel discards the snapshot
+All record mode tests passed.
+PASS Bribery 101! (P1_G_WinPrizes) unlocks Critics only once finished, with any medal
+PASS Alien Antics, Trance-Cendtal, Clearance Sale and Traitor's Arena unlock their achievements; an open mission unlocks its park
+PASS files that are not park saves, or have no missions, are not read
+PASS the collect-all-6 hunts, the brand-new coaster and mini golf design missions and the whoa coaster missions unlock when finished
+PASS owner levels 2, 5 and 10 unlock Talent, Sensation and Phenomenon; the level is read only when the statistics match the missions
+All Thrillville detector tests passed.
+PASS native-style card sits below Friends Who Play, matches gradient card edges, shows icon rows
+PASS close button is inside the dialog and works on its edge
+PASS View My Achievements popup lists 50, toggles manual entries with dates, closes on Escape
+PASS search, custom pictures by number/name and from a saved .mhtml page, settings restore, status and picture reset
+PASS real timer restores removed UI and stylesheet without duplicate registration
+PASS header stat matches the clock icon, skips a hidden PLAY TIME, goes into every header copy, appears without LAST PLAYED, and Copy status reports it
+PASS automatic backend state unlocks progress while another page is selected; card and popup are AC2-only
+PASS card and popup fit at 1200px, 480px and 320px widths
+PASS popup destruction/recreation, complete cleanup, no external requests or script exceptions
+Real Chromium window regression passed: 153.0.8010.12
+PASS CoD 4 page shows its own 37 achievements, automatic unlocks, intel progress and raw campaign value
+PASS record mode: pick an achievement, Start, Done; the matching value and the saved copies are shown; a second pass narrows
+PASS a new automatic unlock shows a Steam-style popup with its picture; popups can be turned off
+PASS Reset to locked asks twice, clears manual and automatic unlocks, and later unlocks still arrive
+PASS Fable III page has all 60 achievements automatic (Traitor's Keep included) and a save picker
+PASS Thrillville page has 18 automatic achievements (missions and owner levels), a save picker and capture
+PASS Mass Effect (45 automatic), Brotherhood (50 automatic), Mass Effect 2 (61 automatic) and AC1 (44 automatic): full lists with platinums, all 218 built-in pictures, save folders shown
+PASS the platinum (N7 Elite) unlocks once all others are unlocked, through Steam's own achievement toast (shown over games by the overlay)
+PASS AC2 keeps its v0.1 progress; other games' pages show no card; diagnostics list every game
+All multi-game regression groups passed.
+PASS mounts in the visible Steam window, excluding hidden host and Settings
+PASS loads prior v0.1.2 progress and saves manual toggles to the original key
+PASS new popup callback and m_popup wrapper work; both windows share live progress
+PASS achievement search and category filter work in the popup
+PASS backup, validated in-panel restore and privacy-limited status work without native prompts
+PASS recovers a replaced body and removed stylesheet without duplicate roots or hooks
+PASS destroy and dismount remove UI and unregister popup hooks
+PASS real timer discovers late startup and recovers progress from the popup origin
+PASS blocked storage leaves the tracker usable and displays a saving warning
+PASS no network attempts or unhandled DOM errors across all lifecycle scenarios
+All 10 window and persistence regression groups passed.
+
+Real-save checks (files supplied by the user, not shipped):
+PASS Fable III: inflate.lua output is byte-identical to zlib on hero and main saves
+PASS Fable III: detector reads 213 statistics from each of 37 hero saves; a new hero earns nothing,
+     the 100% hero earns all 8 statistic achievements, partial heroes earn only what their counters reach
+PASS Fable III record mode on two real saves: STAT_NUM_COLLECTED_GNOMES 45 -> 50 is listed first as a match
+PASS World at War: a 100% Regular profile has 15 mis_difficulty digits at 2 and cheat_points 13;
+     level-save timestamps confirm the campaign mission order
+PASS CoD 4: a real profile config.cfg after F.N.G., Crew Expendable and 1 intel reads mis_difficulty
+     "42...", cheat_points 1: F.N.G. is written as 4 and Crew Expendable as 2 (Regular), as the mod
+     tools say; it unlocks exactly Earn a Winged Dagger and Make the Jump, intel shows 1/15 and 1/30
+PASS Pictures: all 213 CoD 4, World at War, Thrillville and Fable III icons matched by name and checked on contact sheets
+PASS Pictures: all 44 Assassin's Creed, 60 Brotherhood, 49 Mass Effect and 62 Mass Effect 2 wiki icons
+     matched by name and checked on contact sheets
+PASS Mass Effect and Mass Effect 2 saves (level-60 .MassEffectSave, Save_0006.pcsav) were opened to
+     plan automatic tracking; the Ubisoft Connect folder holds AC2 (4) but no Assassin's Creed saves
+PASS Ubisoft folder 40 saves unscramble (9-byte key derived from known header bytes) and decompress fully;
+     they turned out to be Assassin's Creed Revelations, not Brotherhood
+PASS Brotherhood: the real Steam ACBROTHERHOODSAVEGAME0.SAV (plain, 20,911 bytes) decompresses to 265,565
+     bytes with 18 mission records; all 18 IDs are named in the game's Rome mission list (E01M01 done,
+     SQ01M01, feathers, flags, chests, viewpoints started); it earns nothing yet, as expected
+PASS Brotherhood capture of Sequence 1 (41 real saves): missions complete in the list's order
+     (SQ01M01, M02, MT02, MT03, MT05, M03, M04, M05, outro) and Battle Wounds unlocked at the outro
+PASS Brotherhood OPTIONS: the u64 property 0x496F8780 went 1 -> 3 when Battle Wounds unlocked; with the
+     user confirming Technical Difficulties was already unlocked, bit N = achievement N
+PASS Brotherhood: sequence groups checked against the memory counts per sequence (e.g. Seq 5 has 5
+     memories and SQ04 5 missions, Seq 9 has 2 and E04 2) and the order of the game's mission list
+PASS AC2 new-game recording (slot 4.save): P01_M01-03 (6697F883) completes first, then P01_M04
+     (9C1E07D6); with them the first three achievements unlock, and the watcher moves from 2.save to 4.save
+PASS AC2 Lightning Strike capture (13 saves): only the statistics totals change (ground distance 374 -> 711 m);
+     no game task or flag records the sprint, so the one-off achievements stay manual
+PASS Mass Effect: a real PC Profile.MassEffectProfile parses (Unreal package, BioGamerProfile): 50 achievement
+     slots and 21 RewardStats counters with their achievement IDs and targets; a new profile earns nothing
+PASS Mass Effect 2: lzo1x.lua decodes both real Player1.prf profiles byte-identically to a reference LZO1X decoder
+     (741 bytes, 52 UE3 profile settings); Coalesced.ini and the DLC BIOGame.ini files give the PC AchievementIDs
+PASS Mass Effect 2: the profile after Missing in Action has setting 0x32 = 2 (ID 1); after Fashionista 0x33 = 65536
+     (ID 48 = 32 + 16); the detector reads exactly Missing in Action, then Missing in Action and Fashionista
+PASS Thrillville: decoder_thrillville.lua reads 31 mission and person records from each of two real park saves
+     (Nov 2023 and Oct 2026); between them P1_B_PlaceArcade, P1_G_GiveRidePass, P1_G_HappyTalking, P1_P_Tank and
+     P1_U_Cleanliness went to 04 (finished), P1_M_Marketing got a medal and P1_B_DesignRacetrack opened
+PASS Assassin's Creed: a real capture of 21 saves (new game to the first Kingdom viewpoint) has about 800 story
+     objective records; 678 of their IDs are named in the AssassinsCreed entry of DataPC.forge (LZO1X, read-only)
+PASS Assassin's Creed: detector_ac1.lua on those saves unlocks Welcome to the Animus at the first autosave,
+     Hero of Masyaf at the last Masyaf siege save (20:28) and The Punishment for Treason at the save after the
+     traitor (20:47, the same save where the synchronization bar went from 4 to 5 segments)
+PASS Assassin's Creed: across 45 real saves in three captures and two 100% community saves, the progress block
+     before the objectives keeps 863 fixed bytes plus its lists (u32 state, u32 count, entries); the Kingdom flag list grew exactly at the 2 Kingdom flags (the game showed 1/100,
+     2/100), the Damascus flag list at the Damascus flag (1/100), and the viewpoint list at each of the 5 syncs
+PASS Assassin's Creed: 91 viewpoints in all: the 100% save's global viewpoint list holds indices 0-90 with its state
+     at 2 (complete), matching the TrueAchievements walkthrough's 91 high points; the Kingdom's own list has 12 places
+     and completes with 11 (an earlier guide's 92 was one too many)
+PASS Assassin's Creed: two complete community saves ("All Flags And Templars", "100 completion") fill the lists
+     exactly: Templars 60 (indices 0-59), flags Kingdom 100, Masyaf 20, Jerusalem 100, Damascus 100, Acre 33/34/33;
+     the detector unlocks Personal Vendetta and the six placed flag Keepers on both, and Fearless only on the
+     100% save (91 viewpoints; the other has 30)
+PASS Fable III: Fable3.exe holds the game's achievement table (XDBF at 0x19BB45C: XACH 50 entries, English XSTR
+     names); all 50 names match the pack (The Guild Seal = 69 ... Adopt Or Die = 129); the 10 DLC ones are absent
+PASS Fable III: the user's XLiveEmu Achievements.txt ("69", "105") plus their hero save unlock exactly The Guild Seal
+     and Hand in Hand; the save itself holds no earned-achievement list
+PASS Fable III: the Traitor's Keep DLC table (DLC\03_InquisitorsPack\Content\spa.bin, XDBF, XACH 60 entries)
+     repeats IDs 69-129 unchanged and adds the 10 DLC names as 130-139; all 60 names match the pack
+PASS Assassin's Creed: in a capture of 10 saves across Tamir's assassination, FinishEllipse DA2DC25A went from 0 to 3
+     in the save after the kill (22:54) and is 3 in both community saves; detector_ac1.lua unlocks The Blood of a
+     Corrupt Merchant there and in no earlier save of the four captures. AssassinsCreed_Dx9.exe names the eight
+     collectible counters (AAE_Templars, AAE_FlagsMasyaf ... AAE_FlagsKingdom, event IDs 235-242) but holds no
+     achievement table, so it does not say which Acre 33-flag list is Hospitaller or Teutonic
+PASS Assassin's Creed: a 48-save community playthrough (pcsavegames, one save per step) through Memory Block 7:
+     detector_ac1.lua unlocks, in order, Welcome to the Animus (02), Hero of Masyaf (05), Punishment for Treason
+     (10), Tamir (13), Keeper of the Creed (15), Garnier (18), Talal (22), Abul Nuqoud (26), William (29), Majd
+     Addin (32), Sibrand (36), Keeper of the Black Cross (38), Jubair (39), Fearless (42), Robert (46); each
+     target in the save after its city's district list opened (Acre 676/703/712, Jerusalem 667/694/730,
+     Damascus 658/685/721); the Acre 533 list fills from the first Acre visit and 515 only with Sibrand's district
+PASS Assassin's Creed: none of a tester's 57 saves unlocks anything beyond the first three and Tamir; the 100%
+     community save unlocks all 21 automatic achievements, the partial one 13 (Tamir and Talal killed)
+PASS Assassin's Creed: the progress block is also the game's own achievement record, one u32 state per achievement
+     in the pack's order (1 locked, 2 unlocked). In the 48-save playthrough every state is 1 or 2, none goes back,
+     and the earned ones turn 2 in order: Welcome (02), Hero of Masyaf (05), Treason (10), Tamir and Blade in the
+     Crowd (13), Creed (15), Garnier (18), Talon and March of the Pious (21), Talal (22), Prey and Dance (25), Abul
+     Nuqoud (26), William (29), Majd Addin (32), Eagle's Will (35), Sibrand (36), Absolute Symbiosis (37), Flight and
+     Black Cross (38), Jubair (39), Fearless (42), Robert, Disciple and Swiftness (45), the ending and Visions (48);
+     the running counts stop at the targets (Prey 100, Swiftness 100, Talon 50, Dance 50, Pious 20)
+PASS Assassin's Creed: with the record, the 100% community save unlocks 34 (the 21 from rules plus Absolute Symbiosis,
+     Conversationalist, Disciple, the ending and the Eagle's challenges), the partial one 15 (Talon 13/50); every
+     objective and list rule result is inside the record in all 48 pack saves, both community saves and a tester's 57
+     saves; a tester's 23:02 save adds Blade in the Crowd beside Tamir
+PASS Assassin's Creed II: AssassinsCreedIIGame.exe names the save's sections (property hashes are CRC32 of names):
+     AccomplishmentManagerData holds 81 AccomplishmentEntrySavegame records (ObjectID, Inactive, Completed); DataPC.forge
+     (Game Bootstrap Settings) names them, including "Buy Firenze/Venezia Painting", "Tint Wetland Ebony/Ivory" and
+     "Wear Auditore Cape in <region>", and its achievement definitions ("45 - Art Connoisseur", "47 - Perfect Harmony",
+     "48 - Show your Colors") list exactly those accomplishments (six cape regions; Roma is not one)
+PASS Assassin's Creed II: on a 27-save pcsavegames playthrough the detector adds Handy Man at Sequence 4 Memory 1 (the
+     stronghold building levels leave the new-game 0 0 1 1 0 0 0 0 0 0 0) and Art Connoisseur at Sequence 7 Memory 1 (Buy
+     Venezia Painting done, Firenze since Sequence 4); every earlier unlock is unchanged. a tester's late 2.save gets Handy Man
+     and shows 1/2 paintings, 0/2 dyes, 0/6 cape regions
+PASS Thrillville: Off the Rails: the game's park files (<Park>.zap, <Park>_English.ovl) name every mission, so the
+     five story achievements map to P1_G_WinPrizes ("Bribery 101!"), P2_G_SaucerSoccer, P3_G_GuestsInTrance,
+     P4_M_RobotReductionII and P5_G_RobotKO, and each park achievement to that park's full mission list; on a tester's
+     two park saves (4 and 9 missions finished) the detector unlocks Critics and nothing else
+PASS Assassin's Creed II: Podesta of Monteriggioni: the villa items in Game Bootstrap Settings carry the values the
+     community lists (paintings 3,600, weapons 10,850, armour sets 460/1,255/2,135/3,790/3,500, feathers 1,000), the
+     shops and renovations 54,000 and 21,000, and the group bonuses 47,500; together 150,000, the only such constant,
+     held by the villa manager beside the 0.1 income rate (the saves' chest grows by 10% of the value per 20 minutes).
+     The save's value is 1,280 on a new game (Blacksmith 500 + Doctor 750 + 30); in the 27-save pack it first reaches
+     120,000 at Sequence 7 Memory 1 (126,605); a tester's late 2.save (128,572) unlocks it, a new game (1,280) does not
+PASS Thrillville: Off the Rails: each <Park>_English.ovl has an index of [hash][key offset][string offset][01 00 ff ff]
+     entries, so every mission's _title and _goal is read exactly; it confirms the five story missions (BRIBERY 101!,
+     ALIEN ANTICS, TRANCE-CENDTAL, CLEARANCE SALE, TRAITOR'S ARENA) and gives the single-goal hunts P1_U_FindBoards,
+     P2_U_CollectSprayers and P3_U_FindHypnodiscs ("COLLECT ALL 6 ..."), the brand-new coaster missions P1_B_DesignCoaster
+     and P5_B_DesignCoaster, the mini golf P5_B_DesignMinigolfCourse and the whoa coaster P4_B_StuntDropI; on a tester's two
+     saves nothing new unlocks (Find Boards and Design Coaster are open)
+PASS Thrillville: Off the Rails: owner level is u32 0x576F0 (a tester's 2023 save 1, a 2026-10-27 save 2, a
+     2026-10-29 capture 2, which the tester confirmed in-game), next to u32 0x576C0 = missions finished (4, 9, 10, matching
+     the mission list); the 2023 save unlocks nothing new, both level-2 saves add Thrillville Talent

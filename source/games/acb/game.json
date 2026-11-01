@@ -1,0 +1,1146 @@
+{
+  "slug": "acb",
+  "appId": 48190,
+  "title": "Assassin's Creed Brotherhood",
+  "platform": "Xbox 360",
+  "detector": "acb",
+  "setupHint": "Play until Brotherhood saves, or select ACBROTHERHOODSAVEGAME0.SAV in Settings.",
+  "pathPlaceholder": "Path to Saved Games\\Assassin's Creed Brotherhood\\SAVES (or a .SAV file)",
+  "trackingNote": "Brotherhood records its own achievements (Settings > Stats > Achievements) in the OPTIONS file next to your save in Saved Games\\Assassin's Creed Brotherhood\\SAVES. The plugin reads that record and the newest save, so the 50 single-player and Da Vinci Disappearance achievements unlock a few seconds after the game unlocks them. The 10 multiplayer ones are marked by hand, since the servers are shut down.",
+  "autoTag": "Unlocks automatically from Brotherhood's own record",
+  "saveFolders": [
+    [
+      "USERPROFILE",
+      "Saved Games",
+      "Assassin's Creed Brotherhood",
+      "SAVES"
+    ]
+  ],
+  "saveFolderHint": "Saved Games\\Assassin's Creed Brotherhood\\SAVES",
+  "achievements": [
+    {
+      "name": "Technical Difficulties",
+      "detail": "Attempt to access DNA Sequence 9 for the first time.",
+      "group": "Story",
+      "points": 10,
+      "icon": "animus",
+      "rule": {
+        "seen": [
+          "E04M01",
+          "E04M02"
+        ],
+        "done": [
+          "E04M01",
+          "E04M02"
+        ]
+      }
+    },
+    {
+      "name": "Battle Wounds",
+      "detail": "Complete DNA Sequence 1.",
+      "group": "Story",
+      "points": 20,
+      "icon": "dna",
+      "rule": {
+        "done": [
+          "SQ01M99_Outro",
+          "P01M01",
+          "P01M02",
+          "P01M02B",
+          "P01M03",
+          "SQ02M02",
+          "SQ02M03A",
+          "SQ02M03B",
+          "SQ02M04A",
+          "SQ02M04B",
+          "SQ02M04C",
+          "SQ02M04Z",
+          "SQ02M04D",
+          "SQ02M99_Outro",
+          "SQ02BM00_Flyby",
+          "SQ02M05",
+          "SQ02M06",
+          "SQ02M07",
+          "SQ02M08",
+          "SQ02BM99_Outro",
+          "SQ03M00_Flyby",
+          "SQ03M01",
+          "SQ03M02",
+          "SQ03M03",
+          "SQ03M04",
+          "SQ03M05",
+          "SQ03M06",
+          "SQ03M07",
+          "SQ03M99_Outro",
+          "SQ04M00_FlyBy",
+          "SQ04M01",
+          "SQ04M03",
+          "SQ04M04",
+          "SQ04M05",
+          "SQ04M06",
+          "SQ04M99_Outro",
+          "SQ06M00_FlyBy",
+          "SQ06M01",
+          "SQ06M02",
+          "SQ06M03",
+          "SQ06M04",
+          "SQ06M99_Outro",
+          "SQ05M00_Flyby",
+          "SQ05M01",
+          "SQ05M02",
+          "SQ05M03",
+          "SQ05M04",
+          "SQ05M05",
+          "SQ05M99_Outro",
+          "SQ07M00_Flyby",
+          "SQ07M01",
+          "SQ07M02",
+          "SQ07M03",
+          "SQ07M04",
+          "SQ07M05",
+          "SQ07M06",
+          "SQ07M99_Outro",
+          "E04M01",
+          "E04M02"
+        ]
+      }
+    },
+    {
+      "name": "Sanctuary! Sanctuary!",
+      "detail": "Find a secure place to hide and re-enter the Animus.",
+      "group": "Story",
+      "points": 20,
+      "icon": "insignia",
+      "rule": {
+        "done": [
+          "P01M03",
+          "SQ02M02",
+          "SQ02M03A",
+          "SQ02M03B",
+          "SQ02M04A",
+          "SQ02M04B",
+          "SQ02M04C",
+          "SQ02M04Z",
+          "SQ02M04D",
+          "SQ02M99_Outro",
+          "SQ02BM00_Flyby",
+          "SQ02M05",
+          "SQ02M06",
+          "SQ02M07",
+          "SQ02M08",
+          "SQ02BM99_Outro",
+          "SQ03M00_Flyby",
+          "SQ03M01",
+          "SQ03M02",
+          "SQ03M03",
+          "SQ03M04",
+          "SQ03M05",
+          "SQ03M06",
+          "SQ03M07",
+          "SQ03M99_Outro",
+          "SQ04M00_FlyBy",
+          "SQ04M01",
+          "SQ04M03",
+          "SQ04M04",
+          "SQ04M05",
+          "SQ04M06",
+          "SQ04M99_Outro",
+          "SQ06M00_FlyBy",
+          "SQ06M01",
+          "SQ06M02",
+          "SQ06M03",
+          "SQ06M04",
+          "SQ06M99_Outro",
+          "SQ05M00_Flyby",
+          "SQ05M01",
+          "SQ05M02",
+          "SQ05M03",
+          "SQ05M04",
+          "SQ05M05",
+          "SQ05M99_Outro",
+          "SQ07M00_Flyby",
+          "SQ07M01",
+          "SQ07M02",
+          "SQ07M03",
+          "SQ07M04",
+          "SQ07M05",
+          "SQ07M06",
+          "SQ07M99_Outro",
+          "E04M01",
+          "E04M02"
+        ]
+      }
+    },
+    {
+      "name": "Rome in Ruins",
+      "detail": "Complete DNA Sequence 2.",
+      "group": "Story",
+      "points": 20,
+      "icon": "dna",
+      "rule": {
+        "done": [
+          "SQ02M99_Outro",
+          "SQ02BM00_Flyby",
+          "SQ02M05",
+          "SQ02M06",
+          "SQ02M07",
+          "SQ02M08",
+          "SQ02BM99_Outro",
+          "SQ03M00_Flyby",
+          "SQ03M01",
+          "SQ03M02",
+          "SQ03M03",
+          "SQ03M04",
+          "SQ03M05",
+          "SQ03M06",
+          "SQ03M07",
+          "SQ03M99_Outro",
+          "SQ04M00_FlyBy",
+          "SQ04M01",
+          "SQ04M03",
+          "SQ04M04",
+          "SQ04M05",
+          "SQ04M06",
+          "SQ04M99_Outro",
+          "SQ06M00_FlyBy",
+          "SQ06M01",
+          "SQ06M02",
+          "SQ06M03",
+          "SQ06M04",
+          "SQ06M99_Outro",
+          "SQ05M00_Flyby",
+          "SQ05M01",
+          "SQ05M02",
+          "SQ05M03",
+          "SQ05M04",
+          "SQ05M05",
+          "SQ05M99_Outro",
+          "SQ07M00_Flyby",
+          "SQ07M01",
+          "SQ07M02",
+          "SQ07M03",
+          "SQ07M04",
+          "SQ07M05",
+          "SQ07M06",
+          "SQ07M99_Outro",
+          "E04M01",
+          "E04M02"
+        ]
+      }
+    },
+    {
+      "name": "Fixer-Upper",
+      "detail": "Complete DNA Sequence 3.",
+      "group": "Story",
+      "points": 20,
+      "icon": "dna",
+      "rule": {
+        "done": [
+          "SQ02BM99_Outro",
+          "SQ03M00_Flyby",
+          "SQ03M01",
+          "SQ03M02",
+          "SQ03M03",
+          "SQ03M04",
+          "SQ03M05",
+          "SQ03M06",
+          "SQ03M07",
+          "SQ03M99_Outro",
+          "SQ04M00_FlyBy",
+          "SQ04M01",
+          "SQ04M03",
+          "SQ04M04",
+          "SQ04M05",
+          "SQ04M06",
+          "SQ04M99_Outro",
+          "SQ06M00_FlyBy",
+          "SQ06M01",
+          "SQ06M02",
+          "SQ06M03",
+          "SQ06M04",
+          "SQ06M99_Outro",
+          "SQ05M00_Flyby",
+          "SQ05M01",
+          "SQ05M02",
+          "SQ05M03",
+          "SQ05M04",
+          "SQ05M05",
+          "SQ05M99_Outro",
+          "SQ07M00_Flyby",
+          "SQ07M01",
+          "SQ07M02",
+          "SQ07M03",
+          "SQ07M04",
+          "SQ07M05",
+          "SQ07M06",
+          "SQ07M99_Outro",
+          "E04M01",
+          "E04M02"
+        ]
+      }
+    },
+    {
+      "name": "Principessa in Another Castello",
+      "detail": "Complete DNA Sequence 4.",
+      "group": "Story",
+      "points": 20,
+      "icon": "dna",
+      "rule": {
+        "done": [
+          "SQ03M99_Outro",
+          "SQ04M00_FlyBy",
+          "SQ04M01",
+          "SQ04M03",
+          "SQ04M04",
+          "SQ04M05",
+          "SQ04M06",
+          "SQ04M99_Outro",
+          "SQ06M00_FlyBy",
+          "SQ06M01",
+          "SQ06M02",
+          "SQ06M03",
+          "SQ06M04",
+          "SQ06M99_Outro",
+          "SQ05M00_Flyby",
+          "SQ05M01",
+          "SQ05M02",
+          "SQ05M03",
+          "SQ05M04",
+          "SQ05M05",
+          "SQ05M99_Outro",
+          "SQ07M00_Flyby",
+          "SQ07M01",
+          "SQ07M02",
+          "SQ07M03",
+          "SQ07M04",
+          "SQ07M05",
+          "SQ07M06",
+          "SQ07M99_Outro",
+          "E04M01",
+          "E04M02"
+        ]
+      }
+    },
+    {
+      "name": "Fundraiser",
+      "detail": "Complete DNA Sequence 5.",
+      "group": "Story",
+      "points": 20,
+      "icon": "dna",
+      "rule": {
+        "done": [
+          "SQ04M99_Outro",
+          "SQ06M00_FlyBy",
+          "SQ06M01",
+          "SQ06M02",
+          "SQ06M03",
+          "SQ06M04",
+          "SQ06M99_Outro",
+          "SQ05M00_Flyby",
+          "SQ05M01",
+          "SQ05M02",
+          "SQ05M03",
+          "SQ05M04",
+          "SQ05M05",
+          "SQ05M99_Outro",
+          "SQ07M00_Flyby",
+          "SQ07M01",
+          "SQ07M02",
+          "SQ07M03",
+          "SQ07M04",
+          "SQ07M05",
+          "SQ07M06",
+          "SQ07M99_Outro",
+          "E04M01",
+          "E04M02"
+        ]
+      }
+    },
+    {
+      "name": "Forget Paris",
+      "detail": "Complete DNA Sequence 6.",
+      "group": "Story",
+      "points": 20,
+      "icon": "dna",
+      "rule": {
+        "done": [
+          "SQ06M99_Outro",
+          "SQ05M00_Flyby",
+          "SQ05M01",
+          "SQ05M02",
+          "SQ05M03",
+          "SQ05M04",
+          "SQ05M05",
+          "SQ05M99_Outro",
+          "SQ07M00_Flyby",
+          "SQ07M01",
+          "SQ07M02",
+          "SQ07M03",
+          "SQ07M04",
+          "SQ07M05",
+          "SQ07M06",
+          "SQ07M99_Outro",
+          "E04M01",
+          "E04M02"
+        ]
+      }
+    },
+    {
+      "name": "Bloody Sunday",
+      "detail": "Complete DNA Sequence 7.",
+      "group": "Story",
+      "points": 20,
+      "icon": "dna",
+      "rule": {
+        "done": [
+          "SQ05M99_Outro",
+          "SQ07M00_Flyby",
+          "SQ07M01",
+          "SQ07M02",
+          "SQ07M03",
+          "SQ07M04",
+          "SQ07M05",
+          "SQ07M06",
+          "SQ07M99_Outro",
+          "E04M01",
+          "E04M02"
+        ]
+      }
+    },
+    {
+      "name": "Vittoria Agli Assassini",
+      "detail": "Complete DNA Sequence 8.",
+      "group": "Story",
+      "points": 20,
+      "icon": "dna",
+      "rule": {
+        "done": [
+          "SQ07M99_Outro",
+          "E04M01",
+          "E04M02"
+        ]
+      }
+    },
+    {
+      "name": "Requiescat In Pace",
+      "detail": "Complete DNA Sequence 9.",
+      "group": "Story",
+      "points": 20,
+      "icon": "dna",
+      "rule": {
+        "done": [
+          "E04M02"
+        ]
+      }
+    },
+    {
+      "name": "A Knife to the Heart",
+      "detail": "Secure the Apple of Eden.",
+      "group": "Story",
+      "points": 50,
+      "icon": "eye",
+      "rule": {
+        "done": [
+          "P02M02B"
+        ]
+      }
+    },
+    {
+      "name": "Perfect Recall",
+      "detail": "Achieve 100% Synchronization in any Sequence other than Sequence 1.",
+      "group": "Story",
+      "points": 30,
+      "icon": "dna"
+    },
+    {
+      "name": "Déjà Vu",
+      "detail": "Replay a Memory.",
+      "group": "Story",
+      "points": 20,
+      "icon": "dna"
+    },
+    {
+      "name": "Undertaker 2.0",
+      "detail": "Discover the Shrine in the Catacombe di Roma.",
+      "group": "Lairs of Romulus",
+      "points": 20,
+      "icon": "tomb",
+      "rule": {
+        "done": [
+          "LGS302_Catacombs"
+        ]
+      }
+    },
+    {
+      "name": "Golden Boy",
+      "detail": "Discover the Shrine in the Terme di Traiano.",
+      "group": "Lairs of Romulus",
+      "points": 20,
+      "icon": "tomb",
+      "rule": {
+        "done": [
+          "SQ02M04C"
+        ]
+      }
+    },
+    {
+      "name": "Gladiator",
+      "detail": "Discover the Shrine in Il Colosseo.",
+      "group": "Lairs of Romulus",
+      "points": 20,
+      "icon": "tomb",
+      "rule": {
+        "done": [
+          "LGS305_Coliseum"
+        ]
+      }
+    },
+    {
+      "name": "Plumber",
+      "detail": "Discover the Shrine in the Cloaca Maxima.",
+      "group": "Lairs of Romulus",
+      "points": 20,
+      "icon": "tomb",
+      "rule": {
+        "done": [
+          "LGS306_CloacaMaxima"
+        ]
+      }
+    },
+    {
+      "name": "One-Man Wrecking Crew",
+      "detail": "Discover the Shrine in Palazzo Laterano.",
+      "group": "Lairs of Romulus",
+      "points": 20,
+      "icon": "tomb",
+      "rule": {
+        "done": [
+          "LGS308_LateranPalace"
+        ]
+      }
+    },
+    {
+      "name": "Amen",
+      "detail": "Discover the Shrine in the Basilica di San Pietro.",
+      "group": "Lairs of Romulus",
+      "points": 20,
+      "icon": "tomb",
+      "rule": {
+        "done": [
+          "LGS309_OldStPeter"
+        ]
+      }
+    },
+    {
+      "name": "Bang!",
+      "detail": "Destroy the Machine Gun.",
+      "group": "Leonardo's machines",
+      "points": 20,
+      "icon": "bolt",
+      "rule": {
+        "done": [
+          "EXO_01_MachineGun"
+        ]
+      }
+    },
+    {
+      "name": "Splash!",
+      "detail": "Destroy the Naval Cannon.",
+      "group": "Leonardo's machines",
+      "points": 20,
+      "icon": "drops",
+      "rule": {
+        "done": [
+          "EXO_02_NavalCannon"
+        ]
+      }
+    },
+    {
+      "name": "Boom!",
+      "detail": "Destroy the Bomber.",
+      "group": "Leonardo's machines",
+      "points": 20,
+      "icon": "plane",
+      "rule": {
+        "done": [
+          "EXO_03_LeoBomber"
+        ]
+      }
+    },
+    {
+      "name": "Kaboom!",
+      "detail": "Destroy the Tank.",
+      "group": "Leonardo's machines",
+      "points": 20,
+      "icon": "tank",
+      "rule": {
+        "done": [
+          "EXO_04_Tank"
+        ]
+      }
+    },
+    {
+      "name": "Home Improvement",
+      "detail": "Renovate 5 buildings in the Antico district.",
+      "group": "Rome",
+      "points": 20,
+      "icon": "hammer"
+    },
+    {
+      "name": "Tower Offense",
+      "detail": "Burn All Borgia Towers.",
+      "group": "Rome",
+      "points": 20,
+      "icon": "tower",
+      "rule": {
+        "done": [
+          "BT_AllComplete"
+        ],
+        "all": [
+          "BT_Downtown_Tutorial",
+          "BT_Downtown_01",
+          "BT_Downtown_02",
+          "BT_Downtown_03",
+          "BT_Downtown_04",
+          "BT_Countryside_01",
+          "BT_Countryside_02",
+          "BT_Countryside_03",
+          "BT_Countryside_04",
+          "BT_Antique_01",
+          "BT_Antique_02",
+          "BT_Antique_03"
+        ],
+        "label": "Borgia towers burned"
+      }
+    },
+    {
+      "name": "Show Off",
+      "detail": "Complete 10 Guild Challenges.",
+      "group": "Rome",
+      "points": 20,
+      "icon": "medal"
+    },
+    {
+      "name": ".. .- -- .- .-.. .. ...- .",
+      "detail": "Solve all of Subject 16's puzzles.",
+      "group": "Collectibles",
+      "points": 20,
+      "icon": "glyph"
+    },
+    {
+      "name": "Perfectionist",
+      "detail": "Earn 3 gold medals in the Animus Virtual Training Program.",
+      "group": "Rome",
+      "points": 20,
+      "icon": "medal"
+    },
+    {
+      "name": "Brotherhood",
+      "detail": "Recruit 3 Assassins.",
+      "group": "Brotherhood",
+      "points": 20,
+      "icon": "insignia"
+    },
+    {
+      "name": "Welcome to the Brotherhood",
+      "detail": "Train a recruit up to the Rank of Assassin.",
+      "group": "Brotherhood",
+      "points": 20,
+      "icon": "insignia"
+    },
+    {
+      "name": "Capture the Flag",
+      "detail": "Remove All Borgia Flags in Rome.",
+      "group": "Collectibles",
+      "points": 30,
+      "icon": "flag",
+      "rule": {
+        "all": [
+          "BorgiaFlags_Rome_Downtown",
+          "BorgiaFlags_Rome_Countryside",
+          "BorgiaFlags_Rome_Antique",
+          "BorgiaFlags_Rome_Vatican"
+        ],
+        "label": "Districts cleared of Borgia flags"
+      }
+    },
+    {
+      "name": "In Memoriam",
+      "detail": "Collect All Feathers.",
+      "group": "Collectibles",
+      "points": 20,
+      "icon": "feather",
+      "rule": {
+        "done": [
+          "Feathers_All"
+        ],
+        "all": [
+          "Feathers_Downtown",
+          "Feathers_Antique",
+          "Feathers_Countryside",
+          "Feathers_TiberIsland"
+        ],
+        "label": "Districts with every feather"
+      }
+    },
+    {
+      "name": "Dust to Dust",
+      "detail": "Find 1 Artifact in 2012.",
+      "group": "Collectibles",
+      "points": 20,
+      "icon": "puzzle"
+    },
+    {
+      "name": "Serial Killer",
+      "detail": "Perform an Execution Streak of 10 kills.",
+      "group": "Rome",
+      "points": 20,
+      "icon": "swords"
+    },
+    {
+      "name": "Spring Cleaning",
+      "detail": "Kill a guard with a broom.",
+      "group": "Rome",
+      "points": 10,
+      "icon": "hammer"
+    },
+    {
+      "name": "Your Wish is Granted",
+      "detail": "Throw money in a well.",
+      "group": "Rome",
+      "points": 10,
+      "icon": "coin"
+    },
+    {
+      "name": "Fly Like an Eagle",
+      "detail": "Jump with the parachute off the top of Castel Sant'Angelo.",
+      "group": "Rome",
+      "points": 10,
+      "icon": "glider"
+    },
+    {
+      "name": "The Gloves Come Off",
+      "detail": "Win the highest bet at the Fights.",
+      "group": "Rome",
+      "points": 10,
+      "icon": "fist"
+    },
+    {
+      "name": "Mailer Daemon",
+      "detail": "Access your email in 2012.",
+      "group": "Collectibles",
+      "points": 20,
+      "icon": "letter"
+    },
+    {
+      "name": "Synchronization Established",
+      "detail": "Complete an entire Session with at least one kill (Multiplayer Only).",
+      "group": "Multiplayer",
+      "points": 10,
+      "icon": "target"
+    },
+    {
+      "name": "Needle in a Haystack",
+      "detail": "Kill your target while hidden in a hay bale (Multiplayer Only).",
+      "group": "Multiplayer",
+      "points": 5,
+      "icon": "target"
+    },
+    {
+      "name": "Strong Closer",
+      "detail": "Take the lead 10 seconds before the end of a session and go on to win (Multiplayer Only).",
+      "group": "Multiplayer",
+      "points": 20,
+      "icon": "target"
+    },
+    {
+      "name": "Fast Learner",
+      "detail": "Kill your target and escape your pursuer in less than 10 seconds (Multiplayer Only).",
+      "group": "Multiplayer",
+      "points": 25,
+      "icon": "target"
+    },
+    {
+      "name": "Job skills",
+      "detail": "During Open Conflict, kill your target and escape (Multiplayer Only).",
+      "group": "Multiplayer",
+      "points": 20,
+      "icon": "target"
+    },
+    {
+      "name": "Download Complete",
+      "detail": "Reach Level 50 (Multiplayer Only).",
+      "group": "Multiplayer",
+      "points": 40,
+      "icon": "target"
+    },
+    {
+      "name": "Role Model",
+      "detail": "Get all the Co-op bonuses in 1 session (Multiplayer Only).",
+      "group": "Multiplayer",
+      "points": 20,
+      "icon": "target"
+    },
+    {
+      "name": "Overachiever",
+      "detail": "Score 750 points or more on a single kill (Multiplayer Only).",
+      "group": "Multiplayer",
+      "points": 20,
+      "icon": "target"
+    },
+    {
+      "name": "Abstergo Employee of the Month",
+      "detail": "Get every single bonus at least once (Multiplayer Only).",
+      "group": "Multiplayer",
+      "points": 20,
+      "icon": "target"
+    },
+    {
+      "name": "Ahead of the Curve",
+      "detail": "Perform a double or triple escape (Multiplayer Only).",
+      "group": "Multiplayer",
+      "points": 20,
+      "icon": "target"
+    },
+    {
+      "name": "Strong-Arm",
+      "detail": "Throw a Long Weapon, Heavy Weapon, and Smoke bomb more than 10 m at a guard.",
+      "group": "The Da Vinci Disappearance",
+      "points": 10,
+      "icon": "star"
+    },
+    {
+      "name": "High Roller",
+      "detail": "Win 10000 florins playing Hazard.",
+      "group": "The Da Vinci Disappearance",
+      "points": 20,
+      "icon": "coins"
+    },
+    {
+      "name": "il Principe",
+      "detail": "Receive 100% synch in ACB and full synch in all missions of the Da Vinci Disappearance.",
+      "group": "The Da Vinci Disappearance",
+      "points": 100,
+      "icon": "crown"
+    },
+    {
+      "name": "Airstrike",
+      "detail": "Kill 10 guards with a single arrow storm.",
+      "group": "The Da Vinci Disappearance",
+      "points": 20,
+      "icon": "star"
+    },
+    {
+      "name": "GPS",
+      "detail": "Complete the Da Vinci Disappearance.",
+      "group": "The Da Vinci Disappearance",
+      "points": 20,
+      "icon": "painting",
+      "rule": {
+        "done": [
+          "DLC_04_M08",
+          "DLC_04_M99"
+        ]
+      }
+    },
+    {
+      "name": "Clowning Around",
+      "detail": "Beat up the 5 thirsty harlequins.",
+      "group": "The Da Vinci Disappearance",
+      "points": 30,
+      "icon": "star",
+      "rule": {
+        "done": [
+          "Harlequin_achieve_complete"
+        ],
+        "all": [
+          "Harlequin_01",
+          "Harlequin_02",
+          "Harlequin_03",
+          "Harlequin_04",
+          "Harlequin_05"
+        ],
+        "label": "Harlequins beaten"
+      }
+    },
+    {
+      "name": "Special Delivery",
+      "detail": "Double Assassinate from a parachute.",
+      "group": "The Da Vinci Disappearance",
+      "points": 20,
+      "icon": "star"
+    },
+    {
+      "name": "Grand Theft Dressage",
+      "detail": "Steal 5 horses from their riders, while remaining on horseback.",
+      "group": "The Da Vinci Disappearance",
+      "points": 20,
+      "icon": "star"
+    },
+    {
+      "name": "Going Up",
+      "detail": "Kill a guard with the bag that drops from a lift.",
+      "group": "The Da Vinci Disappearance",
+      "points": 5,
+      "icon": "star"
+    },
+    {
+      "name": "Easy Come, Easy Go",
+      "detail": "Pay 500 florins to an orator, then pickpocket him afterward.",
+      "group": "The Da Vinci Disappearance",
+      "points": 5,
+      "icon": "coin"
+    }
+  ],
+  "missions": {
+    "E01M01": "8A79EC27",
+    "SQ01M01": "479FEEB1",
+    "SQ01M02": "8A79EC38",
+    "SQ01MT02": "4C2908B1",
+    "SQ01MT03": "4C2908B2",
+    "SQ01MT05": "4C2908B4",
+    "SQ01M03": "8A79EC3B",
+    "SQ01M04": "8A79EC3E",
+    "SQ01M05": "8A79EC41",
+    "SQ01M99_Outro": "2EFFE834",
+    "P01M01": "8A79EC44",
+    "P01M02": "66C40D21",
+    "P01M02B": "7D7E7A53",
+    "P01M03": "8A79EC4A",
+    "SQ02M02": "8A79EC51",
+    "CMM06": "2B72E47A",
+    "SQ02M03A": "8A79EC54",
+    "BT_Downtown_Tutorial": "E10B114F",
+    "SQ02M03B": "01563B8A",
+    "SQ02M04A": "8A79EC57",
+    "SQ02M04B": "E4E7FD9A",
+    "SQ02M04C": "66C40D23",
+    "SQ02M04Z": "2EF7A2F4",
+    "SQ02M04D": "E4E7FD9C",
+    "SQ02M99_Outro": "12BDF404",
+    "SQ02BM00_Flyby": "DA1847C4",
+    "SQ02M05": "8A79EC5A",
+    "SQ02M06": "8A79EC5D",
+    "BT_Countryside_03": "6094F82C",
+    "SQ02M07": "A249D592",
+    "SQ02M08": "A8DB16CB",
+    "SQ02BM99_Outro": "140FFBC0",
+    "SQ03M00_Flyby": "5BA9E150",
+    "SQ03M01": "8A79EC65",
+    "SQ03M02": "8A79EC68",
+    "SQ03M03": "8A79EC6B",
+    "SQ03M04": "8A79EC6E",
+    "SQ03M05": "A939A568",
+    "CMM03": "2B72E477",
+    "CMM08": "2B72E47C",
+    "SQ03M06": "0FD1155A",
+    "SQ03M07": "BB2ADF34",
+    "SQ03M99_Outro": "12BE150D",
+    "SQ04M00_FlyBy": "5BA9D8B0",
+    "SQ04M01": "8A79EC72",
+    "SQ04M03": "8A79EC78",
+    "SQ04M04": "8A79EC7B",
+    "SQ04M05": "8A79EC7E",
+    "SQ04M06": "8A79EC81",
+    "SQ04M99_Outro": "093ADEC0",
+    "SQ06M00_FlyBy": "81E34CAC",
+    "SQ06M01": "8A79EC92",
+    "SQ06M02": "8A79EC95",
+    "SQ06M03": "8A79EC98",
+    "SQ06M04": "8A79EC9B",
+    "SQ06M99_Outro": "12BDF425",
+    "SQ05M00_Flyby": "5C67B106",
+    "SQ05M01": "8A79EC85",
+    "SQ05M02": "8A79EC88",
+    "SQ05M03": "8A79EC8B",
+    "SQ05M04": "8A79EC8E",
+    "SQ05M05": "AAFB570F",
+    "SQ05M99_Outro": "129D14AD",
+    "SQ07M00_Flyby": "5E680F62",
+    "SQ07M01": "8A79ECA3",
+    "SQ07M02": "8A79ECA6",
+    "SQ07M03": "8A79ECA9",
+    "SQ07M04": "8A79ECAF",
+    "SQ07M05": "0AC5F9C0",
+    "SQ07M06": "0AC5F9C5",
+    "SQ07M99_Outro": "202C6116",
+    "E04M01": "C49C36A1",
+    "E04M02": "8A79ECBA",
+    "P02M01": "8D9F5164",
+    "P02M02": "9DAD6ADF",
+    "P02M02B": "66C40D2A",
+    "CMAB01": "77657D32",
+    "CMA01": "6B54A2B3",
+    "CMA02": "6B54A2B4",
+    "CMA03": "6B54A2B5",
+    "CMA04": "BAF7C5C9",
+    "CMAB02": "77657D33",
+    "CMA05": "BAF7C5C3",
+    "CMA06": "BAF7C5C0",
+    "CMA07": "2249B11B",
+    "CMA10": "4C4B96D2",
+    "CMAB03": "77657D34",
+    "CMA08": "6B54A2B6",
+    "CMA09": "6B54A2B7",
+    "CMA11": "6B54A2B8",
+    "CMA12": "483BAF51",
+    "CMAB04_Complete": "BAC9DBE0",
+    "CMB01_Intro": "0FD13C83",
+    "CMB01": "9960AA9E",
+    "CMB02_Intro": "13E365DB",
+    "CMB02": "9960AAA1",
+    "CMB03_Intro": "13E367A5",
+    "CMB03": "9960AAA4",
+    "CMB04_Intro": "13E367A6",
+    "CMB04": "9960AAA7",
+    "CMB05_Intro": "13E367A7",
+    "CMB05": "9960AAAA",
+    "CMM01": "2B72E475",
+    "CMM04": "2B72E478",
+    "CMM02": "2B72E476",
+    "CMM05": "2B72E479",
+    "CMM07": "2B72E47B",
+    "CMM09": "2B72E47D",
+    "CMCB01": "77657453",
+    "CMC01": "57C97C91",
+    "CMC02": "599AD53B",
+    "CMC03": "599F45DE",
+    "CMCB02": "7765746E",
+    "CMC04": "599F45DF",
+    "CMC05": "19A3E69E",
+    "CMC06": "7FF0728B",
+    "CMC07": "7EC7E788",
+    "CMCB03": "77657A25",
+    "CMC08": "67F3A9A0",
+    "CMC09": "6E8C4AFA",
+    "CMC10": "6E8C4AFB",
+    "CMCB04_Complete": "BAC9DC07",
+    "CMS01": "73AA778F",
+    "CMS02": "73AA7790",
+    "CMS03": "73AA7791",
+    "CMS04": "73AA7792",
+    "CMS05": "73AA7793",
+    "CMS06": "73AA7794",
+    "CMS07": "73AA7795",
+    "CMS08": "73AA7796",
+    "CMTB01": "76D32610",
+    "CMT01": "DE4329D3",
+    "CMT02": "76750BF3",
+    "CMT03": "6B12B158",
+    "CMTB02": "76D32611",
+    "CMT04": "B09DC73A",
+    "CMT05": "0C0B8B14",
+    "CMT06": "7CFEEFEF",
+    "CMT07": "733D6D92",
+    "CMTB03": "76D32612",
+    "CMT08": "94246F7D",
+    "CMT09": "DE432702",
+    "CMT10": "CFFCFB85",
+    "CMTB04_Complete": "BAC9DC2E",
+    "LGS302_Catacombs": "66C40D22",
+    "LGS304_TrajanMarket": "66C40D24",
+    "LGS305_Coliseum": "66C40D25",
+    "LGS306_CloacaMaxima": "66C40D26",
+    "LGS307_Aqueducts": "66C40D27",
+    "LGS308_LateranPalace": "66C40D28",
+    "LGS309_OldStPeter": "66C40D29",
+    "SpecUnlock_BrutusArmor": "6698BAF0",
+    "Games": "6F9BD029",
+    "EXO_01_MachineGun": "A8C14D88",
+    "L01M02": "5F85865E",
+    "L01M03": "9E2F2836",
+    "EXO_02_NavalCannon": "A8C14D91",
+    "L02M02": "5F85865F",
+    "L02M03": "9E2F2837",
+    "EXO_03_LeoBomber": "A8C14D8E",
+    "L03M02": "5F858660",
+    "L03M03": "9E2F2838",
+    "EXO_04_Tank": "A8C14D8B",
+    "L04M02": "5F858661",
+    "L04M03": "9E2F2839",
+    "Leo_ParachuteScene": "E1204DAE",
+    "Faction": "10ABC359",
+    "FC_MercStarter": "E595610C",
+    "FC_ThiefStarter": "E595610D",
+    "FC_CourtesanStarter": "E595610E",
+    "FC_AssassinStarter": "B14B483A",
+    "Assassins": "CE12B128",
+    "Subject": "579F9584",
+    "Feathers_Downtown": "BBA921F3",
+    "Feathers_Antique": "4AFB6728",
+    "Feathers_Countryside": "BBA92203",
+    "Feathers_TiberIsland": "BBA92213",
+    "Feathers_All": "2EA57347",
+    "BorgiaFlags_Rome_Downtown": "256928C2",
+    "BorgiaFlags_Rome_Countryside": "256928C1",
+    "BorgiaFlags_Rome_Antique": "DD9F9BB4",
+    "BorgiaFlags_Rome_Vatican": "256928C3",
+    "BorgiaFlags_LGS302": "256928C4",
+    "BorgiaFlags_LGS303": "25692939",
+    "BorgiaFlags_LGS305": "2569293A",
+    "BorgiaFlags_LGS306": "2569293B",
+    "BorgiaFlags_LGS307": "2569293C",
+    "BorgiaFlags_LGS308": "2569293D",
+    "BorgiaFlags_LGS309": "2569293E",
+    "TreasureChests_Downtown": "DD9F9BBD",
+    "TreasureChests_Countryside": "BBA922B4",
+    "TreasureChests_Antique": "BBA922B5",
+    "TreasureChests_Vatican": "BBA922B6",
+    "BT_Downtown_01": "6094F823",
+    "BT_Downtown_02": "6094F828",
+    "BT_Downtown_03": "6094F829",
+    "BT_Downtown_04": "6094F82A",
+    "BT_Countryside_01": "D8FAB886",
+    "BT_Countryside_02": "6094F82B",
+    "BT_Countryside_04": "6094F82D",
+    "BT_Antique_01": "6094F82E",
+    "BT_Antique_02": "6094F82F",
+    "BT_Antique_03": "6094F830",
+    "BT_AllComplete": "77C6FA76",
+    "Notoriety_Missions_Rome": "33F4FDEC",
+    "RHP_Rome_Countryside": "00C45A2D",
+    "RHP_Rome_Downtown": "B2674379",
+    "RHP_Rome_Antique": "B267437A",
+    "SpecUnlock_WolfmenLetters": "4DB734F9",
+    "DLC_04_Tutorial_Icon": "2044812A",
+    "DLC_04_M00": "A1F8C76B",
+    "DLC_04_M01": "A1F8C76C",
+    "DLC_04_M02": "A1F8C76D",
+    "DLC_04_M03": "A1F8C76E",
+    "DLC_04_M04": "A1F8C76F",
+    "DLC_04_M05": "A1F8C770",
+    "DLC_04_M06": "A1F8C771",
+    "DLC_04_M07": "A1F8C772",
+    "DLC_04_M08": "A1F8C773",
+    "DLC_04_M99": "6847A10A",
+    "Harlequin_01": "80CA4A69",
+    "Harlequin_02": "036CE9BD",
+    "Harlequin_03": "036CEA29",
+    "Harlequin_04": "039D8387",
+    "Harlequin_05": "03AC3ABB",
+    "Harlequin_achieve_complete": "03AC3ACC",
+    "Harlequin_locking": "1E7F026C"
+  },
+  "profileBits": {
+    "file": "OPTIONS",
+    "property": "496F8780",
+    "skip": [
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49
+    ],
+    "note": "u64 property in OPTIONS, bit N = achievement N; bits 0 and 1 confirmed on a real file. Multiplayer (40-49) stays manual: servers are shut down."
+  },
+  "completion": {
+    "name": "Julius Caesar",
+    "detail": "Win every trophy.",
+    "picture": "platinum.webp"
+  }
+}

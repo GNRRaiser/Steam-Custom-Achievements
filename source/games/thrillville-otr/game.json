@@ -1,0 +1,558 @@
+{
+ "appId": 6080,
+ "title": "Thrillville: Off the Rails",
+ "platform": "Xbox 360",
+ "detector": "thrillville",
+ "trackingNote": "The plugin reads your newest park save (AppData\\Local\\LucasArts\\Thrillville 07\\Save). The five story missions (Critics, Sabotage, Hypnosis, Robots, Traitor) unlock by themselves when the game saves after you finish them, and each park achievement (Explorer, Giant, Holiday, Otherworlds) once a save from that park has an open mission. Propaganda, The Rainbow and Disc Jockey unlock when you finish Propaganda Hunt!, Spray Away and Disc Collection (each is \"collect all 6\"); Coaster Boaster when you finish Whoa Designer or Whoa, Nelly! (build a brand new coaster); Putt putt power with Duffer's Paradise (build a mini golf course from pieces); Whoa with Whoa, Nelly! or Burning Circuits (a whoa coaster). Thrillville Talent, Sensation and Phenomenon unlock at park owner level 2, 5 and 10, read from the save's statistics. The mission names come from the game's own park files. The rest are marked by hand for now; Capture while I play still logs each mission that changes.",
+ "decoder": "thrillville",
+ "saveFolders": [
+  [
+   "LOCALAPPDATA",
+   "LucasArts",
+   "Thrillville 07",
+   "Save"
+  ]
+ ],
+ "saveFolderHint": "AppData\\Local\\LucasArts\\Thrillville 07\\Save",
+ "achievements": [
+  {
+   "name": "Bandito Beater",
+   "detail": "Completed Bandito Chinchilla.",
+   "group": "Minigames",
+   "points": 20,
+   "icon": "star"
+  },
+  {
+   "name": "Casanova",
+   "detail": "Became sweethearts with 10 park guests.",
+   "group": "Park Life",
+   "points": 10,
+   "icon": "heart"
+  },
+  {
+   "name": "Challenge Champ",
+   "detail": "Won 10 challenges with park guests on any minigames.",
+   "group": "Park Life",
+   "points": 10,
+   "icon": "medal"
+  },
+  {
+   "name": "Chatter Box",
+   "detail": "Filled your MyCrowd list.",
+   "group": "Park Life",
+   "points": 10,
+   "icon": "heart"
+  },
+  {
+   "name": "Coaster Boaster",
+   "detail": "Designed a rollercoaster.",
+   "group": "Building",
+   "points": 10,
+   "icon": "coaster",
+   "rule": {
+    "finished": [
+     "P1_B_DesignCoaster",
+     "P5_B_DesignCoaster"
+    ]
+   }
+  },
+  {
+   "name": "Coaster Dropper",
+   "detail": "Built a coaster with a drop height of over 300 ft.",
+   "group": "Building",
+   "points": 10,
+   "icon": "coaster"
+  },
+  {
+   "name": "Coaster Speedster",
+   "detail": "Built a coaster with a top speed over 80 mph.",
+   "group": "Building",
+   "points": 10,
+   "icon": "coaster"
+  },
+  {
+   "name": "Crackshot",
+   "detail": "Got a X5 combo multiplier in a shooting gallery.",
+   "group": "Minigames",
+   "points": 10,
+   "icon": "target"
+  },
+  {
+   "name": "Critics",
+   "detail": "Completed the 'Bribery 101!' mission in Thrillville Stunts.",
+   "group": "Missions",
+   "points": 30,
+   "icon": "letter",
+   "rule": {
+    "finished": [
+     "P1_G_WinPrizes"
+    ]
+   }
+  },
+  {
+   "name": "Disc Jockey",
+   "detail": "Collected all the Hypnodiscs.",
+   "group": "Collectibles",
+   "points": 10,
+   "icon": "music",
+   "rule": {
+    "finished": [
+     "P3_U_FindHypnodiscs"
+    ]
+   }
+  },
+  {
+   "name": "Flippin' Great",
+   "detail": "Performed a 720 backflip in Stunt Rider.",
+   "group": "Minigames",
+   "points": 10,
+   "icon": "star"
+  },
+  {
+   "name": "Fore!",
+   "detail": "Completed a round of timed mini golf on hard.",
+   "group": "Minigames",
+   "points": 10,
+   "icon": "flag"
+  },
+  {
+   "name": "Games Master",
+   "detail": "Completed all arcade games.",
+   "group": "Minigames",
+   "points": 40,
+   "icon": "crown"
+  },
+  {
+   "name": "Hypnosis",
+   "detail": "Completed the 'Trance-Cendtal' mission in Thrillville Giant.",
+   "group": "Missions",
+   "points": 30,
+   "icon": "eye",
+   "rule": {
+    "finished": [
+     "P3_G_GuestsInTrance"
+    ]
+   }
+  },
+  {
+   "name": "Karting Krazy",
+   "detail": "Came 1st in 20 races.",
+   "group": "Minigames",
+   "points": 10,
+   "icon": "flag"
+  },
+  {
+   "name": "King of the Ring",
+   "detail": "Won a match by knockout on Robo K.O. without losing any health.",
+   "group": "Minigames",
+   "points": 15,
+   "icon": "fist"
+  },
+  {
+   "name": "Lunar Lunatic",
+   "detail": "Completed Event Horizon 2 on hard difficulty.",
+   "group": "Minigames",
+   "points": 15,
+   "icon": "star"
+  },
+  {
+   "name": "Money Maker",
+   "detail": "Achieved a combined park value of $100,000",
+   "group": "Park Life",
+   "points": 10,
+   "icon": "coins"
+  },
+  {
+   "name": "Party Dude",
+   "detail": "Played 20 party games with your friends.",
+   "group": "Party Play",
+   "points": 10,
+   "icon": "music"
+  },
+  {
+   "name": "Party Host",
+   "detail": "Completed a four player battle or co-op game in party play.",
+   "group": "Party Play",
+   "points": 10,
+   "icon": "swords"
+  },
+  {
+   "name": "Perfect Clearance",
+   "detail": "Pocketed all the balls in one turn at the table.",
+   "group": "Minigames",
+   "points": 15,
+   "icon": "target"
+  },
+  {
+   "name": "Propaganda",
+   "detail": "Collected all the anti-Thrillville propaganda boards.",
+   "group": "Collectibles",
+   "points": 10,
+   "icon": "letter",
+   "rule": {
+    "finished": [
+     "P1_U_FindBoards"
+    ]
+   }
+  },
+  {
+   "name": "Putt putt power",
+   "detail": "Designed a minigolf course.",
+   "group": "Building",
+   "points": 10,
+   "icon": "flag",
+   "rule": {
+    "finished": [
+     "P5_B_DesignMinigolfCourse"
+    ]
+   }
+  },
+  {
+   "name": "Robots",
+   "detail": "Completed the 'Clearance Sale' mission in Thrillville Otherworlds.",
+   "group": "Missions",
+   "points": 30,
+   "icon": "gear",
+   "rule": {
+    "finished": [
+     "P4_M_RobotReductionII"
+    ]
+   }
+  },
+  {
+   "name": "Sabotage",
+   "detail": "Completed the 'Alien Antics' mission in Thrillville Explorer.",
+   "group": "Missions",
+   "points": 30,
+   "icon": "bolt",
+   "rule": {
+    "finished": [
+     "P2_G_SaucerSoccer"
+    ]
+   }
+  },
+  {
+   "name": "Sideshow Superstar",
+   "detail": "Got a 5 star rating score on all sideshow games.",
+   "group": "Minigames",
+   "points": 20,
+   "icon": "star"
+  },
+  {
+   "name": "Smooth Move",
+   "detail": "Got a 60 note combo in the entertainer mini game.",
+   "group": "Minigames",
+   "points": 10,
+   "icon": "music"
+  },
+  {
+   "name": "Sparkling Secret",
+   "detail": "Discovered all the secret areas on Sparkle Quest level 1.",
+   "group": "Minigames",
+   "points": 10,
+   "icon": "eye"
+  },
+  {
+   "name": "Spoon Time",
+   "detail": "Got 30.000 points in 3 moves on Trampolines.",
+   "group": "Minigames",
+   "points": 15,
+   "icon": "star"
+  },
+  {
+   "name": "Sprint King",
+   "detail": "Got a best lap time under 4'90\" seconds on the first track on Autosprint 2.",
+   "group": "Minigames",
+   "points": 15,
+   "icon": "flag"
+  },
+  {
+   "name": "Squadron Ace!",
+   "detail": "Completed Squadron Ace.",
+   "group": "Minigames",
+   "points": 20,
+   "icon": "plane"
+  },
+  {
+   "name": "Stunt Rider!",
+   "detail": "Completed Stunt Rider.",
+   "group": "Minigames",
+   "points": 20,
+   "icon": "star"
+  },
+  {
+   "name": "Super Sparkler",
+   "detail": "Completed Sparkle Quest.",
+   "group": "Minigames",
+   "points": 20,
+   "icon": "star"
+  },
+  {
+   "name": "Tank Commander",
+   "detail": "Completed Tank Frenzy.",
+   "group": "Minigames",
+   "points": 20,
+   "icon": "tank"
+  },
+  {
+   "name": "Teamwork",
+   "detail": "Completed a minigame in coop mode.",
+   "group": "Party Play",
+   "points": 10,
+   "icon": "swords"
+  },
+  {
+   "name": "The Green",
+   "detail": "Found all Mortimer's cash drops hidden in all parks.",
+   "group": "Collectibles",
+   "points": 10,
+   "icon": "coins"
+  },
+  {
+   "name": "The Rainbow",
+   "detail": "Collect all the Nano Paint Sprayers.",
+   "group": "Collectibles",
+   "points": 10,
+   "icon": "drops",
+   "rule": {
+    "finished": [
+     "P2_U_CollectSprayers"
+    ]
+   }
+  },
+  {
+   "name": "Thrillville Explorer",
+   "detail": "Unlocked Thrillville Explorer.",
+   "group": "Parks",
+   "points": 40,
+   "icon": "coaster",
+   "rule": {
+    "opened": [
+     "P2_B_BuildGolfCourse",
+     "P2_B_RepairCoaster",
+     "P2_G_Detective",
+     "P2_G_RobotBoxing",
+     "P2_G_SaucerSoccer",
+     "P2_M_CoasterProfit",
+     "P2_M_DistanceonCoaster",
+     "P2_M_FireMechanics",
+     "P2_M_GuestsonCoaster",
+     "P2_M_ParkNausea",
+     "P2_M_ParkValue",
+     "P2_M_Reliability",
+     "P2_P_Coastertron",
+     "P2_P_MiniGolf",
+     "P2_P_Pool",
+     "P2_U_CollectSprayers",
+     "P2_U_Customise",
+     "P2_U_Repaint",
+     "P2_U_TrainMechanic",
+     "P4_B_DesignRacetrack",
+     "P4_G_Luft",
+     "P4_P_BlackbeardsBootySG",
+     "P4_P_CoconutShy",
+     "P4_P_SparkleIsland",
+     "P4_P_TrojanQuest"
+    ]
+   }
+  },
+  {
+   "name": "Thrillville Giant",
+   "detail": "Unlocked Thrillville Giant.",
+   "group": "Parks",
+   "points": 40,
+   "icon": "coaster",
+   "rule": {
+    "opened": [
+     "P3_B_CoasterLength",
+     "P3_B_DesignCoaster1",
+     "P3_B_DesignCoaster2",
+     "P3_B_PlaceMinigames",
+     "P3_B_Sunglasses",
+     "P3_G_Annoy",
+     "P3_G_GiveHypnodisc",
+     "P3_G_GuestsInTrance",
+     "P3_G_Interrogation",
+     "P3_G_RideBoredom",
+     "P3_M_AirTime",
+     "P3_M_StallProfit",
+     "P3_M_StallVisitors",
+     "P3_M_WhiteKnucklePieces",
+     "P3_P_BumperCars",
+     "P3_P_CoasterVR",
+     "P3_P_MonsterTrucks",
+     "P3_P_RCWars",
+     "P3_P_SaucerSumo",
+     "P3_P_Trampolines",
+     "P3_P_WhackAMole",
+     "P3_U_Entertainer",
+     "P3_U_FindHypnodiscs",
+     "P3_U_Happiness",
+     "P3_U_VendorTender"
+    ]
+   }
+  },
+  {
+   "name": "Thrillville Holiday",
+   "detail": "Unlocked Thrillville Holiday.",
+   "group": "Parks",
+   "points": 60,
+   "icon": "coaster",
+   "rule": {
+    "opened": [
+     "P5_B_BobsleighCoaster",
+     "P5_B_DesignBuggyTrack",
+     "P5_B_DesignCoaster",
+     "P5_B_DesignMinigolfCourse",
+     "P5_B_Mortifier",
+     "P5_G_GiveBriefcase",
+     "P5_G_GiveChip",
+     "P5_G_GivePrize",
+     "P5_G_RobotKO",
+     "P5_G_TalkToKrupp",
+     "P5_M_DrinkSold",
+     "P5_M_LeavingCash",
+     "P5_M_Marketing",
+     "P5_M_ParkValue",
+     "P5_P_AutoSprintPlus",
+     "P5_P_BuggyRace",
+     "P5_P_Rodeo",
+     "P5_P_SparkleQuest",
+     "P5_P_SquadronAce",
+     "P5_P_StuntRider",
+     "P5_P_TestYourStrength",
+     "P5_U_Entertainer",
+     "P5_U_FindBriefcase",
+     "P5_U_SuckSeeds",
+     "P5_U_VendorTender"
+    ]
+   }
+  },
+  {
+   "name": "Thrillville Otherworlds",
+   "detail": "Unlocked Thrillville Otherworlds.",
+   "group": "Parks",
+   "points": 40,
+   "icon": "coaster",
+   "rule": {
+    "opened": [
+     "P2_B_BuildWaterCoaster",
+     "P2_G_EventHorizon",
+     "P2_G_SkeeBall",
+     "P2_P_SparkleIsland",
+     "P2_P_SparkleQuest",
+     "P4_B_BrokenCoaster",
+     "P4_B_BuildGolfCourse",
+     "P4_B_StuntDropI",
+     "P4_B_StuntDropII",
+     "P4_G_BeatRobots",
+     "P4_G_FPS",
+     "P4_G_FlirtRobot",
+     "P4_G_FlirtRobot_Child",
+     "P4_G_GiveGift",
+     "P4_G_MiniGolf",
+     "P4_M_GuestsonCoaster",
+     "P4_M_Reseach",
+     "P4_M_RobotReductionI",
+     "P4_M_RobotReductionII",
+     "P4_M_TeenVisitors",
+     "P4_P_AdventureTrampolines",
+     "P4_P_BanditoChinchilla",
+     "P4_P_Tank",
+     "P4_U_CollectNotes",
+     "P4_U_Mechanics",
+     "P4_U_VendorTendor"
+    ]
+   }
+  },
+  {
+   "name": "Thrillville Phenomenon",
+   "detail": "Reached park owner level 10.",
+   "group": "Park Life",
+   "points": 60,
+   "icon": "crown",
+   "rule": {
+    "ownerLevel": 10,
+    "label": "Park owner level"
+   }
+  },
+  {
+   "name": "Thrillville Sensation",
+   "detail": "Reached park owner level 5.",
+   "group": "Park Life",
+   "points": 40,
+   "icon": "medal",
+   "rule": {
+    "ownerLevel": 5,
+    "label": "Park owner level"
+   }
+  },
+  {
+   "name": "Thrillville Superstar",
+   "detail": "Ranked in the top ten on an online leaderboard for Thrillville: Off the Rails.",
+   "group": "Online",
+   "points": 50,
+   "icon": "crown"
+  },
+  {
+   "name": "Thrillville Talent",
+   "detail": "Reached park owner level 2.",
+   "group": "Park Life",
+   "points": 20,
+   "icon": "medal",
+   "rule": {
+    "ownerLevel": 2,
+    "label": "Park owner level"
+   }
+  },
+  {
+   "name": "Traitor",
+   "detail": "Completed the 'Traitors Arena' mission in Thrillville Holiday.",
+   "group": "Missions",
+   "points": 30,
+   "icon": "skull",
+   "rule": {
+    "finished": [
+     "P5_G_RobotKO"
+    ]
+   }
+  },
+  {
+   "name": "UFO Survivor",
+   "detail": "Survived without being knocked out of the arena in Saucer Sumo on normal difficulty.",
+   "group": "Minigames",
+   "points": 15,
+   "icon": "star"
+  },
+  {
+   "name": "White Knuckle Ace",
+   "detail": "Built all WHOA pieces.",
+   "group": "Building",
+   "points": 10,
+   "icon": "coaster"
+  },
+  {
+   "name": "Whoa",
+   "detail": "Finished a coaster using a whoa piece.",
+   "group": "Building",
+   "points": 10,
+   "icon": "coaster",
+   "rule": {
+    "finished": [
+     "P5_B_DesignCoaster",
+     "P4_B_StuntDropI"
+    ]
+   }
+  },
+  {
+   "name": "Winner!",
+   "detail": "Successfully won 20 multiplayer battle games.",
+   "group": "Party Play",
+   "points": 20,
+   "icon": "medal"
+  }
+ ],
+ "setupHint": "Play until Thrillville saves, or select the save in Settings.",
+ "pathPlaceholder": "Path to AppData\\Local\\LucasArts\\Thrillville 07\\Save (or the .ThrillvilleSaveGame file)",
+ "autoTag": "Unlocks automatically from your Thrillville save"
+}

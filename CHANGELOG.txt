@@ -1,0 +1,537 @@
+STEAM CUSTOM ACHIEVEMENTS v0.28.0 - MULTI-GAME
+
+Adds the Xbox 360 achievement list to the Steam Library page of games whose
+Steam version has no achievements. Each supported game gets the same ACHIEVEMENTS
+sidebar card, header stat and "View My Achievements" popup that AC2 had.
+
+GAMES IN THIS BUILD
+  Game                              Steam app   Achievements   Unlock automatically
+  Assassin's Creed                  15100       44             44 (game's own record + save)
+  Assassin's Creed II               33230       50             41 (autosave parser + game's checklists)
+  Assassin's Creed Brotherhood      48190       60             50 (game's own record + save)
+  Call of Duty 4: Modern Warfare    7940        37             24 (profile config.cfg)
+  Call of Duty: World at War        10090       66             22 (profile config.cfg)
+  Fable III                         105400      60             60 (game's own record via XLiveEmu)
+  Mass Effect                       17460       49             45 (game's own achievement profile)
+  Mass Effect 2                     24980       62             61 (game's own achievement profile)
+  Thrillville: Off the Rails        6080        50             18 (park save: missions, owner level)
+
+Automatic entries unlock by themselves a few seconds after the game writes its
+progress. Everything else has a "Mark as unlocked" button in the popup.
+
+NEW IN v0.28.0
+- ACHIEVEMENTS next to PLAY TIME, second try. Your status report showed that
+  Steam draws the header row twice, and v0.27.0 put the stat only in the
+  first copy (the one you don't see). Every copy now gets it.
+- The share build (the -share.zip) has no Unlock popups, Capture while I
+  play or Record an achievement panels. Popups stay on.
+- Copy status now also reports where each header stat sits on screen.
+
+NEW IN v0.27.0
+- The ACHIEVEMENTS stat next to PLAY TIME in the game header now shows up.
+  Before, the plugin used the first "Play time" text it found on the page;
+  when Steam also had one hidden somewhere else (another page or a menu), the
+  stat went there and you never saw it. It now picks the PLAY TIME that is on
+  screen and moves the stat back if it ends up hidden.
+- It also appears on games with no LAST PLAYED yet.
+- Its icon copies the size and colour of the PLAY TIME clock, so it matches
+  your theme. Clicking it opens View My Achievements.
+- Settings > Copy status now reports what the header search found, in case
+  the stat is still missing.
+
+NEW IN v0.26.0
+- The X that closes the achievements list now sits inside the list's top
+  corner and the whole round button responds, not just its middle. It used
+  to hang half outside the list, up where Steam's window title bar catches
+  clicks to drag the window.
+- Automatic achievements no longer repeat "Unlocks automatically from ..."
+  under every entry. Rows with no note unlock by themselves; manual ones
+  still say "Manual" and keep their button, and progress bars stay.
+
+NEW IN v0.25.0
+- Thrillville: Off the Rails: 18 of 50 now unlock by themselves (was 15).
+  - Thrillville Talent, Sensation and Phenomenon unlock at park owner level
+    2, 5 and 10. The save's statistics keep the level next to the number of
+    missions finished; your saves read level 1 (2023), then 2 and 2, as the
+    game showed you. The popup shows the level as the count, e.g. 2/5.
+  - The level is only used when that missions-finished number matches the
+    mission list, so a save laid out differently unlocks nothing.
+  - On your current save this unlocks Thrillville Talent.
+
+NEW IN v0.24.1
+- Thrillville: Off the Rails: 15 of 50 now unlock by themselves (v0.24.0
+  had 14). The game's park text is now read key by key, so every mission's
+  title and goal is exact:
+  - Propaganda, The Rainbow, Disc Jockey: finish Propaganda Hunt! ("Collect
+    all 6 anti-Thrillville ads"), Spray Away ("Collect all 6 Nano-Paint
+    Sprayers") or Disc Collection ("Collect all 6 Hypnodiscs"). Each has
+    that one goal, so finishing it means all 6.
+  - Coaster Boaster: finish Whoa Designer or Whoa, Nelly! ("Build a brand
+    new coaster"). Finishing or placing a prebuilt coaster does not count.
+  - Putt putt power: finish Duffer's Paradise (a mini golf course built
+    from pieces).
+  - Whoa (new): finish Whoa, Nelly! or Burning Circuits (a whoa coaster
+    using the fire hoop piece).
+  - v0.24.0 used medals for some of these; the save's last status byte is
+    not always a medal (Golden Ticket finished with 2), so finishing the
+    mission is the rule now.
+  - Nothing new unlocks on your two saves yet: those missions are still
+    open there.
+
+NEW IN v0.23.0
+- Assassin's Creed II: Podesta of Monteriggioni now unlocks by itself (41 of
+  50 automatic).
+  - The save keeps the stronghold's value (1,280 on a new game). The game's
+    own data (DataPC.forge, read-only) gives every item's value and the
+    bonus for each finished group, and they add up to 150,000, the figure
+    the game's villa manager holds. 80% of that is 120,000.
+  - The popup shows the value as the count, e.g. 53,995/120,000.
+  - On a 27-save playthrough it unlocks in Sequence 7 (126,605); your late
+    save is at 128,572, so it unlocks for you.
+
+NEW IN v0.22.0
+- Thrillville: Off the Rails: 9 of 50 now unlock by themselves (was 0).
+  - The plugin reads your newest park save (AppData\Local\LucasArts\
+    Thrillville 07\Save), which lists every mission of that park as locked,
+    open or finished with its medal.
+  - The game's own park files (read-only) name each mission, so the five
+    story missions map exactly: Critics is "Bribery 101!" (P1_G_WinPrizes),
+    then Sabotage, Hypnosis, Robots and Traitor. They unlock when the game
+    saves after you finish the mission, with any medal.
+  - Thrillville Explorer, Giant, Holiday and Otherworlds unlock once a save
+    from that park has an open mission (the park is unlocked).
+  - On your two saves this unlocks Critics.
+  - Still marked by hand: the collectibles, the owner levels and the
+    minigame one-offs (the game awards those on the spot and saves nothing
+    about them).
+- The Thrillville page now has a save picker; record mode and Capture while
+  I play follow the save being tracked.
+
+NEW IN v0.21.0
+- Assassin's Creed II: 40 of 50 now unlock by themselves (was 36).
+  - The game's own achievement definitions (DataPC.forge, read-only) show that
+    Art Connoisseur, Perfect Harmony and Show Your Colors are checklists of
+    "accomplishments" the save keeps with a done flag: Buy Firenze Painting and
+    Buy Venezia Painting; Tint Wetland Ebony and Tint Wetland Ivory; and the
+    Auditore cape worn in Florence, Monteriggioni, San Gimignano (Tuscany), the
+    Apennine Mountains, Forli (Wetlands) and Venice (Rome does not count). Each
+    shows its progress, e.g. 1/2 paintings.
+  - Handy Man: the save keeps one level per stronghold building; it unlocks
+    when any building is above its new-game level.
+  - Checked on a 27-save pcsavegames playthrough: Handy Man unlocks in
+    Sequence 4 (the first renovations) and Art Connoisseur in Sequence 7 (the
+    Venice painting), and nothing else changes.
+  - Still marked by hand: Street Cleaner, Fly Swatter, Messer Sandman, Doctor,
+    No-hitter, Lightning Strike, Sweeper, High Dive and Mailman (the game
+    awards them on the spot and saves nothing about them), and Podesta of
+    Monteriggioni (the save has the villa's value but not the 100% figure the
+    80% is measured against).
+- INSTALL_OR_REPAIR.cmd now copies every Lua file. It had been leaving out
+  the Assassin's Creed, Brotherhood and Mass Effect 2 detectors, the LZO reader
+  and the Thrillville decoder; installing by unzipping the folder was not
+  affected.
+
+NEW IN v0.20.0
+- Assassin's Creed: all 44 now unlock by themselves. The save keeps the game's
+  own record of every achievement (one entry each, in the list's order: 1 for
+  locked, 2 for unlocked), so whatever the game awards is picked up at the next
+  save, including the ending, Absolute Symbiosis, Conversationalist, Disciple of
+  the Creed, Blade in the Crowd, every Eagle's challenge and the activities.
+  - Checked in a 48-save community playthrough: each achievement went from 1 to
+    2 at the save where it was earned (Blade in the Crowd with Tamir, Talon and
+    March of the Pious at step 21, Absolute Symbiosis at 37, the ending at 48)
+    and none ever went back. It agrees with every objective and flag rule
+    above, in that playthrough, both community saves and all of a tester's saves.
+  - Eagle's Prey, Swiftness, Talon, Dance and March of the Pious show the
+    game's running counts (for example 13/50 stealth kills).
+  - The Defender of the People achievements, Hungerer of Knowledge, The hands
+    of a Thief, Eagle's Dive, Eagle's Eye, Enemy of the Poor and Gifted
+    Escapist were not earned in any save available, so they are read from the
+    same record but not yet seen unlocking in a real save.
+  - The objective and list rules still run beside the record, so nothing
+    earned before is lost if a save's record cannot be read.
+
+NEW IN v0.19.0
+- Assassin's Creed: 21 of 44 now unlock by themselves.
+  - All nine Blood achievements: each target's white-room scene is a finished
+    objective in the save (Sibrand's is named 00_Elipse&Save_MUA), and Robert's
+    death shows as Memory Block 7 starting. A 48-save community playthrough
+    (one save per step) placed them: each finished in the save after that
+    target's city district opened.
+  - Keeper of the Black Cross (33 Teutonic flags) and Keeper of the 8 Virtues
+    (33 Hospitalier flags): in the same playthrough one Acre list fills from
+    the first Acre visit (Garnier, the Hospitalier leader) and the other only
+    once Sibrand's district opens.
+- Fearless needs 91 viewpoints, not 92. The 100% save marks its viewpoint list
+  complete at 91 (every place from 0 to 90), and the TrueAchievements
+  walkthrough also counts 91, so with 92 Fearless could never have unlocked.
+
+NEW IN v0.18.0
+- Assassin's Creed: The Blood of a Corrupt Merchant unlocks by itself after
+  Tamir's death, from the white-room scene's objective in the save (FinishEllipse
+  DA2DC25A), found in a capture across the kill. The other eight targets will
+  follow the same way once a capture covers each kill.
+
+NEW IN v0.17.1
+- Fable III: the 10 Traitor's Keep achievements unlock by themselves too, so
+  all 60 are automatic. Their IDs (A Slow Day At The Office = 130 ... Set Them
+  Free! = 139) come from the achievement table that ships with the DLC
+  (DLC\03_InquisitorsPack\Content\spa.bin), which lists all 60.
+
+NEW IN v0.17.0
+- Fable III: all 50 main-game achievements unlock by themselves when the game
+  runs through XLiveEmu. The emulator keeps the game's own record of earned
+  achievements in the game folder (Fable 3\XLiveEmu\Player1\Achievements\
+  Achievements.txt, one ID per line); the plugin finds the folder through
+  Steam's library list and reads it (read-only). The IDs come from the game's
+  own achievement table inside Fable3.exe (The Guild Seal = 69 ... Adopt Or
+  Die = 129). The 8 statistic achievements still count from the hero save as
+  well, with progress shown. The 10 Understone and Traitor's Keep achievements
+  are not in that table and stay manual.
+
+NEW IN v0.16.0
+- Assassin's Creed: four more unlock by themselves, read from the same lists in
+  the save: Personal Vendetta (60 Templars), Keeper of the Creed (20 Masyaf
+  flags), Keeper of the Four Gospels (100 Jerusalem crosses) and Keeper of the
+  Order (34 Templar flags in Acre). Two complete community saves showed every
+  list full, which placed them. Keeper of the Black Cross and Keeper of the
+  8 Virtues (33 flags each in Acre) stay manual until a capture shows which of
+  the two 33-flag lists is which.
+
+NEW IN v0.15.1
+- Assassin's Creed: Fearless unlocks by itself once all 92 viewpoints are
+  synchronized (Kingdom 12; Damascus 9/7/10, Acre 11/9/10 and Jerusalem 6/9/9
+  by district, from neeker's GameFAQs achievement guide). The popup shows
+  "Viewpoints synchronized N/92".
+
+NEW IN v0.15.0
+- Assassin's Creed: Keeper of the Lions Passant (100 flags in the Kingdom) and
+  Keeper of the Crescent (100 flags in Damascus) unlock by themselves. The save
+  keeps a progress block with a list per region of the flags picked up, the same
+  count the game shows (1/100, 2/100, ...). The popup shows each as progress,
+  e.g. "Flags in the Kingdom 2/100", and Settings shows how many viewpoints are
+  synchronized.
+- Capture while I play now also logs the progress lists by name, e.g.
+  "Flags in Damascus 0 -> 1". Captures in Masyaf, Jerusalem and Acre will place
+  those cities' flag lists; viewpoint and citizen totals are still needed for
+  Fearless and the Defender achievements.
+
+NEW IN v0.14.0
+- Assassin's Creed: the first three story achievements unlock by themselves.
+  The save (%APPDATA%\Ubisoft\Assassin's Creed\Saved Games\<number>.sav) keeps
+  a list of about 800 story objectives with a state each, and the game's own
+  objective list (inside DataPC.forge) names them. The plugin reads the save
+  (read-only) a few seconds after the game writes it:
+    Welcome to the Animus       objective M03_S20_Animus_Tutorial_Complete
+    Hero of Masyaf              objective "Memory Block 1 - Masyaf"
+    The Punishment for Treason  objective FreeMission_FM11 (finishes when the
+                                traitor is brought before Al Mualim)
+  The other 41 are still marked by hand.
+- Capture while I play and Record an achievement now list the AC1 objectives
+  that changed by name, e.g. "objective FreeMission_FM11 (8CE6633C) 1 -> 3"
+  (0 none, 1 open, 2 active, 3 finished). Recordings of the next assassination
+  or viewpoint will let more achievements go automatic.
+
+NEW IN v0.13.1
+- Thrillville: Capture while I play now finds the save folder on its own
+  (AppData\Local\LucasArts\Thrillville 07\Save, where Steam Cloud keeps it), so
+  no folder has to be pasted. The capture log lists each park mission that
+  changed by name, e.g. "mission P1_P_Tank 03 00 00 00 00 -> 04 03 00 00 03"
+  (03 = open, 04 = finished; the other numbers are the medal). This is the
+  groundwork for automatic Thrillville achievements.
+
+NEW IN v0.13.0
+- Mass Effect 2 unlocks by itself. The PC game keeps its own achievement list
+  (the one under Extras in the main menu) in Documents\BioWare\Mass Effect 2\
+  BIOGame\Profile\Player1.prf, one record for all characters. The plugin reads
+  that file (read-only), so 61 of the 62 achievements, the Shadow Broker,
+  Arrival, Overlord, Kasumi and Zaeed DLC included, unlock a few seconds after
+  the game records them, with the Steam popup.
+- Highly Trained stays manual: it is an Xbox 360 achievement the PC game does
+  not have. (The PC game's own "Cerberus Network" achievement has no Xbox
+  equivalent, so it is not listed.)
+- The game shows its own popup too, so an ME2 unlock can pop up twice: the
+  game's, then Steam's. Turn popups off in Settings if that is too much.
+
+NEW IN v0.12.1
+- Marking an achievement as unlocked by hand now plays the same unlock popup
+  and sound as an automatic unlock (turn popups off in Settings if you would
+  rather not).
+
+NEW IN v0.12.0
+- Unlock popups now use Steam's own achievement popup, the same one real
+  Steam achievements use, so Steam's overlay shows it over the running game
+  (and in the corner of the desktop when no game runs). It is fed the way
+  Steam's built-in achievement test does, with the achievement's picture, name
+  and description. For it to show in-game, the Steam overlay must be on for
+  that game, and Steam > Settings > Notifications must allow achievement
+  popups.
+- If Steam's popup cannot be reached, the plugin's own popup is used as
+  before. Diagnostics show which one was used ("steamToast").
+- Settings > Test popup (10 seconds) now tries Steam's popup, so it can be
+  checked over a game.
+
+NEW IN v0.11.0
+- Platinums: the PS3 "earn everything" trophy is now the last entry for the
+  five games that had one: Master Assassin (AC2), Julius Caesar (Brotherhood),
+  Platinum (World at War), N7 Elite (Mass Effect and Mass Effect 2). It
+  unlocks by itself, with a popup, once every other achievement is unlocked,
+  and shows how many of the others you have. It has no button of its own.
+- Real pictures for all five, including Master Assassin (v0.11.1).
+- Assassin's Creed, CoD 4, Fable III and Thrillville had no platinum.
+
+NEW IN v0.10.2
+- AC2 and Brotherhood: a save picked in Settings now stands for its folder, so
+  the plugin always follows the slot the game wrote last (a new game, or an old
+  slot you loaded). Before, a picked save was watched forever.
+- Reset to locked now only holds back what the save open at the reset had.
+  A new game in another slot unlocks normally. Achievements held by v0.9.1 to
+  v0.10.1 are released once, since those versions did not record the save.
+
+NEW IN v0.10.1
+- Assassin's Creed II: on a new game, The Birth of an Assassin, Arrivederci
+  Abstergo and Welcome to the Animus 2.0 now unlock from the Abstergo escape
+  and entering the Animus (mission IDs taken from your new-game recording).
+- The plugin now switches to a newer save slot within about 10 seconds, so a
+  new game is followed without restarting Steam. Before, it stayed on the save
+  it found first.
+
+NEW IN v0.10.0
+- Brotherhood: all 50 single-player and Da Vinci Disappearance achievements
+  unlock automatically. The game keeps its own achievement record (the list in
+  Settings > Stats > Achievements) in the OPTIONS file next to your save, one
+  bit per achievement; the plugin reads it together with the save. Checked on
+  a real OPTIONS file: Technical Difficulties and Battle Wounds.
+- The 10 multiplayer achievements stay manual (the servers are shut down).
+- Capture logs OPTIONS changes as "achievement bit N".
+
+NEW IN v0.9.1
+- Settings > Progress > Reset to locked (click twice to confirm) locks every
+  achievement for that game, manual and automatic, for testing. Achievements
+  your current save already earns stay locked until the game earns them again:
+  load an older save or start a new game, replay, and they unlock with the
+  popup. Use Backup first if you want to restore the old list later.
+
+NEW IN v0.9.0
+- Assassin's Creed Brotherhood unlocks automatically. The Steam version keeps
+  plain saves in Saved Games\Assassin's Creed Brotherhood\SAVES
+  (ACBROTHERHOODSAVEGAME0.SAV); the plugin finds the newest one on its own.
+  The missions are named from the game's own Rome mission list, so 27 of the
+  60 achievements unlock a few seconds after the game saves: every DNA
+  sequence, Sanctuary! Sanctuary!, Technical Difficulties, A Knife to the
+  Heart, the six Lairs of Romulus, Leonardo's four machines, Tower Offense,
+  Capture the Flag, In Memoriam, GPS and Clowning Around. Flags, feathers,
+  towers and harlequins show progress (e.g. 3 / 4 districts).
+- A sequence unlocks at its outro, or as soon as any later story mission is
+  done, so a save that skipped the outro still counts.
+- Capture and record mode name Brotherhood missions (e.g. "mission SQ03M02
+  0 -> 1") instead of showing raw IDs.
+- Correction: Ubisoft Connect folder 40 is Assassin's Creed Revelations, not
+  Brotherhood. Ubisoft Connect Brotherhood saves are still read if you select
+  one in Settings.
+
+NEW IN v0.8.0
+- Unlock popups. When the plugin unlocks an achievement on its own while you
+  play, a Steam-style popup slides up in the bottom-right corner with the
+  picture, name and description, and Steam's own achievement sound plays (read
+  from your Steam install; a short built-in chime if Steam doesn't have it).
+  Unlocks that were already in your save the first time the plugin sees it do
+  not pop up, and a save that unlocks more than 3 at once shows one summary.
+  Manual marks never pop up.
+- Settings > Unlock popups: turn popups on/off, or "Test in 10 seconds" to
+  switch to your game and check the popup over it.
+- The popup is drawn in every Steam window the plugin can reach. If it doesn't
+  show over a fullscreen game, use the test button, then "Copy status": the
+  report lists Steam's window names so the in-game overlay can be targeted.
+
+NEW IN v0.7.0
+- Mass Effect unlocks automatically. The PC game secretly keeps the Xbox 360
+  achievements in Documents\BioWare\Mass Effect\Save\Profile.MassEffectProfile
+  (one record for all characters, like Xbox Live). The plugin reads that file:
+  45 of the 49 achievements unlock a few seconds after the game records them,
+  and kill, power, credit and level counters show progress (e.g. 40 / 150
+  pistol kills). Scholar, Completionist, Tactician and Medal of Exploration stay
+  manual until their slots in the profile are confirmed on a real unlock.
+- Record mode and capture show Mass Effect profile changes as named counters
+  and achievement slots.
+
+- Real pictures for every Brotherhood (60), Mass Effect (49) and Mass Effect 2
+  (62) achievement, from the Fandom wiki pages. Every game now has its art.
+- Brotherhood saves can be read. Ubisoft Connect stores them scrambled (XOR with
+  a short per-account key, found automatically) and compressed (Anvil blocks,
+  LZO2A). The plugin now unpacks them, so Capture while I play and record mode
+  list which missions were completed instead of raw bytes. Those logs are what
+  will tie each DNA sequence to its achievement.
+- Brotherhood capture and record mode find Ubisoft Game Launcher\savegames\
+  <your id>\40 on their own.
+
+- Four more games: Assassin's Creed (44), Assassin's Creed Brotherhood (60,
+  including multiplayer and The Da Vinci Disappearance), Mass Effect (49,
+  including Bring Down the Sky and Pinnacle Station) and Mass Effect 2 (62,
+  including the DLC packs). Lists and points are the Xbox 360 ones; the
+  PS3-only platinum trophies are left out (added back in v0.11.0).
+- Real pictures: all 44 for Assassin's Creed, the first 7 for Brotherhood and
+  Medal of Honor for Mass Effect (from the Fandom wiki pages). The rest use
+  drawn icons until an Exophase page with them is saved.
+- These four are marked by hand for now. Capture while I play and record mode
+  already know where Mass Effect, Mass Effect 2 and Assassin's Creed keep their
+  saves, so they can be turned on without pasting a folder. Brotherhood's
+  Ubisoft Connect folder still has to be pasted.
+
+NEW IN v0.5.1
+- Fable III now has its real Xbox 360 achievement pictures too (all 60, from
+  Exophase), so every game in this build shows the original art.
+
+NEW IN v0.5.0
+- Real Xbox 360 achievement pictures are built in for Call of Duty 4 (37),
+  World at War (66) and Thrillville: Off the Rails (50), from the Call of Duty
+  and Thrillville wikis on Fandom. The art belongs to the games' publishers.
+  Fable III still uses drawn icons until a page with its pictures is saved.
+- Capture while I play (Settings): turn it on once and just play. Each time the
+  game writes a save, the plugin copies the changed files (with a timestamp) to
+  recordings\<game>\ and adds a line to capture log.txt saying which values
+  changed (Fable III as named statistics, CoD config.cfg dvars line by line).
+  Nothing to press during play. It copies a file only after it stops changing,
+  stays on after Steam restarts, and turns itself off at 1 GB. For games without
+  automatic tracking, paste the save folder before turning it on.
+
+NEW IN v0.4.1
+- Record mode can narrow down over several recordings, like a RetroAchievements
+  memory search. After a recording, record the same achievement again with
+  "Keep narrowing" ticked (it is ticked for you):
+    * Done: progress happened (e.g. you smashed one more gnome). Only values
+      that changed again, in the same direction, are kept.
+    * Done, no progress: you played without making progress. Everything that
+      changed anyway (play time, gold...) is ruled out.
+  After two or three recordings, usually one value is left: the counter for that
+  achievement. Narrowing lasts until Steam restarts or you start a fresh search.
+
+NEW IN v0.4.0
+- Record mode (View My Achievements > Settings > Record an achievement). It works
+  like a RetroAchievements memory search, but on save files:
+    1. pick the achievement you are about to earn and press Start (for games
+       without automatic tracking, paste the game's save folder first),
+    2. earn it in game and let the game save,
+    3. press Done.
+  Every value that changed is listed. Values that now equal a number from the
+  achievement (e.g. 50 in "Destroy all 50 gnomes") are marked "matches" and
+  listed first. For games with automatic tracking it also says whether the
+  plugin's own rule unlocked it. Text files (CoD config.cfg) are compared line
+  by line, Fable III hero saves as named statistics, other files as changed
+  bytes and the small numbers around them. Compressed saves show raw byte
+  changes only; the saved copies are what lets them be mapped.
+  Copies of the changed files (before and after) and a report are written to
+  the plugin's recordings folder (or your temp folder if that is not writable).
+  Zip one recording's files and send them to turn that achievement automatic.
+- Real Xbox pictures: in Chrome or Edge, open the game's achievement list
+  (TrueAchievements, Exophase...), scroll until every picture has loaded, press
+  Ctrl+S and save as "Webpage, Single File" (.mhtml). Then use Settings >
+  Achievement pictures > Load from saved page. Each achievement name on the page
+  is paired with its picture; badges used many times on the page are ignored.
+  Send the .mhtml files to have the pictures built into the plugin like AC2's.
+
+NEW IN v0.3.0
+- Fable III: 8 achievements now unlock from your hero save
+  (Saved Games\Lionhead Studios\Fable 3\<profile>\hero*_herosave.bin):
+  Gunning For Glory, If It Bleeds We Can Kill It, Wizard's Revenge (500 kills
+  each), I Am The Keymaster (54 keys), Flower Power (30 flowers), Gnome Invasion
+  (50 gnomes), Digger (50 items) and Popularity Contest (20 friends). The popup
+  shows n / need for each. The plugin reads the game's own lifetime statistics
+  from the save; checked on 37 real hero saves, from a new hero to a 100% one.
+  Story, quest and the other achievements stay manual. Brightwall Book Club and
+  Touched By A Hero stay manual because the save's counters do not match those
+  achievements exactly.
+- World at War: verified on a real 100% profile. The mission order is correct
+  and is no longer marked provisional. Grave Robber (all 13 Death Cards) now
+  unlocks automatically from seta cheat_points.
+
+NEW IN v0.2.1
+- Lists checked against the TrueAchievements, GameFAQs and Exophase lists.
+- World at War adds the Nazi Zombies achievements from Map Pack 2 (Shi No Numa)
+  and Map Pack 3 (Der Riese): 20 more, marked by hand.
+- Fable III adds the 10 Traitor's Keep achievements (the DLC included with the
+  PC version), marked by hand.
+- CoD 4 and Thrillville descriptions now use the exact Xbox 360 wording.
+  CoD 4's "No Rest for the Wary" is renamed "No Rest for the Weary" to match.
+
+NEW IN v0.2.0
+- One plugin for several games. Each game is a "pack" in source/games/<game>/
+  with its Steam app ID, the 360 achievement list and its unlock rules.
+- Call of Duty 4: campaign progress is read from your single-player profile,
+  players\profiles\<name>\config.cfg. The game records one digit per mission
+  for the highest difficulty you finished it on (seta mis_difficulty) and your
+  intel count (seta cheat_points). The award rules copy the game's own script
+  (maps/_endmission.gsc from the official CoD 4 mod tools), so:
+    * mission achievements unlock when that mission is finished,
+    * the Horsemen/Veteran ones need every listed mission on Veteran,
+    * Deep and Hard needs every mission except the Mile High Club epilogue on
+      Hardened or Veteran (the popup shows n / 20),
+    * Look Sharp / Eyes and Ears need 15 / 30 intel (the popup shows n / 30).
+  In-mission feats (Down Boy Down, Your Show Sucks, Three of a Kind...) are manual.
+- Call of Duty: World at War works the same way (mission order later
+  verified on a real profile). Co-op, multiplayer and in-mission feats are manual.
+- Fable III and Thrillville: Off the Rails have the full lists and manual
+  tracking (Fable III automatic tracking arrived in v0.3.0).
+- Your AC2 progress, pictures and save selection carry over unchanged. Every
+  game keeps its own progress (sca:progress:<app id>:v1) and backups.
+- Fixed: the installer only copied some backend files, so INSTALL_OR_REPAIR.cmd
+  could leave out collectible_rules.lua and tracker_rules.lua. It now copies
+  and verifies every file.
+
+INSTALL / UPDATE
+1. Exit Steam completely using Steam > Exit.
+2. Extract All from the ZIP. It contains one steam-custom-achievements folder.
+3. Replace the existing steam-custom-achievements folder in Millennium's plugins
+   directory with this entire folder (include backend and .millennium), or run
+   INSTALL_OR_REPAIR.cmd from the extracted folder.
+4. Start Steam and confirm Steam Custom Achievements (Local) is enabled.
+5. Open any supported game's Library page. The ACHIEVEMENTS section appears
+   below Friends Who Play. View My Achievements opens the full list.
+
+WHERE SAVES ARE FOUND
+- AC2: Ubisoft savegames folders and <game>\savegames (unchanged).
+- CoD 4 / World at War: <Steam library>\steamapps\common\<game>\players\profiles,
+  the Windows VirtualStore copy of that folder, and
+  %LOCALAPPDATA%\Activision\CoD4 (or CoDWaW)\players\profiles. The newest
+  profile with campaign progress is used.
+- Fable III: %USERPROFILE%\Saved Games\Lionhead Studios\Fable 3\<profile>.
+  The newest hero*_herosave.bin is used (fail-quest copies are ignored).
+If nothing is found, open View My Achievements > Settings and paste the path of
+the save file or folder (for CoD, config.cfg or the profile folder; for Fable III, a
+*_herosave.bin or its profile folder).
+
+FILES / PRIVACY
+The backend opens game saves and configs read-only. It writes only this
+plugin's configuration and, when you press Done in record mode, the copies and
+report in the recordings folder, and with capture on, copies of changed saves
+in recordings\<game>. No game file changes, injected DLLs, Steamworks
+unlock calls, credentials, telemetry or network requests. These are custom
+local achievements, not official Steam profile achievements. Reinstalling with
+INSTALL_OR_REPAIR.cmd moves the old plugin folder, recordings included, to
+custom-achievement-backups.
+
+IF SOMETHING IS MISSING
+Plugin absent from Millennium: run INSTALL_OR_REPAIR.cmd and send INSTALL_REPORT.txt.
+Card absent: open the game's Library page, wait a few seconds, then send a
+screenshot plus the output of this in SharedJSContext's Console
+(Win+R: steam://millennium/settings/devtools/open):
+
+JSON.stringify(window.PLUGIN_LIST?.["steam-custom-achievements"]?.diagnostics?.() ?? {error:"Frontend not loaded"}, null, 2)
+
+ADDING ANOTHER GAME
+See ADDING_A_GAME.md.
+
+DEVELOPMENT
+python source/build.py
+python source/package.py <output-path-outside-this-folder.zip>
+Test dependencies: jsdom, playwright and Python lupa.
+python tests/test_autosave.py     (AC2 detector + watcher, LuaJIT 2.1)
+python tests/test_cod.py          (CoD detector + watcher, LuaJIT 2.1)
+python tests/test_fable3.py       (Fable III decompressor + detector, LuaJIT 2.1)
+python tests/test_me1.py         (Mass Effect profile detector, LuaJIT 2.1)
+python tests/test_acb.py          (Brotherhood save detector, LuaJIT 2.1)
+python tests/test_recorder.py     (record mode, LuaJIT 2.1)
+python tests/test_capture.py      (capture while I play, LuaJIT 2.1)
+node tests/test_windows.cjs       (window lifecycle, jsdom)
+node tests/test_games.cjs         (multi-game pages, jsdom)
+node tests/test_browser.cjs       (real Chromium)

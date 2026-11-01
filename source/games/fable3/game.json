@@ -1,0 +1,575 @@
+{
+ "appId": 105400,
+ "title": "Fable III",
+ "platform": "Xbox 360",
+ "detector": "fable3",
+ "setupHint": "Save your game in Fable III, or select your hero's *_herosave.bin in Settings.",
+ "pathPlaceholder": "Path to Saved Games\\Lionhead Studios\\Fable 3\\<profile> (or a *_herosave.bin)",
+ "autoTag": "Unlocks automatically from the game's own achievement record or your hero's statistics",
+ "trackingNote": "Fable III keeps its own record of the achievements you have earned when it runs through XLiveEmu (Fable 3\\XLiveEmu\\Player1\\Achievements\\Achievements.txt in the game folder). The plugin reads that record, and your hero's statistics (Saved Games\\Lionhead Studios\\Fable 3), so all 60 achievements, Traitor's Keep included, unlock a few seconds after the game awards them.",
+ "statSource": "NonLeaderboardStats in <hero>_herosave.bin; each stat is keyed by the 32-bit FNV-1 hash of its name. Values checked against a 100% hero (gnomes 50, flowers 30, keys 54) and a new hero (all 0).",
+ "statNames": [
+  "STAT_CHICKENS_KICKED",
+  "STAT_DEATHS",
+  "STAT_DEMON_DOORS_OPENED",
+  "STAT_DIGGING_SPOTS_FOUND",
+  "STAT_DISTANCE_TRAVELLED",
+  "STAT_EXPRESSIONS_PERFORMED",
+  "STAT_FLOURISHES",
+  "STAT_HENCHMAN_GOLD",
+  "STAT_KILLED_BY_BALVERINE",
+  "STAT_KILLED_BY_CHICKEN",
+  "STAT_KILLED_BY_HOBBE",
+  "STAT_KILLED_BY_VILLAGER",
+  "STAT_KILLS_BALVERINE",
+  "STAT_KILLS_HOBBE",
+  "STAT_KILLS_MELEE",
+  "STAT_KILLS_RANGED",
+  "STAT_KILLS_SPELLS",
+  "STAT_KILLS_TOTAL",
+  "STAT_KILLS_VILLAGER",
+  "STAT_MONEY_HIGHEST_EARNED",
+  "STAT_MONEY_HIGHEST_OWNED",
+  "STAT_MONEY_HIGHEST_SPENT",
+  "STAT_MONEY_JOB",
+  "STAT_MONEY_PROPERTIES_OWNED",
+  "STAT_MONEY_SPENT",
+  "STAT_NUMBER_OF_FRIENDS",
+  "STAT_NUM_COLLECTED_BOOKS",
+  "STAT_NUM_COLLECTED_FLOWERS",
+  "STAT_NUM_COLLECTED_GNOMES",
+  "STAT_NUM_COLLECTED_KEYS",
+  "STAT_QUESTS_COMPLETED",
+  "STAT_RENOWN_HIGHEST",
+  "STAT_SPOUSE_MARRIAGES",
+  "STAT_SPOUSE_NUMBER_CHILDREN",
+  "STAT_SPOUSE_NUMBER_HUSBANDS",
+  "STAT_SPOUSE_NUMBER_KILLED",
+  "STAT_SPOUSE_NUMBER_WIVES",
+  "STAT_TIME_PLAYED",
+  "STAT_TOUCH_EXPRESSIONS_PERFORMED"
+ ],
+ "achievements": [
+  {
+   "name": "The Guild Seal",
+   "detail": "Unleash your heroic potential.",
+   "group": "Story",
+   "points": 10,
+   "icon": "insignia",
+   "xlive": 69
+  },
+  {
+   "name": "And So It Begins",
+   "detail": "Win the support of the Dwellers.",
+   "group": "Story",
+   "points": 20,
+   "icon": "flag",
+   "xlive": 70
+  },
+  {
+   "name": "Swift Justice",
+   "detail": "Win the support of the Swift Brigade.",
+   "group": "Story",
+   "points": 20,
+   "icon": "flag",
+   "xlive": 71
+  },
+  {
+   "name": "The Resistance",
+   "detail": "Win the support of Bowerstone.",
+   "group": "Story",
+   "points": 50,
+   "icon": "flag",
+   "xlive": 72
+  },
+  {
+   "name": "Distant Friends",
+   "detail": "Win the support of Aurora.",
+   "group": "Story",
+   "points": 20,
+   "icon": "flag",
+   "xlive": 73
+  },
+  {
+   "name": "The Ruler of Albion",
+   "detail": "Become the ruler of Albion.",
+   "group": "Story",
+   "points": 80,
+   "icon": "crown",
+   "xlive": 74
+  },
+  {
+   "name": "For Albion!",
+   "detail": "This is where you *spoiler* the great, big *spoiler* and then it all *spoiler*.",
+   "group": "Story",
+   "points": 80,
+   "icon": "sword",
+   "xlive": 75
+  },
+  {
+   "name": "Save The Princess!",
+   "detail": "Rescue the princess from the evil Baron.",
+   "group": "Quests",
+   "points": 10,
+   "icon": "crown",
+   "xlive": 76
+  },
+  {
+   "name": "Ghost Brothers",
+   "detail": "Make sure Max and Sam get home in time for tea.",
+   "group": "Quests",
+   "points": 10,
+   "icon": "house",
+   "xlive": 77
+  },
+  {
+   "name": "Tragical-Comical-Historical",
+   "detail": "Help the celebrated thespians Lambert and Pinch put on the world's greatest play.",
+   "group": "Quests",
+   "points": 10,
+   "icon": "book",
+   "xlive": 78
+  },
+  {
+   "name": "The Dark Sanctum",
+   "detail": "Reinstate an ancient, evil temple.",
+   "group": "Quests",
+   "points": 10,
+   "icon": "tomb",
+   "xlive": 80
+  },
+  {
+   "name": "Island Paradise",
+   "detail": "Establish the island of Driftwood.",
+   "group": "Quests",
+   "points": 10,
+   "icon": "flower",
+   "xlive": 81
+  },
+  {
+   "name": "Knight Jumps Chesty",
+   "detail": "Defeat Chesty at his own game.",
+   "group": "Quests",
+   "points": 10,
+   "icon": "puzzle",
+   "xlive": 82
+  },
+  {
+   "name": "Coronation Chicken",
+   "detail": "Perform a royal judgement while dressed as a chicken.",
+   "group": "Kingdom",
+   "points": 10,
+   "icon": "crown",
+   "xlive": 83
+  },
+  {
+   "name": "Spellweaver",
+   "detail": "Combine two gauntlets to cast a 'woven' spell.",
+   "group": "Combat",
+   "points": 5,
+   "icon": "bolt",
+   "xlive": 84
+  },
+  {
+   "name": "Archmage",
+   "detail": "Cast all 15 possible spell combinations.",
+   "group": "Combat",
+   "points": 20,
+   "icon": "bolt",
+   "xlive": 85
+  },
+  {
+   "name": "Total Warrior",
+   "detail": "Kill enemies with melee, ranged and spell attacks.",
+   "group": "Combat",
+   "points": 10,
+   "icon": "swords",
+   "xlive": 86
+  },
+  {
+   "name": "Pull!",
+   "detail": "Send an enemy flying into the air and kill him while he's airborne.",
+   "group": "Combat",
+   "points": 10,
+   "icon": "target",
+   "xlive": 87
+  },
+  {
+   "name": "Gunning For Glory",
+   "detail": "Kill 500 enemies using firearms.",
+   "group": "Combat",
+   "points": 20,
+   "icon": "target",
+   "rule": {
+    "stat": "STAT_KILLS_RANGED",
+    "need": 500,
+    "label": "Firearm kills"
+   },
+   "xlive": 88
+  },
+  {
+   "name": "If It Bleeds, We Can Kill It",
+   "detail": "Kill 500 enemies using melee weapons.",
+   "group": "Combat",
+   "points": 20,
+   "icon": "sword",
+   "rule": {
+    "stat": "STAT_KILLS_MELEE",
+    "need": 500,
+    "label": "Melee kills"
+   },
+   "xlive": 89
+  },
+  {
+   "name": "Wizard's Revenge",
+   "detail": "Kill 500 enemies using magic.",
+   "group": "Combat",
+   "points": 20,
+   "icon": "bolt",
+   "rule": {
+    "stat": "STAT_KILLS_SPELLS",
+    "need": 500,
+    "label": "Magic kills"
+   },
+   "xlive": 90
+  },
+  {
+   "name": "Super Hero",
+   "detail": "Fully upgrade your Melee, Ranged, and Magic abilities on the Road to Rule.",
+   "group": "Combat",
+   "points": 50,
+   "icon": "star",
+   "xlive": 91
+  },
+  {
+   "name": "You Can't Bring Me Down",
+   "detail": "Complete Fable III without being knocked out in combat.",
+   "group": "Combat",
+   "points": 50,
+   "icon": "shield",
+   "xlive": 92
+  },
+  {
+   "name": "My Weapon's Better Than Yours",
+   "detail": "Complete 3 unique upgrades on one of the legendary weapons found around Albion.",
+   "group": "Combat",
+   "points": 25,
+   "icon": "hammer",
+   "xlive": 94
+  },
+  {
+   "name": "I Am The Keymaster",
+   "detail": "Collect all 50 Silver Keys and 4 Gold Keys.",
+   "group": "Collectibles",
+   "points": 30,
+   "icon": "key",
+   "rule": {
+    "stat": "STAT_NUM_COLLECTED_KEYS",
+    "need": 54,
+    "label": "Silver and Gold Keys"
+   },
+   "xlive": 96
+  },
+  {
+   "name": "Flower Power",
+   "detail": "Collect all 30 Auroran flowers.",
+   "group": "Collectibles",
+   "points": 30,
+   "icon": "flower",
+   "rule": {
+    "stat": "STAT_NUM_COLLECTED_FLOWERS",
+    "need": 30,
+    "label": "Auroran flowers"
+   },
+   "xlive": 97
+  },
+  {
+   "name": "Gnome Invasion",
+   "detail": "Destroy all 50 gnomes.",
+   "group": "Collectibles",
+   "points": 30,
+   "icon": "hammer",
+   "rule": {
+    "stat": "STAT_NUM_COLLECTED_GNOMES",
+    "need": 50,
+    "label": "Gnomes destroyed"
+   },
+   "xlive": 98
+  },
+  {
+   "name": "Brightwall Book Club",
+   "detail": "Collect all 30 rare books for the Brightwall Academy.",
+   "group": "Collectibles",
+   "points": 30,
+   "icon": "book",
+   "xlive": 99
+  },
+  {
+   "name": "Digger",
+   "detail": "Dig up 50 items.",
+   "group": "Collectibles",
+   "points": 15,
+   "icon": "coins",
+   "rule": {
+    "stat": "STAT_DIGGING_SPOTS_FOUND",
+    "need": 50,
+    "label": "Items dug up"
+   },
+   "xlive": 100
+  },
+  {
+   "name": "We Need Guns, Lots Of Guns",
+   "detail": "Collect all 50 legendary weapons. They won't all appear in your world, so trade with other Heroes!",
+   "group": "Collectibles",
+   "points": 20,
+   "icon": "swords",
+   "xlive": 101
+  },
+  {
+   "name": "Fashion Victim",
+   "detail": "Collect every item of clothing.",
+   "group": "Collectibles",
+   "points": 20,
+   "icon": "cape",
+   "xlive": 102
+  },
+  {
+   "name": "He's a Woman. She's a Man",
+   "detail": "Wear a full set of clothing intended for the opposite sex.",
+   "group": "Life in Albion",
+   "points": 5,
+   "icon": "cape",
+   "xlive": 103
+  },
+  {
+   "name": "Dye Hippie, Dye",
+   "detail": "Dye each part of an outfit you're wearing a different colour and have long hair.",
+   "group": "Life in Albion",
+   "points": 5,
+   "icon": "drops",
+   "xlive": 104
+  },
+  {
+   "name": "Hand in Hand",
+   "detail": "Hold hands with someone.",
+   "group": "Life in Albion",
+   "points": 5,
+   "icon": "heart",
+   "xlive": 105
+  },
+  {
+   "name": "Long Distance Relationship",
+   "detail": "Get married to another Xbox LIVE player.",
+   "group": "Online",
+   "points": 10,
+   "icon": "ring",
+   "xlive": 107
+  },
+  {
+   "name": "Cross-Dimensional Conception",
+   "detail": "Have a child with another Xbox LIVE player.",
+   "group": "Online",
+   "points": 10,
+   "icon": "heart",
+   "xlive": 108
+  },
+  {
+   "name": "Online Merger",
+   "detail": "Enter into a business partnership with another Xbox LIVE player.",
+   "group": "Online",
+   "points": 10,
+   "icon": "coins",
+   "xlive": 109
+  },
+  {
+   "name": "Barrel of Laughs",
+   "detail": "Kill 30 enemies with explosive barrels.",
+   "group": "Combat",
+   "points": 10,
+   "icon": "flame",
+   "xlive": 110
+  },
+  {
+   "name": "We Can Be Heroes",
+   "detail": "Earn 1,000 gold in henchman wages in another Hero's world.",
+   "group": "Online",
+   "points": 10,
+   "icon": "coin",
+   "xlive": 113
+  },
+  {
+   "name": "Kaboom!",
+   "detail": "Score 2000 on the Mourningwood Fort mortar game.",
+   "group": "Life in Albion",
+   "points": 10,
+   "icon": "flame",
+   "xlive": 115
+  },
+  {
+   "name": "Lute Hero Tour",
+   "detail": "Play in each town as a 5 star lute player.",
+   "group": "Life in Albion",
+   "points": 10,
+   "icon": "music",
+   "xlive": 119
+  },
+  {
+   "name": "Touched By A Hero",
+   "detail": "Use touch expressions to interact with 20 different people.",
+   "group": "Life in Albion",
+   "points": 10,
+   "icon": "heart",
+   "xlive": 120
+  },
+  {
+   "name": "Popularity Contest",
+   "detail": "Make 20 Friends.",
+   "group": "Life in Albion",
+   "points": 15,
+   "icon": "heart",
+   "rule": {
+    "stat": "STAT_NUMBER_OF_FRIENDS",
+    "need": 20,
+    "label": "Friends"
+   },
+   "xlive": 121
+  },
+  {
+   "name": "Remodelling",
+   "detail": "Remodel 5 different houses by changing the furniture.",
+   "group": "Life in Albion",
+   "points": 10,
+   "icon": "house",
+   "xlive": 123
+  },
+  {
+   "name": "Magnate Personality",
+   "detail": "Build a property empire worth 2,000,000 gold.",
+   "group": "Life in Albion",
+   "points": 50,
+   "icon": "coins",
+   "xlive": 124
+  },
+  {
+   "name": "Crime Spree",
+   "detail": "Get a 15,000 gold bounty placed on your head.",
+   "group": "Life in Albion",
+   "points": 10,
+   "icon": "skull",
+   "xlive": 125
+  },
+  {
+   "name": "Henry VIII",
+   "detail": "As ruler of Albion, get married 6 times and kill 2 of your spouses.",
+   "group": "Kingdom",
+   "points": 10,
+   "icon": "ring",
+   "xlive": 126
+  },
+  {
+   "name": "Chest Grandmaster",
+   "detail": "Unlock all of the chests on the Road To Rule.",
+   "group": "Story",
+   "points": 40,
+   "icon": "key",
+   "xlive": 127
+  },
+  {
+   "name": "Tough Love",
+   "detail": "Save the maximum amount of Albion citizens.",
+   "group": "Kingdom",
+   "points": 10,
+   "icon": "shield",
+   "xlive": 128
+  },
+  {
+   "name": "Adopt Or Die",
+   "detail": "Adopt a child.",
+   "group": "Life in Albion",
+   "points": 5,
+   "icon": "heart",
+   "xlive": 129
+  },
+  {
+   "name": "A Revolutionary Idea",
+   "detail": "Find all of General Turner's diaries.",
+   "group": "Traitor's Keep (DLC)",
+   "points": 30,
+   "icon": "book",
+   "xlive": 138
+  },
+  {
+   "name": "A Slow Day At The Office",
+   "detail": "Survive an assassination attempt.",
+   "group": "Traitor's Keep (DLC)",
+   "points": 20,
+   "icon": "shield",
+   "xlive": 130
+  },
+  {
+   "name": "Diary Of A Sad Man",
+   "detail": "Find all of Professor Faraday's diaries.",
+   "group": "Traitor's Keep (DLC)",
+   "points": 30,
+   "icon": "book",
+   "xlive": 136
+  },
+  {
+   "name": "I, Robot. You, Idiot",
+   "detail": "Help Huxley end his Loneliness Mode.",
+   "group": "Traitor's Keep (DLC)",
+   "points": 20,
+   "icon": "gear",
+   "xlive": 135
+  },
+  {
+   "name": "Keeping It Real",
+   "detail": "Decide the future of the Keep.",
+   "group": "Traitor's Keep (DLC)",
+   "points": 20,
+   "icon": "tower",
+   "xlive": 134
+  },
+  {
+   "name": "Lab Notes",
+   "detail": "Find all of Witchcraft Mary's diaries.",
+   "group": "Traitor's Keep (DLC)",
+   "points": 30,
+   "icon": "book",
+   "xlive": 137
+  },
+  {
+   "name": "Science And Industry",
+   "detail": "Defeat Professor Faraday.",
+   "group": "Traitor's Keep (DLC)",
+   "points": 20,
+   "icon": "gear",
+   "xlive": 131
+  },
+  {
+   "name": "Set Them Free!",
+   "detail": "Open all Demon Doors.",
+   "group": "Traitor's Keep (DLC)",
+   "points": 40,
+   "icon": "door",
+   "xlive": 139
+  },
+  {
+   "name": "Unnatural Laws",
+   "detail": "Defeat Witchcraft Mary.",
+   "group": "Traitor's Keep (DLC)",
+   "points": 20,
+   "icon": "bolt",
+   "xlive": 132
+  },
+  {
+   "name": "Who Are You?",
+   "detail": "Defeat General Turner.",
+   "group": "Traitor's Keep (DLC)",
+   "points": 20,
+   "icon": "sword",
+   "xlive": 133
+  }
+ ],
+ "xliveSource": "Achievement IDs from the game's own achievement tables, matched by name: the XDBF/SPA resource in Fable3.exe (XACH section, English XSTR names) gives The Guild Seal = 69 ... Adopt Or Die = 129, and the Traitor's Keep DLC table (DLC\\03_InquisitorsPack\\Content\\spa.bin, 60 entries) adds A Slow Day At The Office = 130 ... Set Them Free! = 139. XLiveEmu writes one unlocked ID per line."
+}

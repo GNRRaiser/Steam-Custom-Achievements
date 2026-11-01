@@ -1,0 +1,32 @@
+# Saves and recordings the plugin writes while you play (they contain your saves)
+recordings/**
+!recordings/
+!recordings/README.txt
+!recordings/*/
+!recordings/*/README.txt
+
+# Left behind by the installer or the plugin's write check
+custom-achievement-backups/
+.write-test
+
+# Your private words for package.py's share check
+source/private_terms.txt
+
+# Built ZIPs (attach them to a GitHub release instead)
+*.zip
+dist/
+
+# Saves people send for research: never commit these
+*.sav
+*.prf
+*.bin
+*.pro
+saves/
+
+# Tooling
+__pycache__/
+*.pyc
+node_modules/
+.DS_Store
+Thumbs.db
+desktop.ini

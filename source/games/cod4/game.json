@@ -1,0 +1,516 @@
+{
+ "appId": 7940,
+ "title": "Call of Duty 4: Modern Warfare",
+ "platform": "Xbox 360",
+ "detector": "cod",
+ "setupHint": "Finish a campaign mission, or select your profile's config.cfg in Settings.",
+ "pathPlaceholder": "Path to players\\profiles\\<name>\\config.cfg (or the profile folder)",
+ "trackingNote": "Mission, Veteran and intel achievements unlock a few seconds after the game records campaign progress in your profile's config.cfg (when a mission ends). Feats inside missions are marked by hand.",
+ "autoTag": "Unlocks automatically from your campaign progress",
+ "appDataFolders": [
+  "CoD4"
+ ],
+ "counterDvar": "cheat_points",
+ "levelsSource": "maps/_endmission.gsc in the official CoD4 mod tools: one mis_difficulty digit per level in this order; the digit is the highest skill finished (1 Recruit, 2 Regular, 3 Hardened, 4 Veteran). F.N.G. is always recorded as 4.",
+ "levels": [
+  [
+   "killhouse",
+   "F.N.G."
+  ],
+  [
+   "cargoship",
+   "Crew Expendable"
+  ],
+  [
+   "coup",
+   "The Coup"
+  ],
+  [
+   "blackout",
+   "Blackout"
+  ],
+  [
+   "armada",
+   "Charlie Don't Surf"
+  ],
+  [
+   "bog_a",
+   "The Bog"
+  ],
+  [
+   "hunted",
+   "Hunted"
+  ],
+  [
+   "ac130",
+   "Death from Above"
+  ],
+  [
+   "bog_b",
+   "War Pig"
+  ],
+  [
+   "airlift",
+   "Shock and Awe"
+  ],
+  [
+   "aftermath",
+   "Aftermath"
+  ],
+  [
+   "village_assault",
+   "Safehouse"
+  ],
+  [
+   "scoutsniper",
+   "All Ghillied Up"
+  ],
+  [
+   "sniperescape",
+   "One Shot, One Kill"
+  ],
+  [
+   "village_defend",
+   "Heat"
+  ],
+  [
+   "ambush",
+   "The Sins of the Father"
+  ],
+  [
+   "icbm",
+   "Ultimatum"
+  ],
+  [
+   "launchfacility_a",
+   "All In"
+  ],
+  [
+   "launchfacility_b",
+   "No Fighting in the War Room"
+  ],
+  [
+   "jeepride",
+   "Game Over"
+  ],
+  [
+   "airplane",
+   "Mile High Club"
+  ]
+ ],
+ "achievements": [
+  {
+   "name": "Earn a Winged Dagger",
+   "detail": "Complete 'F.N.G.'",
+   "group": "Campaign",
+   "points": 20,
+   "icon": "spear",
+   "rule": {
+    "levels": [
+     "killhouse"
+    ],
+    "skill": 1
+   }
+  },
+  {
+   "name": "Make the Jump",
+   "detail": "Infiltrate a cargo ship",
+   "group": "Campaign",
+   "points": 20,
+   "icon": "dive",
+   "rule": {
+    "levels": [
+     "cargoship"
+    ],
+    "skill": 1
+   }
+  },
+  {
+   "name": "Dancing in the Dark",
+   "detail": "Kill the power",
+   "group": "Campaign",
+   "points": 20,
+   "icon": "bolt",
+   "rule": {
+    "levels": [
+     "blackout"
+    ],
+    "skill": 1
+   }
+  },
+  {
+   "name": "Save the Bacon",
+   "detail": "Protect 'War Pig', the Abrams tank",
+   "group": "Campaign",
+   "points": 20,
+   "icon": "tank",
+   "rule": {
+    "levels": [
+     "bog_a"
+    ],
+    "skill": 1
+   }
+  },
+  {
+   "name": "Death From Above",
+   "detail": "Operate an AC-130 gun ship",
+   "group": "Campaign",
+   "points": 20,
+   "icon": "plane",
+   "rule": {
+    "levels": [
+     "ac130"
+    ],
+    "skill": 1
+   }
+  },
+  {
+   "name": "Wrong Number",
+   "detail": "Find Al-Asad's safehouse",
+   "group": "Campaign",
+   "points": 20,
+   "icon": "house",
+   "rule": {
+    "levels": [
+     "village_assault"
+    ],
+    "skill": 1
+   }
+  },
+  {
+   "name": "Piggyback Ride",
+   "detail": "Carry Cpt. MacMillan to safety",
+   "group": "Campaign",
+   "points": 20,
+   "icon": "shield",
+   "rule": {
+    "levels": [
+     "sniperescape"
+    ],
+    "skill": 1
+   }
+  },
+  {
+   "name": "Desperate Measures",
+   "detail": "Corner Zakhaev's Son",
+   "group": "Campaign",
+   "points": 20,
+   "icon": "target",
+   "rule": {
+    "levels": [
+     "ambush"
+    ],
+    "skill": 1
+   }
+  },
+  {
+   "name": "Win the War",
+   "detail": "Complete the game on any difficulty",
+   "group": "Campaign",
+   "points": 40,
+   "icon": "medal",
+   "rule": {
+    "levels": [
+     "jeepride"
+    ],
+    "skill": 1
+   }
+  },
+  {
+   "name": "Deep and Hard",
+   "detail": "Complete the game on Hardened or Veteran difficulty",
+   "group": "Campaign",
+   "points": 90,
+   "icon": "crown",
+   "rule": {
+    "allExcept": [
+     "airplane"
+    ],
+    "skill": 3,
+    "label": "Missions on Hardened or Veteran"
+   }
+  },
+  {
+   "name": "The Package",
+   "detail": "Complete 'Crew Expendable' on Veteran difficulty",
+   "group": "Veteran",
+   "points": 40,
+   "icon": "skull",
+   "rule": {
+    "levels": [
+     "cargoship"
+    ],
+    "skill": 4
+   }
+  },
+  {
+   "name": "The Rescue",
+   "detail": "Complete 'Blackout' on Veteran difficulty",
+   "group": "Veteran",
+   "points": 40,
+   "icon": "skull",
+   "rule": {
+    "levels": [
+     "blackout"
+    ],
+    "skill": 4
+   }
+  },
+  {
+   "name": "The Search",
+   "detail": "Complete 'Charlie Don't Surf' on Veteran difficulty",
+   "group": "Veteran",
+   "points": 40,
+   "icon": "skull",
+   "rule": {
+    "levels": [
+     "armada"
+    ],
+    "skill": 4
+   }
+  },
+  {
+   "name": "The Bog",
+   "detail": "Complete 'The Bog' and 'War Pig' on Veteran difficulty",
+   "group": "Veteran",
+   "points": 40,
+   "icon": "skull",
+   "rule": {
+    "levels": [
+     "bog_a",
+     "bog_b"
+    ],
+    "skill": 4,
+    "label": "Missions on Veteran"
+   }
+  },
+  {
+   "name": "The Escape",
+   "detail": "Complete 'Hunted' and 'Death From Above' on Veteran difficulty",
+   "group": "Veteran",
+   "points": 40,
+   "icon": "skull",
+   "rule": {
+    "levels": [
+     "hunted",
+     "ac130"
+    ],
+    "skill": 4,
+    "label": "Missions on Veteran"
+   }
+  },
+  {
+   "name": "The First Horseman",
+   "detail": "Complete 'Shock and Awe' on Veteran difficulty",
+   "group": "Veteran",
+   "points": 40,
+   "icon": "skull",
+   "rule": {
+    "levels": [
+     "airlift"
+    ],
+    "skill": 4
+   }
+  },
+  {
+   "name": "The Second Horseman",
+   "detail": "Complete 'Safehouse' on Veteran difficulty",
+   "group": "Veteran",
+   "points": 40,
+   "icon": "skull",
+   "rule": {
+    "levels": [
+     "village_assault"
+    ],
+    "skill": 4
+   }
+  },
+  {
+   "name": "The Shot",
+   "detail": "Complete 'All Ghillied Up' and 'One Shot, One Kill' on Veteran difficulty",
+   "group": "Veteran",
+   "points": 40,
+   "icon": "skull",
+   "rule": {
+    "levels": [
+     "scoutsniper",
+     "sniperescape"
+    ],
+    "skill": 4,
+    "label": "Missions on Veteran"
+   }
+  },
+  {
+   "name": "The Third Horseman",
+   "detail": "Complete 'Heat' and 'The Sins of the Father' on Veteran difficulty",
+   "group": "Veteran",
+   "points": 40,
+   "icon": "skull",
+   "rule": {
+    "levels": [
+     "village_defend",
+     "ambush"
+    ],
+    "skill": 4,
+    "label": "Missions on Veteran"
+   }
+  },
+  {
+   "name": "The Ultimatum",
+   "detail": "Complete 'Ultimatum', 'All In', and 'No Fighting in the War Room' on Veteran difficulty",
+   "group": "Veteran",
+   "points": 40,
+   "icon": "skull",
+   "rule": {
+    "levels": [
+     "icbm",
+     "launchfacility_a",
+     "launchfacility_b"
+    ],
+    "skill": 4,
+    "label": "Missions on Veteran"
+   }
+  },
+  {
+   "name": "The Fourth Horseman",
+   "detail": "Complete 'Game Over' on Veteran difficulty",
+   "group": "Veteran",
+   "points": 40,
+   "icon": "skull",
+   "rule": {
+    "levels": [
+     "jeepride"
+    ],
+    "skill": 4
+   }
+  },
+  {
+   "name": "Mile High Club",
+   "detail": "Sky dive to safety on Veteran difficulty",
+   "group": "Veteran",
+   "points": 20,
+   "icon": "plane",
+   "rule": {
+    "levels": [
+     "airplane"
+    ],
+    "skill": 4
+   }
+  },
+  {
+   "name": "Look Sharp",
+   "detail": "Find 15 enemy intel items",
+   "group": "Intel",
+   "points": 20,
+   "icon": "letter",
+   "rule": {
+    "dvar": "cheat_points",
+    "need": 15,
+    "label": "Enemy intel"
+   }
+  },
+  {
+   "name": "Eyes and Ears",
+   "detail": "Find 30 enemy intel items",
+   "group": "Intel",
+   "points": 20,
+   "icon": "eye",
+   "rule": {
+    "dvar": "cheat_points",
+    "need": 30,
+    "label": "Enemy intel"
+   }
+  },
+  {
+   "name": "Down Boy Down",
+   "detail": "Survive a dog attack",
+   "group": "Challenges",
+   "points": 20,
+   "icon": "dog"
+  },
+  {
+   "name": "New Squadron Record",
+   "detail": "Complete the cargo ship mockup in less than 20 seconds",
+   "group": "Challenges",
+   "points": 20,
+   "icon": "bolt"
+  },
+  {
+   "name": "Rescue Roycewicz",
+   "detail": "Save Pvt. Roycewicz on the stairs",
+   "group": "Challenges",
+   "points": 20,
+   "icon": "heart"
+  },
+  {
+   "name": "Your Show Sucks",
+   "detail": "Destroy all the TVs showing Al-Asad's speech",
+   "group": "Challenges",
+   "points": 20,
+   "icon": "target"
+  },
+  {
+   "name": "Man of the People",
+   "detail": "Save the farmer",
+   "group": "Challenges",
+   "points": 10,
+   "icon": "shield"
+  },
+  {
+   "name": "Straight Flush",
+   "detail": "Kill 5 enemies with one shot while in the AC-130 gunship",
+   "group": "Challenges",
+   "points": 20,
+   "icon": "plane"
+  },
+  {
+   "name": "Ghillies In The Mist",
+   "detail": "Complete 'All Ghillied Up' without alerting any enemies",
+   "group": "Challenges",
+   "points": 20,
+   "icon": "eye"
+  },
+  {
+   "name": "No Rest for the Weary",
+   "detail": "Stab an injured crawling enemy",
+   "group": "Challenges",
+   "points": 10,
+   "icon": "sword"
+  },
+  {
+   "name": "Daredevil",
+   "detail": "Kill an enemy while blinded by a flashbang in the single player campaign",
+   "group": "Challenges",
+   "points": 10,
+   "icon": "star"
+  },
+  {
+   "name": "Roadkill",
+   "detail": "Kill 2 enemies by blowing up a car in the single player campaign",
+   "group": "Challenges",
+   "points": 10,
+   "icon": "flame"
+  },
+  {
+   "name": "Bird on the Ground",
+   "detail": "Shoot down an enemy helicopter with an RPG in the single player campaign",
+   "group": "Challenges",
+   "points": 20,
+   "icon": "spear"
+  },
+  {
+   "name": "Four of a Kind",
+   "detail": "Kill 4 enemies in a row with headshots in the single player campaign",
+   "group": "Challenges",
+   "points": 20,
+   "icon": "target"
+  },
+  {
+   "name": "Three of a Kind",
+   "detail": "Kill 3 enemies in a row with your knife in the single player campaign",
+   "group": "Challenges",
+   "points": 10,
+   "icon": "swords"
+  }
+ ]
+}

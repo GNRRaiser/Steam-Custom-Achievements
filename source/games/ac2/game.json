@@ -1,0 +1,18 @@
+{
+  "appId": 33230,
+  "title": "Assassin's Creed II",
+  "platform": "Xbox 360",
+  "detector": "ac2",
+  "progressKey": "ac2AutomaticProgressV1",
+  "pathKey": "ac2SavePathV1",
+  "setupHint": "Use the AC2 save folder, or play until an autosave.",
+  "pathPlaceholder": "Full path to the AC2 save file or save folder",
+  "trackingNote": "Story, tomb and supported activity achievements unlock a few seconds after Assassin's Creed II autosaves, and so do Art Connoisseur, Perfect Harmony, Show Your Colors and Handy Man, read from the game's own checklists and villa levels in the save. The rest are marked by hand from the achievement list.",
+  "autoTag": "Unlocks automatically from your autosave",
+  "achievementsFile": "achievements.json",
+  "completion": {
+    "name": "Master Assassin",
+    "detail": "Unlock all trophies.",
+    "picture": "platinum.webp"
+  }
+}

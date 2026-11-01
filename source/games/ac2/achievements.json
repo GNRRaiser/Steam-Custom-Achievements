@@ -1,0 +1,364 @@
+[
+  {
+    "name": "The Birth of an Assassin",
+    "detail": "Be reborn as Ezio Auditore da Firenze.",
+    "group": "Story",
+    "automatic": true,
+    "icon": "star"
+  },
+  {
+    "name": "Arrivederci Abstergo",
+    "detail": "Break out of Abstergo.",
+    "group": "Story",
+    "automatic": true,
+    "icon": "door"
+  },
+  {
+    "name": "Welcome to the Animus 2.0",
+    "detail": "Enter the Animus.",
+    "group": "Story",
+    "automatic": true,
+    "icon": "animus"
+  },
+  {
+    "name": "The Pain of Betrayal",
+    "detail": "Complete Sequence 1.",
+    "group": "Story",
+    "automatic": true,
+    "icon": "dna",
+    "numeral": "I"
+  },
+  {
+    "name": "Vengeance",
+    "detail": "Complete Sequence 2.",
+    "group": "Story",
+    "automatic": true,
+    "icon": "dna",
+    "numeral": "II"
+  },
+  {
+    "name": "Exit the Son",
+    "detail": "Complete Sequence 3.",
+    "group": "Story",
+    "automatic": true,
+    "icon": "dna",
+    "numeral": "III"
+  },
+  {
+    "name": "Bloody Sunday",
+    "detail": "Complete Sequence 4.",
+    "group": "Story",
+    "automatic": true,
+    "icon": "dna",
+    "numeral": "IV"
+  },
+  {
+    "name": "Undertaker",
+    "detail": "Discover the Assassin's Tomb inside the catacombs under Santa Maria Novella.",
+    "group": "Tombs",
+    "automatic": true,
+    "icon": "tomb"
+  },
+  {
+    "name": "The Conspirators",
+    "detail": "Complete Sequence 5.",
+    "group": "Story",
+    "automatic": true,
+    "icon": "dna",
+    "numeral": "V"
+  },
+  {
+    "name": "An Unexpected Journey",
+    "detail": "Complete Sequence 6.",
+    "group": "Story",
+    "automatic": true,
+    "icon": "dna",
+    "numeral": "VI"
+  },
+  {
+    "name": "Bleeding Effect",
+    "detail": "Complete training and reenter the Animus.",
+    "group": "Story",
+    "automatic": true,
+    "icon": "eye"
+  },
+  {
+    "name": "The Merchant of Venice",
+    "detail": "Complete Sequence 7.",
+    "group": "Story",
+    "automatic": true,
+    "icon": "dna",
+    "numeral": "VII"
+  },
+  {
+    "name": "The Impenetrable Palazzo",
+    "detail": "Complete Sequence 8.",
+    "group": "Story",
+    "automatic": true,
+    "icon": "dna",
+    "numeral": "VIII"
+  },
+  {
+    "name": "Masquerade",
+    "detail": "Complete Sequence 9.",
+    "group": "Story",
+    "automatic": true,
+    "icon": "dna",
+    "numeral": "IX"
+  },
+  {
+    "name": "Bianca's Man",
+    "detail": "Complete Sequence 10.",
+    "group": "Story",
+    "automatic": true,
+    "icon": "dna",
+    "numeral": "X"
+  },
+  {
+    "name": "The Prophet",
+    "detail": "Complete Sequence 11.",
+    "group": "Story",
+    "automatic": true,
+    "icon": "dna",
+    "numeral": "XI"
+  },
+  {
+    "name": "The Vault",
+    "detail": "Complete Sequence 14.",
+    "group": "Story",
+    "automatic": true,
+    "icon": "dna",
+    "numeral": "XIV"
+  },
+  {
+    "name": "An Old Friend Returns",
+    "detail": "Escape the hideout.",
+    "group": "Story",
+    "automatic": true,
+    "icon": "insignia"
+  },
+  {
+    "name": "Myth Maker",
+    "detail": "Find the 8 statuettes in Monteriggioni.",
+    "group": "Collectibles",
+    "automatic": true,
+    "icon": "statue"
+  },
+  {
+    "name": "Vitruvian Man",
+    "detail": "Unlock all 20 pieces of Subject 16's video.",
+    "group": "Collectibles",
+    "automatic": true,
+    "icon": "vitruvian"
+  },
+  {
+    "name": "Street Cleaner",
+    "detail": "Hide 5 dead bodies in a Bale of Hay.",
+    "group": "Challenges",
+    "automatic": false,
+    "icon": "hay"
+  },
+  {
+    "name": "Fly Swatter",
+    "detail": "Kick a Guard while using the Flying Machine.",
+    "group": "Challenges",
+    "automatic": false,
+    "icon": "glider"
+  },
+  {
+    "name": "Messer Sandman",
+    "detail": "Stun 4 guards at once by throwing sand in their face.",
+    "group": "Challenges",
+    "automatic": false,
+    "icon": "sand"
+  },
+  {
+    "name": "Doctor",
+    "detail": "Perform an Air Assassination on a Poisoned NPC.",
+    "group": "Challenges",
+    "automatic": false,
+    "icon": "poison"
+  },
+  {
+    "name": "No-hitter",
+    "detail": "Kill 10 enemies while remaining in conflict without being hit.",
+    "group": "Challenges",
+    "automatic": false,
+    "icon": "shield"
+  },
+  {
+    "name": "Kleptomaniac",
+    "detail": "Pickpocket 1000 Florins.",
+    "group": "Challenges",
+    "automatic": true,
+    "icon": "coin"
+  },
+  {
+    "name": "Lightning Strike",
+    "detail": "Sprint for 100 meters.",
+    "group": "Challenges",
+    "automatic": false,
+    "icon": "bolt"
+  },
+  {
+    "name": "Sweeper",
+    "detail": "Sweep 5 guards at once by using a Long Weapon.",
+    "group": "Challenges",
+    "automatic": false,
+    "icon": "spear"
+  },
+  {
+    "name": "Venetian Gladiator",
+    "detail": "Discover the Assassin's Tomb inside Santa Maria della Visitazione.",
+    "group": "Tombs",
+    "automatic": true,
+    "icon": "swords"
+  },
+  {
+    "name": "I Can See Your House From Here!",
+    "detail": "Discover the Assassin's Tomb inside the Torre Grossa.",
+    "group": "Tombs",
+    "automatic": true,
+    "icon": "tower"
+  },
+  {
+    "name": "Hallowed Be Thy Name",
+    "detail": "Discover the Assassin's Tomb inside the Basilica di San Marco.",
+    "group": "Tombs",
+    "automatic": true,
+    "icon": "dome"
+  },
+  {
+    "name": "Prison Escape",
+    "detail": "Discover the Assassin's Tomb inside the Rocca di Ravaldino fortress.",
+    "group": "Tombs",
+    "automatic": true,
+    "icon": "bars"
+  },
+  {
+    "name": "Choir Boy",
+    "detail": "Discover the Assassin's Tomb inside Santa Maria del Fiore (The Duomo).",
+    "group": "Tombs",
+    "automatic": true,
+    "icon": "bell"
+  },
+  {
+    "name": "Assassin For Hire",
+    "detail": "Complete your first assassination mission for Lorenzo Il Magnifico.",
+    "group": "Activities",
+    "automatic": true,
+    "icon": "target"
+  },
+  {
+    "name": "Macho Man",
+    "detail": "Defend a woman's honor.",
+    "group": "Activities",
+    "automatic": true,
+    "icon": "fist"
+  },
+  {
+    "name": "Steal Home",
+    "detail": "Win a race against thieves!",
+    "group": "Activities",
+    "automatic": true,
+    "icon": "flag"
+  },
+  {
+    "name": "Show Your Colors",
+    "detail": "Wear the Auditore cape in each city.",
+    "group": "Activities",
+    "automatic": true,
+    "icon": "cape"
+  },
+  {
+    "name": "Handy Man",
+    "detail": "Upgrade a building in the Stronghold.",
+    "group": "Activities",
+    "automatic": true,
+    "icon": "hammer"
+  },
+  {
+    "name": "I Like the View",
+    "detail": "Synchronize 10 View Points.",
+    "group": "Collectibles",
+    "automatic": true,
+    "icon": "eagle"
+  },
+  {
+    "name": "High Dive",
+    "detail": "Perform a Leap of Faith from the top of Florence's Giotto's Campanile.",
+    "group": "Challenges",
+    "automatic": false,
+    "icon": "dive"
+  },
+  {
+    "name": "Mailman",
+    "detail": "Intercept a Borgia Courier.",
+    "group": "Activities",
+    "automatic": false,
+    "icon": "letter"
+  },
+  {
+    "name": "Tip of the Iceberg",
+    "detail": "Use your Eagle Vision to scan a Glyph in the environment.",
+    "group": "Collectibles",
+    "automatic": true,
+    "icon": "glyph"
+  },
+  {
+    "name": "A Piece of the Puzzle",
+    "detail": "Unlock a piece of Subject 16's video.",
+    "group": "Collectibles",
+    "automatic": true,
+    "icon": "puzzle"
+  },
+  {
+    "name": "Art Connoisseur",
+    "detail": "Buy a Painting from Florence and Venice.",
+    "group": "Activities",
+    "automatic": true,
+    "icon": "painting"
+  },
+  {
+    "name": "Podestà of Monteriggioni",
+    "detail": "Reach 80% of your stronghold's total value.",
+    "group": "Activities",
+    "automatic": true,
+    "icon": "crown"
+  },
+  {
+    "name": "Perfect Harmony",
+    "detail": "Tint your clothes with those colors: Wetland Ebony and Wetland Ivory.",
+    "group": "Activities",
+    "automatic": true,
+    "icon": "drops"
+  },
+  {
+    "name": "In Memory of Petruccio",
+    "detail": "Collect all the Feathers.",
+    "group": "Collectibles",
+    "automatic": true,
+    "icon": "feather"
+  },
+  {
+    "name": "Red Light Addict",
+    "detail": "Spend 5000 florins on Courtesans.",
+    "group": "Activities",
+    "automatic": true,
+    "icon": "heart"
+  },
+  {
+    "name": "Man of the People",
+    "detail": "Toss more than 300 florins on the ground.",
+    "group": "Activities",
+    "automatic": true,
+    "icon": "coins"
+  },
+  {
+    "name": "Victory Lies in Preparation",
+    "detail": "Get all Hidden Blades, Item Pouches and Armor upgrades for Ezio.",
+    "group": "Activities",
+    "automatic": true,
+    "icon": "sword"
+  }
+]

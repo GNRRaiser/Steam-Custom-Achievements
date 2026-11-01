@@ -1,0 +1,635 @@
+{
+  "slug": "me2",
+  "appId": 24980,
+  "title": "Mass Effect 2",
+  "platform": "Xbox 360",
+  "detector": "me2",
+  "setupHint": "Start Mass Effect 2 once, or select Player1.prf in Settings.",
+  "pathPlaceholder": "Path to Documents\\BioWare\\Mass Effect 2\\BIOGame\\Profile\\Player1.prf (or that folder)",
+  "trackingNote": "Mass Effect 2 on PC records its achievements in its own profile (Documents\\BioWare\\Mass Effect 2\\BIOGame\\Profile\\Player1.prf, shared by all characters), the same list it shows under Extras. The plugin reads that file, so 61 achievements, DLC included, unlock by themselves a few seconds after the game records them. Highly Trained is an Xbox 360 achievement the PC game doesn't have, so it is marked by hand.",
+  "autoTag": "Unlocks automatically from your Mass Effect 2 profile",
+  "achievements": [
+    {
+      "name": "Missing in Action",
+      "detail": "Save your crew from an overwhelming attack",
+      "group": "Story",
+      "points": 5,
+      "icon": "insignia",
+      "rule": {
+        "id": 1
+      }
+    },
+    {
+      "name": "Highly Trained",
+      "detail": "View all advanced combat training videos at Shepard's private terminal.",
+      "group": "Character",
+      "points": 15,
+      "icon": "letter"
+    },
+    {
+      "name": "Very Elusive",
+      "detail": "Return to active duty",
+      "group": "Story",
+      "points": 10,
+      "icon": "insignia",
+      "rule": {
+        "id": 2
+      }
+    },
+    {
+      "name": "The Convict",
+      "detail": "Successfully recruit the biotic Convict",
+      "group": "Squad",
+      "points": 10,
+      "icon": "insignia",
+      "rule": {
+        "id": 3
+      }
+    },
+    {
+      "name": "The Krogan",
+      "detail": "Successfully recruit the Krogan",
+      "group": "Squad",
+      "points": 10,
+      "icon": "insignia",
+      "rule": {
+        "id": 4
+      }
+    },
+    {
+      "name": "The Archangel",
+      "detail": "Successfully recruit Archangel",
+      "group": "Squad",
+      "points": 10,
+      "icon": "insignia",
+      "rule": {
+        "id": 5
+      }
+    },
+    {
+      "name": "The Professor",
+      "detail": "Successfully recruit the Professor",
+      "group": "Squad",
+      "points": 10,
+      "icon": "insignia",
+      "rule": {
+        "id": 6
+      }
+    },
+    {
+      "name": "The Quarian",
+      "detail": "Successfully recruit the Quarian",
+      "group": "Squad",
+      "points": 10,
+      "icon": "insignia",
+      "rule": {
+        "id": 7
+      }
+    },
+    {
+      "name": "The Justicar",
+      "detail": "Successfully recruit the Justicar",
+      "group": "Squad",
+      "points": 10,
+      "icon": "insignia",
+      "rule": {
+        "id": 8
+      }
+    },
+    {
+      "name": "The Assassin",
+      "detail": "Successfully recruit the Assassin",
+      "group": "Squad",
+      "points": 10,
+      "icon": "insignia",
+      "rule": {
+        "id": 9
+      }
+    },
+    {
+      "name": "Friend or Foe",
+      "detail": "Obtain geth technology",
+      "group": "Story",
+      "points": 10,
+      "icon": "insignia",
+      "rule": {
+        "id": 20
+      }
+    },
+    {
+      "name": "Colony Defense",
+      "detail": "Defend a human colony from attack",
+      "group": "Story",
+      "points": 25,
+      "icon": "insignia",
+      "rule": {
+        "id": 10
+      }
+    },
+    {
+      "name": "The Prodigal",
+      "detail": "Gain the loyalty of the Cerberus Officer",
+      "group": "Squad",
+      "points": 10,
+      "icon": "heart",
+      "rule": {
+        "id": 11
+      }
+    },
+    {
+      "name": "Ghost of the Father",
+      "detail": "Gain the loyalty of the Cerberus Operative",
+      "group": "Squad",
+      "points": 10,
+      "icon": "heart",
+      "rule": {
+        "id": 12
+      }
+    },
+    {
+      "name": "Catharsis",
+      "detail": "Gain the loyalty of the biotic Convict",
+      "group": "Squad",
+      "points": 10,
+      "icon": "heart",
+      "rule": {
+        "id": 13
+      }
+    },
+    {
+      "name": "Battlemaster",
+      "detail": "Gain the loyalty of the krogan",
+      "group": "Squad",
+      "points": 10,
+      "icon": "heart",
+      "rule": {
+        "id": 14
+      }
+    },
+    {
+      "name": "Fade Away",
+      "detail": "Gain the loyalty of Archangel",
+      "group": "Squad",
+      "points": 10,
+      "icon": "heart",
+      "rule": {
+        "id": 15
+      }
+    },
+    {
+      "name": "The Cure",
+      "detail": "Gain the loyalty of the Professor",
+      "group": "Squad",
+      "points": 10,
+      "icon": "heart",
+      "rule": {
+        "id": 16
+      }
+    },
+    {
+      "name": "Treason",
+      "detail": "Gain the loyalty of the quarian",
+      "group": "Squad",
+      "points": 10,
+      "icon": "heart",
+      "rule": {
+        "id": 17
+      }
+    },
+    {
+      "name": "Doppelganger",
+      "detail": "Help the Justicar resolve her mission",
+      "group": "Squad",
+      "points": 10,
+      "icon": "heart",
+      "rule": {
+        "id": 18
+      }
+    },
+    {
+      "name": "Cat's in the Cradle",
+      "detail": "Gain the loyalty of the Assassin",
+      "group": "Squad",
+      "points": 10,
+      "icon": "heart",
+      "rule": {
+        "id": 19
+      }
+    },
+    {
+      "name": "A House Divided",
+      "detail": "Hack a geth collective",
+      "group": "Story",
+      "points": 10,
+      "icon": "insignia",
+      "rule": {
+        "id": 21
+      }
+    },
+    {
+      "name": "Ghost Ship",
+      "detail": "Complete the investigation of a derelict alien vessel",
+      "group": "Story",
+      "points": 25,
+      "icon": "insignia",
+      "rule": {
+        "id": 22
+      }
+    },
+    {
+      "name": "Suicide Mission",
+      "detail": "Use the Omega 4 Relay",
+      "group": "Story",
+      "points": 50,
+      "icon": "insignia",
+      "rule": {
+        "id": 23
+      }
+    },
+    {
+      "name": "Mission Accomplished",
+      "detail": "Save humanity throughout the galaxy from certain annihilation",
+      "group": "Story",
+      "points": 125,
+      "icon": "medal",
+      "rule": {
+        "id": 24
+      }
+    },
+    {
+      "name": "Against All Odds",
+      "detail": "Survive suicide mission",
+      "group": "Story",
+      "points": 15,
+      "icon": "insignia",
+      "rule": {
+        "id": 25
+      }
+    },
+    {
+      "name": "Insanity",
+      "detail": "Complete the game on the \"Insanity\" difficulty level without changing the setting",
+      "group": "Story",
+      "points": 75,
+      "icon": "skull",
+      "rule": {
+        "id": 26
+      }
+    },
+    {
+      "name": "No One Left Behind",
+      "detail": "Keep your team alive through the suicide mission",
+      "group": "Story",
+      "points": 75,
+      "icon": "shield",
+      "rule": {
+        "id": 27
+      }
+    },
+    {
+      "name": "Long Service Medal",
+      "detail": "Complete Mass Effect 2 twice, or complete it once with a character imported from Mass Effect 1",
+      "group": "Story",
+      "points": 75,
+      "icon": "medal",
+      "rule": {
+        "id": 28
+      }
+    },
+    {
+      "name": "Paramour",
+      "detail": "Successfully pursue a relationship with a teammate",
+      "group": "Character",
+      "points": 50,
+      "icon": "heart",
+      "rule": {
+        "id": 29
+      }
+    },
+    {
+      "name": "Head Hunter",
+      "detail": "Perform 30 headshot kills with any weapon on humanoid targets",
+      "group": "Combat",
+      "points": 10,
+      "icon": "target",
+      "rule": {
+        "id": 30
+      }
+    },
+    {
+      "name": "Brawler",
+      "detail": "Shoot and kill 20 enemies while they're knocked back by a punch",
+      "group": "Combat",
+      "points": 10,
+      "icon": "fist",
+      "rule": {
+        "id": 31
+      }
+    },
+    {
+      "name": "Big Game Hunter",
+      "detail": "Thresher Maw defeated",
+      "group": "Combat",
+      "points": 10,
+      "icon": "skull",
+      "rule": {
+        "id": 32
+      }
+    },
+    {
+      "name": "Tactician",
+      "detail": "Hit 20 different targets with multiple biotic powers to combine the effects",
+      "group": "Combat",
+      "points": 10,
+      "icon": "bolt",
+      "rule": {
+        "id": 33
+      }
+    },
+    {
+      "name": "Master at Arms",
+      "detail": "Kill enemies with 5 different heavy weapons during the game",
+      "group": "Combat",
+      "points": 15,
+      "icon": "bolt",
+      "rule": {
+        "id": 34
+      }
+    },
+    {
+      "name": "Merciless",
+      "detail": "Make 20 enemies scream as they fall or are set on fire",
+      "group": "Combat",
+      "points": 10,
+      "icon": "flame",
+      "rule": {
+        "id": 35
+      }
+    },
+    {
+      "name": "Overload Specialist",
+      "detail": "Disrupt the shields of 25 enemies",
+      "group": "Combat",
+      "points": 15,
+      "icon": "bolt",
+      "rule": {
+        "id": 36
+      }
+    },
+    {
+      "name": "Warp Specialist",
+      "detail": "Warp the barriers of 25 enemies",
+      "group": "Combat",
+      "points": 15,
+      "icon": "bolt",
+      "rule": {
+        "id": 37
+      }
+    },
+    {
+      "name": "Incineration Specialist",
+      "detail": "Incinerate the armor of 25 enemies",
+      "group": "Combat",
+      "points": 15,
+      "icon": "bolt",
+      "rule": {
+        "id": 38
+      }
+    },
+    {
+      "name": "Operative",
+      "detail": "Complete a mission discovered by scanning an unexplored world",
+      "group": "Exploration",
+      "points": 15,
+      "icon": "eye",
+      "rule": {
+        "id": 39
+      }
+    },
+    {
+      "name": "Agent",
+      "detail": "Complete 5 missions discovered by scanning unexplored worlds",
+      "group": "Exploration",
+      "points": 50,
+      "icon": "eye",
+      "rule": {
+        "id": 40
+      }
+    },
+    {
+      "name": "Prospector",
+      "detail": "Retrieve mineral resources by scanning and probing a planet in the galaxy map",
+      "group": "Exploration",
+      "points": 5,
+      "icon": "eye",
+      "rule": {
+        "id": 41
+      }
+    },
+    {
+      "name": "Explorer",
+      "detail": "Visit 100% of the planets in an unexplored cluster",
+      "group": "Exploration",
+      "points": 10,
+      "icon": "eye",
+      "rule": {
+        "id": 42
+      }
+    },
+    {
+      "name": "Power Gamer",
+      "detail": "Reach Level 30 with one character",
+      "group": "Character",
+      "points": 10,
+      "icon": "star",
+      "rule": {
+        "id": 43
+      }
+    },
+    {
+      "name": "Scholar",
+      "detail": "Unlock 15 new Mass Effect 2 codex entries",
+      "group": "Character",
+      "points": 15,
+      "icon": "book",
+      "rule": {
+        "id": 44
+      }
+    },
+    {
+      "name": "Technician",
+      "detail": "Obtain 10 technology upgrades",
+      "group": "Character",
+      "points": 15,
+      "icon": "gear",
+      "rule": {
+        "id": 45
+      }
+    },
+    {
+      "name": "Weapon Specialist",
+      "detail": "Fully upgrade a weapon",
+      "group": "Character",
+      "points": 15,
+      "icon": "gear",
+      "rule": {
+        "id": 46
+      }
+    },
+    {
+      "name": "Scientist",
+      "detail": "Complete any research project in the Normandy's laboratory",
+      "group": "Character",
+      "points": 10,
+      "icon": "gear",
+      "rule": {
+        "id": 47
+      }
+    },
+    {
+      "name": "Fashionista",
+      "detail": "Personalize your armor",
+      "group": "Character",
+      "points": 5,
+      "icon": "cape",
+      "rule": {
+        "id": 48
+      }
+    },
+    {
+      "name": "Power Full",
+      "detail": "Evolve any power",
+      "group": "Character",
+      "points": 15,
+      "icon": "star",
+      "rule": {
+        "id": 49
+      }
+    },
+    {
+      "name": "Heart of Darkness",
+      "detail": "Confront the Shadow Broker",
+      "group": "Downloadable content",
+      "points": 50,
+      "icon": "star",
+      "rule": {
+        "id": 56
+      }
+    },
+    {
+      "name": "Broke, Blind and Bedlam",
+      "detail": "Gain the loyalty of the thief",
+      "group": "Downloadable content",
+      "points": 15,
+      "icon": "shield",
+      "rule": {
+        "id": 51
+      }
+    },
+    {
+      "name": "Data Hound",
+      "detail": "Collect 6 Cerberus data packets scattered across Aite",
+      "group": "Downloadable content",
+      "points": 10,
+      "icon": "star",
+      "rule": {
+        "id": 52
+      }
+    },
+    {
+      "name": "Digital Exorcist",
+      "detail": "Successfully shut down the rogue VI in Project Overlord",
+      "group": "Downloadable content",
+      "points": 15,
+      "icon": "star",
+      "rule": {
+        "id": 53
+      }
+    },
+    {
+      "name": "Detail Orientated",
+      "detail": "Use all information terminals in the Shadow Broker's stronghold",
+      "group": "Downloadable content",
+      "points": 40,
+      "icon": "star",
+      "rule": {
+        "id": 54
+      }
+    },
+    {
+      "name": "Most Dangerous Game",
+      "detail": "Defeat the Shadow Broker's Assassin",
+      "group": "Downloadable content",
+      "points": 35,
+      "icon": "star",
+      "rule": {
+        "id": 55
+      }
+    },
+    {
+      "name": "The Hard Way",
+      "detail": "Complete the Shadow Broker Mission pack on Hardcore or Insanity",
+      "group": "Downloadable content",
+      "points": 50,
+      "icon": "star",
+      "rule": {
+        "id": 57
+      }
+    },
+    {
+      "name": "Catching Up",
+      "detail": "Reminisce with Liara on the Normandy",
+      "group": "Downloadable content",
+      "points": 25,
+      "icon": "star",
+      "rule": {
+        "id": 58
+      }
+    },
+    {
+      "name": "Revenge!",
+      "detail": "Gain the loyalty of the mercenary",
+      "group": "Downloadable content",
+      "points": 15,
+      "icon": "shield",
+      "rule": {
+        "id": 50
+      }
+    },
+    {
+      "name": "The Ultimate Sacrifice",
+      "detail": "Complete the Arrival DLC pack",
+      "group": "Downloadable content",
+      "points": 50,
+      "icon": "star",
+      "rule": {
+        "id": 59
+      }
+    },
+    {
+      "name": "Last Stand",
+      "detail": "Survive all five waves in the battle for Object Rho",
+      "group": "Downloadable content",
+      "points": 25,
+      "icon": "star",
+      "rule": {
+        "id": 60
+      }
+    },
+    {
+      "name": "Covert Action",
+      "detail": "Rescue Dr. Amanda Kenson without attracting hostile attention",
+      "group": "Downloadable content",
+      "points": 25,
+      "icon": "star",
+      "rule": {
+        "id": 61
+      }
+    }
+  ],
+  "completion": {
+    "name": "N7 Elite",
+    "detail": "Acquire all trophies.",
+    "picture": "platinum.webp"
+  }
+}

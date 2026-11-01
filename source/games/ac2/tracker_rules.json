@@ -1,0 +1,61 @@
+[
+  {
+    "index": 25,
+    "name": "Kleptomaniac",
+    "objectId": "25620DB1",
+    "need": 1000,
+    "label": "Florins pickpocketed",
+    "proof": "Game task 0x25620DB1: completion flag set and counter at least 1000. In 2.save it reads 1201 and complete."
+  },
+  {
+    "index": 47,
+    "name": "Red Light Addict",
+    "objectId": "25620DC7",
+    "need": 5000,
+    "label": "Florins spent on courtesans",
+    "proof": "Game task 0x25620DC7: completion flag set and counter at least 5000. In 2.save it reads 2400, which is exactly 16 courtesan hires x 150 florins (CourtesansHired = 16)."
+  },
+  {
+    "index": 48,
+    "name": "Man of the People",
+    "objectId": "25620DC8",
+    "need": 300,
+    "label": "Florins tossed",
+    "proof": "Game task 0x25620DC8: completion flag set and counter at least 300. Confirmed on 96 SaveGame.Pro saves: the counter climbs 20, 90, then 300 with the flag set."
+  },
+  {
+    "index": 38,
+    "name": "I Like the View",
+    "objectId": "25620DBE",
+    "need": 10,
+    "label": "View Points synchronized",
+    "proof": "Game task 0x25620DBE in the same achievement-counter group: across 96 SaveGame.Pro story saves it climbs 1, 7, then stops at 10 with the completion flag set during Sequence 2, and a tester's 2.save also reads 10 and complete."
+  },
+  {
+    "index": 41,
+    "name": "Tip of the Iceberg",
+    "objectId": "5BC08542",
+    "need": 1,
+    "label": "Glyphs solved",
+    "countOnly": true,
+    "proof": "Game task 0x5BC08542 (glyphs solved). Its completion flag is never set, so only the count is used. Across 96 SaveGame.Pro story saves it climbs 6, 8, 10, then 20 and stays at 20 in the 100% save. a tester's 2.save reads 1, and the tester says they solved about 1 glyph."
+  },
+  {
+    "index": 42,
+    "name": "A Piece of the Puzzle",
+    "objectId": "5BC08542",
+    "need": 1,
+    "label": "Glyphs solved",
+    "countOnly": true,
+    "proof": "Game task 0x5BC08542 (glyphs solved). Its completion flag is never set, so only the count is used. Across 96 SaveGame.Pro story saves it climbs 6, 8, 10, then 20 and stays at 20 in the 100% save. a tester's 2.save reads 1, and the tester says they solved about 1 glyph."
+  },
+  {
+    "index": 19,
+    "name": "Vitruvian Man",
+    "objectId": "5BC08542",
+    "need": 20,
+    "label": "Glyphs solved",
+    "countOnly": true,
+    "proof": "Game task 0x5BC08542 (glyphs solved). Its completion flag is never set, so only the count is used. Across 96 SaveGame.Pro story saves it climbs 6, 8, 10, then 20 and stays at 20 in the 100% save. a tester's 2.save reads 1, and the tester says they solved about 1 glyph."
+  }
+]

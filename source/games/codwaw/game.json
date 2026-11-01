@@ -1,0 +1,678 @@
+{
+ "appId": 10090,
+ "title": "Call of Duty: World at War",
+ "platform": "Xbox 360",
+ "detector": "cod",
+ "setupHint": "Finish a campaign mission, or select your profile's config.cfg in Settings.",
+ "pathPlaceholder": "Path to players\\profiles\\<name>\\config.cfg (or the profile folder)",
+ "trackingNote": "Mission, Veteran and Death Card achievements unlock a few seconds after the game records campaign progress in your profile's config.cfg (when a mission ends). Feats inside missions, co-op, multiplayer and Nazi Zombies are marked by hand.",
+ "autoTag": "Unlocks automatically from your campaign progress",
+ "appDataFolders": [
+  "CoDWaW"
+ ],
+ "levels": [
+  [
+   "mak",
+   "Semper Fi"
+  ],
+  [
+   "pel1",
+   "Little Resistance"
+  ],
+  [
+   "pel2",
+   "Hard Landing"
+  ],
+  [
+   "sniper",
+   "Vendetta"
+  ],
+  [
+   "see1",
+   "Their Land, Their Blood"
+  ],
+  [
+   "pel1a",
+   "Burn 'em Out"
+  ],
+  [
+   "pel1b",
+   "Relentless"
+  ],
+  [
+   "see2",
+   "Blood and Iron"
+  ],
+  [
+   "ber1",
+   "Ring of Steel"
+  ],
+  [
+   "ber2",
+   "Eviction"
+  ],
+  [
+   "pby_fly",
+   "Black Cats"
+  ],
+  [
+   "oki2",
+   "Blowtorch & Corkscrew"
+  ],
+  [
+   "oki3",
+   "Breaking Point"
+  ],
+  [
+   "ber3",
+   "Heart of the Reich"
+  ],
+  [
+   "ber3b",
+   "Downfall"
+  ]
+ ],
+ "achievements": [
+  {
+   "name": "Carlson's Raiders",
+   "detail": "Complete 'Semper Fi' on any difficulty. (Solo only)",
+   "group": "Campaign",
+   "points": 10,
+   "icon": "flag",
+   "rule": {
+    "levels": [
+     "mak"
+    ],
+    "skill": 1
+   }
+  },
+  {
+   "name": "Stormed Peleliu",
+   "detail": "Establish a beachhead on the island of Peleliu on any difficulty. (Solo only)",
+   "group": "Campaign",
+   "points": 15,
+   "icon": "dive",
+   "rule": {
+    "levels": [
+     "pel1"
+    ],
+    "skill": 1
+   }
+  },
+  {
+   "name": "The Last Stand",
+   "detail": "Survive the land and air conflict surrounding Okinawa on any difficulty. (Solo only)",
+   "group": "Campaign",
+   "points": 20,
+   "icon": "shield",
+   "rule": {
+    "levels": [
+     "oki3"
+    ],
+    "skill": 1
+   }
+  },
+  {
+   "name": "Stabbed in the Heart",
+   "detail": "Complete all missions on the Eastern Front on any difficulty setting. (Solo only)",
+   "group": "Campaign",
+   "points": 20,
+   "icon": "sword",
+   "rule": {
+    "levels": [
+     "see1",
+     "see2",
+     "ber1",
+     "ber2",
+     "ber3",
+     "ber3b"
+    ],
+    "skill": 1,
+    "label": "Eastern Front missions"
+   }
+  },
+  {
+   "name": "War Hero",
+   "detail": "Complete the game on any difficulty. (Solo only)",
+   "group": "Campaign",
+   "points": 40,
+   "icon": "medal",
+   "rule": {
+    "levels": [
+     "ber3b"
+    ],
+    "skill": 1
+   }
+  },
+  {
+   "name": "Hardened War Hero",
+   "detail": "Complete the game on Hardened or Veteran difficulty. (Solo only)",
+   "group": "Campaign",
+   "points": 100,
+   "icon": "crown",
+   "rule": {
+    "allExcept": [],
+    "skill": 3,
+    "label": "Missions on Hardened or Veteran"
+   }
+  },
+  {
+   "name": "Get Your Hands Dirty",
+   "detail": "Complete 'Semper Fi' on Veteran difficulty. (Solo only)",
+   "group": "Veteran",
+   "points": 30,
+   "icon": "skull",
+   "rule": {
+    "levels": [
+     "mak"
+    ],
+    "skill": 4
+   }
+  },
+  {
+   "name": "Bloody Peleliu",
+   "detail": "Complete 'Little Resistance' on Veteran difficulty. (Solo only)",
+   "group": "Veteran",
+   "points": 30,
+   "icon": "skull",
+   "rule": {
+    "levels": [
+     "pel1"
+    ],
+    "skill": 4
+   }
+  },
+  {
+   "name": "The Sword Is Broken",
+   "detail": "Complete 'Hard Landing' on Veteran difficulty. (Solo only)",
+   "group": "Veteran",
+   "points": 30,
+   "icon": "skull",
+   "rule": {
+    "levels": [
+     "pel2"
+    ],
+    "skill": 4
+   }
+  },
+  {
+   "name": "Architect",
+   "detail": "Complete 'Vendetta' on Veteran difficulty. (Solo only)",
+   "group": "Veteran",
+   "points": 30,
+   "icon": "skull",
+   "rule": {
+    "levels": [
+     "sniper"
+    ],
+    "skill": 4
+   }
+  },
+  {
+   "name": "The Hammer Strikes",
+   "detail": "Complete 'Their Land, Their Blood' on Veteran difficulty. (Solo only)",
+   "group": "Veteran",
+   "points": 30,
+   "icon": "skull",
+   "rule": {
+    "levels": [
+     "see1"
+    ],
+    "skill": 4
+   }
+  },
+  {
+   "name": "Scorched Earth",
+   "detail": "Complete 'Burn 'em Out' on Veteran difficulty. (Solo only)",
+   "group": "Veteran",
+   "points": 30,
+   "icon": "skull",
+   "rule": {
+    "levels": [
+     "pel1a"
+    ],
+    "skill": 4
+   }
+  },
+  {
+   "name": "Fearless",
+   "detail": "Complete 'Relentless' on Veteran difficulty. (Solo only)",
+   "group": "Veteran",
+   "points": 30,
+   "icon": "skull",
+   "rule": {
+    "levels": [
+     "pel1b"
+    ],
+    "skill": 4
+   }
+  },
+  {
+   "name": "Hell on Wheels",
+   "detail": "Complete 'Blood and Iron' on Veteran difficulty. (Solo only)",
+   "group": "Veteran",
+   "points": 30,
+   "icon": "skull",
+   "rule": {
+    "levels": [
+     "see2"
+    ],
+    "skill": 4
+   }
+  },
+  {
+   "name": "No Return",
+   "detail": "Complete 'Ring of Steel' on Veteran difficulty. (Solo only)",
+   "group": "Veteran",
+   "points": 30,
+   "icon": "skull",
+   "rule": {
+    "levels": [
+     "ber1"
+    ],
+    "skill": 4
+   }
+  },
+  {
+   "name": "When It Rains, It Pours",
+   "detail": "Complete 'Eviction' on Veteran difficulty. (Solo only)",
+   "group": "Veteran",
+   "points": 30,
+   "icon": "skull",
+   "rule": {
+    "levels": [
+     "ber2"
+    ],
+    "skill": 4
+   }
+  },
+  {
+   "name": "One Bad Gato",
+   "detail": "Complete 'Black Cats' on Veteran difficulty. (Solo only)",
+   "group": "Veteran",
+   "points": 30,
+   "icon": "skull",
+   "rule": {
+    "levels": [
+     "pby_fly"
+    ],
+    "skill": 4
+   }
+  },
+  {
+   "name": "Blowtorch & Corkscrew",
+   "detail": "Complete 'Blowtorch & Corkscrew' on Veteran difficulty. (Solo only)",
+   "group": "Veteran",
+   "points": 30,
+   "icon": "skull",
+   "rule": {
+    "levels": [
+     "oki2"
+    ],
+    "skill": 4
+   }
+  },
+  {
+   "name": "Setting of the Sun",
+   "detail": "Complete 'Breaking Point' on Veteran difficulty. (Solo only)",
+   "group": "Veteran",
+   "points": 30,
+   "icon": "skull",
+   "rule": {
+    "levels": [
+     "oki3"
+    ],
+    "skill": 4
+   }
+  },
+  {
+   "name": "For the Motherland",
+   "detail": "Complete 'Heart of the Reich' on Veteran difficulty. (Solo only)",
+   "group": "Veteran",
+   "points": 30,
+   "icon": "skull",
+   "rule": {
+    "levels": [
+     "ber3"
+    ],
+    "skill": 4
+   }
+  },
+  {
+   "name": "Bearing the Burden",
+   "detail": "Complete 'Downfall' on Veteran difficulty. (Solo only)",
+   "group": "Veteran",
+   "points": 30,
+   "icon": "skull",
+   "rule": {
+    "levels": [
+     "ber3b"
+    ],
+    "skill": 4
+   }
+  },
+  {
+   "name": "Saved Private Ryan",
+   "detail": "Save the soldier before he burns to death. (Solo or co-op)",
+   "group": "Challenges",
+   "points": 10,
+   "icon": "heart"
+  },
+  {
+   "name": "Weapon of Mass Destruction",
+   "detail": "Radio in a naval bombardment that kills at least 4 Japanese soldiers. (Solo or co-op)",
+   "group": "Challenges",
+   "points": 15,
+   "icon": "bolt"
+  },
+  {
+   "name": "No Safe Place",
+   "detail": "Burn an enemy out of a tree with the flamethrower in 'Hard Landing'. (Solo or co-op)",
+   "group": "Challenges",
+   "points": 15,
+   "icon": "flame"
+  },
+  {
+   "name": "The Professional",
+   "detail": "Shoot all of Amsel's henchmen, including their attack dog, without reloading. (Solo only)",
+   "group": "Challenges",
+   "points": 15,
+   "icon": "target"
+  },
+  {
+   "name": "Gunslinger",
+   "detail": "Assassinate General Amsel with a pistol shot. (Solo only)",
+   "group": "Challenges",
+   "points": 15,
+   "icon": "target"
+  },
+  {
+   "name": "Firestarter",
+   "detail": "Complete a mission using only the flamethrower. Melee, grenades & explosives are OK. (Solo or co-op)",
+   "group": "Challenges",
+   "points": 15,
+   "icon": "flame"
+  },
+  {
+   "name": "Iron Fist",
+   "detail": "Destroy all towers and bunkers in 'Blood and Iron'. (Solo or co-op)",
+   "group": "Challenges",
+   "points": 15,
+   "icon": "fist"
+  },
+  {
+   "name": "Ruthless",
+   "detail": "Kill 15 enemies while mounted on a tank in 'Ring of Steel'. (Solo or co-op)",
+   "group": "Challenges",
+   "points": 15,
+   "icon": "tank"
+  },
+  {
+   "name": "Shot in the Dark",
+   "detail": "Kill 10 enemies while the lights are out in the subway in 'Eviction'. (Solo or co-op)",
+   "group": "Challenges",
+   "points": 10,
+   "icon": "eye"
+  },
+  {
+   "name": "The Sum of All Zeros",
+   "detail": "Down 45 Japanese Zeros in 'Black Cats'. (Solo only)",
+   "group": "Challenges",
+   "points": 15,
+   "icon": "plane"
+  },
+  {
+   "name": "Lights Out!",
+   "detail": "In 'Black Cats', blast out all of the spot lights in the Japanese cargo convoy. (Solo only)",
+   "group": "Challenges",
+   "points": 10,
+   "icon": "bolt"
+  },
+  {
+   "name": "Mortar-dom",
+   "detail": "Kill 8 Japanese with thrown mortars in 'Breaking Point'. (Solo or co-op)",
+   "group": "Challenges",
+   "points": 10,
+   "icon": "bell"
+  },
+  {
+   "name": "Guardian Angel",
+   "detail": "In the final battle for Okinawa, save Sergeant Roebuck. (Solo or co-op)",
+   "group": "Challenges",
+   "points": 10,
+   "icon": "shield"
+  },
+  {
+   "name": "Rough Economy",
+   "detail": "Kill 3 enemies with a single bullet. (Solo or co-op)",
+   "group": "Challenges",
+   "points": 15,
+   "icon": "coin"
+  },
+  {
+   "name": "Close Shave",
+   "detail": "Survive a Banzai attack. (Solo only)",
+   "group": "Challenges",
+   "points": 10,
+   "icon": "sword"
+  },
+  {
+   "name": "Snake in the Grass",
+   "detail": "Take out a Japanese soldier while he is lying in wait in the grass. (Solo or co-op)",
+   "group": "Challenges",
+   "points": 15,
+   "icon": "eye"
+  },
+  {
+   "name": "Kamikaze",
+   "detail": "Complete any level on Regular difficulty or higher using only melee and grenades. (Solo only)",
+   "group": "Challenges",
+   "points": 15,
+   "icon": "fist"
+  },
+  {
+   "name": "Throw a Six and a Half",
+   "detail": "On Hardened or Veteran difficulty, complete a level without dying. (Solo only)",
+   "group": "Challenges",
+   "points": 15,
+   "icon": "star"
+  },
+  {
+   "name": "Purple Heart",
+   "detail": "When staring into the face of adversity, show courage and persevere. (Die 10 times at a checkpoint)",
+   "group": "Challenges",
+   "points": 5,
+   "icon": "heart"
+  },
+  {
+   "name": "Grave Robber",
+   "detail": "Collect all Death Cards in the game. (Solo only)",
+   "group": "Collectibles",
+   "points": 15,
+   "icon": "card",
+   "rule": {
+    "dvar": "cheat_points",
+    "need": 13,
+    "label": "Death Cards"
+   }
+  },
+  {
+   "name": "Get Your Left Foot Wet",
+   "detail": "Complete a match in Campaign Co-Op mode over Xbox LIVE. (Online co-op only)",
+   "group": "Co-op & Multiplayer",
+   "points": 30,
+   "icon": "swords"
+  },
+  {
+   "name": "Get Your Right Foot Wet",
+   "detail": "Complete a match in Competitive Co-Op mode over Xbox LIVE. (Online co-op only)",
+   "group": "Co-op & Multiplayer",
+   "points": 30,
+   "icon": "swords"
+  },
+  {
+   "name": "Blue Ribbon",
+   "detail": "Complete a 4-player Competitive Co-Op match in 1st place over Xbox LIVE. (Online co-op only)",
+   "group": "Co-op & Multiplayer",
+   "points": 25,
+   "icon": "medal"
+  },
+  {
+   "name": "It's All about Prestige",
+   "detail": "You Achieved the first level of prestige. Only 9 more to go",
+   "group": "Co-op & Multiplayer",
+   "points": 0,
+   "icon": "star"
+  },
+  {
+   "name": "Go Get Some Sun",
+   "detail": "Achieve the highest level in the game. (Multiplayer)",
+   "group": "Co-op & Multiplayer",
+   "points": 0,
+   "icon": "crown"
+  },
+  {
+   "name": "Big Baller",
+   "detail": "Earn 75,000 points in a single Nazi Zombie game.",
+   "group": "Map Pack 2 (DLC)",
+   "points": 30,
+   "icon": "coins"
+  },
+  {
+   "name": "Big Brawler",
+   "detail": "Get 10 consecutive zombie melee kills before Insta-Kill expires.",
+   "group": "Map Pack 2 (DLC)",
+   "points": 30,
+   "icon": "fist"
+  },
+  {
+   "name": "Dead Air",
+   "detail": "Must have been a wrong number.",
+   "group": "Map Pack 2 (DLC)",
+   "points": 10,
+   "icon": "bell"
+  },
+  {
+   "name": "Deadhead",
+   "detail": "Get 150 zombie headshots in a single game.",
+   "group": "Map Pack 2 (DLC)",
+   "points": 30,
+   "icon": "skull"
+  },
+  {
+   "name": "Fertilizer Man",
+   "detail": "Kill 200 zombies in a single game.",
+   "group": "Map Pack 2 (DLC)",
+   "points": 30,
+   "icon": "skull"
+  },
+  {
+   "name": "Hammer Time",
+   "detail": "Repair 200 window boards in a single game.",
+   "group": "Map Pack 2 (DLC)",
+   "points": 10,
+   "icon": "hammer"
+  },
+  {
+   "name": "It's a Trap!",
+   "detail": "Kill at least one zombie with three different traps in a single round.",
+   "group": "Map Pack 2 (DLC)",
+   "points": 20,
+   "icon": "flame"
+  },
+  {
+   "name": "Perk-a-Holic",
+   "detail": "Have all four perks simultaneously active in a game of Nazi Zombies.",
+   "group": "Map Pack 2 (DLC)",
+   "points": 20,
+   "icon": "star"
+  },
+  {
+   "name": "Soul Survivor",
+   "detail": "Reach round 15 in Nazi Zombies without getting revived.",
+   "group": "Map Pack 2 (DLC)",
+   "points": 50,
+   "icon": "heart"
+  },
+  {
+   "name": "Weapon of Minor Destruction",
+   "detail": "Kill no more than one zombie with a nuke.",
+   "group": "Map Pack 2 (DLC)",
+   "points": 20,
+   "icon": "bolt"
+  },
+  {
+   "name": "40 Knives!",
+   "detail": "Kill 40 zombies with the bowie knife.",
+   "group": "Map Pack 3 (DLC)",
+   "points": 25,
+   "icon": "sword"
+  },
+  {
+   "name": "Acquire Waffle Weapons!",
+   "detail": "Obtain the Ray Gun, DG-2, and Monkey Bomb at the same time.",
+   "group": "Map Pack 3 (DLC)",
+   "points": 25,
+   "icon": "bolt"
+  },
+  {
+   "name": "Der Electrician!",
+   "detail": "Link all teleport pads before round 7.",
+   "group": "Map Pack 3 (DLC)",
+   "points": 25,
+   "icon": "bolt"
+  },
+  {
+   "name": "Evaluate your senses!",
+   "detail": "Activate the fly trap.",
+   "group": "Map Pack 3 (DLC)",
+   "points": 25,
+   "icon": "eye"
+  },
+  {
+   "name": "Frequent Flyer!",
+   "detail": "Use the teleporter 8 times.",
+   "group": "Map Pack 3 (DLC)",
+   "points": 25,
+   "icon": "plane"
+  },
+  {
+   "name": "Locksmith!",
+   "detail": "Open all doors in the map.",
+   "group": "Map Pack 3 (DLC)",
+   "points": 25,
+   "icon": "key"
+  },
+  {
+   "name": "Pack Addict!",
+   "detail": "Upgrade 5 weapons at the Pack a Punch Machine.",
+   "group": "Map Pack 3 (DLC)",
+   "points": 25,
+   "icon": "gear"
+  },
+  {
+   "name": "Perkaholics Anonymous!",
+   "detail": "Survive until round 20 without buying a single Perk.",
+   "group": "Map Pack 3 (DLC)",
+   "points": 25,
+   "icon": "heart"
+  },
+  {
+   "name": "The Might of the Monkey!",
+   "detail": "Use the Monkey Bomb.",
+   "group": "Map Pack 3 (DLC)",
+   "points": 25,
+   "icon": "flame"
+  },
+  {
+   "name": "Wacker Packer!",
+   "detail": "Upgrade any weapon in Pack A Punch.",
+   "group": "Map Pack 3 (DLC)",
+   "points": 25,
+   "icon": "gear"
+  }
+ ],
+ "counterDvar": "cheat_points",
+ "levelsSource": "Checked on a 100% PC profile: mis_difficulty holds 15 digits (one per campaign mission) and its level saves were written in this order. cheat_points is 13 with all 13 Death Cards (cheat_items_set1 = 8191, one bit per card).",
+  "completion": {"name": "Platinum", "detail": "Awarded when all other trophies have been unlocked.", "picture": "platinum.webp"}
+}

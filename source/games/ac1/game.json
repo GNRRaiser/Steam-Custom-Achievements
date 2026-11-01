@@ -1,0 +1,427 @@
+{
+  "slug": "ac1",
+  "appId": 15100,
+  "title": "Assassin's Creed",
+  "platform": "Xbox 360",
+  "detector": "ac1",
+  "achievementRecord": true,
+  "setupHint": "Play until Assassin's Creed saves, or select the save in Settings.",
+  "pathPlaceholder": "Path to %APPDATA%\\Ubisoft\\Assassin's Creed\\Saved Games (or the .sav file in it)",
+  "trackingNote": "Assassin's Creed keeps its own record of every achievement in its save (%APPDATA%\\Ubisoft\\Assassin's Creed\\Saved Games). The plugin reads it, so all 44 unlock by themselves a few seconds after the game saves following the moment the game awards them. The story objectives and the save's own lists back it up: Welcome to the Animus, Hero of Masyaf, The Punishment for Treason, all nine Blood achievements, Personal Vendetta (60 Templars), every flag Keeper and Fearless (91 viewpoints) also unlock from them, each shown as progress, and Eagle's Prey, Swiftness, Talon, Dance and March of the Pious show the game's running counts. Record an achievement and Capture while I play still watch the same folder.",
+  "autoTag": "Unlocks automatically from your Assassin's Creed save",
+  "achievements": [
+    {
+      "name": "The Eagle and The Apple - 1191",
+      "detail": "Completed Assassin's Creed.",
+      "group": "Story",
+      "points": 100,
+      "icon": "insignia"
+    },
+    {
+      "name": "Visions of the Future",
+      "detail": "A strange vision has appeared to you. What could it mean?",
+      "group": "Story",
+      "points": 50,
+      "icon": "eye"
+    },
+    {
+      "name": "Personal Vendetta",
+      "detail": "Every Templar has fallen to your hand.",
+      "group": "Collectibles",
+      "points": 40,
+      "icon": "cape",
+      "rule": {
+        "list": "templars",
+        "need": 60,
+        "label": "Templars killed"
+      }
+    },
+    {
+      "name": "Keeper of the Lions Passant",
+      "detail": "You've collected every Flag in the Kingdom belonging to Richard.",
+      "group": "Collectibles",
+      "points": 25,
+      "icon": "flag",
+      "rule": {
+        "list": "kingdomFlags",
+        "need": 100,
+        "label": "Flags in the Kingdom"
+      }
+    },
+    {
+      "name": "Keeper of the Creed",
+      "detail": "You've collected every Masyaf Flag.",
+      "group": "Collectibles",
+      "points": 10,
+      "icon": "flag",
+      "rule": {
+        "list": "masyafFlags",
+        "need": 20,
+        "label": "Flags in Masyaf"
+      }
+    },
+    {
+      "name": "Keeper of the Four Gospels",
+      "detail": "You've collected every Jerusalem Flag.",
+      "group": "Collectibles",
+      "points": 20,
+      "icon": "flag",
+      "rule": {
+        "list": "jerusalemFlags",
+        "need": 100,
+        "label": "Flags in Jerusalem"
+      }
+    },
+    {
+      "name": "Keeper of the Crescent",
+      "detail": "You've collected every Damascus Flag.",
+      "group": "Collectibles",
+      "points": 20,
+      "icon": "flag",
+      "rule": {
+        "list": "damascusFlags",
+        "need": 100,
+        "label": "Flags in Damascus"
+      }
+    },
+    {
+      "name": "Absolute Symbiosis",
+      "detail": "Desmond and Altair have been completely synchronized.",
+      "group": "Story",
+      "points": 45,
+      "icon": "animus"
+    },
+    {
+      "name": "The Blood of a Corrupt Merchant",
+      "detail": "You've slain Tamir, Black Market Merchant in Damascus.",
+      "group": "Assassinations",
+      "points": 25,
+      "icon": "sword",
+      "rule": {
+        "done": [
+          "da2dc25a"
+        ]
+      }
+    },
+    {
+      "name": "The Blood of a Doctor",
+      "detail": "You've slain Garnier de Naplouse, Hospitalier Leader in Acre.",
+      "group": "Assassinations",
+      "points": 25,
+      "icon": "sword",
+      "rule": {
+        "done": [
+          "d6a0b2b4"
+        ]
+      }
+    },
+    {
+      "name": "The Blood of a Slave Trader",
+      "detail": "You've slain Talal, Slave Trader of Jerusalem.",
+      "group": "Assassinations",
+      "points": 25,
+      "icon": "sword",
+      "rule": {
+        "done": [
+          "da2ddb42"
+        ]
+      }
+    },
+    {
+      "name": "The Blood of the Merchant King",
+      "detail": "You've slain Abul Nuqoud, Merchant King of Damascus.",
+      "group": "Assassinations",
+      "points": 25,
+      "icon": "sword",
+      "rule": {
+        "done": [
+          "da2dc265"
+        ]
+      }
+    },
+    {
+      "name": "The Blood of a Regent",
+      "detail": "You've slain Majd Addin, Regent of Jerusalem.",
+      "group": "Assassinations",
+      "points": 25,
+      "icon": "sword",
+      "rule": {
+        "done": [
+          "da2ddb4c"
+        ]
+      }
+    },
+    {
+      "name": "The Blood of a Liege-Lord",
+      "detail": "You've slain William of Montferrat, Liege-Lord of Acre.",
+      "group": "Assassinations",
+      "points": 25,
+      "icon": "sword",
+      "rule": {
+        "done": [
+          "d6a0b2bf"
+        ]
+      }
+    },
+    {
+      "name": "The Blood of a Teutonic Leader",
+      "detail": "You've slain Sibrand, the Teutonic Leader of Acre.",
+      "group": "Assassinations",
+      "points": 25,
+      "icon": "sword",
+      "rule": {
+        "done": [
+          "d78d7e0b"
+        ]
+      }
+    },
+    {
+      "name": "The Blood of a Scribe",
+      "detail": "You've slain Jubair, the Scribe of Damascus.",
+      "group": "Assassinations",
+      "points": 25,
+      "icon": "sword",
+      "rule": {
+        "done": [
+          "da2ddb2a"
+        ]
+      }
+    },
+    {
+      "name": "The Blood of a Nemesis",
+      "detail": "You've slain Robert de Sable, but there is one more...",
+      "group": "Assassinations",
+      "points": 25,
+      "icon": "sword",
+      "rule": {
+        "done": [
+          "ae77fc78"
+        ]
+      }
+    },
+    {
+      "name": "Fearless",
+      "detail": "You've discovered every Reach High Point.",
+      "group": "Collectibles",
+      "points": 25,
+      "icon": "eagle",
+      "rule": {
+        "list": "viewpoints",
+        "need": 91,
+        "label": "Viewpoints synchronized"
+      }
+    },
+    {
+      "name": "Hungerer of Knowledge",
+      "detail": "You've witnessed Altair's Memorable Moments in all their splendor.",
+      "group": "Activities",
+      "points": 20,
+      "icon": "eye"
+    },
+    {
+      "name": "Defender of the People: Acre",
+      "detail": "The people of Acre will be forever grateful for what you've done.",
+      "group": "Activities",
+      "points": 20,
+      "icon": "shield"
+    },
+    {
+      "name": "Defender of the People:Jerusalem",
+      "detail": "The people of Jerusalem will be forever grateful for what you've done.",
+      "group": "Activities",
+      "points": 20,
+      "icon": "shield"
+    },
+    {
+      "name": "Defender of the People: Damascus",
+      "detail": "The people of Damascus will be forever grateful for what you've done.",
+      "group": "Activities",
+      "points": 20,
+      "icon": "shield"
+    },
+    {
+      "name": "Conversationalist",
+      "detail": "You've made a friend within the walls of Abstergo Industries.",
+      "group": "Story",
+      "points": 20,
+      "icon": "letter"
+    },
+    {
+      "name": "Disciple of the Creed",
+      "detail": "You've fully honored the tenets of the Creed. You are a Master Assassin.",
+      "group": "Challenges",
+      "points": 30,
+      "icon": "insignia"
+    },
+    {
+      "name": "Eagle's Will",
+      "detail": "You remain undefeated for over 100 battles.",
+      "group": "Challenges",
+      "points": 20,
+      "icon": "eagle"
+    },
+    {
+      "name": "Eagle's Flight",
+      "detail": "Survival at its best, for over 10 minutes, nothing was able to hinder your flight.",
+      "group": "Challenges",
+      "points": 20,
+      "icon": "eagle"
+    },
+    {
+      "name": "Eagle's Prey",
+      "detail": "Over 100 city guards have fallen to your hunt.",
+      "group": "Challenges",
+      "points": 20,
+      "icon": "eagle"
+    },
+    {
+      "name": "Blade in the Crowd",
+      "detail": "Like a Blade in the Crowd, your target never knew his death laid wait within his very shadow.",
+      "group": "Challenges",
+      "points": 30,
+      "icon": "insignia"
+    },
+    {
+      "name": "Eagle's Challenge",
+      "detail": "You were bold enough to challenge 25 soldiers in a single fight... and win.",
+      "group": "Challenges",
+      "points": 20,
+      "icon": "eagle"
+    },
+    {
+      "name": "Eagle's Swiftness",
+      "detail": "Over 100 people have witnessed your deadly performance with a blade.",
+      "group": "Challenges",
+      "points": 20,
+      "icon": "eagle"
+    },
+    {
+      "name": "Eagle's Dive",
+      "detail": "Nothing can hinder the descent of an Eagle. Over 50 people have fallen to your relentless attacks.",
+      "group": "Challenges",
+      "points": 20,
+      "icon": "eagle"
+    },
+    {
+      "name": "Eagle's Talon",
+      "detail": "Over 50 people have felt the deadly sting of your blade.",
+      "group": "Challenges",
+      "points": 15,
+      "icon": "eagle"
+    },
+    {
+      "name": "Eagle's Dance",
+      "detail": "You've soared with the eagles and landed safely over 50 times.",
+      "group": "Challenges",
+      "points": 10,
+      "icon": "eagle"
+    },
+    {
+      "name": "The hands of a Thief",
+      "detail": "You've gathered quite a supply of throwing knives.",
+      "group": "Activities",
+      "points": 15,
+      "icon": "spear"
+    },
+    {
+      "name": "March of the Pious",
+      "detail": "Scholars know you well and have helped you over 20 times.",
+      "group": "Activities",
+      "points": 5,
+      "icon": "book"
+    },
+    {
+      "name": "Eagle's Eye",
+      "detail": "Over 75 guards were felled by your knives.",
+      "group": "Challenges",
+      "points": 15,
+      "icon": "eagle"
+    },
+    {
+      "name": "Enemy of the Poor",
+      "detail": "You managed to scare away 25 beggars. I hope you're proud of yourself.",
+      "group": "Activities",
+      "points": 5,
+      "icon": "coin"
+    },
+    {
+      "name": "Gifted Escapist",
+      "detail": "The Merchants of the land now know you VERY well.",
+      "group": "Activities",
+      "points": 5,
+      "icon": "coins"
+    },
+    {
+      "name": "Keeper of the Black Cross",
+      "detail": "You've collected every Teutonic Flag in Acre.",
+      "group": "Collectibles",
+      "points": 10,
+      "icon": "flag",
+      "rule": {
+        "list": "acreTeutonicFlags",
+        "need": 33,
+        "label": "Teutonic flags in Acre"
+      }
+    },
+    {
+      "name": "Keeper of the Order",
+      "detail": "You've collected every Templar Flag in Acre.",
+      "group": "Collectibles",
+      "points": 10,
+      "icon": "flag",
+      "rule": {
+        "list": "acreTemplarFlags",
+        "need": 34,
+        "label": "Templar flags in Acre"
+      }
+    },
+    {
+      "name": "Keeper of the 8 Virtues",
+      "detail": "You've collected every Hospitalier Flag in Acre.",
+      "group": "Collectibles",
+      "points": 10,
+      "icon": "flag",
+      "rule": {
+        "list": "acreHospitalierFlags",
+        "need": 33,
+        "label": "Hospitalier flags in Acre"
+      }
+    },
+    {
+      "name": "Welcome to the Animus",
+      "detail": "You've successfully completed the Animus tutorial.",
+      "group": "Story",
+      "points": 20,
+      "icon": "animus",
+      "rule": {
+        "done": [
+          "13103edd"
+        ]
+      }
+    },
+    {
+      "name": "Hero of Masyaf",
+      "detail": "You've protected Masyaf from the Templar invasion.",
+      "group": "Story",
+      "points": 20,
+      "icon": "insignia",
+      "rule": {
+        "done": [
+          "419e0ac6"
+        ]
+      }
+    },
+    {
+      "name": "The Punishment for Treason",
+      "detail": "You have found the traitor and have brought him before Al Mualim.",
+      "group": "Story",
+      "points": 20,
+      "icon": "insignia",
+      "rule": {
+        "done": [
+          "8ce6633c"
+        ]
+      }
+    }
+  ]
+}
