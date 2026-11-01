@@ -306,7 +306,7 @@
     "missionIds": [
       "39E0A284"
     ],
-    "proof": "DNA Sequence 2: completion flag 100 for the final memory Arrivederci (record 39E0A284). The sequence has six records counting its introduction; 39E0A287 is Laying Low, one memory earlier (Caleb saw Vengeance pop there, 2026-11-01). Order checked in the pcsavegames pack: 39E0A287 is still 0 in the Seq 2 Memory 4 save and 39E0A284 is the last Sequence 2 record created."
+    "proof": "DNA Sequence 2: completion flag 100 for the final memory Arrivederci (record 39E0A284). The sequence has six records counting its introduction; 39E0A287 is Laying Low, one memory earlier (Vengeance was seen to pop there). Order checked in the pcsavegames pack: 39E0A287 is still 0 in the Seq 2 Memory 4 save and 39E0A284 is the last Sequence 2 record created."
   },
   {
     "index": 5,
