@@ -1,4 +1,4 @@
-/* Steam Custom Achievements v0.34.3
+/* Steam Custom Achievements v0.34.4
  * Millennium 3.6.2 loose-file plugin: Xbox 360 achievement lists for Steam games
  * that have none, with read-only Lua detectors for games whose saves are mapped.
  * The entrypoint runs in SharedJSContext. UI belongs to popup.window.document.
@@ -8,7 +8,7 @@
   "use strict";
   const hostWindow = window;
   const PLUGIN_NAME = "steam-custom-achievements";
-  const BUILD_VERSION = "0.34.3";
+  const BUILD_VERSION = "0.34.4";
   const SHARE_BUILD = false;
   const ROOT_ID = "sca-ac2-root";
   const STYLE_ID = "sca-ac2-css";
@@ -1161,13 +1161,17 @@ html.sca-page-open body>*:not(#${DIALOG_ID}){visibility:hidden}
 #${DIALOG_ID} .sca-ach-meter>div{height:100%;background:linear-gradient(90deg,#1a44c2,#1a9fff)}
 #${DIALOG_ID} .sca-ach-tag{font-size:11px;color:#6f767e;margin-top:4px}
 #${DIALOG_ID} .sca-ach-rarity{display:flex;align-items:center;gap:10px;margin-top:6px;font-size:12px;color:#8b929a}
-#${DIALOG_ID} .sca-rarity-rare{color:#e5b143}
 #${DIALOG_ID} .sca-hidden-summary{display:flex;align-items:center;gap:14px;min-height:64px;padding:12px 14px 12px 10px;margin-bottom:8px;background:#20242b;border:1px dashed #3d4450}
 #${DIALOG_ID} .sca-hidden-summary.sca-revealed{min-height:0}
 #${DIALOG_ID} .sca-hidden-icon{display:block}
 #${DIALOG_ID} .sca-hidden-icon:hover::after{display:none}
 #${DIALOG_ID} .sca-hidden-icon img,.sca-hidden-icon img{width:100%;height:100%;display:block}
-.sca-rare{box-shadow:0 0 0 2px #e5b143,0 0 10px #e5b14388!important}
+/* Rare (under 10%) unlocked achievements: Steam's gold glow, with soft rays turning slowly behind the picture. */
+.sca-rare{overflow:visible!important;isolation:isolate;box-shadow:0 0 5px 1px #f4c55c88}
+.sca-rare::before{content:"";position:absolute;inset:-32%;z-index:-1;pointer-events:none;border-radius:50%;background:repeating-conic-gradient(from 0deg,#ffd27a00 0deg,#ffd27ab0 5deg,#ffd27a00 12deg);-webkit-mask:radial-gradient(circle,#000 38%,transparent 70%);mask:radial-gradient(circle,#000 38%,transparent 70%);animation:sca-rare-spin 14s linear infinite}
+.sca-rare img{position:relative;z-index:1}
+@keyframes sca-rare-spin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.sca-rare::before{animation:none}}
 #${DIALOG_ID} .sca-ach-side{flex:none;display:flex;flex-direction:column;align-items:flex-end;gap:6px;text-align:right;font-size:12px;color:#8b929a;max-width:42%}
 #${DIALOG_ID} .sca-mark,#${DIALOG_ID} .sca-small{border:0;border-radius:2px;background:rgba(255,255,255,.1);color:#dcdedf;padding:6px 10px;font-size:12px}
 #${DIALOG_ID} .sca-mark:hover,#${DIALOG_ID} .sca-small:hover{background:rgba(255,255,255,.2);color:#fff}
@@ -1221,7 +1225,7 @@ html.sca-page-open body>*:not(#${DIALOG_ID}){visibility:hidden}
 #${DIALOG_ID}:not(.sca-full) .sca-close{top:8px;right:8px;width:40px;height:40px;border-color:#ffffffaa;background:rgba(30,33,40,.95)}
 #${DIALOG_ID}:not(.sca-full) .sca-dhead{padding:18px 20px 0}
 #${DIALOG_ID}:not(.sca-full) .sca-title-row img{width:26px;height:26px}
-#${DIALOG_ID}:not(.sca-full) h2{font-size:19px;font-weight:700;text-transform:uppercase;letter-spacing:.3px}
+#${DIALOG_ID}:not(.sca-full) h2{font-size:20px;font-weight:700;letter-spacing:.2px}
 #${DIALOG_ID}:not(.sca-full) .sca-summarybox{display:flex;align-items:center;gap:12px;margin-top:14px;padding:10px 12px 12px;background:rgba(0,0,0,.28)}
 #${DIALOG_ID}:not(.sca-full) .sca-summarybox>svg{flex:none;width:22px;height:22px}
 #${DIALOG_ID}:not(.sca-full) .sca-summarytext{flex:1;min-width:0}

@@ -1,4 +1,4 @@
-STEAM CUSTOM ACHIEVEMENTS v0.34.3 - MULTI-GAME
+STEAM CUSTOM ACHIEVEMENTS v0.34.4 - MULTI-GAME
 
 Adds the Xbox 360 achievement list to the Steam Library page of games whose
 Steam version has no achievements. Each supported game gets the same ACHIEVEMENTS
@@ -20,9 +20,15 @@ GAMES IN THIS BUILD
 Automatic entries unlock by themselves a few seconds after the game writes its
 progress. Everything else has a "Mark as unlocked" button in the popup.
 
+NEW IN v0.34.4
+- Rare achievements (under 10% of players) you've unlocked now glow like on
+  Steam: a soft gold glow with rays turning slowly behind the picture. The
+  rate line stays grey, as on Steam.
+- The window title keeps the game's own capitals, as Steam does.
+
 NEW IN v0.34.3
 - The desktop achievements window now looks like Steam's own: a narrower
-  window that fills nearly the whole height, the game title in capitals, a
+  window that fills nearly the whole height, a
   summary box with a trophy ("YOU'VE UNLOCKED 20/51 ACHIEVEMENTS"), and
   compact rows with smaller pictures, the unlock rate as a plain line, and
   Steam's date style ("Unlocked Mar 19, 2022, 4:26 AM"). Big Picture keeps
