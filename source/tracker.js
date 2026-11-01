@@ -145,7 +145,10 @@ function createTracker(window,windowType) {
 #${DIALOG_ID}.sca-full .sca-dialog{width:100%;height:100%;max-width:none;max-height:none;background:#0e1117;box-shadow:none}
 #${DIALOG_ID}.sca-full .sca-close{display:none}
 #${DIALOG_ID}.sca-full .sca-dhead{padding:96px 32px 0;background:#262b33}
-#${DIALOG_ID}.sca-full .sca-dhero{filter:blur(18px) brightness(.5) saturate(.9)}
+#${DIALOG_ID}.sca-full .sca-dhero{filter:blur(18px) brightness(.5) saturate(.9);transform:translateZ(0);will-change:transform}
+#${DIALOG_ID}.sca-full .sca-dhero.sca-preblurred{filter:brightness(.5) saturate(.9);inset:0}
+html.sca-page-open body>*:not(#${DIALOG_ID}){visibility:hidden}
+#${DIALOG_ID}.sca-full .sca-dbody{will-change:scroll-position;contain:content}
 #${DIALOG_ID}.sca-full .sca-bpm-top{display:flex;align-items:center;gap:24px}
 #${DIALOG_ID}.sca-full .sca-bpm-cover{flex:none;width:216px;height:324px;object-fit:cover;box-shadow:0 6px 24px rgba(0,0,0,.6)}
 #${DIALOG_ID}.sca-full .sca-bpm-info{flex:1;min-width:0}
@@ -172,7 +175,6 @@ function createTracker(window,windowType) {
 #${DIALOG_ID}.sca-full .sca-mark,#${DIALOG_ID}.sca-full .sca-small{font-size:15px;padding:8px 14px}
 #${DIALOG_ID}.sca-full .sca-panel h3{font-size:20px}
 #${DIALOG_ID}.sca-full .sca-panel p{font-size:16px}
-#${DIALOG_ID}.sca-full .sca-dhead,#${DIALOG_ID}.sca-full .sca-bpm-cover,#${DIALOG_ID}.sca-full h2,#${DIALOG_ID}.sca-full .sca-bpm-stats,#${DIALOG_ID}.sca-full .sca-tabs{transition:padding .2s ease,margin .2s ease,width .2s ease,height .2s ease,font-size .2s ease}
 #${DIALOG_ID}.sca-full.sca-collapsed .sca-dhead{padding:14px 32px 0}
 #${DIALOG_ID}.sca-full.sca-collapsed .sca-bpm-top{gap:16px}
 #${DIALOG_ID}.sca-full.sca-collapsed .sca-bpm-cover{width:48px;height:72px}
@@ -449,7 +451,16 @@ function createTracker(window,windowType) {
     updateHeaderStat();
     updateAutomatic();
   }
+  function preBlur(src){
+    return new Promise(resolve=>{
+      const img=new window.Image();img.crossOrigin="anonymous";
+      img.onload=()=>{try{const canvas=document.createElement("canvas");canvas.width=48;canvas.height=27;
+        canvas.getContext("2d").drawImage(img,0,0,48,27);resolve(canvas.toDataURL("image/png"));}catch(_){resolve(null);}};
+      img.onerror=()=>resolve(null);img.src=src;
+    });
+  }
   function closeDialog() {
+    document.documentElement.classList.remove("sca-page-open");
     dialogOpen=false;
     document.getElementById(DIALOG_ID)?.remove();
     document.removeEventListener("keydown",onKey,true);
@@ -472,7 +483,10 @@ function createTracker(window,windowType) {
     close.onclick=closeDialog;
     const head=el("div","sca-dhead");
     const hero=steamImage(/library_hero/i);
-    if(hero){const layer=el("div","sca-dhero");layer.style.backgroundImage=`url("${hero.replace(/["\\]/g,"")}")`;head.appendChild(layer);}
+    if(hero){const layer=el("div","sca-dhero");layer.style.backgroundImage=`url("${hero.replace(/["\\]/g,"")}")`;head.appendChild(layer);
+      // Big Picture: a live blur filter over a screen-wide picture is costly to redraw, so blur
+      // it once by shrinking it onto a tiny canvas; the browser's upscaling does the rest.
+      if(bigPicture)preBlur(hero).then(url=>{if(url){layer.style.backgroundImage=`url("${url}")`;layer.classList.add("sca-preblurred");}}).catch(()=>{});}
     const titleRow=el("div","sca-title-row");const gameIcon=el("img");gameIcon.alt="";gameIcon.src=steamImage(new RegExp(`/${game.appId}/[0-9a-f]{40}\\.(jpg|png)`,"i"))||builtInIcon(game,0);
     const title=el("h2","",game.title);title.id="sca-dialog-title";titleRow.append(gameIcon,title);
     const earned=el("div","sca-earned");earned.append(el("span","sca-earned-count"),el("span","sca-earned-percent"));
@@ -485,6 +499,8 @@ function createTracker(window,windowType) {
     if(bigPicture){
       // Big Picture: a full screen page like Steam's own achievements screen.
       overlay.classList.add("sca-full");
+      // Steam's own page stays drawn underneath; hiding it while ours covers the screen saves work.
+      document.documentElement.classList.add("sca-page-open");
       const top=el("div","sca-bpm-top");
       let coverSrc=null;
       // Steam's own portrait capsule for the game, as its library uses it (from its local cache).
@@ -575,12 +591,15 @@ function createTracker(window,windowType) {
   }
   function updateList() {
     const list=document.querySelector(`#${DIALOG_ID} .sca-list`);if(!list)return;
+    // The list is asked to redraw whenever tracking state changes (every second or so while a
+    // save is read). Redraw only when what it shows changed, so scrolling and the controller's
+    // place stay put and nothing heavy runs in between.
+    let key;
+    try{key=JSON.stringify([game.appId,game.progress,game.auto?.counts||null,query,group,Object.entries(game.customIcons||{}).map(([k,v])=>`${k}:${String(v).length}`)]);}catch(_){key=null;}
+    if(key!==null&&list.dataset.key===key)return;
     const body=list.closest(".sca-dbody");const scrollTop=body?body.scrollTop:0;
-    // The list is redrawn whenever tracking state changes (every few seconds while a save is
-    // being read). Build it aside and only swap it in when something visible changed, so the
-    // scroll position and the controller's place in it stay put.
     const focusedIndex=list.querySelector(".sca-ach.sca-padfocus")?.dataset.index;
-    const live=list;const fresh=list.cloneNode(false);
+    list.replaceChildren();
     const needle=query.trim().toLowerCase();
     const matches=index=>{
       const a=game.achievements[index];
@@ -589,15 +608,14 @@ function createTracker(window,windowType) {
     };
     const unlocked=[],locked=[];
     game.achievements.forEach((_a,i)=>{if(matches(i))(isUnlocked(i)?unlocked:locked).push(i);});
-    if(unlocked.length){fresh.appendChild(el("div","sca-section-title","Unlocked Achievements"));for(const i of sortUnlocked(unlocked))fresh.appendChild(achievementRow(i));}
-    if(locked.length){fresh.appendChild(el("div","sca-section-title","Locked Achievements"));for(const i of locked)fresh.appendChild(achievementRow(i));}
-    if(!unlocked.length&&!locked.length)fresh.appendChild(el("div","sca-empty","No achievements match your search."));
-    if(!live.childElementCount&&!fresh.childElementCount)return;
-    if(fresh.innerHTML===live.innerHTML.replace(/ sca-padfocus/g,"").replace(/ tabindex="-1"/g,""))return;
-    live.replaceChildren(...fresh.childNodes);
+    if(unlocked.length){list.appendChild(el("div","sca-section-title","Unlocked Achievements"));for(const i of sortUnlocked(unlocked))list.appendChild(achievementRow(i));}
+    if(locked.length){list.appendChild(el("div","sca-section-title","Locked Achievements"));for(const i of locked)list.appendChild(achievementRow(i));}
+    if(!unlocked.length&&!locked.length)list.appendChild(el("div","sca-empty","No achievements match your search."));
+    if(key!==null)list.dataset.key=key;
     if(body)body.scrollTop=scrollTop;
-    if(focusedIndex!==undefined){const row=live.querySelector(`.sca-ach[data-index="${focusedIndex}"]`);if(row){row.tabIndex=-1;row.classList.add("sca-padfocus");row.focus?.({preventScroll:true});}}
+    if(focusedIndex!==undefined){const row=list.querySelector(`.sca-ach[data-index="${focusedIndex}"]`);if(row){row.tabIndex=-1;row.classList.add("sca-padfocus");row.focus?.({preventScroll:true});}}
   }
+
   function buildSettings(body) {
     const auto=el("div","sca-panel");
     const autoCount=game.achievements.filter(a=>a.automatic).length;
