@@ -17,7 +17,7 @@ function makeWindow(name, saved) {
   const errors = [];
   const virtualConsole = new VirtualConsole();
   virtualConsole.on('jsdomError', e => errors.push(e));
-  const dom = new JSDOM('<!doctype html><html><head></head><body><main><article id=content>Game content</article><aside id=sidebar><section id=friends><h2>FRIENDS WHO PLAY</h2><div class=native-card>Friend activity</div></section><section><h2>ADDITIONAL CONTENT</h2><div class=native-card>Manual</div></section></aside></main></body></html>', {
+  const dom = new JSDOM('<!doctype html><html><head></head><body><nav role=tablist><span role=tab>YOUR STUFF</span></nav><div id=yourstuff><section id=media><h2>Media</h2><div id=shot tabindex=0>Screenshots</div></section></div><main><article id=content>Game content</article><aside id=sidebar><section id=friends><h2>FRIENDS WHO PLAY</h2><div class=native-card>Friend activity</div></section><section><h2>ADDITIONAL CONTENT</h2><div class=native-card>Manual</div></section></aside></main></body></html>', {
     url: 'https://steamloopback.host/index.html', runScripts: 'outside-only', virtualConsole,
   });
   const window = dom.window;
@@ -95,9 +95,67 @@ function check(label) { console.log('PASS', label); passes++; }
   assert.ok(JSON.parse(host.window.localStorage.getItem(key))['20']);
   check('loads prior v0.1.2 progress and saves manual toggles to the original key');
 
+  // Big Picture follows its own route, not the desktop Library's.
   const gamepad = makeWindow('SP BPM_uid0');
+  const bpmInstance = { m_locationPathname: '/library/home' };
+  host.window.SteamUIStore = { MainInstanceUIMode: 4, WindowStore: { GamepadUIMainWindowInstance: bpmInstance, GetWindowInstanceFromWindow: w => w === gamepad.window ? bpmInstance : null } };
   const gpPopup = manager.add(gamepad.window, true);
+  assert.equal(gamepad.window.document.getElementById(id), null, 'Big Picture on its home page shows no card');
+  assert.ok(main.window.document.getElementById(id), 'while the desktop Library page still has it');
+  bpmInstance.m_locationPathname = '/library/app/33230';
+  runtime.refresh();
+  assert.equal(gamepad.window.document.getElementById(id).dataset.scaPlacement, 'big-picture');
+  assert.ok(gamepad.window.document.getElementById(id).classList.contains('sca-bpm'));
+  assert.ok(gamepad.window.document.getElementById(id).compareDocumentPosition(gamepad.window.document.getElementById('media')) & 4, 'Big Picture: above Media on the Your Stuff tab (exact spot is checked with real layout in Chromium)');
+  assert.equal(gamepad.window.document.querySelector('#' + id + ' .sca-bpm-title').textContent, 'Achievements');
+  assert.equal(main.window.document.querySelector('#media').previousElementSibling, null, 'the desktop window keeps its sidebar card');
+  gamepad.window.document.getElementById('yourstuff').style.display = 'none';
+  gamepad.window.document.querySelector('main').style.display = 'none';
+  runtime.refresh();
+  assert.equal(gamepad.window.document.getElementById(id), null, 'another tab hides it');
+  gamepad.window.document.getElementById('yourstuff').style.display = '';
+  gamepad.window.document.querySelector('main').style.display = '';
+  runtime.refresh();
   assert.match(gamepad.window.document.querySelector('.sca-count').textContent, /1\/51/);
+  runtime.refresh();
+  assert.equal(gamepad.window.document.querySelectorAll('#' + id).length, 1);
+  gamepad.window.document.querySelector('.sca-bpm-summary').click();
+  assert.equal(gamepad.window.document.querySelectorAll('.sca-ach').length, 51, 'the full list opens in Big Picture');
+  gamepad.window.document.querySelector('.sca-bpm-back').click();
+  assert.equal(gamepad.window.document.getElementById('sca-ac2-dialog'), null, 'Back closes it');
+  check('Big Picture shows the card on its own game page and opens the full list');
+
+  // Controller: Big Picture sends presses as vgp_onbuttondown on the element it focused, and its own
+  // navigation (a stand-in here) moves focus between the tabs above and Media below.
+  const gdoc = gamepad.window.document, steamSaw = [];
+  const tabEl = gdoc.querySelector('[role=tab]'), shotEl = gdoc.getElementById('shot');
+  tabEl.classList.add('gpfocus');
+  gdoc.body.addEventListener('vgp_onbuttondown', e => { steamSaw.push(e.detail.button);
+    const next = e.detail.button === 10 ? shotEl : e.detail.button === 9 ? tabEl : null;
+    if (next) { gdoc.querySelector('.gpfocus')?.classList.remove('gpfocus'); next.classList.add('gpfocus'); } });
+  const pad = button => gdoc.querySelector('.gpfocus').dispatchEvent(new gamepad.window.CustomEvent('vgp_onbuttondown', {bubbles: true, cancelable: true, detail: {button, source: 1, is_repeat: false}}));
+  const settle = () => new Promise(r => setTimeout(r, 90));
+  const focused = () => gdoc.querySelector('.sca-padfocus');
+  pad(10); await settle();
+  assert.ok(focused()?.classList.contains('sca-bpm-summary'), 'down from the tabs moves into the Achievements section first');
+  pad(1);
+  assert.ok(gdoc.getElementById('sca-ac2-dialog').classList.contains('sca-full'), 'A opens the full screen list');
+  pad(2);
+  assert.equal(gdoc.getElementById('sca-ac2-dialog'), null, 'B closes it');
+  assert.deepEqual(steamSaw, [10], 'A and B on our section do not reach Steam');
+  pad(10); pad(10);
+  assert.deepEqual(steamSaw, [10], 'down moves through the section');
+  pad(10); await settle();
+  assert.equal(focused(), null, 'down from the last row gives control back');
+  assert.equal(gdoc.querySelector('.gpfocus'), shotEl, 'leaving Steam on Media');
+  pad(9); await settle();
+  assert.ok(focused()?.closest('#' + id), 'up from Media comes back into the section');
+  assert.equal(gdoc.querySelector('.gpfocus'), tabEl);
+  pad(9); pad(9); pad(9); await settle();
+  assert.equal(focused(), null, 'up from the top row leaves to the tabs');
+  assert.equal(gdoc.querySelector('.gpfocus'), tabEl);
+  assert.deepEqual(gamepad.window.__SCA_IGNORE__, undefined);
+  check('Big Picture controller: down from the tabs or up from Media enters, A opens, B closes, the edges leave');
   main.window.document.querySelector('[aria-label="Street Cleaner: unlocked, click to toggle"]').click();
   assert.match(gamepad.window.document.querySelector('.sca-count').textContent, /0\/51/);
   check('new popup callback and m_popup wrapper work; both windows share live progress');

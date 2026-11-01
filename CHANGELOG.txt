@@ -1,4 +1,4 @@
-STEAM CUSTOM ACHIEVEMENTS v0.30.1 - MULTI-GAME
+STEAM CUSTOM ACHIEVEMENTS v0.33.0 - MULTI-GAME
 
 Adds the Xbox 360 achievement list to the Steam Library page of games whose
 Steam version has no achievements. Each supported game gets the same ACHIEVEMENTS
@@ -19,6 +19,61 @@ GAMES IN THIS BUILD
 
 Automatic entries unlock by themselves a few seconds after the game writes its
 progress. Everything else has a "Mark as unlocked" button in the popup.
+
+NEW IN v0.33.0
+- Assassin's Creed II: three "Complete DNA Sequence" achievements unlocked
+  one memory early. They now wait for the sequence's real last memory:
+  Vengeance (Sequence 2, was firing at Laying Low), The Conspirators
+  (Sequence 5) and Masquerade (Sequence 9). The other sequences were
+  checked against a save made in every sequence and already line up.
+  Achievements that already unlocked stay unlocked.
+- Every other game's automatic rules were checked for timing: they read the
+  game's own achievement record (AC1, ACB, Fable III, Mass Effect 1 and 2) or
+  the exact mission / quest the achievement names (CoD 4, World at War,
+  Fallout 3, Thrillville), so nothing else changed.
+
+NEW IN v0.32.2
+- Big Picture: moving through the full screen list is lighter. The list
+  check that v0.32.1 added rebuilt every row (pictures included) each time
+  tracking looked at a save; it now compares a small summary instead. The
+  blurred background is blurred once instead of on every redraw, the header
+  no longer animates its size, and Steam's page underneath is hidden while
+  the full screen page covers it.
+
+NEW IN v0.32.1
+- Big Picture: the achievements list no longer jumps back to the top while
+  you scroll. It was redrawn every time tracking checked a save, which also
+  lost the controller's place; now it only redraws when something in it
+  changed, and keeps the scroll position and the selected achievement.
+
+NEW IN v0.32.0
+- Big Picture mode: a game's Your Stuff tab now has an Achievements section
+  above Media, laid out like Steam's own: unlocked count and bar, the newest
+  unlock featured with the other unlocks beside it, and a row of small
+  locked pictures. Before, the plugin only looked at the desktop Library's
+  page, so Big Picture never got it.
+- Opening it in Big Picture shows a full screen achievements page like
+  Steam's: cover art, title, earned bar, play time, My Achievements and
+  Settings tabs, and the list. Back (B, Esc or the BACK button) closes it.
+- Works with a controller: press down from the tabs (or up from the
+  section below) to move into the section, left/right to pick an achievement, A to open the
+  page. On the page, the D-pad moves through the list, A marks a manual
+  achievement, LB/RB switch tabs and B goes back.
+- On the full screen page the header (cover, title, earned bar) shrinks to
+  one line as soon as the list scrolls, and grows back at the top.
+- Copy status now has a "controller" entry per Big Picture window (presses
+  seen, the last one, where Steam's focus landed).
+
+NEW IN v0.31.0
+- Big Picture mode: the plugin now follows Big Picture's own page instead
+  of only the desktop Library's, so supported games get their achievements
+  there (first test build; v0.32.0 replaces its layout).
+- Popups: Steam can accept an achievement popup and quietly drop it (for
+  example because of its notification settings). The plugin
+  now checks that Steam really queued it, and draws its own popup with
+  sound when Steam did not.
+- Copy status shows which Steam UI is up (desktop or Big Picture) and what
+  happened to the last popup.
 
 NEW IN v0.30.1
 - The ACHIEVEMENTS stat next to PLAY TIME sat too low on Fallout 3, so its

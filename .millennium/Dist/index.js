@@ -1,4 +1,4 @@
-/* Steam Custom Achievements v0.30.1
+/* Steam Custom Achievements v0.33.0
  * Millennium 3.6.2 loose-file plugin: Xbox 360 achievement lists for Steam games
  * that have none, with read-only Lua detectors for games whose saves are mapped.
  * The entrypoint runs in SharedJSContext. UI belongs to popup.window.document.
@@ -8,7 +8,7 @@
   "use strict";
   const hostWindow = window;
   const PLUGIN_NAME = "steam-custom-achievements";
-  const BUILD_VERSION = "0.30.1";
+  const BUILD_VERSION = "0.33.0";
   const SHARE_BUILD = false;
   const ROOT_ID = "sca-ac2-root";
   const STYLE_ID = "sca-ac2-css";
@@ -52,9 +52,32 @@
   let pollTurn = 0;
   let detectorTransport="waiting",lastDetectorError=null;
 
+  const isGamepadWindow = targetWindow => {
+    try { return /^SP BPM(?:_|$)/i.test(String(targetWindow?.name || "")); } catch (_) { return false; }
+  };
+  function steamUIStore() {
+    try { return typeof SteamUIStore !== "undefined" ? SteamUIStore : hostWindow.SteamUIStore; } catch (_) { return null; }
+  }
+  // Big Picture keeps its own route. MainWindowBrowserManager only follows the
+  // desktop Library, so Big Picture reads the route of its own window instead.
+  function gamepadPath(targetWindow) {
+    const paths = [];
+    try {
+      const store = steamUIStore()?.WindowStore;
+      for (const instance of [store?.GetWindowInstanceFromWindow?.(targetWindow), store?.GamepadUIMainWindowInstance]) {
+        if (!instance) continue;
+        paths.push(instance.m_locationPathname, instance.History?.location?.pathname, instance.m_history?.location?.pathname);
+      }
+    } catch (_) { /* older client: try the next source */ }
+    try { const nav = hostWindow.tempNavStore; if (nav) paths.push(nav.m_locationPathname, nav.m_history?.location?.pathname); } catch (_) { /* ignore */ }
+    try { paths.push(targetWindow.location.pathname + " " + targetWindow.location.hash); } catch (_) { /* ignore */ }
+    return paths.find(path => typeof path === "string" && APP_PATH.test(path)) || "";
+  }
+  const APP_PATH = /\/(?:routes\/)?library\/app\/(\d+)(?=[/?#\s]|$)/i;
   function currentAppId(targetWindow) {
     let path = "";
-    try {
+    if (isGamepadWindow(targetWindow)) path = gamepadPath(targetWindow);
+    else try {
       const browserManager = typeof MainWindowBrowserManager !== "undefined"
         ? MainWindowBrowserManager : hostWindow.MainWindowBrowserManager;
       if (browserManager?.m_lastLocation) {
@@ -62,7 +85,7 @@
         path = [loc.pathname,loc.hash].join(" ");
       } else path = [targetWindow.location.pathname,targetWindow.location.hash].join(" ");
     } catch (_) { return null; }
-    const match = path.match(/\/(?:routes\/)?library\/app\/(\d+)(?=[/?#\s]|$)/i);
+    const match = path.match(APP_PATH);
     return match ? Number(match[1]) : null;
   }
 
@@ -240,13 +263,31 @@
         [4, "string", item.steamDetail || item.detail], [5, "string", item.steamIcon || item.icon], [6, "bool", true],
         [7, "uint", Date.now() / 1000],
       ]));
-      steamToastState = "steam";
+      // Steam drops a toast without an error when its settings or UI mode say so.
+      // If it neither queued nor showed ours, draw the plugin's own.
+      const queue = store.m_rgNotificationToasts;
+      if (Array.isArray(queue)) {
+        const current = store.m_valueCurrentToast?.Value ?? store.m_valueCurrentToast?.m_currentValue;
+        const queued = queue.some(toast => toast?.notificationID === id) || current?.notificationID === id;
+        if (!queued) { steamToastState = `dropped-${uiMode()}`; return false; }
+      }
+      steamToastState = `steam-${uiMode()}`;
       return true;
     } catch (error) {
       steamToastState = "failed";
       report("steam-toast-failed", error);
       return false;
     }
+  }
+  // Which Steam UI is up: "desktop", "bigpicture" or the raw value.
+  function uiMode() {
+    try {
+      const store = steamUIStore();
+      const mode = store?.MainInstanceUIMode;
+      if (mode === undefined || mode === null) return "unknown";
+      if (typeof store.IsGamepadUIActive === "function") return store.IsGamepadUIActive() ? "bigpicture" : "desktop";
+      return mode === 4 ? "bigpicture" : mode === 7 ? "desktop" : String(mode);
+    } catch (_) { return "unknown"; }
   }
   function showNextToast() {
     if (toastBusy || !toastQueue.length || !active) return;
@@ -504,7 +545,7 @@
       old?.dispose();
       views.delete(targetWindow);
       configureStorage(targetWindow);
-      const view = createTracker(targetWindow);
+      const view = createTracker(targetWindow, type);
       view.type = type;
       views.set(targetWindow, view);
       view.refresh();
@@ -555,6 +596,9 @@
         for (const popup of Array.from(manager.GetPopups?.() || [])) attach(popup);
         // GetExistingPopup wraps m_popup in some Steam versions.
         for (const name of ["SP Desktop_uid0", "SP BPM_uid0"]) attach(manager.GetExistingPopup?.(name));
+        // Big Picture's main window, in case the popup list does not include it.
+        const bpm = steamUIStore()?.WindowStore?.GamepadUIMainWindowInstance?.BrowserWindow;
+        if (bpm && bpm !== hostWindow) attach({ window: bpm });
       } catch (error) { report("window-scan-failed", error); }
     }
     // Explicitly named visible windows are useful for local previewing. An
@@ -589,11 +633,12 @@
         stylePresent: !!view.document.getElementById(STYLE_ID),
         placement: view.placement(),
         header: view.headerInfo?.() || null,
+        controller: view.controller?.() || null,
         appId: currentAppId(view.document.defaultView),
         game: view.game()?.title || null,
       })),
       storageAvailable,
-      popups: { enabled: popupsEnabled(), steamToast: steamToastState, windows: (() => { try { return Array.from(getPopupManager()?.GetPopups?.() || [], popup => String(popupWindow(popup)?.name || popup?.m_strName || "").slice(0, 60)); } catch (_) { return []; } })() },
+      popups: { enabled: popupsEnabled(), steamToast: steamToastState, uiMode: uiMode(), windows: (() => { try { return Array.from(getPopupManager()?.GetPopups?.() || [], popup => String(popupWindow(popup)?.name || popup?.m_strName || "").slice(0, 60)); } catch (_) { return []; } })() },
       transport: detectorTransport,
       error: lastDetectorError,
       games: GAMES.map(game => ({
@@ -750,8 +795,10 @@
 
   /* Library sidebar card styled like Steam's native Achievements section, plus a
  * "View My Achievements" dialog modeled on Steam's own achievements popup. */
-function createTracker(window) {
+function createTracker(window,windowType) {
   const document=window.document;
+  // Big Picture's game page has no Library sidebar, so the card floats on the page there.
+  const bigPicture=windowType==="gamepad";
   const DIALOG_ID="sca-ac2-dialog";
   const ICON=48,ICON_GAP=8,STAT_ID="sca-ac2-headstat",STAT_CLASS="sca-headstat";
   let query="",group="all",tab="achievements",message="",messageTimeout=null;
@@ -861,6 +908,83 @@ function createTracker(window) {
 #${ROOT_ID} button,#${DIALOG_ID} button,#${DIALOG_ID} input,#${DIALOG_ID} select,#${DIALOG_ID} textarea{font:inherit}
 #${ROOT_ID} button,#${DIALOG_ID} button{cursor:pointer}
 #${ROOT_ID} button:focus-visible,#${DIALOG_ID} button:focus-visible,#${DIALOG_ID} input:focus-visible,#${DIALOG_ID} select:focus-visible,#${DIALOG_ID} textarea:focus-visible{outline:2px solid #a6c9ff;outline-offset:2px}
+#${ROOT_ID}.sca-bpm{display:block;width:100%;box-sizing:border-box;color:#dcdedf;font-family:var(--sca-heading-family,"Motiva Sans",Arial,Helvetica,sans-serif);font-size:var(--sca-bpm-base,20px)}
+#${ROOT_ID}.sca-bpm .sca-bpm-title{margin:0 0 .8em;color:var(--sca-heading-color,#fff);font-size:var(--sca-heading-size,26px);font-weight:var(--sca-heading-weight,500);letter-spacing:var(--sca-heading-spacing,normal);line-height:1.3;text-transform:none}
+#${ROOT_ID}.sca-bpm .sca-bpm-panel{background:rgba(255,255,255,.035);cursor:pointer}
+#${ROOT_ID}.sca-bpm .sca-bpm-summary{display:flex;align-items:center;gap:1.4em;padding:.8em .75em;background:rgba(0,0,0,.28)}
+#${ROOT_ID}.sca-bpm .sca-bpm-count{flex:none;font-size:1.1em;font-weight:400;line-height:1.3;color:#dcdedf;white-space:nowrap}
+#${ROOT_ID}.sca-bpm .sca-bpm-count span{color:#8b929a}
+#${ROOT_ID}.sca-bpm .sca-bpm-bar{flex:1;height:.55em;background:#4b525c;overflow:hidden}
+#${ROOT_ID}.sca-bpm .sca-bpm-bar>div{height:100%;background:#1a9fff}
+#${ROOT_ID}.sca-bpm .sca-bpm-group{padding:1.1em .5em .4em}
+#${ROOT_ID}.sca-bpm .sca-bpm-group:last-child{padding-bottom:1.2em}
+#${ROOT_ID}.sca-bpm .sca-bpm-label{margin:.3em .25em .5em;font-size:.82em;font-weight:700;letter-spacing:.06em;color:#acb2b8;text-transform:uppercase}
+#${ROOT_ID}.sca-bpm .sca-bpm-row{display:flex;gap:.6em;overflow:hidden;align-items:center;padding:.4em .25em}
+#${ROOT_ID}.sca-bpm .sca-bpm-smallrow{gap:.6em}
+#${ROOT_ID}.sca-bpm .sca-bpm-feature{flex:0 0 min(50%,48em);display:flex;gap:.6em;padding:.75em;background:rgba(255,255,255,.07);border:2px solid rgba(255,255,255,.12);color:inherit;font:inherit;text-align:left;min-width:0}
+#${ROOT_ID}.sca-bpm .sca-bpm-feature .sca-bpm-text{min-width:0;display:flex;flex-direction:column;padding-top:.1em}
+#${ROOT_ID}.sca-bpm .sca-bpm-name{font-size:1.15em;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#${ROOT_ID}.sca-bpm .sca-bpm-desc{margin-top:.15em;color:#8b929a;font-size:.95em;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+#${ROOT_ID}.sca-bpm .sca-bpm-when{margin-top:auto;padding-top:.4em;color:#acb2b8;font-size:.85em}
+#${ROOT_ID}.sca-bpm .sca-bpm-icon{position:relative;flex:none;display:block;width:5.5em;height:5.5em;padding:0;border:0;background:#0006;overflow:visible}
+#${ROOT_ID}.sca-bpm .sca-bpm-small{width:3.9em;height:3.9em}
+#${ROOT_ID}.sca-bpm .sca-bpm-icon img{display:block;width:100%;height:100%;object-fit:cover}
+#${ROOT_ID}.sca-bpm .sca-bpm-dim img{filter:grayscale(1) brightness(.4)}
+#${ROOT_ID}.sca-bpm button.sca-bpm-icon.sca-padfocus,#${ROOT_ID}.sca-bpm button.sca-bpm-icon:hover{outline:2px solid #f6c55a;outline-offset:0;box-shadow:0 0 10px 4px rgba(246,180,60,.75),0 0 26px 8px rgba(246,180,60,.35);z-index:1}
+#${ROOT_ID}.sca-bpm .sca-bpm-feature.sca-padfocus,#${ROOT_ID}.sca-bpm .sca-bpm-feature:hover{border-color:#fff;background:rgba(255,255,255,.13)}
+#${ROOT_ID}.sca-bpm .sca-bpm-summary.sca-padfocus,#${ROOT_ID}.sca-bpm .sca-bpm-summary:hover{outline:2px solid #fff;outline-offset:-2px;background:rgba(255,255,255,.08)}
+#${DIALOG_ID} .sca-padfocus{outline:3px solid #fff!important;outline-offset:2px}
+#${DIALOG_ID} .sca-ach.sca-padfocus{outline-offset:-3px;background:#323844}
+.sca-steam-dimmed{outline:none!important;box-shadow:none!important;filter:brightness(.8)}
+#${DIALOG_ID}.sca-full{padding:0;background:#0e1117;backdrop-filter:none;align-items:stretch;justify-content:stretch;font-size:18px}
+#${DIALOG_ID}.sca-full .sca-dialog{width:100%;height:100%;max-width:none;max-height:none;background:#0e1117;box-shadow:none}
+#${DIALOG_ID}.sca-full .sca-close{display:none}
+#${DIALOG_ID}.sca-full .sca-dhead{padding:96px 32px 0;background:#262b33}
+#${DIALOG_ID}.sca-full .sca-dhero{filter:blur(18px) brightness(.5) saturate(.9);transform:translateZ(0);will-change:transform}
+#${DIALOG_ID}.sca-full .sca-dhero.sca-preblurred{filter:brightness(.5) saturate(.9);inset:0}
+html.sca-page-open body>*:not(#${DIALOG_ID}){visibility:hidden}
+#${DIALOG_ID}.sca-full .sca-dbody{will-change:scroll-position;contain:content}
+#${DIALOG_ID}.sca-full .sca-bpm-top{display:flex;align-items:center;gap:24px}
+#${DIALOG_ID}.sca-full .sca-bpm-cover{flex:none;width:216px;height:324px;object-fit:cover;box-shadow:0 6px 24px rgba(0,0,0,.6)}
+#${DIALOG_ID}.sca-full .sca-bpm-info{flex:1;min-width:0}
+#${DIALOG_ID}.sca-full h2{font-size:34px;font-weight:400;letter-spacing:0;color:#fff}
+#${DIALOG_ID}.sca-full .sca-bpm-stats{display:flex;align-items:flex-end;gap:24px;margin-top:30px;padding:20px;background:rgba(0,0,0,.2)}
+#${DIALOG_ID}.sca-full .sca-bpm-earnedbox{flex:1;min-width:0}
+#${DIALOG_ID}.sca-full .sca-earned{margin-top:0;font-size:17px;letter-spacing:.06em;color:#c6d4df}
+#${DIALOG_ID}.sca-full .sca-dbar{height:10px;margin-top:14px;border-radius:5px;background:#3d4450}
+#${DIALOG_ID}.sca-full .sca-dbar>div{background:#1a9fff;border-radius:5px}
+#${DIALOG_ID}.sca-full .sca-bpm-play{flex:none;text-align:left}
+#${DIALOG_ID}.sca-full .sca-bpm-play div:first-child{font-size:17px;font-weight:700;letter-spacing:.06em;color:#c6d4df}
+#${DIALOG_ID}.sca-full .sca-bpm-play div:last-child{font-size:24px;font-weight:700;color:#fff;margin-top:4px}
+#${DIALOG_ID}.sca-full .sca-tabs{margin:28px -32px 0;padding:16px 0;background:none;gap:12px}
+#${DIALOG_ID}.sca-full .sca-tab{font-size:17px;padding:12px 24px;border-radius:26px;letter-spacing:.06em}
+#${DIALOG_ID}.sca-full .sca-dbody{padding:12px 20px 90px;background:#0e1117}
+#${DIALOG_ID}.sca-full .sca-toolbar{gap:16px;padding:0 0 12px}
+#${DIALOG_ID}.sca-full .sca-search,#${DIALOG_ID}.sca-full .sca-select{height:58px;font-size:20px;width:330px;background:#262a33}
+#${DIALOG_ID}.sca-full .sca-section-title{font-size:15px;margin:20px 8px 10px}
+#${DIALOG_ID}.sca-full .sca-ach{min-height:118px;padding:10px 14px 10px 10px;gap:14px;margin-bottom:12px;background:#23262e}
+#${DIALOG_ID}.sca-full .sca-ach-icon{width:96px;height:96px}
+#${DIALOG_ID}.sca-full .sca-ach-name{font-size:22px;font-weight:500}
+#${DIALOG_ID}.sca-full .sca-ach-desc{font-size:17px;margin-top:4px}
+#${DIALOG_ID}.sca-full .sca-ach-side{font-size:17px;color:#8b929a}
+#${DIALOG_ID}.sca-full .sca-mark,#${DIALOG_ID}.sca-full .sca-small{font-size:15px;padding:8px 14px}
+#${DIALOG_ID}.sca-full .sca-panel h3{font-size:20px}
+#${DIALOG_ID}.sca-full .sca-panel p{font-size:16px}
+#${DIALOG_ID}.sca-full.sca-collapsed .sca-dhead{padding:14px 32px 0}
+#${DIALOG_ID}.sca-full.sca-collapsed .sca-bpm-top{gap:16px}
+#${DIALOG_ID}.sca-full.sca-collapsed .sca-bpm-cover{width:48px;height:72px}
+#${DIALOG_ID}.sca-full.sca-collapsed .sca-bpm-info{display:flex;align-items:center;gap:24px}
+#${DIALOG_ID}.sca-full.sca-collapsed h2{flex:none;font-size:24px;max-width:40%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#${DIALOG_ID}.sca-full.sca-collapsed .sca-bpm-stats{flex:1;margin-top:0;padding:10px 16px}
+#${DIALOG_ID}.sca-full.sca-collapsed .sca-earned{font-size:14px}
+#${DIALOG_ID}.sca-full.sca-collapsed .sca-dbar{height:8px;margin-top:8px}
+#${DIALOG_ID}.sca-full.sca-collapsed .sca-bpm-play div:first-child{font-size:14px}
+#${DIALOG_ID}.sca-full.sca-collapsed .sca-bpm-play div:last-child{font-size:18px;margin-top:2px}
+#${DIALOG_ID}.sca-full.sca-collapsed .sca-tabs{margin-top:8px;padding:8px 0}
+#${DIALOG_ID}.sca-full.sca-collapsed .sca-tab{padding:8px 20px;font-size:15px}
+#${DIALOG_ID}.sca-full .sca-bpm-footer{position:absolute;left:0;right:0;bottom:0;height:56px;display:flex;align-items:center;justify-content:flex-end;padding:0 36px;background:#0b0d10;z-index:6}
+#${DIALOG_ID}.sca-full .sca-bpm-back{display:flex;align-items:center;gap:12px;border:0;background:none;color:#fff;font-size:18px;font-weight:700;letter-spacing:.04em;padding:6px 4px}
+#${DIALOG_ID}.sca-full .sca-bpm-key{display:inline-flex;align-items:center;justify-content:center;min-width:30px;height:30px;border-radius:50%;background:#e0e0e0;color:#0b0d10;font-size:16px;font-weight:800}
 #${ROOT_ID} .sca-heading{margin:0 0 6px;color:var(--sca-heading-color,#c7c8ce);font-size:var(--sca-heading-size,14px);font-weight:var(--sca-heading-weight,500);letter-spacing:var(--sca-heading-spacing,.5px);font-family:var(--sca-heading-family,inherit);text-transform:var(--sca-heading-transform,uppercase);line-height:1.3}
 #${ROOT_ID} .sca-card{background-color:var(--sca-surface);background-image:var(--sca-surface-image);border:var(--sca-border);border-radius:var(--sca-radius);box-shadow:var(--sca-shadow);overflow:hidden;min-width:0}
 #${ROOT_ID} .sca-summary{padding:10px 10px 12px}
@@ -1342,10 +1466,57 @@ function createTracker(window) {
     const time=i=>{const t=Date.parse(game.progress[String(i)]);return Number.isNaN(t)?0:t;};
     return indices.slice().sort((a,b)=>time(b)-time(a)||a-b);
   }
+  // Big Picture: the layout of Steam's own Achievements section on the Your Stuff tab.
+  function renderBigPicture(root) {
+    root.replaceChildren();root.setAttribute('aria-label',`${game.title} achievements`);
+    root.appendChild(el('h2','sca-bpm-title','Achievements'));
+    const panel=el('div','sca-bpm-panel');
+    const completed=countUnlocked(),percent=percentDone(),total=game.achievements.length;
+    const summary=el('div','sca-bpm-summary');
+    const count=el('div','sca-bpm-count sca-count',`You've unlocked ${completed}/${total} `);count.appendChild(el('span','',`(${percent}%)`));
+    const bar=el('div','sca-bpm-bar');bar.setAttribute('role','progressbar');bar.setAttribute('aria-label','Achievement completion');bar.setAttribute('aria-valuemin','0');bar.setAttribute('aria-valuemax',String(total));bar.setAttribute('aria-valuenow',String(completed));
+    const fill=el('div');fill.style.width=`${percent}%`;bar.appendChild(fill);
+    summary.append(count,bar);summary.onclick=()=>openDialog();panel.appendChild(summary);
+    const unlocked=[],locked=[];
+    game.achievements.forEach((_a,i)=>(isUnlocked(i)?unlocked:locked).push(i));
+    // Like Steam: the newest unlock is featured, the other unlocks follow as large pictures,
+    // and locked ones get a row of small pictures. With nothing unlocked yet, the next locked
+    // one is featured instead.
+    const tile=(index,isOn,small)=>{
+      const b=game.achievements[index];
+      const node=el('button',"sca-bpm-icon"+(small?" sca-bpm-small":"")+(isOn?"":" sca-bpm-dim"));node.type='button';
+      const img=el('img');img.alt='';img.src=iconFor(game,index);img.draggable=false;node.appendChild(img);
+      node.title=`${b.name}\n${b.detail}`;node.setAttribute('aria-label',`${b.name} (${isOn?'unlocked':'locked'})`);
+      node.onclick=event=>{event.stopPropagation();openDialog(index);};return node;
+    };
+    const feature=(index,isOn)=>{
+      const a=game.achievements[index];
+      const node=el('button','sca-bpm-feature');node.type='button';node.setAttribute('aria-label',`${a.name} (${isOn?'unlocked':'locked'})`);
+      const pic=el('span',"sca-bpm-icon"+(isOn?"":" sca-bpm-dim"));const img=el('img');img.alt='';img.src=iconFor(game,index);img.draggable=false;pic.appendChild(img);
+      const text=el('div','sca-bpm-text');text.append(el('div','sca-bpm-name',a.name),el('div','sca-bpm-desc',a.detail||''));
+      text.appendChild(el('div','sca-bpm-when',isOn?formatUnlock(game.progress[String(index)]):(a.automatic?'Unlocks automatically':'Locked')));
+      node.append(pic,text);node.onclick=event=>{event.stopPropagation();openDialog(index);};return node;
+    };
+    const sorted=sortUnlocked(unlocked);
+    if(sorted.length){
+      const box=el('div','sca-bpm-group');const row=el('div','sca-bpm-row');
+      row.appendChild(feature(sorted[0],true));for(const index of sorted.slice(1))row.appendChild(tile(index,true,false));
+      box.appendChild(row);panel.appendChild(box);
+    }
+    if(locked.length){
+      const box=el('div','sca-bpm-group');box.appendChild(el('div','sca-bpm-label','Locked Achievements'));
+      const row=el('div','sca-bpm-row'+(sorted.length?' sca-bpm-smallrow':''));
+      if(!sorted.length){row.appendChild(feature(locked[0],false));for(const index of locked.slice(1))row.appendChild(tile(index,false,false));}
+      else for(const index of locked)row.appendChild(tile(index,false,true));
+      box.appendChild(row);panel.appendChild(box);
+    }
+    root.appendChild(panel);
+  }
   function render() {
     if(!game)return;
     const root=document.getElementById(ROOT_ID);
-    if(root) {
+    if(root&&bigPicture) renderBigPicture(root);
+    else if(root) {
       root.replaceChildren();root.setAttribute('aria-label',`${game.title} achievements`);
       root.appendChild(el('h2','sca-heading','ACHIEVEMENTS'));
       const card=el('div','sca-card');const summary=el('div','sca-summary');
@@ -1368,7 +1539,16 @@ function createTracker(window) {
     updateHeaderStat();
     updateAutomatic();
   }
+  function preBlur(src){
+    return new Promise(resolve=>{
+      const img=new window.Image();img.crossOrigin="anonymous";
+      img.onload=()=>{try{const canvas=document.createElement("canvas");canvas.width=48;canvas.height=27;
+        canvas.getContext("2d").drawImage(img,0,0,48,27);resolve(canvas.toDataURL("image/png"));}catch(_){resolve(null);}};
+      img.onerror=()=>resolve(null);img.src=src;
+    });
+  }
   function closeDialog() {
+    document.documentElement.classList.remove("sca-page-open");
     dialogOpen=false;
     document.getElementById(DIALOG_ID)?.remove();
     document.removeEventListener("keydown",onKey,true);
@@ -1381,7 +1561,7 @@ function createTracker(window) {
   function openDialog(focusIndex) {
     makeStyle();
     if(!dialogOpen){returnFocus=document.activeElement;document.addEventListener("keydown",onKey,true);}
-    dialogOpen=true;tab="achievements";
+    dialogOpen=true;tab="achievements";lastFocusIndex=focusIndex;
     document.getElementById(DIALOG_ID)?.remove();
     const overlay=el("div");overlay.id=DIALOG_ID;
     overlay.onmousedown=event=>{if(event.target===overlay)closeDialog();};
@@ -1391,7 +1571,10 @@ function createTracker(window) {
     close.onclick=closeDialog;
     const head=el("div","sca-dhead");
     const hero=steamImage(/library_hero/i);
-    if(hero){const layer=el("div","sca-dhero");layer.style.backgroundImage=`url("${hero.replace(/["\\]/g,"")}")`;head.appendChild(layer);}
+    if(hero){const layer=el("div","sca-dhero");layer.style.backgroundImage=`url("${hero.replace(/["\\]/g,"")}")`;head.appendChild(layer);
+      // Big Picture: a live blur filter over a screen-wide picture is costly to redraw, so blur
+      // it once by shrinking it onto a tiny canvas; the browser's upscaling does the rest.
+      if(bigPicture)preBlur(hero).then(url=>{if(url){layer.style.backgroundImage=`url("${url}")`;layer.classList.add("sca-preblurred");}}).catch(()=>{});}
     const titleRow=el("div","sca-title-row");const gameIcon=el("img");gameIcon.alt="";gameIcon.src=steamImage(new RegExp(`/${game.appId}/[0-9a-f]{40}\\.(jpg|png)`,"i"))||builtInIcon(game,0);
     const title=el("h2","",game.title);title.id="sca-dialog-title";titleRow.append(gameIcon,title);
     const earned=el("div","sca-earned");earned.append(el("span","sca-earned-count"),el("span","sca-earned-percent"));
@@ -1401,8 +1584,33 @@ function createTracker(window) {
       const button=el("button","sca-tab",label);button.type="button";button.setAttribute("role","tab");button.dataset.tab=value;
       button.onclick=()=>{tab=value;buildBody();};tabs.appendChild(button);
     }
-    head.append(titleRow,earned,bar,tabs);
+    if(bigPicture){
+      // Big Picture: a full screen page like Steam's own achievements screen.
+      overlay.classList.add("sca-full");
+      // Steam's own page stays drawn underneath; hiding it while ours covers the screen saves work.
+      document.documentElement.classList.add("sca-page-open");
+      const top=el("div","sca-bpm-top");
+      let coverSrc=null;
+      // Steam's own portrait capsule for the game, as its library uses it (from its local cache).
+      try{const store=hostWindow.appStore;const overview=store?.GetAppOverviewByAppID?.(game.appId);if(overview)coverSrc=store.GetVerticalCapsuleURLForApp?.(overview)||null;}catch(_){coverSrc=null;}
+      coverSrc=coverSrc||steamImage(/library_600x900|portrait/i);
+      if(coverSrc){const cover=el("img","sca-bpm-cover");cover.alt="";cover.src=coverSrc;top.appendChild(cover);}
+      const info=el("div","sca-bpm-info");const stats=el("div","sca-bpm-stats");const box=el("div","sca-bpm-earnedbox");
+      box.append(earned,bar);stats.appendChild(box);
+      const played=playTimeText();
+      if(played){const play=el("div","sca-bpm-play");play.append(el("div","","PLAY TIME"),el("div","",played));stats.appendChild(play);}
+      info.append(title,stats);top.appendChild(info);head.append(top,tabs);
+      const footer=el("div","sca-bpm-footer");const back=el("button","sca-bpm-back");back.type="button";
+      back.append(el("span","sca-bpm-key","B"),el("span","","BACK"));back.onclick=closeDialog;footer.appendChild(back);
+      dialog.appendChild(footer);
+    } else head.append(titleRow,earned,bar,tabs);
     const body=el("div","sca-dbody");
+    // The header shrinks to one line once the list scrolls, and comes back at the top.
+    if(bigPicture)body.addEventListener("scroll",()=>{
+      const top=body.scrollTop;
+      if(top>60&&!overlay.classList.contains("sca-collapsed"))overlay.classList.add("sca-collapsed");
+      else if(top<=4&&overlay.classList.contains("sca-collapsed"))overlay.classList.remove("sca-collapsed");
+    },{passive:true});
     const picker=el("input","sca-picker");picker.type="file";picker.accept="image/*";picker.hidden=true;
     picker.onchange=()=>{const files=Array.from(picker.files||[]);picker.value="";void applyPictures(files);};
     const pagePicker=el("input","sca-page-picker");pagePicker.type="file";pagePicker.accept=".mhtml,.mht,multipart/related";pagePicker.hidden=true;
@@ -1471,7 +1679,14 @@ function createTracker(window) {
   }
   function updateList() {
     const list=document.querySelector(`#${DIALOG_ID} .sca-list`);if(!list)return;
+    // The list is asked to redraw whenever tracking state changes (every second or so while a
+    // save is read). Redraw only when what it shows changed, so scrolling and the controller's
+    // place stay put and nothing heavy runs in between.
+    let key;
+    try{key=JSON.stringify([game.appId,game.progress,game.auto?.counts||null,query,group,Object.entries(game.customIcons||{}).map(([k,v])=>`${k}:${String(v).length}`)]);}catch(_){key=null;}
+    if(key!==null&&list.dataset.key===key)return;
     const body=list.closest(".sca-dbody");const scrollTop=body?body.scrollTop:0;
+    const focusedIndex=list.querySelector(".sca-ach.sca-padfocus")?.dataset.index;
     list.replaceChildren();
     const needle=query.trim().toLowerCase();
     const matches=index=>{
@@ -1484,8 +1699,11 @@ function createTracker(window) {
     if(unlocked.length){list.appendChild(el("div","sca-section-title","Unlocked Achievements"));for(const i of sortUnlocked(unlocked))list.appendChild(achievementRow(i));}
     if(locked.length){list.appendChild(el("div","sca-section-title","Locked Achievements"));for(const i of locked)list.appendChild(achievementRow(i));}
     if(!unlocked.length&&!locked.length)list.appendChild(el("div","sca-empty","No achievements match your search."));
+    if(key!==null)list.dataset.key=key;
     if(body)body.scrollTop=scrollTop;
+    if(focusedIndex!==undefined){const row=list.querySelector(`.sca-ach[data-index="${focusedIndex}"]`);if(row){row.tabIndex=-1;row.classList.add("sca-padfocus");row.focus?.({preventScroll:true});}}
   }
+
   function buildSettings(body) {
     const auto=el("div","sca-panel");
     const autoCount=game.achievements.filter(a=>a.automatic).length;
@@ -1588,6 +1806,9 @@ function createTracker(window) {
     showMessage(`${loaded} picture${loaded===1?"":"s"} updated${skipped?`, ${skipped} skipped (name didn't match an achievement)`:""}`);
   }
   // Reuse images Steam has already loaded for this page (hero art, game icon).
+  function playTimeText() {
+    try{const found=headerItems()[0];const text=(found?.value?.textContent||"").replace(/\s+/g," ").trim();return text.replace(/\bhours\b/i,"hrs");}catch(_){return "";}
+  }
   function steamImage(pattern) {
     for(const img of document.images) {
       const src=img.currentSrc||img.src||"";
@@ -1711,7 +1932,202 @@ function createTracker(window) {
       stat.querySelector(".sca-stat-bar>div").style.width=`${percentDone()}%`;
     });
   }
-  function removeUi(){closeDialog();document.querySelectorAll(`.${STAT_CLASS}`).forEach(stat=>stat.remove());document.getElementById(ROOT_ID)?.remove();document.getElementById(STYLE_ID)?.remove();}
+  // ---- Controller support in Big Picture ----
+  // Big Picture sends each controller press to the page as a "vgp_onbuttondown" event on the
+  // element it has focused; its own navigation listens further up. Steam's navigation does not
+  // know the plugin's section, so the plugin catches presses first (capture phase) and moves
+  // through its own section and list itself, handing control back at the section's edges.
+  const PAD={OK:1,CANCEL:2,SECONDARY:3,BUMPER_LEFT:5,BUMPER_RIGHT:6,UP:9,DOWN:10,LEFT:11,RIGHT:12};
+  let padQuietUntil=0,lastFocusIndex,padActive=false,padRow=0,padCol=0,padSteamFocus=null,padEnterCheck=null;
+  function padRows(){
+    const root=document.getElementById(ROOT_ID);if(!root)return [];
+    const rows=[];const summary=root.querySelector('.sca-bpm-summary');if(summary)rows.push([summary]);
+    root.querySelectorAll('.sca-bpm-row').forEach(row=>rows.push([...row.children]));
+    return rows;
+  }
+  function padMark(target){
+    document.querySelectorAll('.sca-padfocus').forEach(node=>{if(node!==target)node.classList.remove('sca-padfocus');});
+    if(!target)return;
+    target.classList.add('sca-padfocus');
+    try{target.scrollIntoView({block:'nearest',inline:'nearest'});}catch(_){target.scrollIntoView?.();}
+  }
+  function padShow(){
+    const rows=padRows();if(!rows.length){padLeave();return;}
+    padRow=Math.max(0,Math.min(padRow,rows.length-1));padCol=Math.max(0,Math.min(padCol,rows[padRow].length-1));
+    padMark(rows[padRow][padCol]);
+  }
+  function padEnter(row,steamFocus){
+    padActive=true;padSteamFocus=steamFocus||null;
+    // Steam's own highlight stays on the item it focused; dim it while the plugin has control.
+    padSteamFocus?.classList?.add('sca-steam-dimmed');
+    const rows=padRows();padRow=row<0?rows.length-1:row;padCol=0;padShow();
+  }
+  function padLeave(){
+    padActive=false;padSteamFocus?.classList?.remove('sca-steam-dimmed');padSteamFocus=null;
+    if(!dialogOpen)padMark(null);
+  }
+  function swallow(event){event.preventDefault();event.stopImmediatePropagation();}
+  // The next focus target from `current` in a direction, by screen position.
+  function spatial(current,targets,button){
+    const from=current?.getBoundingClientRect();if(!from)return targets[0]||null;
+    const cx=from.left+from.width/2,cy=from.top+from.height/2;let best=null,bestScore=Infinity;
+    for(const node of targets){
+      if(node===current)continue;const box=node.getBoundingClientRect();if(!box.width&&!box.height)continue;
+      const x=box.left+box.width/2,y=box.top+box.height/2;
+      let main,side;
+      if(button===PAD.DOWN){main=box.top-from.top;side=Math.abs(x-cx);if(main<=2&&!(box.top>=from.bottom-2))continue;}
+      else if(button===PAD.UP){main=from.top-box.top;side=Math.abs(x-cx);if(main<=2)continue;}
+      else if(button===PAD.RIGHT){main=x-cx;side=Math.abs(y-cy);if(main<=2||side>from.height)continue;}
+      else {main=cx-x;side=Math.abs(y-cy);if(main<=2||side>from.height)continue;}
+      const score=main+side*2;if(score<bestScore){bestScore=score;best=node;}
+    }
+    return best;
+  }
+  function dialogTargets(){
+    const overlay=document.getElementById(DIALOG_ID);if(!overlay)return [];
+    return [...overlay.querySelectorAll('button,.sca-ach')].filter(node=>!node.hidden&&!node.disabled&&!(node.tagName==='BUTTON'&&node.closest('.sca-ach'))&&node.getClientRects().length);
+  }
+  function dialogFocus(node){
+    if(!node)return;
+    if(node.classList.contains('sca-ach')&&!node.hasAttribute('tabindex'))node.tabIndex=-1;
+    node.focus?.({preventScroll:true});padMark(node);
+  }
+  function onDialogPad(event,button){
+    const overlay=document.getElementById(DIALOG_ID);
+    const targets=dialogTargets();
+    let current=overlay.querySelector('.sca-padfocus');if(!current||!targets.includes(current))current=null;
+    if(button===PAD.CANCEL){closeDialog();if(padActive)padShow();return;}
+    if(button===PAD.BUMPER_LEFT||button===PAD.BUMPER_RIGHT){
+      const tabs=[...overlay.querySelectorAll('.sca-tab')];const at=tabs.findIndex(t=>t.getAttribute('aria-selected')==='true');
+      const next=tabs[(at+(button===PAD.BUMPER_RIGHT?1:tabs.length-1))%tabs.length];next?.click();
+      dialogFocus(document.querySelector(`#${DIALOG_ID} .sca-tab[aria-selected="true"]`));return;
+    }
+    if(button===PAD.OK){
+      if(!current){dialogFocus(targets[0]);return;}
+      if(current.classList.contains('sca-ach')){const mark=current.querySelector('.sca-mark');if(mark){const index=current.dataset.index;mark.click();dialogFocus(document.querySelector(`#${DIALOG_ID} .sca-ach[data-index="${index}"]`));}}
+      else{const wasTab=current.classList.contains('sca-tab')?current.dataset.tab:null;current.click();
+        if(wasTab)dialogFocus(document.querySelector(`#${DIALOG_ID} .sca-tab[data-tab="${wasTab}"]`));}
+      return;
+    }
+    if([PAD.UP,PAD.DOWN,PAD.LEFT,PAD.RIGHT].includes(button)){
+      // Nothing picked yet (or it went away): start from the first achievement on screen, not the top.
+      if(!current){const view=overlay.querySelector('.sca-dbody')?.getBoundingClientRect();
+        const rows=targets.filter(t=>t.classList.contains('sca-ach'));
+        dialogFocus((view&&rows.find(t=>t.getBoundingClientRect().top>=view.top-1))||rows[0]||targets[0]);return;}
+      const next=spatial(current,targets,button);
+      if(next)dialogFocus(next);
+      else if(button===PAD.DOWN||button===PAD.UP){const body=overlay.querySelector('.sca-dbody');if(body)body.scrollTop+=button===PAD.DOWN?200:-200;}
+    }
+  }
+  // How far below the bottom of our section an element starts (Infinity when it is not below it).
+  function gapBelow(node){
+    const root=document.getElementById(ROOT_ID);
+    if(!root||!(node instanceof window.Element)||root.contains(node)||!(root.compareDocumentPosition(node)&4))return Infinity;
+    return node.getBoundingClientRect().top-root.getBoundingClientRect().bottom;
+  }
+  function describe(node){
+    if(!(node instanceof window.Element))return null;
+    return `${node.tagName.toLowerCase()}.${String(node.className||"").trim().split(/\s+/).slice(0,2).join(".")}`.slice(0,80);
+  }
+  const padLog={events:0,entered:0,last:null,landed:null};
+  function onPad(event){
+    const button=Number(event.detail?.button);if(!button)return;
+    if(event.type==='vgp_onbuttondown')padLog.events++;
+    if(dialogOpen){swallow(event);if(event.type==='vgp_onbuttondown')onDialogPad(event,button);return;}
+    if(event.type!=='vgp_onbuttondown'){if(padActive)swallow(event);return;}
+    const root=document.getElementById(ROOT_ID);
+    if(!game||!root||!currentAnchor?.section?.isConnected){if(padActive)padLeave();return;}
+    if(padActive){
+      const rows=padRows();
+      // At the edges control goes back to Steam. Its focus stayed where it was when ours took over:
+      // if that is on the side being left to, the press is used up; otherwise Steam moves on.
+      if(button===PAD.UP){if(padRow===0){const steamSide=side(padSteamFocus);padLeave();
+        if(steamSide==="above")swallow(event);else padQuietUntil=Date.now()+400;return;}swallow(event);padRow--;padShow();return;}
+      if(button===PAD.DOWN){if(padRow>=rows.length-1){const steamSide=side(padSteamFocus);padLeave();
+        if(steamSide==="below")swallow(event);else padQuietUntil=Date.now()+400;return;}swallow(event);padRow++;padShow();return;}
+      if(button===PAD.LEFT){swallow(event);if(padCol>0){padCol--;padShow();}return;}
+      if(button===PAD.RIGHT){swallow(event);if(padCol<rows[padRow].length-1){padCol++;padShow();}return;}
+      if(button===PAD.OK){swallow(event);const target=rows[padRow]?.[padCol];target?.click();
+        if(dialogOpen){const pick=lastFocusIndex!==undefined?document.querySelector(`#${DIALOG_ID} .sca-ach[data-index="${lastFocusIndex}"]`):null;dialogFocus(pick||dialogTargets().find(t=>t.classList.contains('sca-ach')));}
+        return;}
+      if(button===PAD.CANCEL){padLeave();return;}
+      return;
+    }
+    const target=event.target;
+    padLog.last={button,target:describe(target),gap:Math.round(gapBelow(target))};
+    if((button!==PAD.UP&&button!==PAD.DOWN)||!(target instanceof window.Element)||root.contains(target))return;
+    // Let Steam move, then look where its focus went. Steam's navigation does not know our
+    // section, so if its focus jumped across it, our section takes over at that edge.
+    const before=side(target);
+    if(padEnterCheck)window.clearTimeout(padEnterCheck);
+    padEnterCheck=window.setTimeout(()=>{padEnterCheck=null;
+      const landed=document.querySelector('.gpfocus')||document.activeElement;
+      padLog.landed=describe(landed);
+      if(padActive||dialogOpen||Date.now()<padQuietUntil)return;
+      const after=landed instanceof window.Element?side(landed):null;
+      if(button===PAD.UP&&before==="below"&&after==="above"){padLog.entered++;padEnter(-1,landed);return;}
+      if(button===PAD.DOWN&&before==="above"&&after==="below"){padLog.entered++;padEnter(0,landed);return;}
+      // Nothing focusable below ours (Media can be empty), so Steam stayed put: come in anyway.
+      if(button===PAD.DOWN&&before==="above"&&(landed===target||!landed||after==="above")){
+        const rootBox=root.getBoundingClientRect(),box=(landed instanceof window.Element?landed:target).getBoundingClientRect();
+        if(rootBox.top-box.bottom<240){padLog.entered++;padEnter(0,landed instanceof window.Element?landed:target);}
+      }
+    },60);
+  }
+  // Where an element sits compared with our section.
+  function side(node){
+    const root=document.getElementById(ROOT_ID);
+    if(!root||!(node instanceof window.Element)||root.contains(node))return null;
+    return root.compareDocumentPosition(node)&4?"below":"above";
+  }
+  function onPointer(){if(padActive)padLeave();}
+  if(bigPicture){
+    window.addEventListener('vgp_onbuttondown',onPad,true);window.addEventListener('vgp_onbuttonup',onPad,true);
+    window.addEventListener('pointerdown',onPointer,true);
+  }
+  function removeUi(){if(padActive)padLeave();closeDialog();document.querySelectorAll(`.${STAT_CLASS}`).forEach(stat=>stat.remove());document.getElementById(ROOT_ID)?.remove();document.getElementById(STYLE_ID)?.remove();}
+  const BPM_SECTIONS=["MEDIA","NOTES","DLC","ADDITIONAL CONTENT","WORKSHOP","TRADING CARDS","CLOUD SAVES"];
+  function shownNode(node){
+    // jsdom and other engines without layout have no boxes at all; rely on styles there.
+    if(!node.getClientRects().length&&document.body.getClientRects().length)return false;
+    for(let n=node;n&&n!==document.body;n=n.parentElement){const look=window.getComputedStyle(n);if(look.display==="none"||look.visibility==="hidden")return false;}
+    return true;
+  }
+  // The first Your Stuff section heading on screen (normally Media), and the block
+  // that holds it: the nearest ancestor taller than the heading itself.
+  function findBigPictureSection(){
+    const walker=document.createTreeWalker(document.body,4);let text;
+    while((text=walker.nextNode())){
+      if(!BPM_SECTIONS.includes(normal(text.nodeValue||"")))continue;
+      const heading=text.parentElement;
+      if(!heading||heading.closest(`#${ROOT_ID},#${DIALOG_ID},button,a,[role="button"],[role="tab"],[role="tablist"]`)||!shownNode(heading))continue;
+      const tall=heading.getBoundingClientRect().height+8;
+      // Climb wrappers that hold only the heading.
+      let section=heading;
+      while(section.parentElement&&section.parentElement!==document.body&&section.parentElement.getBoundingClientRect().height<=tall)section=section.parentElement;
+      // Heading + content in one block (and no other section in it): that block is the section.
+      const block=section.parentElement;
+      if(block&&block!==document.body&&block.firstElementChild===section&&block.getBoundingClientRect().height>tall&&!otherSectionIn(block,heading))section=block;
+      if(!section.parentElement)continue;
+      return {section,heading};
+    }
+    return null;
+  }
+  function otherSectionIn(node,heading){
+    const walker=document.createTreeWalker(node,4);let text;
+    while((text=walker.nextNode()))if(text.parentElement!==heading&&BPM_SECTIONS.includes(normal(text.nodeValue||"")))return true;
+    return false;
+  }
+  function matchBigPictureStyle(root,anchor){
+    const heading=window.getComputedStyle(anchor.heading);
+    for(const [name,value] of [["color",heading.color],["size",heading.fontSize],["weight",heading.fontWeight],["spacing",heading.letterSpacing],["family",heading.fontFamily]]) {
+      if(value)root.style.setProperty(`--sca-heading-${name}`,value);
+    }
+    const size=parseFloat(heading.fontSize);
+    if(size>=12&&size<=60)root.style.setProperty("--sca-bpm-base",`${Math.round(size*.78*10)/10}px`);
+    const section=window.getComputedStyle(anchor.section);
+    root.style.marginBottom=section.marginTop!=="0px"?section.marginTop:"2.4em";
+  }
   function refresh() {
     if(!document.body)return;
     const shown=currentGame(window);
@@ -1719,10 +2135,20 @@ function createTracker(window) {
     // Switching between two supported games rebuilds the card for the new list.
     if(shown!==game){removeUi();game=shown;currentAnchor=null;nativeCard=null;query="";group="all";}
     const existing=document.getElementById(ROOT_ID);
-    if(existing?.isConnected){
+    if(existing?.isConnected&&!bigPicture){
       makeStyle();
       if(!currentAnchor?.section.isConnected){currentAnchor=findSidebar();nativeCard=null;if(currentAnchor)matchNativeStyle(existing,currentAnchor);}
       alignNativeWidth(existing);layoutRows();placeHeaderStat();placementState='inline-sidebar';return;
+    }
+    if(bigPicture){
+      // On the Your Stuff tab, where Steam puts its own Achievements: above Media.
+      if(existing?.isConnected&&currentAnchor?.section.isConnected&&shownNode(currentAnchor.section)&&existing.nextElementSibling===currentAnchor.section){makeStyle();placementState='big-picture';return;}
+      existing?.remove();
+      const anchor=findBigPictureSection();currentAnchor=anchor;
+      if(!anchor){placementState='waiting-for-your-stuff';return;}
+      makeStyle();const root=el('section');root.id=ROOT_ID;root.className='sca-bpm';root.dataset.scaPlacement='big-picture';
+      matchBigPictureStyle(root,anchor);
+      anchor.section.parentElement.insertBefore(root,anchor.section);placementState='big-picture';render();return;
     }
     const anchor=findSidebar();
     if(!anchor){placementState='waiting-for-sidebar';return;}
@@ -1730,8 +2156,8 @@ function createTracker(window) {
     anchor.parent.insertBefore(root,anchor.section.nextSibling);matchNativeStyle(root,anchor);placementState='inline-sidebar';render();placeHeaderStat();
   }
   window.addEventListener('resize',refresh);
-  return {document,render,refresh,updateAutomatic,placement:()=>placementState,headerInfo:()=>{try{return headerInfo();}catch(error){return {error:String(error)};}},dialogOpen:()=>dialogOpen,openDialog,game:()=>game,
-    dispose(){window.removeEventListener('resize',refresh);if(messageTimeout!==null)window.clearTimeout(messageTimeout);removeUi();}};
+  return {document,render,refresh,updateAutomatic,placement:()=>placementState,headerInfo:()=>{try{return headerInfo();}catch(error){return {error:String(error)};}},controller:()=>bigPicture?{...padLog,active:padActive,row:padRow,col:padCol}:null,dialogOpen:()=>dialogOpen,openDialog,game:()=>game,
+    dispose(){window.removeEventListener('resize',refresh);if(bigPicture){window.removeEventListener('vgp_onbuttondown',onPad,true);window.removeEventListener('vgp_onbuttonup',onPad,true);window.removeEventListener('pointerdown',onPointer,true);if(padEnterCheck)window.clearTimeout(padEnterCheck);}if(messageTimeout!==null)window.clearTimeout(messageTimeout);removeUi();}};
 }
 
 
