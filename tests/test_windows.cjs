@@ -17,7 +17,7 @@ function makeWindow(name, saved) {
   const errors = [];
   const virtualConsole = new VirtualConsole();
   virtualConsole.on('jsdomError', e => errors.push(e));
-  const dom = new JSDOM('<!doctype html><html><head></head><body><nav role=tablist><span role=tab>YOUR STUFF</span></nav><div id=yourstuff><section id=media><h2>Media</h2><div>Screenshots</div></section></div><main><article id=content>Game content</article><aside id=sidebar><section id=friends><h2>FRIENDS WHO PLAY</h2><div class=native-card>Friend activity</div></section><section><h2>ADDITIONAL CONTENT</h2><div class=native-card>Manual</div></section></aside></main></body></html>', {
+  const dom = new JSDOM('<!doctype html><html><head></head><body><nav role=tablist><span role=tab>YOUR STUFF</span></nav><div id=yourstuff><section id=media><h2>Media</h2><div id=shot tabindex=0>Screenshots</div></section></div><main><article id=content>Game content</article><aside id=sidebar><section id=friends><h2>FRIENDS WHO PLAY</h2><div class=native-card>Friend activity</div></section><section><h2>ADDITIONAL CONTENT</h2><div class=native-card>Manual</div></section></aside></main></body></html>', {
     url: 'https://steamloopback.host/index.html', runScripts: 'outside-only', virtualConsole,
   });
   const window = dom.window;
@@ -119,10 +119,34 @@ function check(label) { console.log('PASS', label); passes++; }
   assert.match(gamepad.window.document.querySelector('.sca-count').textContent, /1\/51/);
   runtime.refresh();
   assert.equal(gamepad.window.document.querySelectorAll('#' + id).length, 1);
-  gamepad.window.document.querySelector('.sca-view').click();
+  gamepad.window.document.querySelector('.sca-bpm-summary').click();
   assert.equal(gamepad.window.document.querySelectorAll('.sca-ach').length, 51, 'the full list opens in Big Picture');
-  gamepad.window.document.querySelector('.sca-close').click();
+  gamepad.window.document.querySelector('.sca-bpm-back').click();
+  assert.equal(gamepad.window.document.getElementById('sca-ac2-dialog'), null, 'Back closes it');
   check('Big Picture shows the card on its own game page and opens the full list');
+
+  // Controller: Big Picture sends presses as vgp_onbuttondown on the element it focused.
+  const gdoc = gamepad.window.document, steamSaw = [];
+  gdoc.body.addEventListener('vgp_onbuttondown', e => steamSaw.push(e.detail.button));
+  const pad = (button, at = gdoc.getElementById('shot')) => at.dispatchEvent(new gamepad.window.CustomEvent('vgp_onbuttondown', {bubbles: true, cancelable: true, detail: {button, source: 1, is_repeat: false}}));
+  const focused = () => gdoc.querySelector('.sca-padfocus');
+  pad(9);
+  assert.ok(focused()?.closest('#' + id), 'up from Media moves into the Achievements section');
+  assert.deepEqual(steamSaw, [], 'and Steam does not also move');
+  pad(9); pad(9);
+  assert.ok(focused()?.classList.contains('sca-bpm-summary'));
+  pad(1);
+  assert.ok(gdoc.getElementById('sca-ac2-dialog').classList.contains('sca-full'), 'A opens the full screen list');
+  pad(2);
+  assert.equal(gdoc.getElementById('sca-ac2-dialog'), null, 'B closes it');
+  assert.deepEqual(steamSaw, [], 'B on the list does not also go back a page');
+  pad(10); pad(10);
+  assert.deepEqual(steamSaw, [], 'down moves through the section');
+  pad(10);
+  assert.equal(focused(), null, 'down from the last row gives control back');
+  pad(10);
+  assert.deepEqual(steamSaw, [10], 'after which Steam gets presses again');
+  check('Big Picture controller: up from Media enters, A opens, B closes, down leaves');
   main.window.document.querySelector('[aria-label="Street Cleaner: unlocked, click to toggle"]').click();
   assert.match(gamepad.window.document.querySelector('.sca-count').textContent, /0\/51/);
   check('new popup callback and m_popup wrapper work; both windows share live progress');

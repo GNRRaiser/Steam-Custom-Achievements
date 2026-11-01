@@ -22,12 +22,17 @@ progress. Everything else has a "Mark as unlocked" button in the popup.
 
 NEW IN v0.31.0
 - Big Picture mode: a game's Your Stuff tab now has an Achievements section
-  above Media, laid out like Steam's own: unlocked count and bar, the
-  latest unlocked and the next locked achievement with their descriptions,
-  and a row of pictures. Clicking any of it opens the full list. Before,
-  the plugin only looked at the desktop Library's page, so Big Picture
-  never got it. Use the mouse or touchscreen; Big Picture's controller
-  navigation cannot reach it yet.
+  above Media, laid out like Steam's own: unlocked count and bar, the newest
+  unlock featured with the other unlocks beside it, and a row of small
+  locked pictures. Before, the plugin only looked at the desktop Library's
+  page, so Big Picture never got it.
+- Opening it in Big Picture shows a full screen achievements page like
+  Steam's: cover art, title, earned bar, play time, My Achievements and
+  Settings tabs, and the list. Back (B, Esc or the BACK button) closes it.
+- Works with a controller: press up from Media (or down from the tabs) to
+  move into the section, left/right to pick an achievement, A to open the
+  page. On the page, the D-pad moves through the list, A marks a manual
+  achievement, LB/RB switch tabs and B goes back.
 - Popups: Steam can accept an achievement popup and quietly drop it (for
   example because of its notification settings). The plugin
   now checks that Steam really queued it, and draws its own popup with
