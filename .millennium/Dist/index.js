@@ -1,4 +1,4 @@
-/* Steam Custom Achievements v0.34.4
+/* Steam Custom Achievements v0.34.5
  * Millennium 3.6.2 loose-file plugin: Xbox 360 achievement lists for Steam games
  * that have none, with read-only Lua detectors for games whose saves are mapped.
  * The entrypoint runs in SharedJSContext. UI belongs to popup.window.document.
@@ -8,7 +8,7 @@
   "use strict";
   const hostWindow = window;
   const PLUGIN_NAME = "steam-custom-achievements";
-  const BUILD_VERSION = "0.34.4";
+  const BUILD_VERSION = "0.34.5";
   const SHARE_BUILD = false;
   const ROOT_ID = "sca-ac2-root";
   const STYLE_ID = "sca-ac2-css";
@@ -1166,11 +1166,13 @@ html.sca-page-open body>*:not(#${DIALOG_ID}){visibility:hidden}
 #${DIALOG_ID} .sca-hidden-icon{display:block}
 #${DIALOG_ID} .sca-hidden-icon:hover::after{display:none}
 #${DIALOG_ID} .sca-hidden-icon img,.sca-hidden-icon img{width:100%;height:100%;display:block}
-/* Rare (under 10%) unlocked achievements: Steam's gold glow, with soft rays turning slowly behind the picture. */
-.sca-rare{overflow:visible!important;isolation:isolate;box-shadow:0 0 5px 1px #f4c55c88}
-.sca-rare::before{content:"";position:absolute;inset:-32%;z-index:-1;pointer-events:none;border-radius:50%;background:repeating-conic-gradient(from 0deg,#ffd27a00 0deg,#ffd27ab0 5deg,#ffd27a00 12deg);-webkit-mask:radial-gradient(circle,#000 38%,transparent 70%);mask:radial-gradient(circle,#000 38%,transparent 70%);animation:sca-rare-spin 14s linear infinite}
+/* Rare (under 10%) unlocked achievements, like Steam: a thin bright gold edge, a warm glow
+   hugging the square picture, and soft uneven rays that drift and shimmer just outside it. */
+.sca-rare{overflow:visible!important;isolation:isolate;box-shadow:0 0 0 1px #ffdc8fd9,0 0 5px 1px #ffc24ecc,0 0 12px 3px #f0a8304d}
+.sca-rare::before{content:"";position:absolute;inset:-26%;z-index:-1;pointer-events:none;background:conic-gradient(from 0deg,#ffd98a00 0deg,#ffd98ac5 2deg,#ffd98a00 3deg,#ffd98a00 9deg,#ffd98aa1 10deg,#ffd98a00 11deg,#ffd98a00 20deg,#ffd98a77 22deg,#ffd98a00 23deg,#ffd98a00 32deg,#ffd98a7e 34deg,#ffd98a00 35deg,#ffd98a00 40deg,#ffd98a82 42deg,#ffd98a00 44deg,#ffd98a00 56deg,#ffd98aeb 58deg,#ffd98a00 59deg,#ffd98a00 69deg,#ffd98aef 71deg,#ffd98a00 74deg,#ffd98a00 82deg,#ffd98a97 83deg,#ffd98a00 84deg,#ffd98a00 96deg,#ffd98a9a 98deg,#ffd98a00 99deg,#ffd98a00 104deg,#ffd98abc 107deg,#ffd98a00 109deg,#ffd98a00 115deg,#ffd98ab8 117deg,#ffd98a00 120deg,#ffd98a00 127deg,#ffd98a8d 129deg,#ffd98a00 130deg,#ffd98a00 134deg,#ffd98a9a 137deg,#ffd98a00 139deg,#ffd98a00 147deg,#ffd98a98 149deg,#ffd98a00 152deg,#ffd98a00 160deg,#ffd98a91 163deg,#ffd98a00 165deg,#ffd98a00 176deg,#ffd98ae2 179deg,#ffd98a00 181deg,#ffd98a00 190deg,#ffd98aef 192deg,#ffd98a00 195deg,#ffd98a00 202deg,#ffd98ad3 203deg,#ffd98a00 204deg,#ffd98a00 212deg,#ffd98a77 214deg,#ffd98a00 215deg,#ffd98a00 224deg,#ffd98abb 226deg,#ffd98a00 229deg,#ffd98a00 240deg,#ffd98acb 243deg,#ffd98a00 246deg,#ffd98a00 253deg,#ffd98aac 255deg,#ffd98a00 257deg,#ffd98a00 267deg,#ffd98aaf 270deg,#ffd98a00 272deg,#ffd98a00 286deg,#ffd98acc 288deg,#ffd98a00 290deg,#ffd98a00 295deg,#ffd98adb 297deg,#ffd98a00 300deg,#ffd98a00 314deg,#ffd98ac8 315deg,#ffd98a00 317deg,#ffd98a00 325deg,#ffd98a88 326deg,#ffd98a00 327deg,#ffd98a00 335deg,#ffd98ad4 337deg,#ffd98a00 338deg,#ffd98a00 342deg,#ffd98aa4 344deg,#ffd98a00 345deg,#ffd98a00 351deg,#ffd98aac 354deg,#ffd98a00 357deg);filter:blur(.6px);-webkit-mask:linear-gradient(90deg,transparent,#000 30%,#000 70%,transparent),linear-gradient(180deg,transparent,#000 30%,#000 70%,transparent);-webkit-mask-composite:source-in;mask:linear-gradient(90deg,transparent,#000 30%,#000 70%,transparent),linear-gradient(180deg,transparent,#000 30%,#000 70%,transparent);mask-composite:intersect;animation:sca-rare-spin 18s linear infinite,sca-rare-shimmer 2.6s ease-in-out infinite alternate}
 .sca-rare img{position:relative;z-index:1}
 @keyframes sca-rare-spin{to{transform:rotate(360deg)}}
+@keyframes sca-rare-shimmer{from{opacity:.55}to{opacity:1}}
 @media (prefers-reduced-motion:reduce){.sca-rare::before{animation:none}}
 #${DIALOG_ID} .sca-ach-side{flex:none;display:flex;flex-direction:column;align-items:flex-end;gap:6px;text-align:right;font-size:12px;color:#8b929a;max-width:42%}
 #${DIALOG_ID} .sca-mark,#${DIALOG_ID} .sca-small{border:0;border-radius:2px;background:rgba(255,255,255,.1);color:#dcdedf;padding:6px 10px;font-size:12px}
