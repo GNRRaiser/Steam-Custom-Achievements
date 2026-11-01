@@ -1,6 +1,6 @@
 # Assassin's Creed II automatic tracking (since v0.1.8)
 
-This build supports 36 of the 50 entries through read-only autosave evidence. It does not claim that all achievements have live memory detection.
+This build unlocks 41 of the 50 Xbox 360 entries from read-only autosave evidence (plus the PS3 platinum once all others are unlocked). It does not claim that all achievements have live memory detection.
 
 The detector requires a valid ACII save header and a completed Mission record. It checks both record-size fields, type 0x5FDACBA05FDACBA0, the ID marker, the completion marker, and a completion value of exactly 100. Unknown/truncated layouts do not earn an achievement. Duplicate records count once.
 
@@ -40,12 +40,17 @@ The detector requires a valid ACII save header and a completed Mission record. I
 | Tip of the Iceberg / A Piece of the Puzzle / Vitruvian Man | Game task 0x5BC08542 (glyphs solved), count only because the game never sets its flag: at least 1 / at least 1 / 20. Climbs 6, 8, 10, 20 across story saves; a tester's save reads 1, matching their own count. |
 | I Like the View | Game task 0x25620DBE: completion flag set and counter >= 10 (climbs 1, 7, 10 across story saves). |
 | Victory Lies in Preparation | Every armour tier I-IV (gauntlets, chest, pauldrons, greaves) and every pouch upgrade present (AC2AP shop IDs). 25 items: Smoke Pouch III was dropped because it never appears in any of 188 saves, including a 100% save. |
+| Show Your Colors | The game's own checklist for this achievement: the six Auditore-cape region tasks (C962822F, C9628230, C9628232-35) completed. |
+| Art Connoisseur | The game's own checklist: Buy Firenze Painting and Buy Venezia Painting (BACDC7D8, BACDC7D7) completed. |
+| Perfect Harmony | The game's own checklist: Tint Wetland Ebony and Tint Wetland Ivory (BACDC7E3, BACDC7E4) completed. |
+| Handy Man | VillaSaveData building levels: any building above its new-game level (0 0 1 1 0 0 0 0 0 0 0). |
+| Podestà of Monteriggioni | VillaSaveData stronghold value at least 120000, 80% of the 150000 maximum in the game's villa manager. |
 
 ## Timing and current limits
 
 Two consecutive matching snapshots are required; polling normally occurs about every two seconds while Steam is running. These are autosave-triggered detections, not frame-by-frame RAM checks. The earliest introduction and hideout-training checks intentionally catch up from later mandatory memories.
 
-The remaining 14 entries remain manual: combat/action challenges, villa, paintings, dyes, capes and the courier. Those conditions need additional verified state or memory/event mappings. No save counter is treated as feathers or viewpoints merely because it changes.
+The remaining 9 entries stay manual: Street Cleaner, Fly Swatter, Messer Sandman, Doctor, No-hitter, Lightning Strike, Sweeper, High Dive and Mailman. They are one-off moments with no checklist in the game's data and nothing in the save that records them (captures around Lightning Strike and High Dive confirmed this), so there is nothing to read. No save counter is treated as feathers or viewpoints merely because it changes.
 
 Existing saved progress is kept. This first AC2 pack uses the same per-PC/app progress scope as earlier builds, rather than separate Steam-account/save-slot profiles.
 

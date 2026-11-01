@@ -25,7 +25,7 @@ The achievements come from each game's Xbox 360 list, plus the PS3 platinum. Mas
 | Mass Effect 2 | 24980 | 63 | 61 |
 | Thrillville: Off the Rails | 6080 | 50 | 18 |
 
-Totals include the PS3 platinum where the game has one. [AUTO_TRACKING.md](AUTO_TRACKING.md) explains what each automatic achievement reads.
+Totals include the PS3 platinum where the game has one. [AUTO_TRACKING.md](AUTO_TRACKING.md) explains what each automatic Assassin's Creed II achievement reads; [CHANGELOG.txt](CHANGELOG.txt) covers the other games.
 
 ## Install
 
