@@ -1,4 +1,4 @@
-/* Steam Custom Achievements v0.31.0
+/* Steam Custom Achievements v0.32.0
  * Millennium 3.6.2 loose-file plugin: Xbox 360 achievement lists for Steam games
  * that have none, with read-only Lua detectors for games whose saves are mapped.
  * The entrypoint runs in SharedJSContext. UI belongs to popup.window.document.
@@ -8,7 +8,7 @@
   "use strict";
   const hostWindow = window;
   const PLUGIN_NAME = "steam-custom-achievements";
-  const BUILD_VERSION = "0.31.0";
+  const BUILD_VERSION = "0.32.0";
   const SHARE_BUILD = false;
   const ROOT_ID = "sca-ac2-root";
   const STYLE_ID = "sca-ac2-css";
@@ -633,6 +633,7 @@
         stylePresent: !!view.document.getElementById(STYLE_ID),
         placement: view.placement(),
         header: view.headerInfo?.() || null,
+        controller: view.controller?.() || null,
         appId: currentAppId(view.document.defaultView),
         game: view.game()?.title || null,
       })),
@@ -966,6 +967,19 @@ function createTracker(window,windowType) {
 #${DIALOG_ID}.sca-full .sca-mark,#${DIALOG_ID}.sca-full .sca-small{font-size:15px;padding:8px 14px}
 #${DIALOG_ID}.sca-full .sca-panel h3{font-size:20px}
 #${DIALOG_ID}.sca-full .sca-panel p{font-size:16px}
+#${DIALOG_ID}.sca-full .sca-dhead,#${DIALOG_ID}.sca-full .sca-bpm-cover,#${DIALOG_ID}.sca-full h2,#${DIALOG_ID}.sca-full .sca-bpm-stats,#${DIALOG_ID}.sca-full .sca-tabs{transition:padding .2s ease,margin .2s ease,width .2s ease,height .2s ease,font-size .2s ease}
+#${DIALOG_ID}.sca-full.sca-collapsed .sca-dhead{padding:14px 32px 0}
+#${DIALOG_ID}.sca-full.sca-collapsed .sca-bpm-top{gap:16px}
+#${DIALOG_ID}.sca-full.sca-collapsed .sca-bpm-cover{width:48px;height:72px}
+#${DIALOG_ID}.sca-full.sca-collapsed .sca-bpm-info{display:flex;align-items:center;gap:24px}
+#${DIALOG_ID}.sca-full.sca-collapsed h2{flex:none;font-size:24px;max-width:40%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#${DIALOG_ID}.sca-full.sca-collapsed .sca-bpm-stats{flex:1;margin-top:0;padding:10px 16px}
+#${DIALOG_ID}.sca-full.sca-collapsed .sca-earned{font-size:14px}
+#${DIALOG_ID}.sca-full.sca-collapsed .sca-dbar{height:8px;margin-top:8px}
+#${DIALOG_ID}.sca-full.sca-collapsed .sca-bpm-play div:first-child{font-size:14px}
+#${DIALOG_ID}.sca-full.sca-collapsed .sca-bpm-play div:last-child{font-size:18px;margin-top:2px}
+#${DIALOG_ID}.sca-full.sca-collapsed .sca-tabs{margin-top:8px;padding:8px 0}
+#${DIALOG_ID}.sca-full.sca-collapsed .sca-tab{padding:8px 20px;font-size:15px}
 #${DIALOG_ID}.sca-full .sca-bpm-footer{position:absolute;left:0;right:0;bottom:0;height:56px;display:flex;align-items:center;justify-content:flex-end;padding:0 36px;background:#0b0d10;z-index:6}
 #${DIALOG_ID}.sca-full .sca-bpm-back{display:flex;align-items:center;gap:12px;border:0;background:none;color:#fff;font-size:18px;font-weight:700;letter-spacing:.04em;padding:6px 4px}
 #${DIALOG_ID}.sca-full .sca-bpm-key{display:inline-flex;align-items:center;justify-content:center;min-width:30px;height:30px;border-radius:50%;background:#e0e0e0;color:#0b0d10;font-size:16px;font-weight:800}
@@ -1575,6 +1589,12 @@ function createTracker(window,windowType) {
       dialog.appendChild(footer);
     } else head.append(titleRow,earned,bar,tabs);
     const body=el("div","sca-dbody");
+    // The header shrinks to one line once the list scrolls, and comes back at the top.
+    if(bigPicture)body.addEventListener("scroll",()=>{
+      const top=body.scrollTop;
+      if(top>60&&!overlay.classList.contains("sca-collapsed"))overlay.classList.add("sca-collapsed");
+      else if(top<=4&&overlay.classList.contains("sca-collapsed"))overlay.classList.remove("sca-collapsed");
+    },{passive:true});
     const picker=el("input","sca-picker");picker.type="file";picker.accept="image/*";picker.hidden=true;
     picker.onchange=()=>{const files=Array.from(picker.files||[]);picker.value="";void applyPictures(files);};
     const pagePicker=el("input","sca-page-picker");pagePicker.type="file";pagePicker.accept=".mhtml,.mht,multipart/related";pagePicker.hidden=true;
@@ -1892,7 +1912,7 @@ function createTracker(window,windowType) {
   // know the plugin's section, so the plugin catches presses first (capture phase) and moves
   // through its own section and list itself, handing control back at the section's edges.
   const PAD={OK:1,CANCEL:2,SECONDARY:3,BUMPER_LEFT:5,BUMPER_RIGHT:6,UP:9,DOWN:10,LEFT:11,RIGHT:12};
-  let lastFocusIndex,padActive=false,padRow=0,padCol=0,padSteamFocus=null,padEnterCheck=null;
+  let padQuietUntil=0,lastFocusIndex,padActive=false,padRow=0,padCol=0,padSteamFocus=null,padEnterCheck=null;
   function padRows(){
     const root=document.getElementById(ROOT_ID);if(!root)return [];
     const rows=[];const summary=root.querySelector('.sca-bpm-summary');if(summary)rows.push([summary]);
@@ -1970,16 +1990,32 @@ function createTracker(window,windowType) {
       else if(button===PAD.DOWN||button===PAD.UP){const body=overlay.querySelector('.sca-dbody');if(body)body.scrollTop+=button===PAD.DOWN?200:-200;}
     }
   }
+  // How far below the bottom of our section an element starts (Infinity when it is not below it).
+  function gapBelow(node){
+    const root=document.getElementById(ROOT_ID);
+    if(!root||!(node instanceof window.Element)||root.contains(node)||!(root.compareDocumentPosition(node)&4))return Infinity;
+    return node.getBoundingClientRect().top-root.getBoundingClientRect().bottom;
+  }
+  function describe(node){
+    if(!(node instanceof window.Element))return null;
+    return `${node.tagName.toLowerCase()}.${String(node.className||"").trim().split(/\s+/).slice(0,2).join(".")}`.slice(0,80);
+  }
+  const padLog={events:0,entered:0,last:null,landed:null};
   function onPad(event){
     const button=Number(event.detail?.button);if(!button)return;
+    if(event.type==='vgp_onbuttondown')padLog.events++;
     if(dialogOpen){swallow(event);if(event.type==='vgp_onbuttondown')onDialogPad(event,button);return;}
     if(event.type!=='vgp_onbuttondown'){if(padActive)swallow(event);return;}
     const root=document.getElementById(ROOT_ID);
     if(!game||!root||!currentAnchor?.section?.isConnected){if(padActive)padLeave();return;}
     if(padActive){
       const rows=padRows();
-      if(button===PAD.UP){if(padRow===0){padLeave();return;}swallow(event);padRow--;padShow();return;}
-      if(button===PAD.DOWN){swallow(event);if(padRow>=rows.length-1){padLeave();return;}padRow++;padShow();return;}
+      // At the edges control goes back to Steam. Its focus stayed where it was when ours took over:
+      // if that is on the side being left to, the press is used up; otherwise Steam moves on.
+      if(button===PAD.UP){if(padRow===0){const steamSide=side(padSteamFocus);padLeave();
+        if(steamSide==="above")swallow(event);else padQuietUntil=Date.now()+400;return;}swallow(event);padRow--;padShow();return;}
+      if(button===PAD.DOWN){if(padRow>=rows.length-1){const steamSide=side(padSteamFocus);padLeave();
+        if(steamSide==="below")swallow(event);else padQuietUntil=Date.now()+400;return;}swallow(event);padRow++;padShow();return;}
       if(button===PAD.LEFT){swallow(event);if(padCol>0){padCol--;padShow();}return;}
       if(button===PAD.RIGHT){swallow(event);if(padCol<rows[padRow].length-1){padCol++;padShow();}return;}
       if(button===PAD.OK){swallow(event);const target=rows[padRow]?.[padCol];target?.click();
@@ -1989,20 +2025,31 @@ function createTracker(window,windowType) {
       return;
     }
     const target=event.target;
-    // Up from the first line of the section below (normally Media) comes into ours.
-    if(button===PAD.UP&&target instanceof window.Element&&currentAnchor.section.contains(target)){
-      const top=target.getBoundingClientRect().top,headingBottom=currentAnchor.heading.getBoundingClientRect().bottom;
-      if(top-headingBottom<Math.max(24,target.getBoundingClientRect().height*.75)){swallow(event);padEnter(-1,target);}
-      return;
-    }
-    // Down from above ours: Steam moves on to the section below, so take over once it lands there.
-    if(button===PAD.DOWN&&target instanceof window.Element&&!root.contains(target)&&(target.compareDocumentPosition(root)&4)){
-      if(padEnterCheck)window.clearTimeout(padEnterCheck);
-      padEnterCheck=window.setTimeout(()=>{padEnterCheck=null;
-        const landed=document.querySelector('.gpfocus')||document.activeElement;
-        if(landed&&currentAnchor?.section?.contains(landed)&&!padActive&&!dialogOpen)padEnter(0,landed);
-      },60);
-    }
+    padLog.last={button,target:describe(target),gap:Math.round(gapBelow(target))};
+    if((button!==PAD.UP&&button!==PAD.DOWN)||!(target instanceof window.Element)||root.contains(target))return;
+    // Let Steam move, then look where its focus went. Steam's navigation does not know our
+    // section, so if its focus jumped across it, our section takes over at that edge.
+    const before=side(target);
+    if(padEnterCheck)window.clearTimeout(padEnterCheck);
+    padEnterCheck=window.setTimeout(()=>{padEnterCheck=null;
+      const landed=document.querySelector('.gpfocus')||document.activeElement;
+      padLog.landed=describe(landed);
+      if(padActive||dialogOpen||Date.now()<padQuietUntil)return;
+      const after=landed instanceof window.Element?side(landed):null;
+      if(button===PAD.UP&&before==="below"&&after==="above"){padLog.entered++;padEnter(-1,landed);return;}
+      if(button===PAD.DOWN&&before==="above"&&after==="below"){padLog.entered++;padEnter(0,landed);return;}
+      // Nothing focusable below ours (Media can be empty), so Steam stayed put: come in anyway.
+      if(button===PAD.DOWN&&before==="above"&&(landed===target||!landed||after==="above")){
+        const rootBox=root.getBoundingClientRect(),box=(landed instanceof window.Element?landed:target).getBoundingClientRect();
+        if(rootBox.top-box.bottom<240){padLog.entered++;padEnter(0,landed instanceof window.Element?landed:target);}
+      }
+    },60);
+  }
+  // Where an element sits compared with our section.
+  function side(node){
+    const root=document.getElementById(ROOT_ID);
+    if(!root||!(node instanceof window.Element)||root.contains(node))return null;
+    return root.compareDocumentPosition(node)&4?"below":"above";
   }
   function onPointer(){if(padActive)padLeave();}
   if(bigPicture){
@@ -2080,7 +2127,7 @@ function createTracker(window,windowType) {
     anchor.parent.insertBefore(root,anchor.section.nextSibling);matchNativeStyle(root,anchor);placementState='inline-sidebar';render();placeHeaderStat();
   }
   window.addEventListener('resize',refresh);
-  return {document,render,refresh,updateAutomatic,placement:()=>placementState,headerInfo:()=>{try{return headerInfo();}catch(error){return {error:String(error)};}},dialogOpen:()=>dialogOpen,openDialog,game:()=>game,
+  return {document,render,refresh,updateAutomatic,placement:()=>placementState,headerInfo:()=>{try{return headerInfo();}catch(error){return {error:String(error)};}},controller:()=>bigPicture?{...padLog,active:padActive,row:padRow,col:padCol}:null,dialogOpen:()=>dialogOpen,openDialog,game:()=>game,
     dispose(){window.removeEventListener('resize',refresh);if(bigPicture){window.removeEventListener('vgp_onbuttondown',onPad,true);window.removeEventListener('vgp_onbuttonup',onPad,true);window.removeEventListener('pointerdown',onPointer,true);if(padEnterCheck)window.clearTimeout(padEnterCheck);}if(messageTimeout!==null)window.clearTimeout(messageTimeout);removeUi();}};
 }
 

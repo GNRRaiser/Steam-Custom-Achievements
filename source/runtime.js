@@ -633,6 +633,7 @@
         stylePresent: !!view.document.getElementById(STYLE_ID),
         placement: view.placement(),
         header: view.headerInfo?.() || null,
+        controller: view.controller?.() || null,
         appId: currentAppId(view.document.defaultView),
         game: view.game()?.title || null,
       })),

@@ -125,28 +125,37 @@ function check(label) { console.log('PASS', label); passes++; }
   assert.equal(gamepad.window.document.getElementById('sca-ac2-dialog'), null, 'Back closes it');
   check('Big Picture shows the card on its own game page and opens the full list');
 
-  // Controller: Big Picture sends presses as vgp_onbuttondown on the element it focused.
+  // Controller: Big Picture sends presses as vgp_onbuttondown on the element it focused, and its own
+  // navigation (a stand-in here) moves focus between the tabs above and Media below.
   const gdoc = gamepad.window.document, steamSaw = [];
-  gdoc.body.addEventListener('vgp_onbuttondown', e => steamSaw.push(e.detail.button));
-  const pad = (button, at = gdoc.getElementById('shot')) => at.dispatchEvent(new gamepad.window.CustomEvent('vgp_onbuttondown', {bubbles: true, cancelable: true, detail: {button, source: 1, is_repeat: false}}));
+  const tabEl = gdoc.querySelector('[role=tab]'), shotEl = gdoc.getElementById('shot');
+  tabEl.classList.add('gpfocus');
+  gdoc.body.addEventListener('vgp_onbuttondown', e => { steamSaw.push(e.detail.button);
+    const next = e.detail.button === 10 ? shotEl : e.detail.button === 9 ? tabEl : null;
+    if (next) { gdoc.querySelector('.gpfocus')?.classList.remove('gpfocus'); next.classList.add('gpfocus'); } });
+  const pad = button => gdoc.querySelector('.gpfocus').dispatchEvent(new gamepad.window.CustomEvent('vgp_onbuttondown', {bubbles: true, cancelable: true, detail: {button, source: 1, is_repeat: false}}));
+  const settle = () => new Promise(r => setTimeout(r, 90));
   const focused = () => gdoc.querySelector('.sca-padfocus');
-  pad(9);
-  assert.ok(focused()?.closest('#' + id), 'up from Media moves into the Achievements section');
-  assert.deepEqual(steamSaw, [], 'and Steam does not also move');
-  pad(9); pad(9);
-  assert.ok(focused()?.classList.contains('sca-bpm-summary'));
+  pad(10); await settle();
+  assert.ok(focused()?.classList.contains('sca-bpm-summary'), 'down from the tabs moves into the Achievements section first');
   pad(1);
   assert.ok(gdoc.getElementById('sca-ac2-dialog').classList.contains('sca-full'), 'A opens the full screen list');
   pad(2);
   assert.equal(gdoc.getElementById('sca-ac2-dialog'), null, 'B closes it');
-  assert.deepEqual(steamSaw, [], 'B on the list does not also go back a page');
+  assert.deepEqual(steamSaw, [10], 'A and B on our section do not reach Steam');
   pad(10); pad(10);
-  assert.deepEqual(steamSaw, [], 'down moves through the section');
-  pad(10);
+  assert.deepEqual(steamSaw, [10], 'down moves through the section');
+  pad(10); await settle();
   assert.equal(focused(), null, 'down from the last row gives control back');
-  pad(10);
-  assert.deepEqual(steamSaw, [10], 'after which Steam gets presses again');
-  check('Big Picture controller: up from Media enters, A opens, B closes, down leaves');
+  assert.equal(gdoc.querySelector('.gpfocus'), shotEl, 'leaving Steam on Media');
+  pad(9); await settle();
+  assert.ok(focused()?.closest('#' + id), 'up from Media comes back into the section');
+  assert.equal(gdoc.querySelector('.gpfocus'), tabEl);
+  pad(9); pad(9); pad(9); await settle();
+  assert.equal(focused(), null, 'up from the top row leaves to the tabs');
+  assert.equal(gdoc.querySelector('.gpfocus'), tabEl);
+  assert.deepEqual(gamepad.window.__SCA_IGNORE__, undefined);
+  check('Big Picture controller: down from the tabs or up from Media enters, A opens, B closes, the edges leave');
   main.window.document.querySelector('[aria-label="Street Cleaner: unlocked, click to toggle"]').click();
   assert.match(gamepad.window.document.querySelector('.sca-count').textContent, /0\/51/);
   check('new popup callback and m_popup wrapper work; both windows share live progress');
