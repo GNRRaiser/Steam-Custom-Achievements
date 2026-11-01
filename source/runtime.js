@@ -436,13 +436,29 @@
     } finally { game.busy=false; }
   }
 
-  // The game on screen is checked every second; the others take turns so that
-  // progress made while Steam shows another page is still recorded.
+  // App ids Steam reports as running now (empty when the store is not there).
+  function runningAppIds() {
+    const ids = new Set();
+    try {
+      for (const app of steamUIStore()?.RunningApps || []) {
+        const id = Number(app?.appid ?? app?.unAppID ?? app);
+        if (Number.isFinite(id)) ids.add(String(id));
+      }
+    } catch (_) { /* store missing or changed: fall back to taking turns */ }
+    return ids;
+  }
+
+  // The game on screen, the game being played, and any game whose save just
+  // changed (it is read again to see that it finished writing) are checked every
+  // second; the others take turns so that progress made while Steam shows
+  // another page is still recorded.
   function pollAutomatic() {
     const polled = polledGames();
     if (!polled.length) return;
     const shown = new Set();
     for (const view of views.values()) { const game=view.game(); if (game?.automatic||game?.captureOn) shown.add(game); }
+    const running = runningAppIds();
+    for (const game of polled) if (running.has(String(game.appId)) || game.auto?.status === "stabilizing") shown.add(game);
     for (const game of shown) void pollGame(game);
     if (++pollTurn % 3 !== 0) return;
     const background = polled[(pollTurn / 3) % polled.length];
