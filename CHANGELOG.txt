@@ -1,4 +1,4 @@
-STEAM CUSTOM ACHIEVEMENTS v0.34.5 - MULTI-GAME
+STEAM CUSTOM ACHIEVEMENTS v0.34.6 - MULTI-GAME
 
 Adds the Xbox 360 achievement list to the Steam Library page of games whose
 Steam version has no achievements. Each supported game gets the same ACHIEVEMENTS
@@ -19,6 +19,12 @@ GAMES IN THIS BUILD
 
 Automatic entries unlock by themselves a few seconds after the game writes its
 progress. Everything else has a "Mark as unlocked" button in the popup.
+
+NEW IN v0.34.6
+- Automatic unlocks pop sooner while you play. The game you are playing, and
+  any game whose save just changed, are now checked every second instead of
+  taking turns with the other games (that could add up to a minute). An
+  unlock still waits for the game to write its save.
 
 NEW IN v0.34.5
 - The rare glow is closer to Steam's: a thin bright gold edge and a warm glow
