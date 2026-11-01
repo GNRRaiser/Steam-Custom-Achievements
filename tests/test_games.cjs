@@ -243,12 +243,32 @@ const tick = () => new Promise(resolve => setTimeout(resolve, 0));
   assert.equal(sent[2], 24980); assert.equal(sent[3], 'N7 Elite'); assert.equal(sent[4], 'Acquire all trophies.');
   assert.match(sent[5], /^data:image\/webp;base64,/, 'with its picture'); assert.equal(sent[6], 1);
   assert.equal(doc.getElementById('sca-toast-host'), null, 'no second, home-made popup when Steam shows its own');
-  assert.equal(JSON.parse(JSON.stringify(runtime.diagnostics())).popups.steamToast, 'steam');
+  assert.match(JSON.parse(JSON.stringify(runtime.diagnostics())).popups.steamToast, /^steam/);
   doc.querySelector('.sca-mark[aria-label$=": unlocked, click to toggle"]').click();
   me2 = JSON.parse(host.localStorage.getItem('sca:progress:24980:v1'));
   assert.equal(me2['62'], undefined, 'locking another achievement locks the platinum again');
   await new Promise(r => setTimeout(r, 6000));
   console.log('PASS the platinum (N7 Elite) unlocks once all others are unlocked, through Steam\'s own achievement toast (shown over games by the overlay)');
+
+  // Steam can take the notification and drop it without an error (its settings, or Big
+  // Picture). Then nothing is queued, and the plugin draws its own popup instead.
+  const dropped = [];
+  host.NotificationStore = { m_nNextTestNotificationID: 20000, m_rgNotificationToasts: [], OnNotification: (id, type, bytes) => dropped.push({id, type, bytes}) };
+  doc.querySelector('.sca-mark[aria-label$=": locked, click to toggle"]').click();
+  await tick(); await tick();
+  assert.ok(dropped.length >= 1, 'Steam is still asked first');
+  assert.ok(doc.querySelector('#sca-toast-host .sca-toast-name'), 'a toast Steam dropped is drawn by the plugin');
+  assert.match(JSON.parse(JSON.stringify(runtime.diagnostics())).popups.steamToast, /^dropped/);
+  const queuing = { m_nNextTestNotificationID: 30000, m_rgNotificationToasts: [], OnNotification(id) { this.m_rgNotificationToasts.push({notificationID: id}); } };
+  await new Promise(r => setTimeout(r, 12500));
+  assert.equal(doc.getElementById('sca-toast-host'), null);
+  host.NotificationStore = queuing;
+  doc.querySelector('.sca-mark[aria-label$=": unlocked, click to toggle"]').click();
+  doc.querySelector('.sca-mark[aria-label$=": locked, click to toggle"]').click();
+  await tick(); await tick();
+  assert.ok(queuing.m_rgNotificationToasts.length >= 1, 'a toast Steam queued');
+  assert.equal(doc.getElementById('sca-toast-host'), null, 'is not drawn twice');
+  console.log('PASS a popup Steam silently drops is drawn by the plugin; one Steam queues is not');
 
   host.MainWindowBrowserManager.m_lastLocation = {pathname:'/routes/library/app/33230'};
   runtime.refresh(); await tick();

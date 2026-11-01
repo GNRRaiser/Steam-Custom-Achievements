@@ -1,4 +1,4 @@
-STEAM CUSTOM ACHIEVEMENTS v0.30.1 - MULTI-GAME
+STEAM CUSTOM ACHIEVEMENTS v0.31.0 - MULTI-GAME
 
 Adds the Xbox 360 achievement list to the Steam Library page of games whose
 Steam version has no achievements. Each supported game gets the same ACHIEVEMENTS
@@ -19,6 +19,19 @@ GAMES IN THIS BUILD
 
 Automatic entries unlock by themselves a few seconds after the game writes its
 progress. Everything else has a "Mark as unlocked" button in the popup.
+
+NEW IN v0.31.0
+- Big Picture mode: a game's page now shows the ACHIEVEMENTS card (top
+  right) with the same "View My Achievements" list. Before, the plugin only
+  looked at the desktop Library's page, so Big Picture never got it. Use the
+  mouse or touchscreen to open it; Big Picture's controller navigation
+  cannot reach it yet. B (back) leaves the page and closes it.
+- Popups: Steam can accept an achievement popup and quietly drop it (for
+  example because of its notification settings). The plugin
+  now checks that Steam really queued it, and draws its own popup with
+  sound when Steam did not.
+- Copy status shows which Steam UI is up (desktop or Big Picture) and what
+  happened to the last popup.
 
 NEW IN v0.30.1
 - The ACHIEVEMENTS stat next to PLAY TIME sat too low on Fallout 3, so its

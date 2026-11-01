@@ -52,9 +52,32 @@
   let pollTurn = 0;
   let detectorTransport="waiting",lastDetectorError=null;
 
+  const isGamepadWindow = targetWindow => {
+    try { return /^SP BPM(?:_|$)/i.test(String(targetWindow?.name || "")); } catch (_) { return false; }
+  };
+  function steamUIStore() {
+    try { return typeof SteamUIStore !== "undefined" ? SteamUIStore : hostWindow.SteamUIStore; } catch (_) { return null; }
+  }
+  // Big Picture keeps its own route. MainWindowBrowserManager only follows the
+  // desktop Library, so Big Picture reads the route of its own window instead.
+  function gamepadPath(targetWindow) {
+    const paths = [];
+    try {
+      const store = steamUIStore()?.WindowStore;
+      for (const instance of [store?.GetWindowInstanceFromWindow?.(targetWindow), store?.GamepadUIMainWindowInstance]) {
+        if (!instance) continue;
+        paths.push(instance.m_locationPathname, instance.History?.location?.pathname, instance.m_history?.location?.pathname);
+      }
+    } catch (_) { /* older client: try the next source */ }
+    try { const nav = hostWindow.tempNavStore; if (nav) paths.push(nav.m_locationPathname, nav.m_history?.location?.pathname); } catch (_) { /* ignore */ }
+    try { paths.push(targetWindow.location.pathname + " " + targetWindow.location.hash); } catch (_) { /* ignore */ }
+    return paths.find(path => typeof path === "string" && APP_PATH.test(path)) || "";
+  }
+  const APP_PATH = /\/(?:routes\/)?library\/app\/(\d+)(?=[/?#\s]|$)/i;
   function currentAppId(targetWindow) {
     let path = "";
-    try {
+    if (isGamepadWindow(targetWindow)) path = gamepadPath(targetWindow);
+    else try {
       const browserManager = typeof MainWindowBrowserManager !== "undefined"
         ? MainWindowBrowserManager : hostWindow.MainWindowBrowserManager;
       if (browserManager?.m_lastLocation) {
@@ -62,7 +85,7 @@
         path = [loc.pathname,loc.hash].join(" ");
       } else path = [targetWindow.location.pathname,targetWindow.location.hash].join(" ");
     } catch (_) { return null; }
-    const match = path.match(/\/(?:routes\/)?library\/app\/(\d+)(?=[/?#\s]|$)/i);
+    const match = path.match(APP_PATH);
     return match ? Number(match[1]) : null;
   }
 
@@ -240,13 +263,31 @@
         [4, "string", item.steamDetail || item.detail], [5, "string", item.steamIcon || item.icon], [6, "bool", true],
         [7, "uint", Date.now() / 1000],
       ]));
-      steamToastState = "steam";
+      // Steam drops a toast without an error when its settings or UI mode say so.
+      // If it neither queued nor showed ours, draw the plugin's own.
+      const queue = store.m_rgNotificationToasts;
+      if (Array.isArray(queue)) {
+        const current = store.m_valueCurrentToast?.Value ?? store.m_valueCurrentToast?.m_currentValue;
+        const queued = queue.some(toast => toast?.notificationID === id) || current?.notificationID === id;
+        if (!queued) { steamToastState = `dropped-${uiMode()}`; return false; }
+      }
+      steamToastState = `steam-${uiMode()}`;
       return true;
     } catch (error) {
       steamToastState = "failed";
       report("steam-toast-failed", error);
       return false;
     }
+  }
+  // Which Steam UI is up: "desktop", "bigpicture" or the raw value.
+  function uiMode() {
+    try {
+      const store = steamUIStore();
+      const mode = store?.MainInstanceUIMode;
+      if (mode === undefined || mode === null) return "unknown";
+      if (typeof store.IsGamepadUIActive === "function") return store.IsGamepadUIActive() ? "bigpicture" : "desktop";
+      return mode === 4 ? "bigpicture" : mode === 7 ? "desktop" : String(mode);
+    } catch (_) { return "unknown"; }
   }
   function showNextToast() {
     if (toastBusy || !toastQueue.length || !active) return;
@@ -504,7 +545,7 @@
       old?.dispose();
       views.delete(targetWindow);
       configureStorage(targetWindow);
-      const view = createTracker(targetWindow);
+      const view = createTracker(targetWindow, type);
       view.type = type;
       views.set(targetWindow, view);
       view.refresh();
@@ -555,6 +596,9 @@
         for (const popup of Array.from(manager.GetPopups?.() || [])) attach(popup);
         // GetExistingPopup wraps m_popup in some Steam versions.
         for (const name of ["SP Desktop_uid0", "SP BPM_uid0"]) attach(manager.GetExistingPopup?.(name));
+        // Big Picture's main window, in case the popup list does not include it.
+        const bpm = steamUIStore()?.WindowStore?.GamepadUIMainWindowInstance?.BrowserWindow;
+        if (bpm && bpm !== hostWindow) attach({ window: bpm });
       } catch (error) { report("window-scan-failed", error); }
     }
     // Explicitly named visible windows are useful for local previewing. An
@@ -593,7 +637,7 @@
         game: view.game()?.title || null,
       })),
       storageAvailable,
-      popups: { enabled: popupsEnabled(), steamToast: steamToastState, windows: (() => { try { return Array.from(getPopupManager()?.GetPopups?.() || [], popup => String(popupWindow(popup)?.name || popup?.m_strName || "").slice(0, 60)); } catch (_) { return []; } })() },
+      popups: { enabled: popupsEnabled(), steamToast: steamToastState, uiMode: uiMode(), windows: (() => { try { return Array.from(getPopupManager()?.GetPopups?.() || [], popup => String(popupWindow(popup)?.name || popup?.m_strName || "").slice(0, 60)); } catch (_) { return []; } })() },
       transport: detectorTransport,
       error: lastDetectorError,
       games: GAMES.map(game => ({

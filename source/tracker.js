@@ -1,7 +1,9 @@
 /* Library sidebar card styled like Steam's native Achievements section, plus a
  * "View My Achievements" dialog modeled on Steam's own achievements popup. */
-function createTracker(window) {
+function createTracker(window,windowType) {
   const document=window.document;
+  // Big Picture's game page has no Library sidebar, so the card floats on the page there.
+  const bigPicture=windowType==="gamepad";
   const DIALOG_ID="sca-ac2-dialog";
   const ICON=48,ICON_GAP=8,STAT_ID="sca-ac2-headstat",STAT_CLASS="sca-headstat";
   let query="",group="all",tab="achievements",message="",messageTimeout=null;
@@ -111,6 +113,10 @@ function createTracker(window) {
 #${ROOT_ID} button,#${DIALOG_ID} button,#${DIALOG_ID} input,#${DIALOG_ID} select,#${DIALOG_ID} textarea{font:inherit}
 #${ROOT_ID} button,#${DIALOG_ID} button{cursor:pointer}
 #${ROOT_ID} button:focus-visible,#${DIALOG_ID} button:focus-visible,#${DIALOG_ID} input:focus-visible,#${DIALOG_ID} select:focus-visible,#${DIALOG_ID} textarea:focus-visible{outline:2px solid #a6c9ff;outline-offset:2px}
+#${ROOT_ID}.sca-bpm{position:fixed;top:72px;right:28px;width:340px;max-width:calc(100vw - 56px);z-index:2147470000;padding:12px;border-radius:6px;background:rgba(14,20,27,.82);backdrop-filter:blur(8px);box-shadow:0 8px 28px rgba(0,0,0,.6);font-family:"Motiva Sans",Arial,Helvetica,sans-serif;color:#dcdedf}
+#${ROOT_ID}.sca-bpm .sca-view{font-size:15px;padding:8px 12px;border-radius:3px;background:rgba(255,255,255,.12);color:#fff}
+#${ROOT_ID}.sca-bpm .sca-view:hover,#${ROOT_ID}.sca-bpm .sca-view:focus{background:#1a9fff}
+#${ROOT_ID}.sca-bpm .sca-tile{cursor:pointer}
 #${ROOT_ID} .sca-heading{margin:0 0 6px;color:var(--sca-heading-color,#c7c8ce);font-size:var(--sca-heading-size,14px);font-weight:var(--sca-heading-weight,500);letter-spacing:var(--sca-heading-spacing,.5px);font-family:var(--sca-heading-family,inherit);text-transform:var(--sca-heading-transform,uppercase);line-height:1.3}
 #${ROOT_ID} .sca-card{background-color:var(--sca-surface);background-image:var(--sca-surface-image);border:var(--sca-border);border-radius:var(--sca-radius);box-shadow:var(--sca-shadow);overflow:hidden;min-width:0}
 #${ROOT_ID} .sca-summary{padding:10px 10px 12px}
@@ -676,10 +682,15 @@ function createTracker(window) {
     // Switching between two supported games rebuilds the card for the new list.
     if(shown!==game){removeUi();game=shown;currentAnchor=null;nativeCard=null;query="";group="all";}
     const existing=document.getElementById(ROOT_ID);
-    if(existing?.isConnected){
+    if(existing?.isConnected&&!bigPicture){
       makeStyle();
       if(!currentAnchor?.section.isConnected){currentAnchor=findSidebar();nativeCard=null;if(currentAnchor)matchNativeStyle(existing,currentAnchor);}
       alignNativeWidth(existing);layoutRows();placeHeaderStat();placementState='inline-sidebar';return;
+    }
+    if(bigPicture){
+      if(existing?.isConnected){makeStyle();layoutRows();placementState='big-picture';return;}
+      makeStyle();const root=el('section');root.id=ROOT_ID;root.className='sca-bpm';root.dataset.scaPlacement='big-picture';
+      document.body.appendChild(root);placementState='big-picture';render();return;
     }
     const anchor=findSidebar();
     if(!anchor){placementState='waiting-for-sidebar';return;}

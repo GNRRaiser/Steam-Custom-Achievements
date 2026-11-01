@@ -95,9 +95,24 @@ function check(label) { console.log('PASS', label); passes++; }
   assert.ok(JSON.parse(host.window.localStorage.getItem(key))['20']);
   check('loads prior v0.1.2 progress and saves manual toggles to the original key');
 
+  // Big Picture follows its own route, not the desktop Library's.
   const gamepad = makeWindow('SP BPM_uid0');
+  const bpmInstance = { m_locationPathname: '/library/home' };
+  host.window.SteamUIStore = { MainInstanceUIMode: 4, WindowStore: { GamepadUIMainWindowInstance: bpmInstance, GetWindowInstanceFromWindow: w => w === gamepad.window ? bpmInstance : null } };
   const gpPopup = manager.add(gamepad.window, true);
+  assert.equal(gamepad.window.document.getElementById(id), null, 'Big Picture on its home page shows no card');
+  assert.ok(main.window.document.getElementById(id), 'while the desktop Library page still has it');
+  bpmInstance.m_locationPathname = '/library/app/33230';
+  runtime.refresh();
+  assert.equal(gamepad.window.document.getElementById(id).dataset.scaPlacement, 'big-picture');
+  assert.ok(gamepad.window.document.getElementById(id).classList.contains('sca-bpm'));
   assert.match(gamepad.window.document.querySelector('.sca-count').textContent, /1\/51/);
+  runtime.refresh();
+  assert.equal(gamepad.window.document.querySelectorAll('#' + id).length, 1);
+  gamepad.window.document.querySelector('.sca-view').click();
+  assert.equal(gamepad.window.document.querySelectorAll('.sca-ach').length, 51, 'the full list opens in Big Picture');
+  gamepad.window.document.querySelector('.sca-close').click();
+  check('Big Picture shows the card on its own game page and opens the full list');
   main.window.document.querySelector('[aria-label="Street Cleaner: unlocked, click to toggle"]').click();
   assert.match(gamepad.window.document.querySelector('.sca-count').textContent, /0\/51/);
   check('new popup callback and m_popup wrapper work; both windows share live progress');
