@@ -19,6 +19,8 @@ SITE_URL = 'https://gnrraiser.github.io/Steam-Custom-Achievements/'
 REPO_URL = 'https://github.com/GNRRaiser/Steam-Custom-Achievements'
 GUIDE_URL = 'https://steamcommunity.com/sharedfiles/filedetails/?id=3830564916'
 MILLENNIUM_URL = 'https://steambrew.app'
+# Site ownership check (the file method is docs/google54cf37509701d6b4.html).
+GOOGLE_VERIFICATION = 'zMGmcWJ9kuK8mSTHeUcNw-XrvxbpVxAqFteEe25JUVk'
 
 ORDER = ['ac1', 'ac2', 'acb', 'cod4', 'codwaw', 'fable3', 'fallout3', 'me1', 'me2', 'thrillville-otr']
 
@@ -98,6 +100,7 @@ def page(title, description, path, body, ld):
 <title>{esc(title)}</title>
 <meta name="description" content="{esc(description)}">
 <link rel="canonical" href="{esc(url)}">
+<meta name="google-site-verification" content="{GOOGLE_VERIFICATION}">
 <meta property="og:type" content="website">
 <meta property="og:title" content="{esc(title)}">
 <meta property="og:description" content="{esc(description)}">
