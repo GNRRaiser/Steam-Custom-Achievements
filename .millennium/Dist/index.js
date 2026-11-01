@@ -1,4 +1,4 @@
-/* Steam Custom Achievements v0.34.2
+/* Steam Custom Achievements v0.34.3
  * Millennium 3.6.2 loose-file plugin: Xbox 360 achievement lists for Steam games
  * that have none, with read-only Lua detectors for games whose saves are mapped.
  * The entrypoint runs in SharedJSContext. UI belongs to popup.window.document.
@@ -8,7 +8,7 @@
   "use strict";
   const hostWindow = window;
   const PLUGIN_NAME = "steam-custom-achievements";
-  const BUILD_VERSION = "0.34.2";
+  const BUILD_VERSION = "0.34.3";
   const SHARE_BUILD = false;
   const ROOT_ID = "sca-ac2-root";
   const STYLE_ID = "sca-ac2-css";
@@ -1161,10 +1161,7 @@ html.sca-page-open body>*:not(#${DIALOG_ID}){visibility:hidden}
 #${DIALOG_ID} .sca-ach-meter>div{height:100%;background:linear-gradient(90deg,#1a44c2,#1a9fff)}
 #${DIALOG_ID} .sca-ach-tag{font-size:11px;color:#6f767e;margin-top:4px}
 #${DIALOG_ID} .sca-ach-rarity{display:flex;align-items:center;gap:10px;margin-top:6px;font-size:12px;color:#8b929a}
-#${DIALOG_ID} .sca-rarity-meter{flex:0 1 120px;height:4px;border-radius:2px;background:#3d4450;overflow:hidden}
-#${DIALOG_ID} .sca-rarity-meter>div{height:100%;background:#67707b}
 #${DIALOG_ID} .sca-rarity-rare{color:#e5b143}
-#${DIALOG_ID} .sca-rarity-rare .sca-rarity-meter>div{background:#e5b143}
 #${DIALOG_ID} .sca-hidden-summary{display:flex;align-items:center;gap:14px;min-height:64px;padding:12px 14px 12px 10px;margin-bottom:8px;background:#20242b;border:1px dashed #3d4450}
 #${DIALOG_ID} .sca-hidden-summary.sca-revealed{min-height:0}
 #${DIALOG_ID} .sca-hidden-icon{display:block}
@@ -1217,6 +1214,37 @@ html.sca-page-open body>*:not(#${DIALOG_ID}){visibility:hidden}
 .${STAT_CLASS}.sca-stat-compact .sca-stat-bar{width:36px}
 .${STAT_CLASS} .sca-stat-bar>div{height:100%;background:linear-gradient(90deg,#1a44c2,#1a9fff)}
 .${STAT_CLASS}:hover .sca-stat-label{color:#fff}
+/* Desktop: sized and laid out like Steam's own achievements window (narrow, nearly full height,
+   compact rows with smaller pictures). Big Picture keeps its own full-screen page. */
+#${DIALOG_ID}:not(.sca-full){padding:44px 20px 24px}
+#${DIALOG_ID}:not(.sca-full) .sca-dialog{width:min(664px,100%);height:100%;background:#1f232a}
+#${DIALOG_ID}:not(.sca-full) .sca-close{top:8px;right:8px;width:40px;height:40px;border-color:#ffffffaa;background:rgba(30,33,40,.95)}
+#${DIALOG_ID}:not(.sca-full) .sca-dhead{padding:18px 20px 0}
+#${DIALOG_ID}:not(.sca-full) .sca-title-row img{width:26px;height:26px}
+#${DIALOG_ID}:not(.sca-full) h2{font-size:19px;font-weight:700;text-transform:uppercase;letter-spacing:.3px}
+#${DIALOG_ID}:not(.sca-full) .sca-summarybox{display:flex;align-items:center;gap:12px;margin-top:14px;padding:10px 12px 12px;background:rgba(0,0,0,.28)}
+#${DIALOG_ID}:not(.sca-full) .sca-summarybox>svg{flex:none;width:22px;height:22px}
+#${DIALOG_ID}:not(.sca-full) .sca-summarytext{flex:1;min-width:0}
+#${DIALOG_ID}:not(.sca-full) .sca-earned{margin-top:0;font-size:11px;letter-spacing:.5px;color:#dcdedf}
+#${DIALOG_ID}:not(.sca-full) .sca-dbar{height:6px;margin-top:7px;border-radius:3px}
+#${DIALOG_ID}:not(.sca-full) .sca-dbar>div{background:#1a9fff}
+#${DIALOG_ID}:not(.sca-full) .sca-tabs{margin:14px -20px 0;padding:8px 0;background:none}
+#${DIALOG_ID}:not(.sca-full) .sca-tab{font-size:11px;padding:7px 12px}
+#${DIALOG_ID}:not(.sca-full) .sca-dbody{padding:6px 14px 18px}
+#${DIALOG_ID}:not(.sca-full) .sca-toolbar{padding:6px 0 4px;gap:8px}
+#${DIALOG_ID}:not(.sca-full) .sca-search,#${DIALOG_ID}:not(.sca-full) .sca-select{height:34px;font-size:13px}
+#${DIALOG_ID}:not(.sca-full) .sca-search{width:172px}
+#${DIALOG_ID}:not(.sca-full) .sca-select{width:172px}
+#${DIALOG_ID}:not(.sca-full) .sca-section-title{margin:12px 0 6px;font-size:11px}
+#${DIALOG_ID}:not(.sca-full) .sca-ach{gap:10px;min-height:62px;padding:6px 8px 6px 6px;margin-bottom:6px;background:#2a2e37}
+#${DIALOG_ID}:not(.sca-full) .sca-ach-icon{width:40px;height:40px}
+#${DIALOG_ID}:not(.sca-full) .sca-hidden-summary{gap:10px;min-height:52px;padding:6px 8px 6px 6px}
+#${DIALOG_ID}:not(.sca-full) .sca-ach-name{font-size:14px;font-weight:500}
+#${DIALOG_ID}:not(.sca-full) .sca-ach-desc{font-size:12px;margin-top:1px;line-height:1.3}
+#${DIALOG_ID}:not(.sca-full) .sca-ach-rarity,#${DIALOG_ID}:not(.sca-full) .sca-ach-progress{margin-top:2px;font-size:11px}
+#${DIALOG_ID}:not(.sca-full) .sca-ach-tag{font-size:11px;margin-top:2px}
+#${DIALOG_ID}:not(.sca-full) .sca-ach-side{font-size:11px;color:#9099a3}
+#${DIALOG_ID}:not(.sca-full) .sca-mark{font-size:11px;padding:4px 8px}
 @media (max-width:640px){#${DIALOG_ID}{padding:12px}#${DIALOG_ID} .sca-close{top:6px;right:6px;width:40px;height:40px}#${DIALOG_ID} .sca-dhead{padding:18px 16px 0}#${DIALOG_ID} .sca-dbody{padding:8px 10px 18px}#${DIALOG_ID} .sca-toolbar{flex-direction:column}#${DIALOG_ID} .sca-search,#${DIALOG_ID} .sca-select{width:100%}#${DIALOG_ID} .sca-ach{flex-wrap:wrap}#${DIALOG_ID} .sca-ach-side{max-width:none;width:100%;align-items:flex-start;text-align:left;padding-left:70px}}
 `;
     (document.head||document.documentElement).appendChild(style);
@@ -1237,8 +1265,8 @@ html.sca-page-open body>*:not(#${DIALOG_ID}){visibility:hidden}
     const date=new Date(value);
     if(Number.isNaN(date.getTime()))return "Unlocked";
     const day=date.toLocaleDateString("en-US",{month:"short",day:"numeric",year:"numeric"});
-    const time=date.toLocaleTimeString("en-US",{hour:"numeric",minute:"2-digit"}).replace(" ","").toLowerCase();
-    return `Unlocked ${day} @ ${time}`;
+    const time=date.toLocaleTimeString("en-US",{hour:"numeric",minute:"2-digit"});
+    return `Unlocked ${day}, ${time}`;
   }
   function showMessage(text){
     message=text;if(messageTimeout)window.clearTimeout(messageTimeout);
@@ -1790,7 +1818,13 @@ html.sca-page-open body>*:not(#${DIALOG_ID}){visibility:hidden}
       const footer=el("div","sca-bpm-footer");const back=el("button","sca-bpm-back");back.type="button";
       back.append(el("span","sca-bpm-key","B"),el("span","","BACK"));back.onclick=closeDialog;footer.appendChild(back);
       dialog.appendChild(footer);
-    } else head.append(titleRow,earned,bar,tabs);
+    } else {
+      // Steam's summary box: a trophy, the count line and the bar.
+      const box=el("div","sca-summarybox");
+      box.insertAdjacentHTML("afterbegin","<svg viewBox='0 0 24 24' aria-hidden='true'><path fill='#e5b143' d='M7 3h10v2h3v3a4 4 0 0 1-4 4h-.3A5 5 0 0 1 13 14.9V17h3v3H8v-3h3v-2.1A5 5 0 0 1 8.3 12H8a4 4 0 0 1-4-4V5h3zm-1 4v1a2 2 0 0 0 1.2 1.8A5 5 0 0 1 7 9V7zm11 0v2c0 .3 0 .6-.1.8A2 2 0 0 0 18 8V7z'/></svg>");
+      const text=el("div","sca-summarytext");text.append(earned,bar);box.appendChild(text);
+      head.append(titleRow,box,tabs);
+    }
     const body=el("div","sca-dbody");
     // The header shrinks to one line once the list scrolls, and comes back at the top.
     if(bigPicture)body.addEventListener("scroll",()=>{
@@ -1815,7 +1849,8 @@ html.sca-page-open body>*:not(#${DIALOG_ID}){visibility:hidden}
     const overlay=document.getElementById(DIALOG_ID);
     if(!overlay){dialogOpen=false;return;}
     const completed=countUnlocked(),percent=percentDone();
-    overlay.querySelector(".sca-earned-count").textContent=`${completed} OF ${game.achievements.length} ACHIEVEMENTS EARNED`;
+    const total=game.achievements.length;
+    overlay.querySelector(".sca-earned-count").textContent=completed===total?`YOU'VE UNLOCKED ALL ACHIEVEMENTS! ${completed}/${total}`:`YOU'VE UNLOCKED ${completed}/${total} ACHIEVEMENTS`;
     overlay.querySelector(".sca-earned-percent").textContent=`(${percent}%)`;
     overlay.querySelector(".sca-dbar>div").style.width=`${percent}%`;
     overlay.querySelectorAll(".sca-tab").forEach(button=>button.setAttribute("aria-selected",String(button.dataset.tab===tab)));
@@ -1864,8 +1899,7 @@ html.sca-page-open body>*:not(#${DIALOG_ID}){visibility:hidden}
     const rate=rarity(index);
     if(rate!==null){
       const line=el("div","sca-ach-rarity"+(rate<10?" sca-rarity-rare":""));
-      const meter=el("div","sca-rarity-meter");const fill=el("div");fill.style.width=`${rate}%`;meter.appendChild(fill);
-      line.append(meter,el("span","",`${formatRarity(rate)} of players have this achievement`));text.appendChild(line);
+      line.appendChild(el("span","",`${formatRarity(rate)} of players have this achievement`));text.appendChild(line);
     }
     if(a.hidden&&!unlocked)text.appendChild(el("div","sca-ach-tag sca-spoiler-tag","Spoiler · hidden until unlocked"));
     // Automatic ones carry no tag: the list is automatic unless a row says otherwise.

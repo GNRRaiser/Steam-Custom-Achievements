@@ -107,7 +107,7 @@ async function harness(origin) {
 
   await main.locator('.sca-view').click();
   await main.getByRole('dialog').waitFor();
-  assert.match(await main.locator('.sca-earned').innerText(),/1 OF 51 ACHIEVEMENTS EARNED/);
+  assert.match(await main.locator('.sca-earned').innerText(),/YOU'VE UNLOCKED 1\/51 ACHIEVEMENTS/);
   assert.equal(await main.locator('.sca-ach').count(),51);
   assert.match(await main.locator('.sca-ach[data-index="46"] .sca-ach-progress').innerText(),/9 \/ 100/);
   {
@@ -124,7 +124,7 @@ async function harness(origin) {
   assert.match(await main.locator('.sca-count').innerText(),/0\/51/);
   await main.getByRole('button',{name:'Street Cleaner: locked, click to toggle',exact:true}).click();
   assert.ok(await host.evaluate(key=>JSON.parse(localStorage.getItem(key))['20'],key));
-  assert.match(await main.locator('.sca-ach[data-index="20"] .sca-unlocked-at').innerText(),/^Unlocked \w{3} \d+, \d{4} @ /);
+  assert.match(await main.locator('.sca-ach[data-index="20"] .sca-unlocked-at').innerText(),/^Unlocked \w{3} \d+, \d{4}, \d+:\d{2}\s?[AP]M$/);
   await main.keyboard.press('Escape');
   assert.equal(await main.locator('#sca-ac2-dialog').count(),0);
   console.log('PASS View My Achievements popup lists 50, toggles manual entries with dates, closes on Escape');
@@ -152,7 +152,7 @@ async function harness(origin) {
   await main.getByRole('textbox',{name:'Backup to restore',exact:true}).fill(JSON.stringify({version:1,appId:33230,progress:{'2':true,'3':true}}));
   await main.getByRole('button',{name:'Replace progress',exact:true}).click();
   assert.match(await main.locator('.sca-count').innerText(),/2\/51/);
-  assert.match(await main.locator('.sca-earned').innerText(),/2 OF 51/);
+  assert.match(await main.locator('.sca-earned').innerText(),/2\/51/);
   await main.evaluate(()=>Object.defineProperty(navigator,'clipboard',{configurable:true,value:undefined}));
   await main.getByRole('button',{name:'Copy status',exact:true}).click();
   const status=JSON.parse(await main.getByRole('textbox',{name:'Status report JSON',exact:true}).inputValue());
