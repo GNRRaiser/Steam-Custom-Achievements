@@ -10,6 +10,7 @@
   "achievements": [
     {
       "name": "Medal of Honor",
+      "rarity": 63,
       "detail": "Complete 1 Mass Effect Playthrough on any setting",
       "group": "Story",
       "points": 100,
@@ -20,6 +21,7 @@
     },
     {
       "name": "Medal of Heroism",
+      "rarity": 69,
       "detail": "Complete Feros",
       "group": "Story",
       "points": 25,
@@ -30,6 +32,7 @@
     },
     {
       "name": "Distinguished Service Medal",
+      "rarity": 100,
       "detail": "Complete Eden Prime",
       "group": "Story",
       "points": 25,
@@ -40,6 +43,7 @@
     },
     {
       "name": "Council Legion of Merit",
+      "rarity": 65,
       "detail": "Complete Virmire",
       "group": "Story",
       "points": 25,
@@ -50,6 +54,7 @@
     },
     {
       "name": "Honorarium of Corporate Service",
+      "rarity": 68,
       "detail": "Complete Noveria",
       "group": "Story",
       "points": 25,
@@ -60,6 +65,7 @@
     },
     {
       "name": "Long Service Medal",
+      "rarity": 29,
       "detail": "Complete 2 Mass Effect Playthroughs on any setting",
       "group": "Story",
       "points": 25,
@@ -70,6 +76,7 @@
     },
     {
       "name": "Distinguished Combat Medal",
+      "rarity": 14,
       "detail": "Complete 1 Mass Effect playthrough on the Hardcore difficulty setting. Do not change the setting.",
       "group": "Story",
       "points": 25,
@@ -80,6 +87,7 @@
     },
     {
       "name": "Medal of Valor",
+      "rarity": 9,
       "detail": "Complete 1 Mass Effect playthrough on the Insanity difficulty setting. Do not change the setting.",
       "group": "Story",
       "points": 50,
@@ -90,6 +98,7 @@
     },
     {
       "name": "Pistol Expert",
+      "rarity": 52,
       "detail": "Register 150 Pistol Kills",
       "group": "Combat",
       "points": 10,
@@ -102,6 +111,7 @@
     },
     {
       "name": "Shotgun Expert",
+      "rarity": 41,
       "detail": "Register 150 Shotgun Kills",
       "group": "Combat",
       "points": 15,
@@ -114,6 +124,7 @@
     },
     {
       "name": "Assault Rifle Expert",
+      "rarity": 50,
       "detail": "Register 150 Assault Rifle Kills",
       "group": "Combat",
       "points": 15,
@@ -126,6 +137,7 @@
     },
     {
       "name": "Sniper Expert",
+      "rarity": 27,
       "detail": "Register 150 Sniper Rifle Kills",
       "group": "Combat",
       "points": 15,
@@ -138,6 +150,7 @@
     },
     {
       "name": "Lift Mastery",
+      "rarity": 17,
       "detail": "Use biotic Lift 75 times",
       "group": "Talents",
       "points": 15,
@@ -150,6 +163,7 @@
     },
     {
       "name": "Throw Mastery",
+      "rarity": 21,
       "detail": "Use biotic Throw 75 times",
       "group": "Talents",
       "points": 15,
@@ -162,6 +176,7 @@
     },
     {
       "name": "Warp Mastery",
+      "rarity": 17,
       "detail": "Use biotic Warp 75 times",
       "group": "Talents",
       "points": 15,
@@ -174,6 +189,7 @@
     },
     {
       "name": "Singularity Mastery",
+      "rarity": 12,
       "detail": "Use biotic Singularity 75 times",
       "group": "Talents",
       "points": 15,
@@ -186,6 +202,7 @@
     },
     {
       "name": "Barrier Mastery",
+      "rarity": 18,
       "detail": "Use biotic Barrier 75 times",
       "group": "Talents",
       "points": 15,
@@ -198,6 +215,7 @@
     },
     {
       "name": "Stasis Mastery",
+      "rarity": 11,
       "detail": "Use biotic Stasis 75 times",
       "group": "Talents",
       "points": 15,
@@ -210,6 +228,7 @@
     },
     {
       "name": "Damping Specialist",
+      "rarity": 12,
       "detail": "Use Damping Field 75 times",
       "group": "Talents",
       "points": 15,
@@ -222,6 +241,7 @@
     },
     {
       "name": "AI Hacking Specialist",
+      "rarity": 9,
       "detail": "Use AI Hacking 75 times",
       "group": "Talents",
       "points": 15,
@@ -234,6 +254,7 @@
     },
     {
       "name": "Overload Specialist",
+      "rarity": 16,
       "detail": "Use Shield Overload 75 times",
       "group": "Talents",
       "points": 15,
@@ -246,6 +267,7 @@
     },
     {
       "name": "Sabotage Specialist",
+      "rarity": 16,
       "detail": "Use Sabotage 75 times",
       "group": "Talents",
       "points": 15,
@@ -258,6 +280,7 @@
     },
     {
       "name": "First Aid Specialist",
+      "rarity": 25,
       "detail": "Use medi-gel 150 times",
       "group": "Talents",
       "points": 15,
@@ -270,6 +293,7 @@
     },
     {
       "name": "Neural Shock Specialist",
+      "rarity": 10,
       "detail": "Use Neural Shock 75 times",
       "group": "Talents",
       "points": 15,
@@ -282,6 +306,7 @@
     },
     {
       "name": "Scholar",
+      "rarity": 33,
       "detail": "Find all primary Alien: Council Races, Extinct Races and Non-Council Races codex entries",
       "group": "Character",
       "points": 25,
@@ -289,6 +314,7 @@
     },
     {
       "name": "Completionist",
+      "rarity": 38,
       "detail": "Complete the majority of the game",
       "group": "Story",
       "points": 25,
@@ -296,6 +322,7 @@
     },
     {
       "name": "Tactician",
+      "rarity": 63,
       "detail": "Complete playthrough with shield damage greater than health damage",
       "group": "Combat",
       "points": 25,
@@ -303,6 +330,7 @@
     },
     {
       "name": "Medal of Exploration",
+      "rarity": 76,
       "detail": "Land on an uncharted world",
       "group": "Story",
       "points": 50,
@@ -310,6 +338,7 @@
     },
     {
       "name": "Rich",
+      "rarity": 53,
       "detail": "Exceed 1,000,000 Credits",
       "group": "Character",
       "points": 25,
@@ -322,6 +351,7 @@
     },
     {
       "name": "Dog of War",
+      "rarity": 69,
       "detail": "Register 150 organic enemy kills",
       "group": "Combat",
       "points": 25,
@@ -334,6 +364,7 @@
     },
     {
       "name": "Geth Hunter",
+      "rarity": 66,
       "detail": "Register 250 synthetic enemy kills",
       "group": "Combat",
       "points": 25,
@@ -346,6 +377,7 @@
     },
     {
       "name": "Soldier Ally",
+      "rarity": 17,
       "detail": "Complete the majority of the game with the Alliance soldier squad member",
       "group": "Squad",
       "points": 20,
@@ -356,6 +388,7 @@
     },
     {
       "name": "Sentinel Ally",
+      "rarity": 13,
       "detail": "Complete the majority of the game with the Alliance sentinel squad member",
       "group": "Squad",
       "points": 20,
@@ -366,6 +399,7 @@
     },
     {
       "name": "Krogan Ally",
+      "rarity": 14,
       "detail": "Complete the majority of the game with the krogan squad member",
       "group": "Squad",
       "points": 20,
@@ -376,6 +410,7 @@
     },
     {
       "name": "Turian Ally",
+      "rarity": 16,
       "detail": "Complete the majority of the game with the turian squad member",
       "group": "Squad",
       "points": 20,
@@ -386,6 +421,7 @@
     },
     {
       "name": "Quarian Ally",
+      "rarity": 16,
       "detail": "Complete the majority of the game with the quarian squad member",
       "group": "Squad",
       "points": 20,
@@ -396,6 +432,7 @@
     },
     {
       "name": "Asari Ally",
+      "rarity": 10,
       "detail": "Complete the majority of the game with the asari squad member",
       "group": "Squad",
       "points": 20,
@@ -406,6 +443,7 @@
     },
     {
       "name": "Power Gamer",
+      "rarity": 33,
       "detail": "Reach 50th level with one character",
       "group": "Character",
       "points": 20,
@@ -418,6 +456,7 @@
     },
     {
       "name": "Extreme Power Gamer",
+      "rarity": 13,
       "detail": "Reach 60th level with one character",
       "group": "Character",
       "points": 50,
@@ -430,6 +469,7 @@
     },
     {
       "name": "Renegade",
+      "rarity": 23,
       "detail": "Accumulate 75% of total Renegade points",
       "group": "Character",
       "points": 15,
@@ -440,6 +480,7 @@
     },
     {
       "name": "Paragon",
+      "rarity": 49,
       "detail": "Accumulate 75% of total Paragon points",
       "group": "Character",
       "points": 15,
@@ -450,6 +491,7 @@
     },
     {
       "name": "Paramour",
+      "rarity": 54,
       "detail": "Complete any romance subplot",
       "group": "Character",
       "points": 10,
@@ -460,6 +502,7 @@
     },
     {
       "name": "Spectre Inductee",
+      "rarity": 86,
       "detail": "Become a Spectre",
       "group": "Story",
       "points": 15,
@@ -470,6 +513,7 @@
     },
     {
       "name": "Charismatic",
+      "rarity": 57,
       "detail": "Use Charm or Intimidate to resolve an impossible situation",
       "group": "Character",
       "points": 10,
@@ -480,6 +524,7 @@
     },
     {
       "name": "Search and Rescue",
+      "rarity": 71,
       "detail": "Locate Dr. T'soni in the Artemis Tau cluster",
       "group": "Story",
       "points": 10,
@@ -490,6 +535,7 @@
     },
     {
       "name": "Colonial Savior",
+      "rarity": 100,
       "detail": "Complete the Bring Down the Sky mission.",
       "group": "Downloadable content",
       "points": 50,
@@ -500,6 +546,7 @@
     },
     {
       "name": "Undisputed",
+      "rarity": 82,
       "detail": "You completed Ahern's survival mission",
       "group": "Downloadable content",
       "points": 50,
@@ -510,6 +557,7 @@
     },
     {
       "name": "New Sheriff in Town",
+      "rarity": 100,
       "detail": "Took first place in a combat scenario on Pinnacle Station",
       "group": "Downloadable content",
       "points": 50,
@@ -520,6 +568,7 @@
     },
     {
       "name": "Best of the Best",
+      "rarity": 83,
       "detail": "Took first place in 12 combat scenarios on Pinnacle Station",
       "group": "Downloadable content",
       "points": 50,

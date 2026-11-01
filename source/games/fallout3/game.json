@@ -57,6 +57,7 @@
   "achievements": [
     {
       "name": "Vault 101 Citizenship Award",
+      "rarity": 100,
       "detail": "Got the Pip-Boy 3000",
       "group": "Story",
       "points": 10,
@@ -73,6 +74,7 @@
     },
     {
       "name": "The G.O.A.T. Whisperer",
+      "rarity": 93,
       "detail": "Took the G.O.A.T.",
       "group": "Story",
       "points": 10,
@@ -88,6 +90,7 @@
     },
     {
       "name": "Escape!",
+      "rarity": 93,
       "detail": "Completed \"Escape!\"",
       "group": "Story",
       "points": 20,
@@ -103,6 +106,7 @@
     },
     {
       "name": "Following in His Footsteps",
+      "rarity": 64,
       "detail": "Completed \"Following in His Footsteps\"",
       "group": "Story",
       "points": 20,
@@ -118,6 +122,7 @@
     },
     {
       "name": "Galaxy News Radio",
+      "rarity": 53,
       "detail": "Completed \"Galaxy News Radio\"",
       "group": "Story",
       "points": 20,
@@ -133,6 +138,7 @@
     },
     {
       "name": "Scientific Pursuits",
+      "rarity": 50,
       "detail": "Completed \"Scientific Pursuits\"",
       "group": "Story",
       "points": 20,
@@ -148,6 +154,7 @@
     },
     {
       "name": "Tranquility Lane",
+      "rarity": 53,
       "detail": "Completed \"Tranquility Lane\"",
       "group": "Story",
       "points": 20,
@@ -163,6 +170,7 @@
     },
     {
       "name": "The Waters of Life",
+      "rarity": 51,
       "detail": "Completed \"The Waters of Life\"",
       "group": "Story",
       "points": 20,
@@ -178,6 +186,7 @@
     },
     {
       "name": "Picking Up the Trail",
+      "rarity": 47,
       "detail": "Completed \"Picking up the Trail\"",
       "group": "Story",
       "points": 20,
@@ -193,6 +202,7 @@
     },
     {
       "name": "Rescue From Paradise",
+      "rarity": 42,
       "detail": "Completed \"Rescue from Paradise\"",
       "group": "Story",
       "points": 20,
@@ -208,6 +218,7 @@
     },
     {
       "name": "Finding the Garden of Eden",
+      "rarity": 46,
       "detail": "Completed \"Finding the Garden of Eden\"",
       "group": "Story",
       "points": 20,
@@ -223,6 +234,7 @@
     },
     {
       "name": "The American Dream",
+      "rarity": 46,
       "detail": "Completed \"The American Dream\"",
       "group": "Story",
       "points": 20,
@@ -238,6 +250,7 @@
     },
     {
       "name": "Take it Back!",
+      "rarity": 45,
       "detail": "Completed \"Take it Back!\"",
       "group": "Story",
       "points": 40,
@@ -253,6 +266,7 @@
     },
     {
       "name": "Big Trouble in Big Town",
+      "rarity": 43,
       "detail": "Completed \"Big Trouble in Big Town\"",
       "group": "Quests",
       "points": 20,
@@ -268,6 +282,7 @@
     },
     {
       "name": "The Superhuman Gambit",
+      "rarity": 36,
       "detail": "Completed \"The Superhuman Gambit\"",
       "group": "Quests",
       "points": 20,
@@ -283,6 +298,7 @@
     },
     {
       "name": "The Wasteland Survival Guide",
+      "rarity": 44,
       "detail": "Completed \"The Wasteland Survival Guide\"",
       "group": "Quests",
       "points": 20,
@@ -298,6 +314,7 @@
     },
     {
       "name": "Those!",
+      "rarity": 42,
       "detail": "Completed \"Those!\"",
       "group": "Quests",
       "points": 20,
@@ -313,6 +330,7 @@
     },
     {
       "name": "The Nuka-Cola Challenge",
+      "rarity": 24,
       "detail": "Completed \"The Nuka-Cola Challenge\"",
       "group": "Quests",
       "points": 20,
@@ -328,6 +346,7 @@
     },
     {
       "name": "Head of State",
+      "rarity": 33,
       "detail": "Completed \"Head of State\"",
       "group": "Quests",
       "points": 20,
@@ -343,6 +362,7 @@
     },
     {
       "name": "The Replicated Man",
+      "rarity": 47,
       "detail": "Completed \"The Replicated Man\"",
       "group": "Quests",
       "points": 20,
@@ -358,6 +378,7 @@
     },
     {
       "name": "Blood Ties",
+      "rarity": 46,
       "detail": "Completed \"Blood Ties\"",
       "group": "Quests",
       "points": 20,
@@ -373,6 +394,7 @@
     },
     {
       "name": "Oasis",
+      "rarity": 34,
       "detail": "Completed \"Oasis\"",
       "group": "Quests",
       "points": 20,
@@ -388,6 +410,7 @@
     },
     {
       "name": "The Power of the Atom",
+      "rarity": 66,
       "detail": "Completed \"The Power of the Atom\"",
       "group": "Quests",
       "points": 20,
@@ -403,6 +426,7 @@
     },
     {
       "name": "Tenpenny Tower",
+      "rarity": 40,
       "detail": "Completed \"Tenpenny Tower\"",
       "group": "Quests",
       "points": 20,
@@ -418,6 +442,7 @@
     },
     {
       "name": "Strictly Business",
+      "rarity": 26,
       "detail": "Completed \"Strictly Business\"",
       "group": "Quests",
       "points": 20,
@@ -433,6 +458,7 @@
     },
     {
       "name": "You Gotta Shoot 'Em in the Head",
+      "rarity": 30,
       "detail": "Completed \"You Gotta Shoot 'Em in the Head\"",
       "group": "Quests",
       "points": 20,
@@ -448,6 +474,7 @@
     },
     {
       "name": "Stealing Independence",
+      "rarity": 37,
       "detail": "Completed \"Stealing Independence\"",
       "group": "Quests",
       "points": 20,
@@ -463,6 +490,7 @@
     },
     {
       "name": "Trouble on the Homefront",
+      "rarity": 36,
       "detail": "Completed \"Trouble on the Homefront\"",
       "group": "Quests",
       "points": 20,
@@ -478,6 +506,7 @@
     },
     {
       "name": "Agatha's Song",
+      "rarity": 31,
       "detail": "Completed \"Agatha's Song\"",
       "group": "Quests",
       "points": 20,
@@ -493,6 +522,7 @@
     },
     {
       "name": "Reilly's Rangers",
+      "rarity": 35,
       "detail": "Completed \"Reilly's Rangers\"",
       "group": "Quests",
       "points": 20,
@@ -508,6 +538,7 @@
     },
     {
       "name": "Reaver",
+      "rarity": 28,
       "detail": "Reached Level 8 with Bad Karma",
       "group": "Character",
       "points": 10,
@@ -519,6 +550,7 @@
     },
     {
       "name": "Mercenary",
+      "rarity": 24,
       "detail": "Reached Level 8 with Neutral Karma",
       "group": "Character",
       "points": 10,
@@ -530,6 +562,7 @@
     },
     {
       "name": "Protector",
+      "rarity": 46,
       "detail": "Reached Level 8 with Good Karma",
       "group": "Character",
       "points": 10,
@@ -541,6 +574,7 @@
     },
     {
       "name": "Harbinger of War",
+      "rarity": 23,
       "detail": "Reached Level 14 with Bad Karma",
       "group": "Character",
       "points": 20,
@@ -552,6 +586,7 @@
     },
     {
       "name": "Pinnacle of Survival",
+      "rarity": 19,
       "detail": "Reached Level 14 with Neutral Karma",
       "group": "Character",
       "points": 20,
@@ -563,6 +598,7 @@
     },
     {
       "name": "Ambassador of Peace",
+      "rarity": 40,
       "detail": "Reached Level 14 with Good Karma",
       "group": "Character",
       "points": 20,
@@ -574,6 +610,7 @@
     },
     {
       "name": "Scourge of Humanity",
+      "rarity": 19,
       "detail": "Reached Level 20 with Bad Karma",
       "group": "Character",
       "points": 30,
@@ -585,6 +622,7 @@
     },
     {
       "name": "Paradigm of Humanity",
+      "rarity": 16,
       "detail": "Reached Level 20 with Neutral Karma",
       "group": "Character",
       "points": 30,
@@ -596,6 +634,7 @@
     },
     {
       "name": "Last, Best Hope of Humanity",
+      "rarity": 33,
       "detail": "Reached Level 20 with Good Karma",
       "group": "Character",
       "points": 30,
@@ -607,6 +646,7 @@
     },
     {
       "name": "Weaponsmith",
+      "rarity": 18,
       "detail": "Made one of every custom weapon",
       "group": "Challenges",
       "points": 30,
@@ -654,6 +694,7 @@
     },
     {
       "name": "Doesn't Play Well with Others",
+      "rarity": 33,
       "detail": "Killed 300 people",
       "group": "Challenges",
       "points": 20,
@@ -666,6 +707,7 @@
     },
     {
       "name": "Slayer of Beasts",
+      "rarity": 45,
       "detail": "Killed 300 creatures",
       "group": "Challenges",
       "points": 20,
@@ -678,6 +720,7 @@
     },
     {
       "name": "Silver-Tongued Devil",
+      "rarity": 19,
       "detail": "Won 50 Speech Challenges",
       "group": "Challenges",
       "points": 20,
@@ -690,6 +733,7 @@
     },
     {
       "name": "Data Miner",
+      "rarity": 21,
       "detail": "Hacked 50 terminals",
       "group": "Challenges",
       "points": 20,
@@ -702,6 +746,7 @@
     },
     {
       "name": "Keys are for Cowards",
+      "rarity": 39,
       "detail": "Picked 50 locks",
       "group": "Challenges",
       "points": 20,
@@ -714,6 +759,7 @@
     },
     {
       "name": "One-Man Scouting Party",
+      "rarity": 31,
       "detail": "Discovered 100 locations",
       "group": "Challenges",
       "points": 20,
@@ -726,6 +772,7 @@
     },
     {
       "name": "Psychotic Prankster",
+      "rarity": 35,
       "detail": "Placed a grenade or mine while pickpocketing",
       "group": "Challenges",
       "points": 10,
@@ -738,6 +785,7 @@
     },
     {
       "name": "The Bigger They Are...",
+      "rarity": 19,
       "detail": "Kill all the Super Mutant Behemoths",
       "group": "Challenges",
       "points": 20,
@@ -753,6 +801,7 @@
     },
     {
       "name": "Yes, I Play with Dolls",
+      "rarity": 24,
       "detail": "Collected 10 Vault-Tec Bobbleheads",
       "group": "Collectibles",
       "points": 10,
@@ -765,6 +814,7 @@
     },
     {
       "name": "Vault-Tec C.E.O.",
+      "rarity": 16,
       "detail": "Collected 20 Vault-Tec Bobbleheads",
       "group": "Collectibles",
       "points": 30,
@@ -777,6 +827,7 @@
     },
     {
       "name": "Aiding the Outcasts",
+      "rarity": 100,
       "detail": "Completed \"Aiding the Outcasts\"",
       "group": "Operation: Anchorage",
       "points": 20,
@@ -792,6 +843,7 @@
     },
     {
       "name": "Operation: Anchorage",
+      "rarity": 96,
       "detail": "Completed \"Operation: Anchorage\"",
       "group": "Operation: Anchorage",
       "points": 40,
@@ -807,6 +859,7 @@
     },
     {
       "name": "The Guns of Anchorage",
+      "rarity": 99,
       "detail": "Completed \"The Guns of Anchorage\"",
       "group": "Operation: Anchorage",
       "points": 20,
@@ -822,6 +875,7 @@
     },
     {
       "name": "Paving the Way",
+      "rarity": 97,
       "detail": "Completed \"Paving the Way\"",
       "group": "Operation: Anchorage",
       "points": 20,
@@ -837,6 +891,7 @@
     },
     {
       "name": "Free Labor",
+      "rarity": 96,
       "detail": "Completed \"Free Labor\"",
       "group": "The Pitt",
       "points": 40,
@@ -852,6 +907,7 @@
     },
     {
       "name": "Into the Pitt",
+      "rarity": 100,
       "detail": "Completed \"Into The Pitt\"",
       "group": "The Pitt",
       "points": 20,
@@ -867,6 +923,7 @@
     },
     {
       "name": "Unsafe Working Conditions",
+      "rarity": 98,
       "detail": "Completed \"Unsafe Working Conditions\"",
       "group": "The Pitt",
       "points": 20,
@@ -882,6 +939,7 @@
     },
     {
       "name": "Mill Worker",
+      "rarity": 54,
       "detail": "Found All 100 Steel Ingots",
       "group": "The Pitt",
       "points": 20,
@@ -905,6 +963,7 @@
     },
     {
       "name": "Death From Above",
+      "rarity": 95,
       "detail": "Completed \"Death From Above\"",
       "group": "Broken Steel",
       "points": 30,
@@ -920,6 +979,7 @@
     },
     {
       "name": "Shock Value",
+      "rarity": 92,
       "detail": "Completed \"Shock Value\"",
       "group": "Broken Steel",
       "points": 30,
@@ -935,6 +995,7 @@
     },
     {
       "name": "Who Dares Wins",
+      "rarity": 87,
       "detail": "Completed \"Who Dares Wins\"",
       "group": "Broken Steel",
       "points": 30,
@@ -950,6 +1011,7 @@
     },
     {
       "name": "Devil",
+      "rarity": 49,
       "detail": "Reached Level 30 with Bad Karma",
       "group": "Broken Steel",
       "points": 20,
@@ -961,6 +1023,7 @@
     },
     {
       "name": "True Mortal",
+      "rarity": 47,
       "detail": "Reached Level 30 with Neutral Karma",
       "group": "Broken Steel",
       "points": 20,
@@ -972,6 +1035,7 @@
     },
     {
       "name": "Messiah",
+      "rarity": 65,
       "detail": "Reached Level 30 with Good Karma",
       "group": "Broken Steel",
       "points": 20,
@@ -983,6 +1047,7 @@
     },
     {
       "name": "The Local Flavor",
+      "rarity": 100,
       "detail": "Completed \"The Local Flavor\"",
       "group": "Point Lookout",
       "points": 20,
@@ -998,6 +1063,7 @@
     },
     {
       "name": "Walking with Spirits",
+      "rarity": 95,
       "detail": "Completed \"Walking With Spirits\"",
       "group": "Point Lookout",
       "points": 20,
@@ -1013,6 +1079,7 @@
     },
     {
       "name": "A Meeting of the Minds",
+      "rarity": 93,
       "detail": "Completed \"A Meeting of the Minds\"",
       "group": "Point Lookout",
       "points": 20,
@@ -1032,6 +1099,7 @@
     },
     {
       "name": "Bog Walker",
+      "rarity": 67,
       "detail": "Discovered all locations within Point Lookout",
       "group": "Point Lookout",
       "points": 40,
@@ -1048,6 +1116,7 @@
     },
     {
       "name": "Not of This World",
+      "rarity": 100,
       "detail": "Completed \"Not of This World\"",
       "group": "Mothership Zeta",
       "points": 20,
@@ -1063,6 +1132,7 @@
     },
     {
       "name": "Among the Stars",
+      "rarity": 95,
       "detail": "Completed \"Among the Stars\"",
       "group": "Mothership Zeta",
       "points": 20,
@@ -1078,6 +1148,7 @@
     },
     {
       "name": "Alien Archivist",
+      "rarity": 42,
       "detail": "Collected all Alien Captive Recordings",
       "group": "Mothership Zeta",
       "points": 20,
@@ -1095,6 +1166,7 @@
     },
     {
       "name": "This Galaxy Ain't Big Enough...",
+      "rarity": 93,
       "detail": "Completed \"This Galaxy Ain't Big Enough...\"",
       "group": "Mothership Zeta",
       "points": 40,

@@ -11,6 +11,7 @@
   "achievements": [
     {
       "name": "Missing in Action",
+      "rarity": 100,
       "detail": "Save your crew from an overwhelming attack",
       "group": "Story",
       "points": 5,
@@ -21,6 +22,7 @@
     },
     {
       "name": "Highly Trained",
+      "rarity": 78,
       "detail": "View all advanced combat training videos at Shepard's private terminal.",
       "group": "Character",
       "points": 15,
@@ -28,6 +30,7 @@
     },
     {
       "name": "Very Elusive",
+      "rarity": 96,
       "detail": "Return to active duty",
       "group": "Story",
       "points": 10,
@@ -38,6 +41,7 @@
     },
     {
       "name": "The Convict",
+      "rarity": 86,
       "detail": "Successfully recruit the biotic Convict",
       "group": "Squad",
       "points": 10,
@@ -48,6 +52,7 @@
     },
     {
       "name": "The Krogan",
+      "rarity": 84,
       "detail": "Successfully recruit the Krogan",
       "group": "Squad",
       "points": 10,
@@ -58,6 +63,7 @@
     },
     {
       "name": "The Archangel",
+      "rarity": 89,
       "detail": "Successfully recruit Archangel",
       "group": "Squad",
       "points": 10,
@@ -68,6 +74,7 @@
     },
     {
       "name": "The Professor",
+      "rarity": 88,
       "detail": "Successfully recruit the Professor",
       "group": "Squad",
       "points": 10,
@@ -78,6 +85,7 @@
     },
     {
       "name": "The Quarian",
+      "rarity": 80,
       "detail": "Successfully recruit the Quarian",
       "group": "Squad",
       "points": 10,
@@ -88,6 +96,7 @@
     },
     {
       "name": "The Justicar",
+      "rarity": 81,
       "detail": "Successfully recruit the Justicar",
       "group": "Squad",
       "points": 10,
@@ -98,6 +107,7 @@
     },
     {
       "name": "The Assassin",
+      "rarity": 81,
       "detail": "Successfully recruit the Assassin",
       "group": "Squad",
       "points": 10,
@@ -108,6 +118,7 @@
     },
     {
       "name": "Friend or Foe",
+      "rarity": 76,
       "detail": "Obtain geth technology",
       "group": "Story",
       "points": 10,
@@ -118,6 +129,7 @@
     },
     {
       "name": "Colony Defense",
+      "rarity": 84,
       "detail": "Defend a human colony from attack",
       "group": "Story",
       "points": 25,
@@ -128,6 +140,7 @@
     },
     {
       "name": "The Prodigal",
+      "rarity": 81,
       "detail": "Gain the loyalty of the Cerberus Officer",
       "group": "Squad",
       "points": 10,
@@ -138,6 +151,7 @@
     },
     {
       "name": "Ghost of the Father",
+      "rarity": 80,
       "detail": "Gain the loyalty of the Cerberus Operative",
       "group": "Squad",
       "points": 10,
@@ -148,6 +162,7 @@
     },
     {
       "name": "Catharsis",
+      "rarity": 79,
       "detail": "Gain the loyalty of the biotic Convict",
       "group": "Squad",
       "points": 10,
@@ -158,6 +173,7 @@
     },
     {
       "name": "Battlemaster",
+      "rarity": 79,
       "detail": "Gain the loyalty of the krogan",
       "group": "Squad",
       "points": 10,
@@ -168,6 +184,7 @@
     },
     {
       "name": "Fade Away",
+      "rarity": 79,
       "detail": "Gain the loyalty of Archangel",
       "group": "Squad",
       "points": 10,
@@ -178,6 +195,7 @@
     },
     {
       "name": "The Cure",
+      "rarity": 79,
       "detail": "Gain the loyalty of the Professor",
       "group": "Squad",
       "points": 10,
@@ -188,6 +206,7 @@
     },
     {
       "name": "Treason",
+      "rarity": 75,
       "detail": "Gain the loyalty of the quarian",
       "group": "Squad",
       "points": 10,
@@ -198,6 +217,7 @@
     },
     {
       "name": "Doppelganger",
+      "rarity": 73,
       "detail": "Help the Justicar resolve her mission",
       "group": "Squad",
       "points": 10,
@@ -208,6 +228,7 @@
     },
     {
       "name": "Cat's in the Cradle",
+      "rarity": 75,
       "detail": "Gain the loyalty of the Assassin",
       "group": "Squad",
       "points": 10,
@@ -218,6 +239,7 @@
     },
     {
       "name": "A House Divided",
+      "rarity": 72,
       "detail": "Hack a geth collective",
       "group": "Story",
       "points": 10,
@@ -228,6 +250,7 @@
     },
     {
       "name": "Ghost Ship",
+      "rarity": 80,
       "detail": "Complete the investigation of a derelict alien vessel",
       "group": "Story",
       "points": 25,
@@ -238,6 +261,7 @@
     },
     {
       "name": "Suicide Mission",
+      "rarity": 77,
       "detail": "Use the Omega 4 Relay",
       "group": "Story",
       "points": 50,
@@ -248,6 +272,7 @@
     },
     {
       "name": "Mission Accomplished",
+      "rarity": 76,
       "detail": "Save humanity throughout the galaxy from certain annihilation",
       "group": "Story",
       "points": 125,
@@ -258,6 +283,7 @@
     },
     {
       "name": "Against All Odds",
+      "rarity": 76,
       "detail": "Survive suicide mission",
       "group": "Story",
       "points": 15,
@@ -268,6 +294,7 @@
     },
     {
       "name": "Insanity",
+      "rarity": 14,
       "detail": "Complete the game on the \"Insanity\" difficulty level without changing the setting",
       "group": "Story",
       "points": 75,
@@ -278,6 +305,7 @@
     },
     {
       "name": "No One Left Behind",
+      "rarity": 50,
       "detail": "Keep your team alive through the suicide mission",
       "group": "Story",
       "points": 75,
@@ -288,6 +316,7 @@
     },
     {
       "name": "Long Service Medal",
+      "rarity": 62,
       "detail": "Complete Mass Effect 2 twice, or complete it once with a character imported from Mass Effect 1",
       "group": "Story",
       "points": 75,
@@ -298,6 +327,7 @@
     },
     {
       "name": "Paramour",
+      "rarity": 63,
       "detail": "Successfully pursue a relationship with a teammate",
       "group": "Character",
       "points": 50,
@@ -308,6 +338,7 @@
     },
     {
       "name": "Head Hunter",
+      "rarity": 87,
       "detail": "Perform 30 headshot kills with any weapon on humanoid targets",
       "group": "Combat",
       "points": 10,
@@ -318,6 +349,7 @@
     },
     {
       "name": "Brawler",
+      "rarity": 42,
       "detail": "Shoot and kill 20 enemies while they're knocked back by a punch",
       "group": "Combat",
       "points": 10,
@@ -328,6 +360,7 @@
     },
     {
       "name": "Big Game Hunter",
+      "rarity": 78,
       "detail": "Thresher Maw defeated",
       "group": "Combat",
       "points": 10,
@@ -338,6 +371,7 @@
     },
     {
       "name": "Tactician",
+      "rarity": 34,
       "detail": "Hit 20 different targets with multiple biotic powers to combine the effects",
       "group": "Combat",
       "points": 10,
@@ -348,6 +382,7 @@
     },
     {
       "name": "Master at Arms",
+      "rarity": 56,
       "detail": "Kill enemies with 5 different heavy weapons during the game",
       "group": "Combat",
       "points": 15,
@@ -358,6 +393,7 @@
     },
     {
       "name": "Merciless",
+      "rarity": 90,
       "detail": "Make 20 enemies scream as they fall or are set on fire",
       "group": "Combat",
       "points": 10,
@@ -368,6 +404,7 @@
     },
     {
       "name": "Overload Specialist",
+      "rarity": 40,
       "detail": "Disrupt the shields of 25 enemies",
       "group": "Combat",
       "points": 15,
@@ -378,6 +415,7 @@
     },
     {
       "name": "Warp Specialist",
+      "rarity": 31,
       "detail": "Warp the barriers of 25 enemies",
       "group": "Combat",
       "points": 15,
@@ -388,6 +426,7 @@
     },
     {
       "name": "Incineration Specialist",
+      "rarity": 32,
       "detail": "Incinerate the armor of 25 enemies",
       "group": "Combat",
       "points": 15,
@@ -398,6 +437,7 @@
     },
     {
       "name": "Operative",
+      "rarity": 83,
       "detail": "Complete a mission discovered by scanning an unexplored world",
       "group": "Exploration",
       "points": 15,
@@ -408,6 +448,7 @@
     },
     {
       "name": "Agent",
+      "rarity": 70,
       "detail": "Complete 5 missions discovered by scanning unexplored worlds",
       "group": "Exploration",
       "points": 50,
@@ -418,6 +459,7 @@
     },
     {
       "name": "Prospector",
+      "rarity": 89,
       "detail": "Retrieve mineral resources by scanning and probing a planet in the galaxy map",
       "group": "Exploration",
       "points": 5,
@@ -428,6 +470,7 @@
     },
     {
       "name": "Explorer",
+      "rarity": 77,
       "detail": "Visit 100% of the planets in an unexplored cluster",
       "group": "Exploration",
       "points": 10,
@@ -438,6 +481,7 @@
     },
     {
       "name": "Power Gamer",
+      "rarity": 44,
       "detail": "Reach Level 30 with one character",
       "group": "Character",
       "points": 10,
@@ -448,6 +492,7 @@
     },
     {
       "name": "Scholar",
+      "rarity": 88,
       "detail": "Unlock 15 new Mass Effect 2 codex entries",
       "group": "Character",
       "points": 15,
@@ -458,6 +503,7 @@
     },
     {
       "name": "Technician",
+      "rarity": 85,
       "detail": "Obtain 10 technology upgrades",
       "group": "Character",
       "points": 15,
@@ -468,6 +514,7 @@
     },
     {
       "name": "Weapon Specialist",
+      "rarity": 55,
       "detail": "Fully upgrade a weapon",
       "group": "Character",
       "points": 15,
@@ -478,6 +525,7 @@
     },
     {
       "name": "Scientist",
+      "rarity": 87,
       "detail": "Complete any research project in the Normandy's laboratory",
       "group": "Character",
       "points": 10,
@@ -488,6 +536,7 @@
     },
     {
       "name": "Fashionista",
+      "rarity": 94,
       "detail": "Personalize your armor",
       "group": "Character",
       "points": 5,
@@ -498,6 +547,7 @@
     },
     {
       "name": "Power Full",
+      "rarity": 81,
       "detail": "Evolve any power",
       "group": "Character",
       "points": 15,
@@ -508,6 +558,7 @@
     },
     {
       "name": "Heart of Darkness",
+      "rarity": 99,
       "detail": "Confront the Shadow Broker",
       "group": "Downloadable content",
       "points": 50,
@@ -518,6 +569,7 @@
     },
     {
       "name": "Broke, Blind and Bedlam",
+      "rarity": 100,
       "detail": "Gain the loyalty of the thief",
       "group": "Downloadable content",
       "points": 15,
@@ -528,6 +580,7 @@
     },
     {
       "name": "Data Hound",
+      "rarity": 79,
       "detail": "Collect 6 Cerberus data packets scattered across Aite",
       "group": "Downloadable content",
       "points": 10,
@@ -538,6 +591,7 @@
     },
     {
       "name": "Digital Exorcist",
+      "rarity": 100,
       "detail": "Successfully shut down the rogue VI in Project Overlord",
       "group": "Downloadable content",
       "points": 15,
@@ -548,6 +602,7 @@
     },
     {
       "name": "Detail Orientated",
+      "rarity": 90,
       "detail": "Use all information terminals in the Shadow Broker's stronghold",
       "group": "Downloadable content",
       "points": 40,
@@ -558,6 +613,7 @@
     },
     {
       "name": "Most Dangerous Game",
+      "rarity": 100,
       "detail": "Defeat the Shadow Broker's Assassin",
       "group": "Downloadable content",
       "points": 35,
@@ -568,6 +624,7 @@
     },
     {
       "name": "The Hard Way",
+      "rarity": 45,
       "detail": "Complete the Shadow Broker Mission pack on Hardcore or Insanity",
       "group": "Downloadable content",
       "points": 50,
@@ -578,6 +635,7 @@
     },
     {
       "name": "Catching Up",
+      "rarity": 97,
       "detail": "Reminisce with Liara on the Normandy",
       "group": "Downloadable content",
       "points": 25,
@@ -588,6 +646,7 @@
     },
     {
       "name": "Revenge!",
+      "rarity": 100,
       "detail": "Gain the loyalty of the mercenary",
       "group": "Downloadable content",
       "points": 15,
@@ -598,6 +657,7 @@
     },
     {
       "name": "The Ultimate Sacrifice",
+      "rarity": 99,
       "detail": "Complete the Arrival DLC pack",
       "group": "Downloadable content",
       "points": 50,
@@ -608,6 +668,7 @@
     },
     {
       "name": "Last Stand",
+      "rarity": 66,
       "detail": "Survive all five waves in the battle for Object Rho",
       "group": "Downloadable content",
       "points": 25,
@@ -618,6 +679,7 @@
     },
     {
       "name": "Covert Action",
+      "rarity": 71,
       "detail": "Rescue Dr. Amanda Kenson without attracting hostile attention",
       "group": "Downloadable content",
       "points": 25,

@@ -4,21 +4,24 @@
     "detail": "Be reborn as Ezio Auditore da Firenze.",
     "group": "Story",
     "automatic": true,
-    "icon": "star"
+    "icon": "star",
+    "rarity": 99
   },
   {
     "name": "Arrivederci Abstergo",
     "detail": "Break out of Abstergo.",
     "group": "Story",
     "automatic": true,
-    "icon": "door"
+    "icon": "door",
+    "rarity": 99
   },
   {
     "name": "Welcome to the Animus 2.0",
     "detail": "Enter the Animus.",
     "group": "Story",
     "automatic": true,
-    "icon": "animus"
+    "icon": "animus",
+    "rarity": 98
   },
   {
     "name": "The Pain of Betrayal",
@@ -26,7 +29,8 @@
     "group": "Story",
     "automatic": true,
     "icon": "dna",
-    "numeral": "I"
+    "numeral": "I",
+    "rarity": 87
   },
   {
     "name": "Vengeance",
@@ -34,7 +38,8 @@
     "group": "Story",
     "automatic": true,
     "icon": "dna",
-    "numeral": "II"
+    "numeral": "II",
+    "rarity": 83
   },
   {
     "name": "Exit the Son",
@@ -42,7 +47,8 @@
     "group": "Story",
     "automatic": true,
     "icon": "dna",
-    "numeral": "III"
+    "numeral": "III",
+    "rarity": 81
   },
   {
     "name": "Bloody Sunday",
@@ -50,14 +56,16 @@
     "group": "Story",
     "automatic": true,
     "icon": "dna",
-    "numeral": "IV"
+    "numeral": "IV",
+    "rarity": 78
   },
   {
     "name": "Undertaker",
     "detail": "Discover the Assassin's Tomb inside the catacombs under Santa Maria Novella.",
     "group": "Tombs",
     "automatic": true,
-    "icon": "tomb"
+    "icon": "tomb",
+    "rarity": 79
   },
   {
     "name": "The Conspirators",
@@ -65,7 +73,8 @@
     "group": "Story",
     "automatic": true,
     "icon": "dna",
-    "numeral": "V"
+    "numeral": "V",
+    "rarity": 74
   },
   {
     "name": "An Unexpected Journey",
@@ -73,14 +82,16 @@
     "group": "Story",
     "automatic": true,
     "icon": "dna",
-    "numeral": "VI"
+    "numeral": "VI",
+    "rarity": 73
   },
   {
     "name": "Bleeding Effect",
     "detail": "Complete training and reenter the Animus.",
     "group": "Story",
     "automatic": true,
-    "icon": "eye"
+    "icon": "eye",
+    "rarity": 73
   },
   {
     "name": "The Merchant of Venice",
@@ -88,7 +99,8 @@
     "group": "Story",
     "automatic": true,
     "icon": "dna",
-    "numeral": "VII"
+    "numeral": "VII",
+    "rarity": 70
   },
   {
     "name": "The Impenetrable Palazzo",
@@ -96,7 +108,8 @@
     "group": "Story",
     "automatic": true,
     "icon": "dna",
-    "numeral": "VIII"
+    "numeral": "VIII",
+    "rarity": 69
   },
   {
     "name": "Masquerade",
@@ -104,7 +117,8 @@
     "group": "Story",
     "automatic": true,
     "icon": "dna",
-    "numeral": "IX"
+    "numeral": "IX",
+    "rarity": 67
   },
   {
     "name": "Bianca's Man",
@@ -112,7 +126,8 @@
     "group": "Story",
     "automatic": true,
     "icon": "dna",
-    "numeral": "X"
+    "numeral": "X",
+    "rarity": 66
   },
   {
     "name": "The Prophet",
@@ -120,7 +135,8 @@
     "group": "Story",
     "automatic": true,
     "icon": "dna",
-    "numeral": "XI"
+    "numeral": "XI",
+    "rarity": 65
   },
   {
     "name": "The Vault",
@@ -128,237 +144,271 @@
     "group": "Story",
     "automatic": true,
     "icon": "dna",
-    "numeral": "XIV"
+    "numeral": "XIV",
+    "rarity": 63
   },
   {
     "name": "An Old Friend Returns",
     "detail": "Escape the hideout.",
     "group": "Story",
     "automatic": true,
-    "icon": "insignia"
+    "icon": "insignia",
+    "rarity": 63
   },
   {
     "name": "Myth Maker",
     "detail": "Find the 8 statuettes in Monteriggioni.",
     "group": "Collectibles",
     "automatic": true,
-    "icon": "statue"
+    "icon": "statue",
+    "rarity": 52
   },
   {
     "name": "Vitruvian Man",
     "detail": "Unlock all 20 pieces of Subject 16's video.",
     "group": "Collectibles",
     "automatic": true,
-    "icon": "vitruvian"
+    "icon": "vitruvian",
+    "rarity": 35
   },
   {
     "name": "Street Cleaner",
     "detail": "Hide 5 dead bodies in a Bale of Hay.",
     "group": "Challenges",
     "automatic": false,
-    "icon": "hay"
+    "icon": "hay",
+    "rarity": 54
   },
   {
     "name": "Fly Swatter",
     "detail": "Kick a Guard while using the Flying Machine.",
     "group": "Challenges",
     "automatic": false,
-    "icon": "glider"
+    "icon": "glider",
+    "rarity": 53
   },
   {
     "name": "Messer Sandman",
     "detail": "Stun 4 guards at once by throwing sand in their face.",
     "group": "Challenges",
     "automatic": false,
-    "icon": "sand"
+    "icon": "sand",
+    "rarity": 33
   },
   {
     "name": "Doctor",
     "detail": "Perform an Air Assassination on a Poisoned NPC.",
     "group": "Challenges",
     "automatic": false,
-    "icon": "poison"
+    "icon": "poison",
+    "rarity": 46
   },
   {
     "name": "No-hitter",
     "detail": "Kill 10 enemies while remaining in conflict without being hit.",
     "group": "Challenges",
     "automatic": false,
-    "icon": "shield"
+    "icon": "shield",
+    "rarity": 39
   },
   {
     "name": "Kleptomaniac",
     "detail": "Pickpocket 1000 Florins.",
     "group": "Challenges",
     "automatic": true,
-    "icon": "coin"
+    "icon": "coin",
+    "rarity": 57
   },
   {
     "name": "Lightning Strike",
     "detail": "Sprint for 100 meters.",
     "group": "Challenges",
     "automatic": false,
-    "icon": "bolt"
+    "icon": "bolt",
+    "rarity": 86
   },
   {
     "name": "Sweeper",
     "detail": "Sweep 5 guards at once by using a Long Weapon.",
     "group": "Challenges",
     "automatic": false,
-    "icon": "spear"
+    "icon": "spear",
+    "rarity": 29
   },
   {
     "name": "Venetian Gladiator",
     "detail": "Discover the Assassin's Tomb inside Santa Maria della Visitazione.",
     "group": "Tombs",
     "automatic": true,
-    "icon": "swords"
+    "icon": "swords",
+    "rarity": 63
   },
   {
     "name": "I Can See Your House From Here!",
     "detail": "Discover the Assassin's Tomb inside the Torre Grossa.",
     "group": "Tombs",
     "automatic": true,
-    "icon": "tower"
+    "icon": "tower",
+    "rarity": 70
   },
   {
     "name": "Hallowed Be Thy Name",
     "detail": "Discover the Assassin's Tomb inside the Basilica di San Marco.",
     "group": "Tombs",
     "automatic": true,
-    "icon": "dome"
+    "icon": "dome",
+    "rarity": 63
   },
   {
     "name": "Prison Escape",
     "detail": "Discover the Assassin's Tomb inside the Rocca di Ravaldino fortress.",
     "group": "Tombs",
     "automatic": true,
-    "icon": "bars"
+    "icon": "bars",
+    "rarity": 67
   },
   {
     "name": "Choir Boy",
     "detail": "Discover the Assassin's Tomb inside Santa Maria del Fiore (The Duomo).",
     "group": "Tombs",
     "automatic": true,
-    "icon": "bell"
+    "icon": "bell",
+    "rarity": 73
   },
   {
     "name": "Assassin For Hire",
     "detail": "Complete your first assassination mission for Lorenzo Il Magnifico.",
     "group": "Activities",
     "automatic": true,
-    "icon": "target"
+    "icon": "target",
+    "rarity": 66
   },
   {
     "name": "Macho Man",
     "detail": "Defend a woman's honor.",
     "group": "Activities",
     "automatic": true,
-    "icon": "fist"
+    "icon": "fist",
+    "rarity": 75
   },
   {
     "name": "Steal Home",
     "detail": "Win a race against thieves!",
     "group": "Activities",
     "automatic": true,
-    "icon": "flag"
+    "icon": "flag",
+    "rarity": 58
   },
   {
     "name": "Show Your Colors",
     "detail": "Wear the Auditore cape in each city.",
     "group": "Activities",
     "automatic": true,
-    "icon": "cape"
+    "icon": "cape",
+    "rarity": 22
   },
   {
     "name": "Handy Man",
     "detail": "Upgrade a building in the Stronghold.",
     "group": "Activities",
     "automatic": true,
-    "icon": "hammer"
+    "icon": "hammer",
+    "rarity": 79
   },
   {
     "name": "I Like the View",
     "detail": "Synchronize 10 View Points.",
     "group": "Collectibles",
     "automatic": true,
-    "icon": "eagle"
+    "icon": "eagle",
+    "rarity": 74
   },
   {
     "name": "High Dive",
     "detail": "Perform a Leap of Faith from the top of Florence's Giotto's Campanile.",
     "group": "Challenges",
     "automatic": false,
-    "icon": "dive"
+    "icon": "dive",
+    "rarity": 72
   },
   {
     "name": "Mailman",
     "detail": "Intercept a Borgia Courier.",
     "group": "Activities",
     "automatic": false,
-    "icon": "letter"
+    "icon": "letter",
+    "rarity": 75
   },
   {
     "name": "Tip of the Iceberg",
     "detail": "Use your Eagle Vision to scan a Glyph in the environment.",
     "group": "Collectibles",
     "automatic": true,
-    "icon": "glyph"
+    "icon": "glyph",
+    "rarity": 79
   },
   {
     "name": "A Piece of the Puzzle",
     "detail": "Unlock a piece of Subject 16's video.",
     "group": "Collectibles",
     "automatic": true,
-    "icon": "puzzle"
+    "icon": "puzzle",
+    "rarity": 73
   },
   {
     "name": "Art Connoisseur",
     "detail": "Buy a Painting from Florence and Venice.",
     "group": "Activities",
     "automatic": true,
-    "icon": "painting"
+    "icon": "painting",
+    "rarity": 55
   },
   {
     "name": "Podestà of Monteriggioni",
     "detail": "Reach 80% of your stronghold's total value.",
     "group": "Activities",
     "automatic": true,
-    "icon": "crown"
+    "icon": "crown",
+    "rarity": 59
   },
   {
     "name": "Perfect Harmony",
     "detail": "Tint your clothes with those colors: Wetland Ebony and Wetland Ivory.",
     "group": "Activities",
     "automatic": true,
-    "icon": "drops"
+    "icon": "drops",
+    "rarity": 46
   },
   {
     "name": "In Memory of Petruccio",
     "detail": "Collect all the Feathers.",
     "group": "Collectibles",
     "automatic": true,
-    "icon": "feather"
+    "icon": "feather",
+    "rarity": 22
   },
   {
     "name": "Red Light Addict",
     "detail": "Spend 5000 florins on Courtesans.",
     "group": "Activities",
     "automatic": true,
-    "icon": "heart"
+    "icon": "heart",
+    "rarity": 42
   },
   {
     "name": "Man of the People",
     "detail": "Toss more than 300 florins on the ground.",
     "group": "Activities",
     "automatic": true,
-    "icon": "coins"
+    "icon": "coins",
+    "rarity": 60
   },
   {
     "name": "Victory Lies in Preparation",
     "detail": "Get all Hidden Blades, Item Pouches and Armor upgrades for Ezio.",
     "group": "Activities",
     "automatic": true,
-    "icon": "sword"
+    "icon": "sword",
+    "rarity": 51
   }
 ]

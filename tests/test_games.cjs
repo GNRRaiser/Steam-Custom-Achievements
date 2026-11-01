@@ -52,6 +52,8 @@ const tick = () => new Promise(resolve => setTimeout(resolve, 0));
     return JSON.stringify(state);
   } };
   host.localStorage.setItem('sca:progress:33230:v1', JSON.stringify({'20': '2026-10-01T00:00:00Z'}));
+  // The older checks below expect every row listed, so spoilers start revealed here.
+  for (const app of [15100, 33230, 48190, 7940, 10090, 105400, 22370, 17460, 24980, 6080]) host.localStorage.setItem(`sca:reveal:${app}:v1`, 'true');
   host.Audio = undefined; // jsdom cannot play sound; the chime fallback finds no AudioContext either
   host.eval(script);
   await tick(); await tick();
@@ -269,6 +271,43 @@ const tick = () => new Promise(resolve => setTimeout(resolve, 0));
   assert.ok(queuing.m_rgNotificationToasts.length >= 1, 'a toast Steam queued');
   assert.equal(doc.getElementById('sca-toast-host'), null, 'is not drawn twice');
   console.log('PASS a popup Steam silently drops is drawn by the plugin; one Steam queues is not');
+
+  // Progress popups, like Steam's IndicateAchievementProgress: once per quarter of the way,
+  // sent to Steam's own toast with achieved = false and the progress numbers.
+  {
+    const fo3 = JSON.parse(require('fs').readFileSync(require('path').join(__dirname, '..', 'source', 'games', 'fallout3', 'game.json'), 'utf8')).achievements;
+    const open = fo3.findIndex(a => a.group !== 'Story'), story = fo3.findIndex(a => a.group === 'Story');
+    const sentBytes = [];
+    host.NotificationStore = { m_nNextTestNotificationID: 40000, OnNotification: (id, type, bytes) => sentBytes.push(bytes) };
+    const decode = bytes => {
+      const out = {}; let i = 0;
+      const varint = () => { let v = 0, m = 1, b; do { b = bytes[i++]; v += (b & 127) * m; m *= 128; } while (b & 128); return v; };
+      while (i < bytes.length) {
+        const key = varint(), field = Math.floor(key / 8), wire = key % 8;
+        if (wire === 2) { const n = varint(); out[field] = Buffer.from(bytes.slice(i, i + n)).toString('utf8'); i += n; }
+        else if (wire === 5) { out[field] = Buffer.from(bytes.slice(i, i + 4)).readFloatLE(0); i += 4; }
+        else out[field] = varint();
+      }
+      return out;
+    };
+    const state = counts => ({schemaVersion:1, appId:22370, status:'watching', message:'Watching', progress:{}, supportedIndices:[open, story], counts});
+    backend[22370] = state({[open]:{have:2, need:10}, [story]:{have:1, need:10}});
+    host.MainWindowBrowserManager.m_lastLocation = {pathname:'/routes/library/app/22370'};
+    runtime.refresh(); await tick();
+    await new Promise(r => setTimeout(r, 1500)); runtime.refresh(); await tick(); await tick();
+    assert.equal(sentBytes.length, 0, 'the first reading only sets the starting point');
+    backend[22370] = state({[open]:{have:6, need:10}, [story]:{have:9, need:10}});
+    await new Promise(r => setTimeout(r, 1500)); runtime.refresh(); await tick(); await tick();
+    assert.equal(sentBytes.length, 1, 'one popup: the story (spoiler) achievement does not pop up');
+    const sent = decode(sentBytes[0]);
+    assert.equal(sent[3], fo3[open].name); assert.equal(sent[6], 0, 'not achieved');
+    assert.equal(sent[9], 6); assert.equal(sent[10], 10);
+    backend[22370] = state({[open]:{have:7, need:10}, [story]:{have:9, need:10}});
+    await new Promise(r => setTimeout(r, 1500)); runtime.refresh(); await tick(); await tick();
+    assert.equal(sentBytes.length, 1, 'no second popup inside the same quarter');
+    assert.deepEqual(JSON.parse(host.localStorage.getItem('sca:milestones:22370:v1'))[String(open)], 2);
+    console.log('PASS progress popups go to Steam\'s toast at each quarter, never for spoilers');
+  }
 
   host.MainWindowBrowserManager.m_lastLocation = {pathname:'/routes/library/app/33230'};
   runtime.refresh(); await tick();

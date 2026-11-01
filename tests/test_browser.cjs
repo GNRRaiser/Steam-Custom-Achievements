@@ -83,7 +83,7 @@ async function harness(origin) {
   }
 
   const {context,host,main} = await harness(origin);
-  await host.evaluate(key => localStorage.setItem(key,JSON.stringify({'20':true})),key);
+  await host.evaluate(key => {localStorage.setItem(key,JSON.stringify({'20':true}));localStorage.setItem('sca:reveal:33230:v1','true');},key);
   await host.addScriptTag({content:script});
   await main.locator('.sca-count').waitFor({state:'visible'});
   assert.equal(await host.locator('#'+id).count(),0);
@@ -107,7 +107,7 @@ async function harness(origin) {
 
   await main.locator('.sca-view').click();
   await main.getByRole('dialog').waitFor();
-  assert.match(await main.locator('.sca-earned').innerText(),/1 OF 51 ACHIEVEMENTS EARNED/);
+  assert.match(await main.locator('.sca-earned').innerText(),/YOU'VE UNLOCKED 1\/51 ACHIEVEMENTS/);
   assert.equal(await main.locator('.sca-ach').count(),51);
   assert.match(await main.locator('.sca-ach[data-index="46"] .sca-ach-progress').innerText(),/9 \/ 100/);
   {
@@ -124,7 +124,7 @@ async function harness(origin) {
   assert.match(await main.locator('.sca-count').innerText(),/0\/51/);
   await main.getByRole('button',{name:'Street Cleaner: locked, click to toggle',exact:true}).click();
   assert.ok(await host.evaluate(key=>JSON.parse(localStorage.getItem(key))['20'],key));
-  assert.match(await main.locator('.sca-ach[data-index="20"] .sca-unlocked-at').innerText(),/^Unlocked \w{3} \d+, \d{4} @ /);
+  assert.match(await main.locator('.sca-ach[data-index="20"] .sca-unlocked-at').innerText(),/^Unlocked \w{3} \d+, \d{4}, \d+:\d{2}\s?[AP]M$/);
   await main.keyboard.press('Escape');
   assert.equal(await main.locator('#sca-ac2-dialog').count(),0);
   console.log('PASS View My Achievements popup lists 50, toggles manual entries with dates, closes on Escape');
@@ -152,7 +152,7 @@ async function harness(origin) {
   await main.getByRole('textbox',{name:'Backup to restore',exact:true}).fill(JSON.stringify({version:1,appId:33230,progress:{'2':true,'3':true}}));
   await main.getByRole('button',{name:'Replace progress',exact:true}).click();
   assert.match(await main.locator('.sca-count').innerText(),/2\/51/);
-  assert.match(await main.locator('.sca-earned').innerText(),/2 OF 51/);
+  assert.match(await main.locator('.sca-earned').innerText(),/2\/51/);
   await main.evaluate(()=>Object.defineProperty(navigator,'clipboard',{configurable:true,value:undefined}));
   await main.getByRole('button',{name:'Copy status',exact:true}).click();
   const status=JSON.parse(await main.getByRole('textbox',{name:'Status report JSON',exact:true}).inputValue());
@@ -161,7 +161,8 @@ async function harness(origin) {
   assert.equal(status.windows[0].dialogOpen,true);
   await main.locator('.sca-editor').getByRole('button',{name:'Close',exact:true}).click();
   // A page saved as "Webpage, Single File": names paired with their pictures, badges ignored.
-  const qp=text=>text.replace(/=/g,'=3D').replace(/.{70}/g,'$&=\r\n');
+  // Quoted-printable as Chrome writes it: '=' and every non-ASCII UTF-8 byte become =XX.
+  const qp=text=>[...Buffer.from(text,'utf8')].map(b=>b===61||b>127?'='+b.toString(16).toUpperCase().padStart(2,'0'):String.fromCharCode(b)).join('').replace(/.{70}/g,'$&=\r\n');
   const item=(name,src,alt='')=>`<li class="ach"><a href="/a"><img src="${src}" alt="${alt}"></a><div><a class="title" href="/a">${name}</a> <img src="/gs.png" alt=""> 30</div><p>About ${name}</p></li>`;
   const html=`<html><body><ul>${item('The Pain of Betrayal','https://www.trueachievements.com/imagestore/3.png')}${item('Bloody Sunday','/imagestore/6.png')}${item('x','/imagestore/7.png','Undertaker')}${item('Not in this game','/imagestore/9.png')}</ul></body></html>`;
   const part=(type,location,body,encoding)=>`------MultipartBoundary--t----\r\nContent-Type: ${type}\r\nContent-Transfer-Encoding: ${encoding}\r\nContent-Location: ${location}\r\n\r\n${body}\r\n`;
@@ -182,6 +183,58 @@ async function harness(origin) {
   await main.locator('.sca-feedback').filter({hasText:'Not a saved single-file webpage'}).waitFor();
   await main.getByRole('button',{name:'Reset to built-in pictures',exact:true}).click();
   assert.equal(await host.evaluate(()=>localStorage.getItem('sca:icons:33230:v1')),'{}');
+  // A saved page that lists unlock rates (like Exophase): each one is shown like Steam's
+  // global percentage, rare ones (under 10%) in gold, and the list can sort by them.
+  {
+    const names=JSON.parse(require('fs').readFileSync(require('path').join(__dirname,'..','source','games','ac2','achievements.json'),'utf8')).map(a=>a.name);
+    const rows=names.map((name,i)=>`<div class="award"><img src="/imagestore/${i}.png" alt=""><div class="award-title"><a href="/a">${name}</a></div><div class="award-description">Text</div><div class="award-earned"><span>${(i*1.5+2).toFixed(2)}%</span></div></div>`).join('');
+    const page=`<html><body><h1>Assassin's Creed II</h1><div>Overall completion 3.4%</div>${rows}</body></html>`;
+    const saved=['From: <Saved by Blink>\r\nMIME-Version: 1.0\r\nContent-Type: multipart/related;\r\n\ttype="text/html";\r\n\tboundary="----MultipartBoundary--t----"\r\n\r\n',
+      part('text/html','https://www.exophase.com/game/ac2/achievements/',qp(page),'quoted-printable'),'------MultipartBoundary--t------\r\n'].join('');
+    chooser=main.waitForEvent('filechooser');
+    await main.getByRole('button',{name:'Load from saved page…',exact:true}).click();
+    await (await chooser).setFiles({name:'ac2 exophase.mhtml',mimeType:'multipart/related',buffer:Buffer.from(saved)});
+    await main.locator('.sca-feedback').filter({hasText:'50 unlock rates loaded from the saved page'}).waitFor();
+    const rates=await host.evaluate(()=>JSON.parse(localStorage.getItem('sca:rarity:33230:v1')));
+    assert.equal(rates['0'],2);assert.equal(rates['10'],17);assert.equal(Object.keys(rates).length,50);
+    await main.getByRole('tab',{name:'MY ACHIEVEMENTS'}).click();
+    assert.match(await main.locator('.sca-ach[data-index="10"] .sca-ach-rarity').innerText(),/17% of players have this achievement/);
+    assert.equal(await main.locator('.sca-ach[data-index="3"] .sca-rarity-rare').count(),1,'under 10% is rare');
+    assert.equal(await main.locator('.sca-ach[data-index="3"] .sca-ach-icon.sca-rare').count(),1,'an unlocked rare one gets the gold edge');
+    await main.getByRole('combobox',{name:'Sort achievements'}).selectOption('rare');
+    assert.equal(await main.locator('.sca-ach').nth(2).getAttribute('data-index'),'0','locked ones sort rarest first');
+    await main.getByRole('combobox',{name:'Sort achievements'}).selectOption('default');
+    assert.match(await main.getByRole('combobox',{name:'Filter by category'}).innerText(),/Story \(2\/17\)/);
+    // Spoilers: hiding them collapses the locked story ones into one line, as on Steam.
+    await main.getByRole('button',{name:'Hide spoilers',exact:true}).click();
+    assert.equal(await main.locator('.sca-ach').count(),51-15);
+    assert.match(await main.locator('.sca-hidden-summary').innerText(),/15 hidden achievements remaining/);
+    assert.equal(await main.locator('.sca-ach',{hasText:'Vengeance'}).count(),0,'a hidden name is not shown');
+    await main.getByRole('searchbox').fill('Vengeance');
+    assert.equal(await main.locator('.sca-ach').count(),0,'nor found by search');
+    await main.getByRole('searchbox').fill('');
+    assert.match(await main.locator('.sca-icons[data-kind="locked"] .sca-tile').first().getAttribute('title'),/^(?!Hidden)/,'the card shows non-spoilers first');
+    await main.getByRole('button',{name:'Show spoilers',exact:true}).click();
+    assert.equal(await main.locator('.sca-ach').count(),51);
+    assert.equal(await host.evaluate(()=>localStorage.getItem('sca:reveal:33230:v1')),'true');
+    // A TrueAchievements page saved as "Webpage, Complete" (.html): the rate sits in a tooltip
+    // attribute, a description's own percentage is ignored, and accents in names still match.
+    await main.getByRole('tab',{name:'SETTINGS'}).click();
+    {
+      const list=JSON.parse(require('fs').readFileSync(require('path').join(__dirname,'..','source','games','ac2','achievements.json'),'utf8'));
+      const rows=list.map((a,i)=>`<li><a class="title" data-af="20" href="/a">${a.name.replace('à','a')}</a><p>${a.detail}</p><div class="progress-bar" data-af="1,000 tracked gamers (${30+i}% - TA Ratio = 1.50)"><span style="width: ${30+i}%;"></span></div></li>`).join('');
+      chooser=main.waitForEvent('filechooser');
+      await main.getByRole('button',{name:'Load from saved page…',exact:true}).click();
+      await (await chooser).setFiles({name:'AC2 _ TrueAchievements.html',mimeType:'text/html',buffer:Buffer.from(`<!DOCTYPE html><html><body><ul class="ach-panels">${rows}</ul></body></html>`)});
+      await host.waitForFunction(()=>JSON.parse(localStorage.getItem('sca:rarity:33230:v1'))['0']===30);
+      assert.match(await main.locator('.sca-feedback').innerText(),/50 unlock rates loaded from the saved page/);
+      const ta=await host.evaluate(()=>JSON.parse(localStorage.getItem('sca:rarity:33230:v1')));
+      assert.equal(ta['44'],74,'Podestà: 80% in its description is not the rate');assert.equal(ta['0'],30);
+    }
+    await main.getByRole('button',{name:'Clear unlock rates',exact:true}).click();
+    assert.equal(await host.evaluate(()=>localStorage.getItem('sca:rarity:33230:v1')),'{}');
+    console.log('PASS unlock rates from a saved page (rare in gold, sort by rarity), category counts, hidden story spoilers');
+  }
   await main.getByRole('button',{name:'Close',exact:true}).click();
   assert.equal(await main.locator('#sca-ac2-dialog').count(),0);
   console.log('PASS search, custom pictures by number/name and from a saved .mhtml page, settings restore, status and picture reset');

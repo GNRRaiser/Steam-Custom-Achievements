@@ -31,7 +31,23 @@
     return new window.Blob([bytes],{type:part.type});
   }
   // Returns [{index, blob}] for every achievement whose picture could be found.
+  const labelSelector="a,span,div,h1,h2,h3,h4,h5,p,td,strong,b";
+  // Elements whose text is an achievement's name. A name of only symbols (Brotherhood's
+  // Morse-code one) has an empty slug, so it is matched on its exact text instead.
+  function labelFinder(doc) {
+    const nodes=[...doc.querySelectorAll(labelSelector)].filter(node=>node.children.length<=2);
+    return (key,name)=>key?nodes.filter(node=>slug(node.textContent||"")===key)
+      :nodes.filter(node=>name&&(node.textContent||"").replace(/\s+/g," ").trim()===String(name).replace(/\s+/g," ").trim());
+  }
   function picturesFromPage(text) {
+    // A page saved as "Webpage, Complete" (.html) keeps its pictures in a separate folder,
+    // so only the unlock rates can be read from it.
+    if(!/boundary=/i.test(text.slice(0,4000))&&/<html|<!doctype html/i.test(text.slice(0,4000))){
+      const doc=new window.DOMParser().parseFromString(text,"text/html");
+      const rates=ratesFromPage(doc,labelFinder(doc));
+      if(!rates.size)throw new Error("Not a saved single-file webpage (.mhtml), and no unlock rates were found in it");
+      return {pictures:[],rates};
+    }
     const parts=mhtmlParts(text);
     const page=parts.find(p=>p.type==="text/html");
     if(!page)throw new Error("The saved page has no HTML");
@@ -62,11 +78,13 @@
     const usable=all.filter(x=>uses.get(x.url)<=2);
     const order=new Map([...doc.querySelectorAll("*")].map((node,i)=>[node,i]));
     const found=new Map();
+    const labelsFor=labelFinder(doc);
+    const rates=ratesFromPage(doc,labelsFor);
     game.achievements.forEach((a,index)=>{
       const key=slug(a.name);
-      const direct=usable.find(x=>slug(x.img.getAttribute("alt")||"")===key||slug(x.img.getAttribute("title")||"")===key);
+      const direct=key&&usable.find(x=>slug(x.img.getAttribute("alt")||"")===key||slug(x.img.getAttribute("title")||"")===key);
       if(direct){found.set(index,direct.url);return;}
-      const labels=[...doc.querySelectorAll("a,span,div,h1,h2,h3,h4,h5,p,td,strong,b")].filter(node=>node.children.length<=2&&slug(node.textContent||"")===key);
+      const labels=labelsFor(key,a.name);
       for(const label of labels){
         for(let box=label.parentElement,depth=0;box&&depth<6;box=box.parentElement,depth++){
           const inside=usable.filter(x=>box.contains(x.img));
@@ -80,15 +98,51 @@
     });
     // A picture paired with more than one achievement is ambiguous; leave those as they are.
     const counts=new Map();for(const url of found.values())counts.set(url,(counts.get(url)||0)+1);
-    return [...found].filter(([,url])=>counts.get(url)===1).map(([index,url])=>({index,blob:partBlob(images.get(url))})).filter(x=>x.blob);
+    const pictures=[...found].filter(([,url])=>counts.get(url)===1).map(([index,url])=>({index,blob:partBlob(images.get(url))})).filter(x=>x.blob);
+    return {pictures,rates};
+  }
+  // Unlock rates: the percentage written next to each achievement's name ("12.3%"), looked
+  // for in the smallest part of the page around the name that holds no other achievement.
+  function ratesFromPage(doc,labelsFor) {
+    const labels=game.achievements.map(a=>labelsFor(slug(a.name),a.name));
+    const owner=new Map();labels.forEach((nodes,index)=>{for(const node of nodes)owner.set(node,index);});
+    const rates=new Map();
+    labels.forEach((nodes,index)=>{
+      for(const label of nodes){
+        for(let box=label.parentElement,depth=0;box&&box!==doc.body&&depth<6;box=box.parentElement,depth++){
+          if([...owner].some(([node,other])=>other!==index&&box.contains(node)))break;
+          // Sites also put the rate in an attribute, e.g. TrueAchievements' "473,147 tracked
+          // gamers (99% - TA Ratio = 1.00)" tooltip; styles (width: 99%) are not rates.
+          const attributes=[box,...box.querySelectorAll("*")].flatMap(node=>[...node.attributes].filter(a=>a.name!=="style"&&a.value.includes("%")).map(a=>a.value));
+          const text=[(box.textContent||"").replace(label.textContent||""," "),...attributes].join(" ");
+          const all=[...text.matchAll(/(?:^|[^\d.,])(\d{1,3}(?:[.,]\d{1,2})?)\s?%/g)].map(m=>Number(m[1].replace(",",".")));
+          // A percentage from the achievement's own description ("Reach 80% of...") is not its rate.
+          const own=[...String(game.achievements[index].detail||"").matchAll(/(\d{1,3}(?:[.,]\d{1,2})?)\s?%/g)].map(m=>Number(m[1].replace(",",".")));
+          const values=[...new Set(all.filter(v=>v>=0&&v<=100&&!own.includes(v)))];
+          if(values.length===1){rates.set(index,values[0]);break;}
+          // Text and tooltip disagree (a page's description can say "See 85% of..."): a single
+          // rate held in an attribute is the one the site shows on its bar.
+          const fromAttributes=[...new Set([...attributes.join(" ").matchAll(/(?:^|[^\d.,])(\d{1,3}(?:[.,]\d{1,2})?)\s?%/g)].map(m=>Number(m[1].replace(",","."))).filter(v=>v>=0&&v<=100))];
+          if(fromAttributes.length===1){rates.set(index,fromAttributes[0]);break;}
+          if(values.length>1)break;
+        }
+        if(rates.has(index))break;
+      }
+    });
+    return rates;
   }
   async function importPage(file) {
     try{
       if(file.size>60*1024*1024)throw new Error("That page is too large");
-      const matches=picturesFromPage(await file.text());
+      const {pictures,rates}=picturesFromPage(await file.text());
       let loaded=0;
-      for(const {index,blob} of matches){try{game.customIcons[String(index)]=await shrinkImage(blob);loaded++;}catch(_){}}
+      for(const {index,blob} of pictures){try{game.customIcons[String(index)]=await shrinkImage(blob);loaded++;}catch(_){}}
+      // Rates only count when most of the list has one, so a stray percentage can't stand in.
+      const useRates=rates.size>=Math.max(3,Math.ceil(game.achievements.length*.5));
+      if(useRates){game.customRarity={};for(const [index,value] of rates)game.customRarity[String(index)]=value;}
       if(loaded&&!writeIcons(game)){showMessage("Pictures shown, but they could not be saved on this PC");return;}
-      showMessage(loaded?`${loaded} of ${game.achievements.length} pictures loaded from the saved page`:"No achievement pictures found in that page. Save it as \"Webpage, Single File\" after the pictures have loaded.");
+      if(useRates)writeRarity(game);
+      const parts=[loaded?`${loaded} of ${game.achievements.length} pictures`:"",useRates?`${rates.size} unlock rates`:""].filter(Boolean);
+      showMessage(parts.length?`${parts.join(" and ")} loaded from the saved page`:"No achievement pictures found in that page. Save it as \"Webpage, Single File\" after the pictures have loaded.");
     }catch(error){showMessage(String(error?.message||error).slice(0,200));}
   }

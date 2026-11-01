@@ -23,6 +23,7 @@ function makeWindow(name, saved) {
   const window = dom.window;
   window.name = name;
   if (saved !== undefined) window.localStorage.setItem(key, JSON.stringify(saved));
+  window.localStorage.setItem('sca:reveal:33230:v1', 'true');
   let networkAttempts = 0;
   window.fetch = window.XMLHttpRequest = window.WebSocket = () => {
     networkAttempts++;
