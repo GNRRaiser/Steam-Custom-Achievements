@@ -34,7 +34,6 @@
     });
     GAME_BY_APP.set(game.appId, game);
   }
-  const AUTOMATIC_GAMES = GAMES.filter(game => game.automatic);
   // Games polled in the background: automatic ones, plus any with "capture while I play" on.
   const polledGames = () => GAMES.filter(game => game.automatic || game.captureOn);
 

@@ -238,6 +238,21 @@ with tempfile.TemporaryDirectory() as temporary:
     state = tick()
     assert state['status'] == 'watching'
     assert '3' in state['progress']
+
+    # A detector error on an odd save is reported like an unsupported save; tracking goes on.
+    ac2 = lua.globals().package.loaded['detector_ac2']
+    real_parse = ac2.rawParse
+    ac2.rawParse = lua.eval('function() error("boom") end')
+    active.write_bytes(save_with([known], 100, padding=15001))
+    tick()
+    broken = tick()
+    assert broken['status'] == 'unsupported-save' and 'boom' in broken['message'], broken
+    assert '3' in broken['progress']
+    ac2.rawParse = real_parse
+    active.write_bytes(save_with([known], 100, padding=15000))
+    tick()
+    assert tick()['status'] == 'watching'
+    print('PASS a detector error on a strange save is reported, earned unlocks stay, and tracking recovers')
     assert set(state['progress']) == {'0', '1', '2', '3'}
     assert 'ac2AutomaticProgressV1' in writes
     assert hashlib.sha256(active.read_bytes()).hexdigest() == changed_hash

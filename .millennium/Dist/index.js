@@ -1,4 +1,4 @@
-/* Steam Custom Achievements v0.33.0
+/* Steam Custom Achievements v0.33.1
  * Millennium 3.6.2 loose-file plugin: Xbox 360 achievement lists for Steam games
  * that have none, with read-only Lua detectors for games whose saves are mapped.
  * The entrypoint runs in SharedJSContext. UI belongs to popup.window.document.
@@ -8,7 +8,7 @@
   "use strict";
   const hostWindow = window;
   const PLUGIN_NAME = "steam-custom-achievements";
-  const BUILD_VERSION = "0.33.0";
+  const BUILD_VERSION = "0.33.1";
   const SHARE_BUILD = false;
   const ROOT_ID = "sca-ac2-root";
   const STYLE_ID = "sca-ac2-css";
@@ -34,7 +34,6 @@
     });
     GAME_BY_APP.set(game.appId, game);
   }
-  const AUTOMATIC_GAMES = GAMES.filter(game => game.automatic);
   // Games polled in the background: automatic ones, plus any with "capture while I play" on.
   const polledGames = () => GAMES.filter(game => game.automatic || game.captureOn);
 
@@ -1836,7 +1835,6 @@ html.sca-page-open body>*:not(#${DIALOG_ID}){visibility:hidden}
     for(const label of playTimeLabels()){const item=headerItem(label);if(item&&item.value&&item.item!==label&&!found.some(other=>other.item===item.item))found.push(item);}
     return found;
   }
-  function findHeaderStat() {return headerItems()[0]||null;}
   // What the header search sees, for Copy status when the stat does not appear.
   function headerInfo() {
     const labels=playTimeLabels();const stats=[...document.querySelectorAll(`.${STAT_CLASS}`)];

@@ -8,11 +8,11 @@ MISSION = bytes([17, 0, 0, 0, 160, 203, 218, 95, 160, 203, 218, 95])
 
 def lzo2a(data):
     """Valid LZO2A stream: runs of zeros as back references, everything else as literals."""
-    out, bits, nbits, pending = bytearray(), 0, 0, []
+    out, nbits = bytearray(), 0
     flag_at = None
 
     def bit(value):
-        nonlocal bits, nbits, flag_at
+        nonlocal nbits, flag_at
         if nbits == 0:
             flag_at = len(out); out.append(0)
         out[flag_at] |= value << nbits

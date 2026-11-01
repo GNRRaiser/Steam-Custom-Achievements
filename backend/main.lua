@@ -9,6 +9,17 @@ local games = require('games')
 local detectors = { ac1 = require('detector_ac1'), ac2 = require('detector_ac2'), cod = require('detector_cod'), fable3 = require('detector_fable3'),
     me1 = require('detector_me1'), me2 = require('detector_me2'), acb = require('detector_acb'),
     thrillville = require('detector_thrillville'), fallout3 = require('detector_fallout3') }
+-- A save a detector does not expect (corrupt, cut off, a new game version) must not break
+-- tracking: an error while parsing is reported like any unsupported save. The detectors call
+-- D.parse themselves while picking a save, so the guard goes on the module.
+local function parsed_or_reason(ok, ...)
+    if ok then return ... end
+    return nil, 'Could not read this save (' .. tostring((...)) .. ').'
+end
+for _, detector in pairs(detectors) do
+    detector.rawParse = detector.rawParse or detector.parse
+    detector.parse = function(...) return parsed_or_reason(pcall(detector.rawParse, ...)) end
+end
 local readers = { acb = require('decoder_acb'), thrillville = require('decoder_thrillville') }
 local recorder = require('recorder')
 local capture = require('capture')
@@ -187,10 +198,11 @@ local function poll(w)
             state.status, state.message = 'stabilizing', 'Waiting for the save to finish writing.'
         elseif bytes ~= w.parsedBytes then
             local parsed, reason = w.detector.parse(bytes, w.game)
-            if not parsed then
-                state.status, state.message = 'unsupported-save', reason
+            local ok, err = true, nil
+            if parsed then ok, err = pcall(apply, w, parsed) end
+            if not parsed or not ok then
+                state.status, state.message = 'unsupported-save', reason or ('Could not check this save (' .. tostring(err) .. ').')
             else
-                apply(w, parsed)
                 describe(w)
                 w.parsedBytes = bytes
             end
