@@ -69,9 +69,6 @@ jobs:
     name: Steam page tests (jsdom + Chromium)
     runs-on: ubuntu-latest
     timeout-minutes: 15
-    env:
-      SCA_TEST_MODULES: ${{ runner.temp }}/deps/node_modules
-      SCA_PLAYWRIGHT_MODULE: ${{ runner.temp }}/deps/node_modules/playwright
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -84,6 +81,9 @@ jobs:
           npm install jsdom playwright
           npx playwright install --with-deps chromium
       - name: Run tests/test_*.cjs
+        env:
+          SCA_TEST_MODULES: ${{ runner.temp }}/deps/node_modules
+          SCA_PLAYWRIGHT_MODULE: ${{ runner.temp }}/deps/node_modules/playwright
         run: |
           failed=0
           for t in tests/test_*.cjs; do
