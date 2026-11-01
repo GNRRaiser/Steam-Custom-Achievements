@@ -1,0 +1,1029 @@
+{
+  "slug": "fallout3",
+  "appId": 22370,
+  "title": "Fallout 3 - Game of the Year Edition",
+  "platform": "Xbox 360",
+  "detector": "fallout3",
+  "setupHint": "Save once in Fallout 3, or select a .fos file in Settings.",
+  "pathPlaceholder": "Path to Documents\\My Games\\Fallout3\\Saves (or a .fos file)",
+  "trackingNote": "Fallout 3 lost its Games for Windows Live achievements in the 2021 Steam update and never got Steam ones, so these are the Xbox 360 list (base game and the five DLCs). The plugin reads your newest save in Documents\\My Games\\Fallout3\\Saves: finished quests, the Pip-Boy statistics (people and creatures killed, locks, terminals, speech, locations, bobbleheads) and your level and karma. A save only holds your karma now, so a level achievement unlocks for the karma you have when the save is read. Weaponsmith, The Bigger They Are..., Mill Worker, Bog Walker and Alien Archivist are marked by hand for now.",
+  "autoTag": "Unlocks automatically from your newest Fallout 3 save",
+  "saveFolders": [
+    [
+      "USERPROFILE",
+      "Documents",
+      "My Games",
+      "Fallout3",
+      "Saves"
+    ],
+    [
+      "USERPROFILE",
+      "OneDrive",
+      "Documents",
+      "My Games",
+      "Fallout3",
+      "Saves"
+    ]
+  ],
+  "saveFolderHint": "Documents\\My Games\\Fallout3\\Saves",
+  "statNames": [
+    "Quests Completed",
+    "Locations Discovered",
+    "People Killed",
+    "Creatures Killed",
+    "Locks Picked",
+    "Computers Hacked",
+    "Stimpaks Taken",
+    "Rad-X Taken",
+    "RadAway Taken",
+    "Chems Taken",
+    "Times Addicted",
+    "Mines Disarmed",
+    "Speech Successes",
+    "Pockets Picked",
+    "Pants Exploded",
+    "Books Read",
+    "Bobbleheads Found",
+    "Weapons Created",
+    "People Mezzed",
+    "Captives Rescued",
+    "Sandman Kills",
+    "Paralyzing Punches",
+    "Robots Disabled",
+    "Contracts Completed",
+    "Corpses Eaten",
+    "Mysterious Stranger Visits"
+  ],
+  "achievements": [
+    {
+      "name": "Vault 101 Citizenship Award",
+      "detail": "Got the Pip-Boy 3000",
+      "group": "Story",
+      "points": 10,
+      "icon": "card",
+      "rule": {
+        "quests": [
+          {
+            "plugin": "Fallout3.esm",
+            "id": "14E84"
+          }
+        ],
+        "started": true
+      }
+    },
+    {
+      "name": "The G.O.A.T. Whisperer",
+      "detail": "Took the G.O.A.T.",
+      "group": "Story",
+      "points": 10,
+      "icon": "book",
+      "rule": {
+        "quests": [
+          {
+            "plugin": "Fallout3.esm",
+            "id": "14E85"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Escape!",
+      "detail": "Completed \"Escape!\"",
+      "group": "Story",
+      "points": 20,
+      "icon": "house",
+      "rule": {
+        "quests": [
+          {
+            "plugin": "Fallout3.esm",
+            "id": "14E86"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Following in His Footsteps",
+      "detail": "Completed \"Following in His Footsteps\"",
+      "group": "Story",
+      "points": 20,
+      "icon": "medal",
+      "rule": {
+        "quests": [
+          {
+            "plugin": "Fallout3.esm",
+            "id": "14E87"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Galaxy News Radio",
+      "detail": "Completed \"Galaxy News Radio\"",
+      "group": "Story",
+      "points": 20,
+      "icon": "music",
+      "rule": {
+        "quests": [
+          {
+            "plugin": "Fallout3.esm",
+            "id": "14E88"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Scientific Pursuits",
+      "detail": "Completed \"Scientific Pursuits\"",
+      "group": "Story",
+      "points": 20,
+      "icon": "gear",
+      "rule": {
+        "quests": [
+          {
+            "plugin": "Fallout3.esm",
+            "id": "14E89"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Tranquility Lane",
+      "detail": "Completed \"Tranquility Lane\"",
+      "group": "Story",
+      "points": 20,
+      "icon": "flower",
+      "rule": {
+        "quests": [
+          {
+            "plugin": "Fallout3.esm",
+            "id": "14E8A"
+          }
+        ]
+      }
+    },
+    {
+      "name": "The Waters of Life",
+      "detail": "Completed \"The Waters of Life\"",
+      "group": "Story",
+      "points": 20,
+      "icon": "medal",
+      "rule": {
+        "quests": [
+          {
+            "plugin": "Fallout3.esm",
+            "id": "14E8B"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Picking Up the Trail",
+      "detail": "Completed \"Picking up the Trail\"",
+      "group": "Story",
+      "points": 20,
+      "icon": "medal",
+      "rule": {
+        "quests": [
+          {
+            "plugin": "Fallout3.esm",
+            "id": "14E8C"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Rescue From Paradise",
+      "detail": "Completed \"Rescue from Paradise\"",
+      "group": "Story",
+      "points": 20,
+      "icon": "medal",
+      "rule": {
+        "quests": [
+          {
+            "plugin": "Fallout3.esm",
+            "id": "14E8D"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Finding the Garden of Eden",
+      "detail": "Completed \"Finding the Garden of Eden\"",
+      "group": "Story",
+      "points": 20,
+      "icon": "medal",
+      "rule": {
+        "quests": [
+          {
+            "plugin": "Fallout3.esm",
+            "id": "14E8E"
+          }
+        ]
+      }
+    },
+    {
+      "name": "The American Dream",
+      "detail": "Completed \"The American Dream\"",
+      "group": "Story",
+      "points": 20,
+      "icon": "insignia",
+      "rule": {
+        "quests": [
+          {
+            "plugin": "Fallout3.esm",
+            "id": "14E8F"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Take it Back!",
+      "detail": "Completed \"Take it Back!\"",
+      "group": "Story",
+      "points": 40,
+      "icon": "insignia",
+      "rule": {
+        "quests": [
+          {
+            "plugin": "Fallout3.esm",
+            "id": "14E91"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Big Trouble in Big Town",
+      "detail": "Completed \"Big Trouble in Big Town\"",
+      "group": "Quests",
+      "points": 20,
+      "icon": "house",
+      "rule": {
+        "quests": [
+          {
+            "plugin": "Fallout3.esm",
+            "id": "14E94"
+          }
+        ]
+      }
+    },
+    {
+      "name": "The Superhuman Gambit",
+      "detail": "Completed \"The Superhuman Gambit\"",
+      "group": "Quests",
+      "points": 20,
+      "icon": "star",
+      "rule": {
+        "quests": [
+          {
+            "plugin": "Fallout3.esm",
+            "id": "14E95"
+          }
+        ]
+      }
+    },
+    {
+      "name": "The Wasteland Survival Guide",
+      "detail": "Completed \"The Wasteland Survival Guide\"",
+      "group": "Quests",
+      "points": 20,
+      "icon": "book",
+      "rule": {
+        "quests": [
+          {
+            "plugin": "Fallout3.esm",
+            "id": "14E96"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Those!",
+      "detail": "Completed \"Those!\"",
+      "group": "Quests",
+      "points": 20,
+      "icon": "skull",
+      "rule": {
+        "quests": [
+          {
+            "plugin": "Fallout3.esm",
+            "id": "14E97"
+          }
+        ]
+      }
+    },
+    {
+      "name": "The Nuka-Cola Challenge",
+      "detail": "Completed \"The Nuka-Cola Challenge\"",
+      "group": "Quests",
+      "points": 20,
+      "icon": "ring",
+      "rule": {
+        "quests": [
+          {
+            "plugin": "Fallout3.esm",
+            "id": "14E98"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Head of State",
+      "detail": "Completed \"Head of State\"",
+      "group": "Quests",
+      "points": 20,
+      "icon": "insignia",
+      "rule": {
+        "quests": [
+          {
+            "plugin": "Fallout3.esm",
+            "id": "14E99"
+          }
+        ]
+      }
+    },
+    {
+      "name": "The Replicated Man",
+      "detail": "Completed \"The Replicated Man\"",
+      "group": "Quests",
+      "points": 20,
+      "icon": "gear",
+      "rule": {
+        "quests": [
+          {
+            "plugin": "Fallout3.esm",
+            "id": "14E9B"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Blood Ties",
+      "detail": "Completed \"Blood Ties\"",
+      "group": "Quests",
+      "points": 20,
+      "icon": "skull",
+      "rule": {
+        "quests": [
+          {
+            "plugin": "Fallout3.esm",
+            "id": "14E9C"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Oasis",
+      "detail": "Completed \"Oasis\"",
+      "group": "Quests",
+      "points": 20,
+      "icon": "flower",
+      "rule": {
+        "quests": [
+          {
+            "plugin": "Fallout3.esm",
+            "id": "2A274"
+          }
+        ]
+      }
+    },
+    {
+      "name": "The Power of the Atom",
+      "detail": "Completed \"The Power of the Atom\"",
+      "group": "Quests",
+      "points": 20,
+      "icon": "flame",
+      "rule": {
+        "quests": [
+          {
+            "plugin": "Fallout3.esm",
+            "id": "14E9E"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Tenpenny Tower",
+      "detail": "Completed \"Tenpenny Tower\"",
+      "group": "Quests",
+      "points": 20,
+      "icon": "house",
+      "rule": {
+        "quests": [
+          {
+            "plugin": "Fallout3.esm",
+            "id": "14E9F"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Strictly Business",
+      "detail": "Completed \"Strictly Business\"",
+      "group": "Quests",
+      "points": 20,
+      "icon": "key",
+      "rule": {
+        "quests": [
+          {
+            "plugin": "Fallout3.esm",
+            "id": "14EA0"
+          }
+        ]
+      }
+    },
+    {
+      "name": "You Gotta Shoot 'Em in the Head",
+      "detail": "Completed \"You Gotta Shoot 'Em in the Head\"",
+      "group": "Quests",
+      "points": 20,
+      "icon": "skull",
+      "rule": {
+        "quests": [
+          {
+            "plugin": "Fallout3.esm",
+            "id": "14EA1"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Stealing Independence",
+      "detail": "Completed \"Stealing Independence\"",
+      "group": "Quests",
+      "points": 20,
+      "icon": "book",
+      "rule": {
+        "quests": [
+          {
+            "plugin": "Fallout3.esm",
+            "id": "14EA2"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Trouble on the Homefront",
+      "detail": "Completed \"Trouble on the Homefront\"",
+      "group": "Quests",
+      "points": 20,
+      "icon": "house",
+      "rule": {
+        "quests": [
+          {
+            "plugin": "Fallout3.esm",
+            "id": "14EA3"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Agatha's Song",
+      "detail": "Completed \"Agatha's Song\"",
+      "group": "Quests",
+      "points": 20,
+      "icon": "music",
+      "rule": {
+        "quests": [
+          {
+            "plugin": "Fallout3.esm",
+            "id": "14EA4"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Reilly's Rangers",
+      "detail": "Completed \"Reilly's Rangers\"",
+      "group": "Quests",
+      "points": 20,
+      "icon": "insignia",
+      "rule": {
+        "quests": [
+          {
+            "plugin": "Fallout3.esm",
+            "id": "14EA5"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Reaver",
+      "detail": "Reached Level 8 with Bad Karma",
+      "group": "Character",
+      "points": 10,
+      "icon": "skull",
+      "rule": {
+        "level": 8,
+        "karma": "bad"
+      }
+    },
+    {
+      "name": "Mercenary",
+      "detail": "Reached Level 8 with Neutral Karma",
+      "group": "Character",
+      "points": 10,
+      "icon": "card",
+      "rule": {
+        "level": 8,
+        "karma": "neutral"
+      }
+    },
+    {
+      "name": "Protector",
+      "detail": "Reached Level 8 with Good Karma",
+      "group": "Character",
+      "points": 10,
+      "icon": "star",
+      "rule": {
+        "level": 8,
+        "karma": "good"
+      }
+    },
+    {
+      "name": "Harbinger of War",
+      "detail": "Reached Level 14 with Bad Karma",
+      "group": "Character",
+      "points": 20,
+      "icon": "skull",
+      "rule": {
+        "level": 14,
+        "karma": "bad"
+      }
+    },
+    {
+      "name": "Pinnacle of Survival",
+      "detail": "Reached Level 14 with Neutral Karma",
+      "group": "Character",
+      "points": 20,
+      "icon": "card",
+      "rule": {
+        "level": 14,
+        "karma": "neutral"
+      }
+    },
+    {
+      "name": "Ambassador of Peace",
+      "detail": "Reached Level 14 with Good Karma",
+      "group": "Character",
+      "points": 20,
+      "icon": "star",
+      "rule": {
+        "level": 14,
+        "karma": "good"
+      }
+    },
+    {
+      "name": "Scourge of Humanity",
+      "detail": "Reached Level 20 with Bad Karma",
+      "group": "Character",
+      "points": 30,
+      "icon": "skull",
+      "rule": {
+        "level": 20,
+        "karma": "bad"
+      }
+    },
+    {
+      "name": "Paradigm of Humanity",
+      "detail": "Reached Level 20 with Neutral Karma",
+      "group": "Character",
+      "points": 30,
+      "icon": "card",
+      "rule": {
+        "level": 20,
+        "karma": "neutral"
+      }
+    },
+    {
+      "name": "Last, Best Hope of Humanity",
+      "detail": "Reached Level 20 with Good Karma",
+      "group": "Character",
+      "points": 30,
+      "icon": "star",
+      "rule": {
+        "level": 20,
+        "karma": "good"
+      }
+    },
+    {
+      "name": "Weaponsmith",
+      "detail": "Made one of every custom weapon",
+      "group": "Challenges",
+      "points": 30,
+      "icon": "gear"
+    },
+    {
+      "name": "Doesn't Play Well with Others",
+      "detail": "Killed 300 people",
+      "group": "Challenges",
+      "points": 20,
+      "icon": "skull",
+      "rule": {
+        "stat": "People Killed",
+        "need": 300,
+        "label": "People Killed"
+      }
+    },
+    {
+      "name": "Slayer of Beasts",
+      "detail": "Killed 300 creatures",
+      "group": "Challenges",
+      "points": 20,
+      "icon": "dog",
+      "rule": {
+        "stat": "Creatures Killed",
+        "need": 300,
+        "label": "Creatures Killed"
+      }
+    },
+    {
+      "name": "Silver-Tongued Devil",
+      "detail": "Won 50 Speech Challenges",
+      "group": "Challenges",
+      "points": 20,
+      "icon": "music",
+      "rule": {
+        "stat": "Speech Successes",
+        "need": 50,
+        "label": "Speech Successes"
+      }
+    },
+    {
+      "name": "Data Miner",
+      "detail": "Hacked 50 terminals",
+      "group": "Challenges",
+      "points": 20,
+      "icon": "gear",
+      "rule": {
+        "stat": "Computers Hacked",
+        "need": 50,
+        "label": "Computers Hacked"
+      }
+    },
+    {
+      "name": "Keys are for Cowards",
+      "detail": "Picked 50 locks",
+      "group": "Challenges",
+      "points": 20,
+      "icon": "key",
+      "rule": {
+        "stat": "Locks Picked",
+        "need": 50,
+        "label": "Locks Picked"
+      }
+    },
+    {
+      "name": "One-Man Scouting Party",
+      "detail": "Discovered 100 locations",
+      "group": "Challenges",
+      "points": 20,
+      "icon": "plane",
+      "rule": {
+        "stat": "Locations Discovered",
+        "need": 100,
+        "label": "Locations Discovered"
+      }
+    },
+    {
+      "name": "Psychotic Prankster",
+      "detail": "Placed a grenade or mine while pickpocketing",
+      "group": "Challenges",
+      "points": 10,
+      "icon": "flame",
+      "rule": {
+        "stat": "Pants Exploded",
+        "need": 1,
+        "label": "Pants Exploded"
+      }
+    },
+    {
+      "name": "The Bigger They Are...",
+      "detail": "Kill all the Super Mutant Behemoths",
+      "group": "Challenges",
+      "points": 20,
+      "icon": "skull"
+    },
+    {
+      "name": "Yes, I Play with Dolls",
+      "detail": "Collected 10 Vault-Tec Bobbleheads",
+      "group": "Collectibles",
+      "points": 10,
+      "icon": "star",
+      "rule": {
+        "stat": "Bobbleheads Found",
+        "need": 10,
+        "label": "Bobbleheads Found"
+      }
+    },
+    {
+      "name": "Vault-Tec C.E.O.",
+      "detail": "Collected 20 Vault-Tec Bobbleheads",
+      "group": "Collectibles",
+      "points": 30,
+      "icon": "star",
+      "rule": {
+        "stat": "Bobbleheads Found",
+        "need": 20,
+        "label": "Bobbleheads Found"
+      }
+    },
+    {
+      "name": "Aiding the Outcasts",
+      "detail": "Completed \"Aiding the Outcasts\"",
+      "group": "Operation: Anchorage",
+      "points": 20,
+      "icon": "insignia",
+      "rule": {
+        "quests": [
+          {
+            "plugin": "Anchorage.esm",
+            "id": "9BE"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Operation: Anchorage",
+      "detail": "Completed \"Operation: Anchorage\"",
+      "group": "Operation: Anchorage",
+      "points": 40,
+      "icon": "tank",
+      "rule": {
+        "quests": [
+          {
+            "plugin": "Anchorage.esm",
+            "id": "14F6"
+          }
+        ]
+      }
+    },
+    {
+      "name": "The Guns of Anchorage",
+      "detail": "Completed \"The Guns of Anchorage\"",
+      "group": "Operation: Anchorage",
+      "points": 20,
+      "icon": "tank",
+      "rule": {
+        "quests": [
+          {
+            "plugin": "Anchorage.esm",
+            "id": "9BF"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Paving the Way",
+      "detail": "Completed \"Paving the Way\"",
+      "group": "Operation: Anchorage",
+      "points": 20,
+      "icon": "insignia",
+      "rule": {
+        "quests": [
+          {
+            "plugin": "Anchorage.esm",
+            "id": "9C0"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Free Labor",
+      "detail": "Completed \"Free Labor\"",
+      "group": "The Pitt",
+      "points": 40,
+      "icon": "key",
+      "rule": {
+        "quests": [
+          {
+            "plugin": "ThePitt.esm",
+            "id": "108D"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Into the Pitt",
+      "detail": "Completed \"Into The Pitt\"",
+      "group": "The Pitt",
+      "points": 20,
+      "icon": "flame",
+      "rule": {
+        "quests": [
+          {
+            "plugin": "ThePitt.esm",
+            "id": "108C"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Unsafe Working Conditions",
+      "detail": "Completed \"Unsafe Working Conditions\"",
+      "group": "The Pitt",
+      "points": 20,
+      "icon": "skull",
+      "rule": {
+        "quests": [
+          {
+            "plugin": "ThePitt.esm",
+            "id": "108B"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Mill Worker",
+      "detail": "Found All 100 Steel Ingots",
+      "group": "The Pitt",
+      "points": 20,
+      "icon": "gear"
+    },
+    {
+      "name": "Death From Above",
+      "detail": "Completed \"Death From Above\"",
+      "group": "Broken Steel",
+      "points": 30,
+      "icon": "plane",
+      "rule": {
+        "quests": [
+          {
+            "plugin": "BrokenSteel.esm",
+            "id": "802"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Shock Value",
+      "detail": "Completed \"Shock Value\"",
+      "group": "Broken Steel",
+      "points": 30,
+      "icon": "flame",
+      "rule": {
+        "quests": [
+          {
+            "plugin": "BrokenSteel.esm",
+            "id": "AFD"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Who Dares Wins",
+      "detail": "Completed \"Who Dares Wins\"",
+      "group": "Broken Steel",
+      "points": 30,
+      "icon": "insignia",
+      "rule": {
+        "quests": [
+          {
+            "plugin": "BrokenSteel.esm",
+            "id": "11AD"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Devil",
+      "detail": "Reached Level 30 with Bad Karma",
+      "group": "Broken Steel",
+      "points": 20,
+      "icon": "skull",
+      "rule": {
+        "level": 30,
+        "karma": "bad"
+      }
+    },
+    {
+      "name": "True Mortal",
+      "detail": "Reached Level 30 with Neutral Karma",
+      "group": "Broken Steel",
+      "points": 20,
+      "icon": "card",
+      "rule": {
+        "level": 30,
+        "karma": "neutral"
+      }
+    },
+    {
+      "name": "Messiah",
+      "detail": "Reached Level 30 with Good Karma",
+      "group": "Broken Steel",
+      "points": 20,
+      "icon": "star",
+      "rule": {
+        "level": 30,
+        "karma": "good"
+      }
+    },
+    {
+      "name": "The Local Flavor",
+      "detail": "Completed \"The Local Flavor\"",
+      "group": "Point Lookout",
+      "points": 20,
+      "icon": "house",
+      "rule": {
+        "quests": [
+          {
+            "plugin": "PointLookout.esm",
+            "id": "5846"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Walking with Spirits",
+      "detail": "Completed \"Walking With Spirits\"",
+      "group": "Point Lookout",
+      "points": 20,
+      "icon": "flower",
+      "rule": {
+        "quests": [
+          {
+            "plugin": "PointLookout.esm",
+            "id": "5847"
+          }
+        ]
+      }
+    },
+    {
+      "name": "A Meeting of the Minds",
+      "detail": "Completed \"A Meeting of the Minds\"",
+      "group": "Point Lookout",
+      "points": 20,
+      "icon": "book",
+      "rule": {
+        "quests": [
+          {
+            "plugin": "PointLookout.esm",
+            "id": "584A"
+          },
+          {
+            "plugin": "PointLookout.esm",
+            "id": "584B"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Bog Walker",
+      "detail": "Discovered all locations within Point Lookout",
+      "group": "Point Lookout",
+      "points": 40,
+      "icon": "plane"
+    },
+    {
+      "name": "Not of This World",
+      "detail": "Completed \"Not of This World\"",
+      "group": "Mothership Zeta",
+      "points": 20,
+      "icon": "star",
+      "rule": {
+        "quests": [
+          {
+            "plugin": "Zeta.esm",
+            "id": "802"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Among the Stars",
+      "detail": "Completed \"Among the Stars\"",
+      "group": "Mothership Zeta",
+      "points": 20,
+      "icon": "plane",
+      "rule": {
+        "quests": [
+          {
+            "plugin": "Zeta.esm",
+            "id": "803"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Alien Archivist",
+      "detail": "Collected all Alien Captive Recordings",
+      "group": "Mothership Zeta",
+      "points": 20,
+      "icon": "music"
+    },
+    {
+      "name": "This Galaxy Ain't Big Enough...",
+      "detail": "Completed \"This Galaxy Ain't Big Enough...\"",
+      "group": "Mothership Zeta",
+      "points": 40,
+      "icon": "star",
+      "rule": {
+        "quests": [
+          {
+            "plugin": "Zeta.esm",
+            "id": "804"
+          }
+        ]
+      }
+    }
+  ]
+}

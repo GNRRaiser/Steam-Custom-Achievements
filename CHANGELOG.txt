@@ -1,4 +1,4 @@
-STEAM CUSTOM ACHIEVEMENTS v0.28.0 - MULTI-GAME
+STEAM CUSTOM ACHIEVEMENTS v0.29.0 - MULTI-GAME
 
 Adds the Xbox 360 achievement list to the Steam Library page of games whose
 Steam version has no achievements. Each supported game gets the same ACHIEVEMENTS
@@ -12,12 +12,28 @@ GAMES IN THIS BUILD
   Call of Duty 4: Modern Warfare    7940        37             24 (profile config.cfg)
   Call of Duty: World at War        10090       66             22 (profile config.cfg)
   Fable III                         105400      60             60 (game's own record via XLiveEmu)
+  Fallout 3 - Game of the Year      22370       72             67 (newest .fos save: quests, stats, karma)
   Mass Effect                       17460       49             45 (game's own achievement profile)
   Mass Effect 2                     24980       62             61 (game's own achievement profile)
   Thrillville: Off the Rails        6080        50             18 (park save: missions, owner level)
 
 Automatic entries unlock by themselves a few seconds after the game writes its
 progress. Everything else has a "Mark as unlocked" button in the popup.
+
+NEW IN v0.29.0
+- Fallout 3 - Game of the Year Edition (Steam 22370). Steam's copy lost its
+  Games for Windows Live achievements in 2021 and never got Steam ones, so
+  this adds the Xbox 360 list: 50 base game achievements and the 22 from
+  Operation: Anchorage, The Pitt, Broken Steel, Point Lookout and Mothership
+  Zeta (1550 points).
+- 67 of them unlock by themselves from your newest save in
+  Documents\My Games\Fallout3\Saves: every quest achievement, the Pip-Boy
+  statistics ones (kills, locks, terminals, speech, locations, bobbleheads,
+  Psychotic Prankster) and the level + karma ones. A save only knows your
+  karma now, so Reaver / Mercenary / Protector and the others unlock for the
+  karma you have when the save is read.
+- Marked by hand for now: Weaponsmith, The Bigger They Are..., Mill Worker,
+  Bog Walker and Alien Archivist.
 
 NEW IN v0.28.0
 - ACHIEVEMENTS next to PLAY TIME, second try. Your status report showed that

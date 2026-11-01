@@ -1593,6 +1593,391 @@ return {
     total = 60,
   },
   {
+    appId = 22370,
+    slug = "fallout3",
+    title = "Fallout 3 - Game of the Year Edition",
+    detector = "fallout3",
+    rules = { {
+      index = 0,
+      quests = { {
+        plugin = "fallout3.esm",
+        id = "14E84",
+      } },
+      started = true,
+    }, {
+      index = 1,
+      quests = { {
+        plugin = "fallout3.esm",
+        id = "14E85",
+      } },
+    }, {
+      index = 2,
+      quests = { {
+        plugin = "fallout3.esm",
+        id = "14E86",
+      } },
+    }, {
+      index = 3,
+      quests = { {
+        plugin = "fallout3.esm",
+        id = "14E87",
+      } },
+    }, {
+      index = 4,
+      quests = { {
+        plugin = "fallout3.esm",
+        id = "14E88",
+      } },
+    }, {
+      index = 5,
+      quests = { {
+        plugin = "fallout3.esm",
+        id = "14E89",
+      } },
+    }, {
+      index = 6,
+      quests = { {
+        plugin = "fallout3.esm",
+        id = "14E8A",
+      } },
+    }, {
+      index = 7,
+      quests = { {
+        plugin = "fallout3.esm",
+        id = "14E8B",
+      } },
+    }, {
+      index = 8,
+      quests = { {
+        plugin = "fallout3.esm",
+        id = "14E8C",
+      } },
+    }, {
+      index = 9,
+      quests = { {
+        plugin = "fallout3.esm",
+        id = "14E8D",
+      } },
+    }, {
+      index = 10,
+      quests = { {
+        plugin = "fallout3.esm",
+        id = "14E8E",
+      } },
+    }, {
+      index = 11,
+      quests = { {
+        plugin = "fallout3.esm",
+        id = "14E8F",
+      } },
+    }, {
+      index = 12,
+      quests = { {
+        plugin = "fallout3.esm",
+        id = "14E91",
+      } },
+    }, {
+      index = 13,
+      quests = { {
+        plugin = "fallout3.esm",
+        id = "14E94",
+      } },
+    }, {
+      index = 14,
+      quests = { {
+        plugin = "fallout3.esm",
+        id = "14E95",
+      } },
+    }, {
+      index = 15,
+      quests = { {
+        plugin = "fallout3.esm",
+        id = "14E96",
+      } },
+    }, {
+      index = 16,
+      quests = { {
+        plugin = "fallout3.esm",
+        id = "14E97",
+      } },
+    }, {
+      index = 17,
+      quests = { {
+        plugin = "fallout3.esm",
+        id = "14E98",
+      } },
+    }, {
+      index = 18,
+      quests = { {
+        plugin = "fallout3.esm",
+        id = "14E99",
+      } },
+    }, {
+      index = 19,
+      quests = { {
+        plugin = "fallout3.esm",
+        id = "14E9B",
+      } },
+    }, {
+      index = 20,
+      quests = { {
+        plugin = "fallout3.esm",
+        id = "14E9C",
+      } },
+    }, {
+      index = 21,
+      quests = { {
+        plugin = "fallout3.esm",
+        id = "2A274",
+      } },
+    }, {
+      index = 22,
+      quests = { {
+        plugin = "fallout3.esm",
+        id = "14E9E",
+      } },
+    }, {
+      index = 23,
+      quests = { {
+        plugin = "fallout3.esm",
+        id = "14E9F",
+      } },
+    }, {
+      index = 24,
+      quests = { {
+        plugin = "fallout3.esm",
+        id = "14EA0",
+      } },
+    }, {
+      index = 25,
+      quests = { {
+        plugin = "fallout3.esm",
+        id = "14EA1",
+      } },
+    }, {
+      index = 26,
+      quests = { {
+        plugin = "fallout3.esm",
+        id = "14EA2",
+      } },
+    }, {
+      index = 27,
+      quests = { {
+        plugin = "fallout3.esm",
+        id = "14EA3",
+      } },
+    }, {
+      index = 28,
+      quests = { {
+        plugin = "fallout3.esm",
+        id = "14EA4",
+      } },
+    }, {
+      index = 29,
+      quests = { {
+        plugin = "fallout3.esm",
+        id = "14EA5",
+      } },
+    }, {
+      index = 30,
+      level = 8,
+      karma = "bad",
+    }, {
+      index = 31,
+      level = 8,
+      karma = "neutral",
+    }, {
+      index = 32,
+      level = 8,
+      karma = "good",
+    }, {
+      index = 33,
+      level = 14,
+      karma = "bad",
+    }, {
+      index = 34,
+      level = 14,
+      karma = "neutral",
+    }, {
+      index = 35,
+      level = 14,
+      karma = "good",
+    }, {
+      index = 36,
+      level = 20,
+      karma = "bad",
+    }, {
+      index = 37,
+      level = 20,
+      karma = "neutral",
+    }, {
+      index = 38,
+      level = 20,
+      karma = "good",
+    }, {
+      index = 40,
+      stat = 2,
+      need = 300,
+      label = "People Killed",
+    }, {
+      index = 41,
+      stat = 3,
+      need = 300,
+      label = "Creatures Killed",
+    }, {
+      index = 42,
+      stat = 12,
+      need = 50,
+      label = "Speech Successes",
+    }, {
+      index = 43,
+      stat = 5,
+      need = 50,
+      label = "Computers Hacked",
+    }, {
+      index = 44,
+      stat = 4,
+      need = 50,
+      label = "Locks Picked",
+    }, {
+      index = 45,
+      stat = 1,
+      need = 100,
+      label = "Locations Discovered",
+    }, {
+      index = 46,
+      stat = 14,
+      need = 1,
+      label = "Pants Exploded",
+    }, {
+      index = 48,
+      stat = 16,
+      need = 10,
+      label = "Bobbleheads Found",
+    }, {
+      index = 49,
+      stat = 16,
+      need = 20,
+      label = "Bobbleheads Found",
+    }, {
+      index = 50,
+      quests = { {
+        plugin = "anchorage.esm",
+        id = "9BE",
+      } },
+    }, {
+      index = 51,
+      quests = { {
+        plugin = "anchorage.esm",
+        id = "14F6",
+      } },
+    }, {
+      index = 52,
+      quests = { {
+        plugin = "anchorage.esm",
+        id = "9BF",
+      } },
+    }, {
+      index = 53,
+      quests = { {
+        plugin = "anchorage.esm",
+        id = "9C0",
+      } },
+    }, {
+      index = 54,
+      quests = { {
+        plugin = "thepitt.esm",
+        id = "108D",
+      } },
+    }, {
+      index = 55,
+      quests = { {
+        plugin = "thepitt.esm",
+        id = "108C",
+      } },
+    }, {
+      index = 56,
+      quests = { {
+        plugin = "thepitt.esm",
+        id = "108B",
+      } },
+    }, {
+      index = 58,
+      quests = { {
+        plugin = "brokensteel.esm",
+        id = "802",
+      } },
+    }, {
+      index = 59,
+      quests = { {
+        plugin = "brokensteel.esm",
+        id = "AFD",
+      } },
+    }, {
+      index = 60,
+      quests = { {
+        plugin = "brokensteel.esm",
+        id = "11AD",
+      } },
+    }, {
+      index = 61,
+      level = 30,
+      karma = "bad",
+    }, {
+      index = 62,
+      level = 30,
+      karma = "neutral",
+    }, {
+      index = 63,
+      level = 30,
+      karma = "good",
+    }, {
+      index = 64,
+      quests = { {
+        plugin = "pointlookout.esm",
+        id = "5846",
+      } },
+    }, {
+      index = 65,
+      quests = { {
+        plugin = "pointlookout.esm",
+        id = "5847",
+      } },
+    }, {
+      index = 66,
+      quests = { {
+        plugin = "pointlookout.esm",
+        id = "584A",
+      }, {
+        plugin = "pointlookout.esm",
+        id = "584B",
+      } },
+    }, {
+      index = 68,
+      quests = { {
+        plugin = "zeta.esm",
+        id = "802",
+      } },
+    }, {
+      index = 69,
+      quests = { {
+        plugin = "zeta.esm",
+        id = "803",
+      } },
+    }, {
+      index = 71,
+      quests = { {
+        plugin = "zeta.esm",
+        id = "804",
+      } },
+    } },
+    saveFolders = { { "USERPROFILE", "Documents", "My Games", "Fallout3", "Saves" }, { "USERPROFILE", "OneDrive", "Documents", "My Games", "Fallout3", "Saves" } },
+    progressKey = "autoProgress_22370_v1",
+    pathKey = "savePath_22370_v1",
+    setupHint = "Save once in Fallout 3, or select a .fos file in Settings.",
+    total = 72,
+  },
+  {
     appId = 17460,
     slug = "me1",
     title = "Mass Effect",

@@ -1,8 +1,8 @@
 {
   "name": "steam-custom-achievements",
   "common_name": "Steam Custom Achievements (Local)",
-  "description": "Xbox 360 achievement lists for Steam games that have none: Assassin's Creed, Assassin's Creed II, Assassin's Creed Brotherhood, Call of Duty 4: Modern Warfare, Call of Duty: World at War, Fable III, Mass Effect, Mass Effect 2, Thrillville: Off the Rails.",
-  "version": "0.28.0",
+  "description": "Xbox 360 achievement lists for Steam games that have none: Assassin's Creed, Assassin's Creed II, Assassin's Creed Brotherhood, Call of Duty 4: Modern Warfare, Call of Duty: World at War, Fable III, Fallout 3 - Game of the Year Edition, Mass Effect, Mass Effect 2, Thrillville: Off the Rails.",
+  "version": "0.29.0",
   "useBackend": true,
   "backendType": "lua"
 }
