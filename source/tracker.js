@@ -211,6 +211,8 @@ function createTracker(window) {
 .${STAT_CLASS} .sca-stat-row{display:flex;align-items:center;gap:6px}
 .${STAT_CLASS} .sca-stat-value{color:var(--sca-stat-value,#8b929a);font-size:var(--sca-stat-value-size,12px);line-height:1.3}
 .${STAT_CLASS} .sca-stat-bar{width:80px;height:4px;border-radius:2px;background:#0b0d10;overflow:hidden}
+.${STAT_CLASS}.sca-stat-compact{gap:6px;margin-left:12px!important}
+.${STAT_CLASS}.sca-stat-compact .sca-stat-bar{width:36px}
 .${STAT_CLASS} .sca-stat-bar>div{height:100%;background:linear-gradient(90deg,#1a44c2,#1a9fff)}
 .${STAT_CLASS}:hover .sca-stat-label{color:#fff}
 @media (max-width:640px){#${DIALOG_ID}{padding:12px}#${DIALOG_ID} .sca-close{top:6px;right:6px;width:40px;height:40px}#${DIALOG_ID} .sca-dhead{padding:18px 16px 0}#${DIALOG_ID} .sca-dbody{padding:8px 10px 18px}#${DIALOG_ID} .sca-toolbar{flex-direction:column}#${DIALOG_ID} .sca-search,#${DIALOG_ID} .sca-select{width:100%}#${DIALOG_ID} .sca-ach{flex-wrap:wrap}#${DIALOG_ID} .sca-ach-side{max-width:none;width:100%;align-items:flex-start;text-align:left;padding-left:70px}}
@@ -621,19 +623,38 @@ function createTracker(window) {
   function placeHeaderStat() {
     const stats=[...document.querySelectorAll(`.${STAT_CLASS}`)];
     // Cheap path: every stat still sits right after a PLAY TIME item.
-    if(stats.length&&stats.every(stat=>stat.isConnected&&stat.previousElementSibling&&playTimeIn(stat.previousElementSibling))){
+    // A stat sits after its PLAY TIME item, or first in that row when the row was too narrow.
+    if(stats.length&&stats.every(stat=>stat.isConnected&&stat.parentElement&&playTimeIn(stat.parentElement))){
       const labels=playTimeLabels();
-      if(labels.every(label=>stats.some(stat=>stat.previousElementSibling.contains(label)))){updateHeaderStat();return;}
+      if(labels.every(label=>stats.some(stat=>stat.parentElement.contains(label)))){stats.forEach(fitHeaderStat);updateHeaderStat();return;}
     }
     const items=headerItems();const keep=new Set();
     for(const found of items){
-      let stat=found.item.nextElementSibling;
-      if(!stat?.classList.contains(STAT_CLASS)){stat=buildHeaderStat(found);found.item.parentElement.insertBefore(stat,found.item.nextSibling);}
-      keep.add(stat);
+      let stat=[...found.item.parentElement.children].find(child=>child.classList.contains(STAT_CLASS));
+      if(!stat){stat=buildHeaderStat(found);found.item.parentElement.insertBefore(stat,found.item.nextSibling);}
+      keep.add(stat);fitHeaderStat(stat);
     }
     stats.forEach(stat=>{if(!keep.has(stat))stat.remove();});
     const all=[...document.querySelectorAll(`.${STAT_CLASS}`)];all.forEach((stat,i)=>{if(i===0)stat.id=STAT_ID;else stat.removeAttribute("id");});
     updateHeaderStat();
+  }
+  // The ancestor that cuts off what does not fit (Steam's header row hides overflow), if the stat overflows it.
+  function clippingBox(stat) {
+    const box=stat.getBoundingClientRect();
+    for(let n=stat.parentElement;n&&n!==document.body;n=n.parentElement){
+      if(window.getComputedStyle(n).overflow!=="visible"){const outer=n.getBoundingClientRect();return box.right>outer.right+1||box.left<outer.left-1?n:null;}
+    }
+    return null;
+  }
+  // Some headers carry more stats (Fallout 3 adds CLOUD STATUS), so ours can fall off the end of
+  // the row. Then it gets narrower, and if it still does not fit it moves to the front of the row.
+  function fitHeaderStat(stat) {
+    if(!stat.isConnected||!stat.getClientRects().length||stat.dataset.scaFront)return;
+    if(!clippingBox(stat))return;
+    stat.classList.add("sca-stat-compact");
+    if(!clippingBox(stat))return;
+    stat.dataset.scaFront="1";stat.style.marginLeft="0px";stat.style.marginRight="24px";
+    stat.parentElement.insertBefore(stat,stat.parentElement.firstElementChild);
   }
   function playTimeIn(node) {
     const walker=document.createTreeWalker(node,4);let text;

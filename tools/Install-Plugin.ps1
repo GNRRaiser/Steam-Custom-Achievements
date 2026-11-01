@@ -10,9 +10,9 @@ $PackageRoot = Split-Path -Parent $PSScriptRoot
 $PluginName = 'steam-custom-achievements'
 $SourceDirectory = $PackageRoot
 # Every file the plugin loads. The backend fails to start if any Lua module is missing.
-$RelativeFiles = @('plugin.json', '.millennium\Dist\index.js', 'backend\main.lua', 'backend\games.lua', 'backend\detector_ac2.lua', 'backend\detector_cod.lua', 'backend\detector_fable3.lua', 'backend\inflate.lua', 'backend\recorder.lua', 'backend\capture.lua', 'backend\decoder_acb.lua', 'backend\decoder_thrillville.lua', 'backend\detector_acb.lua', 'backend\detector_ac1.lua', 'backend\detector_me1.lua', 'backend\detector_me2.lua', 'backend\detector_thrillville.lua', 'backend\lzo1x.lua', 'backend\auto_rules.lua', 'backend\collectible_rules.lua', 'backend\tracker_rules.lua', 'backend\checklist_rules.lua', 'third_party\AC2AP-LICENSE.txt')
+$RelativeFiles = @('plugin.json', '.millennium\Dist\index.js', 'backend\main.lua', 'backend\games.lua', 'backend\detector_ac2.lua', 'backend\detector_cod.lua', 'backend\detector_fable3.lua', 'backend\inflate.lua', 'backend\recorder.lua', 'backend\capture.lua', 'backend\decoder_acb.lua', 'backend\decoder_thrillville.lua', 'backend\detector_acb.lua', 'backend\detector_ac1.lua', 'backend\detector_me1.lua', 'backend\detector_me2.lua', 'backend\detector_thrillville.lua', 'backend\detector_fallout3.lua', 'backend\lzo1x.lua', 'backend\auto_rules.lua', 'backend\collectible_rules.lua', 'backend\tracker_rules.lua', 'backend\checklist_rules.lua', 'third_party\AC2AP-LICENSE.txt')
 # Capture and record mode write into recordings\<game>; the folders are made on install.
-$RecordingFolders = @('ac1', 'ac2', 'acb', 'cod4', 'codwaw', 'fable3', 'me1', 'me2', 'thrillville-otr')
+$RecordingFolders = @('ac1', 'ac2', 'acb', 'cod4', 'codwaw', 'fable3', 'fallout3', 'me1', 'me2', 'thrillville-otr')
 $ReportLines = New-Object 'System.Collections.Generic.List[string]'
 $ReportPath = Join-Path $PackageRoot 'INSTALL_REPORT.txt'
 $ExitCode = 0

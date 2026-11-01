@@ -59,6 +59,23 @@ own lifetime statistics, so rules are just a stat name and a threshold, e.g.
 `build.py` hashes the name (32-bit FNV-1). Thrillville (`detector_thrillville.lua`) uses the
 game's own mission names, e.g. `"finished": ["P1_G_WinPrizes"]` or `"opened": [<every mission of a park>]`.
 
+## Fallout 3 (`"detector": "fallout3"`)
+
+`backend/detector_fallout3.lua` reads the newest `.fos` save (layout in its header comment) and keeps
+a short summary, so the 5-20 MB file is only re-read when it changes. Rules:
+
+| Rule | Unlocks when |
+| --- | --- |
+| `{"quests": [{"plugin": "Anchorage.esm", "id": "14F6"}]}` | any listed quest has its completed flag; the ID is the form ID without the load-order byte |
+| `{"quests": [...], "started": true}` | ... or is running |
+| `{"stat": "People Killed", "need": 300, "label": "People Killed"}` | a Pip-Boy misc statistic (named from `statNames`) reaches `need` |
+| `{"level": 14, "karma": "good"}` | the level reaches 14 with karma >= 250 (`bad` <= -250, `neutral` between) |
+| `{"global": {"plugin": "Fallout3.esm", "id": "A3031"}, "need": 5, "label": "..."}` | a global variable (here BehemothsKilled) reaches `need` |
+| `{"globals": [7 refs], "need": 7, "label": "...", "done": [ref]}` | every listed global is at least 1, or a `done` global is |
+| `{"questVar": {"plugin": "Zeta.esm", "id": "3419", "var": 1}, "need": 25, "doneValue": -1}` | a quest script variable (index from the script's SLSD) reaches `need`, or equals `doneValue` |
+
+The IDs come from the game's own achievement scripts (AddAchievement) in the .esm files.
+
 ## Mass Effect (`"detector": "me1"`)
 
 Each automatic entry has `"rule": {"id": <1-50>}`, the achievement's slot in the profile's

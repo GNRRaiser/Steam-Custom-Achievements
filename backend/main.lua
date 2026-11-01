@@ -8,7 +8,7 @@ local json = require('json')
 local games = require('games')
 local detectors = { ac1 = require('detector_ac1'), ac2 = require('detector_ac2'), cod = require('detector_cod'), fable3 = require('detector_fable3'),
     me1 = require('detector_me1'), me2 = require('detector_me2'), acb = require('detector_acb'),
-    thrillville = require('detector_thrillville') }
+    thrillville = require('detector_thrillville'), fallout3 = require('detector_fallout3') }
 local readers = { acb = require('decoder_acb'), thrillville = require('decoder_thrillville') }
 local recorder = require('recorder')
 local capture = require('capture')

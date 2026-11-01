@@ -258,7 +258,7 @@ const tick = () => new Promise(resolve => setTimeout(resolve, 0));
   runtime.refresh(); await tick();
   assert.equal(doc.getElementById(id), null);
   const diag = JSON.parse(JSON.stringify(runtime.diagnostics()));
-  assert.deepEqual(diag.games.map(g => g.appId), [15100, 33230, 48190, 7940, 10090, 105400, 17460, 24980, 6080]);
+  assert.deepEqual(diag.games.map(g => g.appId), [15100, 33230, 48190, 7940, 10090, 105400, 22370, 17460, 24980, 6080]);
   assert.equal(diag.games.find(g => g.appId === 7940).unlocked, 1, 'one unlock since the reset');
   assert.equal(diag.popups.enabled, true);
   console.log('PASS AC2 keeps its v0.1 progress; other games\' pages show no card; diagnostics list every game');

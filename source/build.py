@@ -6,13 +6,13 @@ import os
 import re
 from pathlib import Path
 
-VERSION = '0.28.0'
+VERSION = '0.30.0'
 BASE = Path(__file__).resolve().parent
 ROOT = BASE.parent
 PLUGIN = ROOT
 GAMES_DIR = BASE / 'games'
-ORDER = ['ac1', 'ac2', 'acb', 'cod4', 'codwaw', 'fable3', 'me1', 'me2', 'thrillville-otr']
-DETECTORS = {'ac1', 'ac2', 'cod', 'fable3', 'me1', 'me2', 'acb', 'thrillville', None}
+ORDER = ['ac1', 'ac2', 'acb', 'cod4', 'codwaw', 'fable3', 'fallout3', 'me1', 'me2', 'thrillville-otr']
+DETECTORS = {'ac1', 'ac2', 'cod', 'fable3', 'me1', 'me2', 'acb', 'thrillville', 'fallout3', None}
 DECODERS = {'acb', 'thrillville'}
 
 
@@ -185,6 +185,54 @@ for slug in ORDER:
                 assert all(re.fullmatch(r'P[1-5]_[BGMPU]_[A-Za-z0-9_]+', name) for key in ('finished', 'opened') for name in rule.get(key, [])), slug
                 rules.append({'index': index, **rule})
                 achievement['automatic'] = True
+        backend['rules'] = rules
+    elif game['detector'] == 'fallout3':
+        # Fallout 3 save: quests (plugin + form ID without the load-order byte) finished, or
+        # running with "started"; a Pip-Boy misc statistic (by name, from statNames) reaching
+        # `need`; or a level reached with the karma the save holds now.
+        stats = {name: i for i, name in enumerate(game['statNames'])}
+        plugins = {'Fallout3.esm', 'Anchorage.esm', 'ThePitt.esm', 'BrokenSteel.esm', 'PointLookout.esm', 'Zeta.esm'}
+        rules = []
+        for index, achievement in enumerate(game['achievements']):
+            rule = achievement.get('rule')
+            if not rule:
+                continue
+            out = {'index': index}
+            if 'quests' in rule:
+                assert set(rule) <= {'quests', 'started'} and rule['quests'], slug
+                assert all(q['plugin'] in plugins and re.fullmatch(r'[0-9A-F]{1,6}', q['id']) for q in rule['quests']), slug
+                out['quests'] = [{'plugin': q['plugin'].lower(), 'id': q['id']} for q in rule['quests']]
+                if rule.get('started'):
+                    out['started'] = True
+            elif 'stat' in rule:
+                assert set(rule) == {'stat', 'need', 'label'} and rule['need'] > 0, slug
+                out.update(stat=stats[rule['stat']], need=rule['need'], label=rule['label'])
+            elif {'global', 'globals', 'questVar'} & set(rule):
+                # A counter the game's own achievement scripts keep: a global variable, a quest
+                # script variable (its index in the script), or a list of globals each at least 1.
+                assert set(rule) <= {'global', 'globals', 'questVar', 'need', 'label', 'done', 'doneValue'} and rule['need'] > 0, slug
+                def key(ref):
+                    assert ref['plugin'] in plugins and re.fullmatch(r'[0-9A-F]{1,6}', ref['id']), slug
+                    return ref['plugin'].lower() + ':' + ref['id'] + ('#%d' % ref['var'] if 'var' in ref else '')
+                if 'global' in rule:
+                    out['global'] = key(rule['global'])
+                elif 'globals' in rule:
+                    out['globals'] = [key(ref) for ref in rule['globals']]
+                    assert len(out['globals']) == rule['need'], slug
+                else:
+                    assert 'var' in rule['questVar'], slug
+                    out['questVar'] = key(rule['questVar'])
+                out.update(need=rule['need'], label=rule['label'])
+                if rule.get('done'):
+                    out['doneKeys'] = [key(ref) for ref in rule['done']]
+                if 'doneValue' in rule:
+                    out['doneKeys'] = out.get('doneKeys', []) + [out['questVar']]
+                    out['doneValue'] = rule['doneValue']
+            else:
+                assert set(rule) == {'level', 'karma'} and rule['karma'] in ('good', 'neutral', 'bad'), slug
+                out.update(level=rule['level'], karma=rule['karma'])
+            rules.append(out)
+            achievement['automatic'] = True
         backend['rules'] = rules
     elif game['detector'] == 'me2':
         # Mass Effect 2 profile: the PC AchievementID (0-63), one bit of profile settings 0x32/0x33.
