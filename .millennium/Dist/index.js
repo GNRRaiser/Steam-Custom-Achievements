@@ -1,4 +1,4 @@
-/* Steam Custom Achievements v0.32.0
+/* Steam Custom Achievements v0.32.1
  * Millennium 3.6.2 loose-file plugin: Xbox 360 achievement lists for Steam games
  * that have none, with read-only Lua detectors for games whose saves are mapped.
  * The entrypoint runs in SharedJSContext. UI belongs to popup.window.document.
@@ -8,7 +8,7 @@
   "use strict";
   const hostWindow = window;
   const PLUGIN_NAME = "steam-custom-achievements";
-  const BUILD_VERSION = "0.32.0";
+  const BUILD_VERSION = "0.32.1";
   const SHARE_BUILD = false;
   const ROOT_ID = "sca-ac2-root";
   const STYLE_ID = "sca-ac2-css";
@@ -1664,7 +1664,11 @@ function createTracker(window,windowType) {
   function updateList() {
     const list=document.querySelector(`#${DIALOG_ID} .sca-list`);if(!list)return;
     const body=list.closest(".sca-dbody");const scrollTop=body?body.scrollTop:0;
-    list.replaceChildren();
+    // The list is redrawn whenever tracking state changes (every few seconds while a save is
+    // being read). Build it aside and only swap it in when something visible changed, so the
+    // scroll position and the controller's place in it stay put.
+    const focusedIndex=list.querySelector(".sca-ach.sca-padfocus")?.dataset.index;
+    const live=list;const fresh=list.cloneNode(false);
     const needle=query.trim().toLowerCase();
     const matches=index=>{
       const a=game.achievements[index];
@@ -1673,10 +1677,14 @@ function createTracker(window,windowType) {
     };
     const unlocked=[],locked=[];
     game.achievements.forEach((_a,i)=>{if(matches(i))(isUnlocked(i)?unlocked:locked).push(i);});
-    if(unlocked.length){list.appendChild(el("div","sca-section-title","Unlocked Achievements"));for(const i of sortUnlocked(unlocked))list.appendChild(achievementRow(i));}
-    if(locked.length){list.appendChild(el("div","sca-section-title","Locked Achievements"));for(const i of locked)list.appendChild(achievementRow(i));}
-    if(!unlocked.length&&!locked.length)list.appendChild(el("div","sca-empty","No achievements match your search."));
+    if(unlocked.length){fresh.appendChild(el("div","sca-section-title","Unlocked Achievements"));for(const i of sortUnlocked(unlocked))fresh.appendChild(achievementRow(i));}
+    if(locked.length){fresh.appendChild(el("div","sca-section-title","Locked Achievements"));for(const i of locked)fresh.appendChild(achievementRow(i));}
+    if(!unlocked.length&&!locked.length)fresh.appendChild(el("div","sca-empty","No achievements match your search."));
+    if(!live.childElementCount&&!fresh.childElementCount)return;
+    if(fresh.innerHTML===live.innerHTML.replace(/ sca-padfocus/g,"").replace(/ tabindex="-1"/g,""))return;
+    live.replaceChildren(...fresh.childNodes);
     if(body)body.scrollTop=scrollTop;
+    if(focusedIndex!==undefined){const row=live.querySelector(`.sca-ach[data-index="${focusedIndex}"]`);if(row){row.tabIndex=-1;row.classList.add("sca-padfocus");row.focus?.({preventScroll:true});}}
   }
   function buildSettings(body) {
     const auto=el("div","sca-panel");
@@ -1984,7 +1992,10 @@ function createTracker(window,windowType) {
       return;
     }
     if([PAD.UP,PAD.DOWN,PAD.LEFT,PAD.RIGHT].includes(button)){
-      if(!current){dialogFocus(targets.find(t=>t.classList.contains('sca-ach'))||targets[0]);return;}
+      // Nothing picked yet (or it went away): start from the first achievement on screen, not the top.
+      if(!current){const view=overlay.querySelector('.sca-dbody')?.getBoundingClientRect();
+        const rows=targets.filter(t=>t.classList.contains('sca-ach'));
+        dialogFocus((view&&rows.find(t=>t.getBoundingClientRect().top>=view.top-1))||rows[0]||targets[0]);return;}
       const next=spatial(current,targets,button);
       if(next)dialogFocus(next);
       else if(button===PAD.DOWN||button===PAD.UP){const body=overlay.querySelector('.sca-dbody');if(body)body.scrollTop+=button===PAD.DOWN?200:-200;}

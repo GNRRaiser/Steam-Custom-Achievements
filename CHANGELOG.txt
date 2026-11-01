@@ -1,4 +1,4 @@
-STEAM CUSTOM ACHIEVEMENTS v0.32.0 - MULTI-GAME
+STEAM CUSTOM ACHIEVEMENTS v0.32.1 - MULTI-GAME
 
 Adds the Xbox 360 achievement list to the Steam Library page of games whose
 Steam version has no achievements. Each supported game gets the same ACHIEVEMENTS
@@ -19,6 +19,12 @@ GAMES IN THIS BUILD
 
 Automatic entries unlock by themselves a few seconds after the game writes its
 progress. Everything else has a "Mark as unlocked" button in the popup.
+
+NEW IN v0.32.1
+- Big Picture: the achievements list no longer jumps back to the top while
+  you scroll. It was redrawn every time tracking checked a save, which also
+  lost the controller's place; now it only redraws when something in it
+  changed, and keeps the scroll position and the selected achievement.
 
 NEW IN v0.32.0
 - Big Picture mode: a game's Your Stuff tab now has an Achievements section
