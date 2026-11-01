@@ -113,10 +113,30 @@ function createTracker(window,windowType) {
 #${ROOT_ID} button,#${DIALOG_ID} button,#${DIALOG_ID} input,#${DIALOG_ID} select,#${DIALOG_ID} textarea{font:inherit}
 #${ROOT_ID} button,#${DIALOG_ID} button{cursor:pointer}
 #${ROOT_ID} button:focus-visible,#${DIALOG_ID} button:focus-visible,#${DIALOG_ID} input:focus-visible,#${DIALOG_ID} select:focus-visible,#${DIALOG_ID} textarea:focus-visible{outline:2px solid #a6c9ff;outline-offset:2px}
-#${ROOT_ID}.sca-bpm{position:fixed;top:72px;right:28px;width:340px;max-width:calc(100vw - 56px);z-index:2147470000;padding:12px;border-radius:6px;background:rgba(14,20,27,.82);backdrop-filter:blur(8px);box-shadow:0 8px 28px rgba(0,0,0,.6);font-family:"Motiva Sans",Arial,Helvetica,sans-serif;color:#dcdedf}
-#${ROOT_ID}.sca-bpm .sca-view{font-size:15px;padding:8px 12px;border-radius:3px;background:rgba(255,255,255,.12);color:#fff}
-#${ROOT_ID}.sca-bpm .sca-view:hover,#${ROOT_ID}.sca-bpm .sca-view:focus{background:#1a9fff}
-#${ROOT_ID}.sca-bpm .sca-tile{cursor:pointer}
+#${ROOT_ID}.sca-bpm{display:block;width:100%;box-sizing:border-box;color:#dcdedf;font-family:var(--sca-heading-family,"Motiva Sans",Arial,Helvetica,sans-serif);font-size:var(--sca-bpm-base,20px)}
+#${ROOT_ID}.sca-bpm .sca-bpm-title{margin:0 0 .8em;color:var(--sca-heading-color,#fff);font-size:var(--sca-heading-size,26px);font-weight:var(--sca-heading-weight,500);letter-spacing:var(--sca-heading-spacing,normal);line-height:1.3;text-transform:none}
+#${ROOT_ID}.sca-bpm .sca-bpm-panel{background:rgba(14,20,27,.55);cursor:pointer}
+#${ROOT_ID}.sca-bpm .sca-bpm-summary{display:flex;align-items:center;gap:1.4em;padding:.8em .75em;background:rgba(0,0,0,.25)}
+#${ROOT_ID}.sca-bpm .sca-bpm-count{flex:none;font-size:1.1em;font-weight:400;line-height:1.3;color:#dcdedf;white-space:nowrap}
+#${ROOT_ID}.sca-bpm .sca-bpm-count span{color:#8b929a}
+#${ROOT_ID}.sca-bpm .sca-bpm-bar{flex:1;height:.5em;border-radius:.25em;background:#4b525c;overflow:hidden}
+#${ROOT_ID}.sca-bpm .sca-bpm-bar>div{height:100%;background:linear-gradient(90deg,#1a44c2,#1a9fff);border-radius:inherit}
+#${ROOT_ID}.sca-bpm .sca-bpm-group{padding:1.5em .75em .75em;background:rgba(255,255,255,.04)}
+#${ROOT_ID}.sca-bpm .sca-bpm-group+.sca-bpm-group{padding-top:.75em}
+#${ROOT_ID}.sca-bpm .sca-bpm-label{margin:0 0 .35em;font-size:.82em;font-weight:700;letter-spacing:.06em;color:#acb2b8;text-transform:uppercase}
+#${ROOT_ID}.sca-bpm .sca-bpm-row{display:flex;gap:.6em;overflow:hidden;align-items:stretch}
+#${ROOT_ID}.sca-bpm .sca-bpm-feature{flex:0 0 min(48%,47em);display:flex;gap:.6em;padding:.5em;background:rgba(255,255,255,.08);border:0;color:inherit;font:inherit;text-align:left;min-width:0}
+#${ROOT_ID}.sca-bpm .sca-bpm-feature .sca-bpm-text{min-width:0;display:flex;flex-direction:column;padding-top:.1em}
+#${ROOT_ID}.sca-bpm .sca-bpm-name{font-size:1.15em;font-weight:500;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#${ROOT_ID}.sca-bpm .sca-bpm-desc{margin-top:.2em;color:#8b929a;font-size:.95em;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+#${ROOT_ID}.sca-bpm .sca-bpm-when{margin-top:auto;padding-top:.4em;color:#acb2b8;font-size:.85em}
+#${ROOT_ID}.sca-bpm .sca-bpm-icon{position:relative;flex:none;width:5.5em;height:5.5em;padding:0;border:0;background:#0006;overflow:hidden;margin-top:.5em}
+#${ROOT_ID}.sca-bpm .sca-bpm-feature .sca-bpm-icon{margin-top:0}
+#${ROOT_ID}.sca-bpm .sca-bpm-icon img{display:block;width:100%;height:100%;object-fit:cover}
+#${ROOT_ID}.sca-bpm .sca-bpm-icon:hover,#${ROOT_ID}.sca-bpm .sca-bpm-feature:hover,#${ROOT_ID}.sca-bpm .sca-bpm-icon:focus-visible,#${ROOT_ID}.sca-bpm .sca-bpm-feature:focus-visible{outline:2px solid #fff;outline-offset:0}
+#${ROOT_ID}.sca-bpm .sca-bpm-foot{display:flex;justify-content:space-between;align-items:center;gap:1em;padding:.2em .75em .9em;background:rgba(255,255,255,.04);font-size:.75em;color:#6f767e}
+#${ROOT_ID}.sca-bpm .sca-bpm-foot .sca-view{border:0;background:none;color:#acb2b8;font:inherit;font-size:1.25em;padding:.2em 0}
+#${ROOT_ID}.sca-bpm .sca-bpm-foot .sca-view:hover{color:#fff}
 #${ROOT_ID} .sca-heading{margin:0 0 6px;color:var(--sca-heading-color,#c7c8ce);font-size:var(--sca-heading-size,14px);font-weight:var(--sca-heading-weight,500);letter-spacing:var(--sca-heading-spacing,.5px);font-family:var(--sca-heading-family,inherit);text-transform:var(--sca-heading-transform,uppercase);line-height:1.3}
 #${ROOT_ID} .sca-card{background-color:var(--sca-surface);background-image:var(--sca-surface-image);border:var(--sca-border);border-radius:var(--sca-radius);box-shadow:var(--sca-shadow);overflow:hidden;min-width:0}
 #${ROOT_ID} .sca-summary{padding:10px 10px 12px}
@@ -305,10 +325,51 @@ function createTracker(window,windowType) {
     const time=i=>{const t=Date.parse(game.progress[String(i)]);return Number.isNaN(t)?0:t;};
     return indices.slice().sort((a,b)=>time(b)-time(a)||a-b);
   }
+  // Big Picture: the layout of Steam's own Achievements section on the Your Stuff tab.
+  function renderBigPicture(root) {
+    root.replaceChildren();root.setAttribute('aria-label',`${game.title} achievements`);
+    root.appendChild(el('h2','sca-bpm-title','Achievements'));
+    const panel=el('div','sca-bpm-panel');
+    const completed=countUnlocked(),percent=percentDone(),total=game.achievements.length;
+    const summary=el('div','sca-bpm-summary');
+    const count=el('div','sca-bpm-count sca-count',`You've unlocked ${completed}/${total} `);count.appendChild(el('span','',`(${percent}%)`));
+    const bar=el('div','sca-bpm-bar');bar.setAttribute('role','progressbar');bar.setAttribute('aria-label','Achievement completion');bar.setAttribute('aria-valuemin','0');bar.setAttribute('aria-valuemax',String(total));bar.setAttribute('aria-valuenow',String(completed));
+    const fill=el('div');fill.style.width=`${percent}%`;bar.appendChild(fill);
+    summary.append(count,bar);summary.onclick=()=>openDialog();panel.appendChild(summary);
+    const unlocked=[],locked=[];
+    game.achievements.forEach((_a,i)=>(isUnlocked(i)?unlocked:locked).push(i));
+    const icon=(index,isOn,tag)=>{const holder=art(index,isOn,"sca-bpm-icon");if(tag==="button"){holder.type="button";}return holder;};
+    const group=(label,indices,isOn)=>{
+      if(!indices.length)return;
+      const box=el('div','sca-bpm-group');box.appendChild(el('div','sca-bpm-label',label));
+      const row=el('div','sca-bpm-row');
+      const [first,...rest]=indices;const a=game.achievements[first];
+      const feature=el('button','sca-bpm-feature');feature.type='button';feature.setAttribute('aria-label',`${a.name} (${isOn?'unlocked':'locked'})`);
+      const pic=art(first,isOn,"sca-bpm-icon");
+      const text=el('div','sca-bpm-text');text.append(el('div','sca-bpm-name',a.name),el('div','sca-bpm-desc',a.detail||''));
+      if(isOn)text.appendChild(el('div','sca-bpm-when',formatUnlock(game.progress[String(first)])));
+      feature.append(pic,text);feature.onclick=event=>{event.stopPropagation();openDialog(first);};row.appendChild(feature);
+      for(const index of rest){
+        const tile=el('button',"sca-bpm-icon"+(isOn?"":" sca-locked-art"));tile.type='button';
+        const img=el('img');img.alt='';img.src=iconFor(game,index);img.draggable=false;tile.appendChild(img);
+        if(!isOn){const lock=el('span','sca-lock');lock.innerHTML=LOCK_SVG;tile.appendChild(lock);}
+        const b=game.achievements[index];tile.title=`${b.name}\n${b.detail}`;tile.setAttribute('aria-label',`${b.name} (${isOn?'unlocked':'locked'})`);
+        tile.onclick=event=>{event.stopPropagation();openDialog(index);};row.appendChild(tile);
+      }
+      box.appendChild(row);panel.appendChild(box);
+    };
+    group('Unlocked Achievements',sortUnlocked(unlocked),true);
+    group('Locked Achievements',locked,false);
+    const foot=el('div','sca-bpm-foot');
+    const view=el('button','sca-view','View My Achievements');view.type='button';view.onclick=event=>{event.stopPropagation();openDialog();};
+    foot.append(el('span','sca-auto-state'),view);panel.appendChild(foot);
+    root.appendChild(panel);
+  }
   function render() {
     if(!game)return;
     const root=document.getElementById(ROOT_ID);
-    if(root) {
+    if(root&&bigPicture) renderBigPicture(root);
+    else if(root) {
       root.replaceChildren();root.setAttribute('aria-label',`${game.title} achievements`);
       root.appendChild(el('h2','sca-heading','ACHIEVEMENTS'));
       const card=el('div','sca-card');const summary=el('div','sca-summary');
@@ -675,6 +736,48 @@ function createTracker(window,windowType) {
     });
   }
   function removeUi(){closeDialog();document.querySelectorAll(`.${STAT_CLASS}`).forEach(stat=>stat.remove());document.getElementById(ROOT_ID)?.remove();document.getElementById(STYLE_ID)?.remove();}
+  const BPM_SECTIONS=["MEDIA","NOTES","DLC","ADDITIONAL CONTENT","WORKSHOP","TRADING CARDS","CLOUD SAVES"];
+  function shownNode(node){
+    // jsdom and other engines without layout have no boxes at all; rely on styles there.
+    if(!node.getClientRects().length&&document.body.getClientRects().length)return false;
+    for(let n=node;n&&n!==document.body;n=n.parentElement){const look=window.getComputedStyle(n);if(look.display==="none"||look.visibility==="hidden")return false;}
+    return true;
+  }
+  // The first Your Stuff section heading on screen (normally Media), and the block
+  // that holds it: the nearest ancestor taller than the heading itself.
+  function findBigPictureSection(){
+    const walker=document.createTreeWalker(document.body,4);let text;
+    while((text=walker.nextNode())){
+      if(!BPM_SECTIONS.includes(normal(text.nodeValue||"")))continue;
+      const heading=text.parentElement;
+      if(!heading||heading.closest(`#${ROOT_ID},#${DIALOG_ID},button,a,[role="button"],[role="tab"],[role="tablist"]`)||!shownNode(heading))continue;
+      const tall=heading.getBoundingClientRect().height+8;
+      // Climb wrappers that hold only the heading.
+      let section=heading;
+      while(section.parentElement&&section.parentElement!==document.body&&section.parentElement.getBoundingClientRect().height<=tall)section=section.parentElement;
+      // Heading + content in one block (and no other section in it): that block is the section.
+      const block=section.parentElement;
+      if(block&&block!==document.body&&block.firstElementChild===section&&block.getBoundingClientRect().height>tall&&!otherSectionIn(block,heading))section=block;
+      if(!section.parentElement)continue;
+      return {section,heading};
+    }
+    return null;
+  }
+  function otherSectionIn(node,heading){
+    const walker=document.createTreeWalker(node,4);let text;
+    while((text=walker.nextNode()))if(text.parentElement!==heading&&BPM_SECTIONS.includes(normal(text.nodeValue||"")))return true;
+    return false;
+  }
+  function matchBigPictureStyle(root,anchor){
+    const heading=window.getComputedStyle(anchor.heading);
+    for(const [name,value] of [["color",heading.color],["size",heading.fontSize],["weight",heading.fontWeight],["spacing",heading.letterSpacing],["family",heading.fontFamily]]) {
+      if(value)root.style.setProperty(`--sca-heading-${name}`,value);
+    }
+    const size=parseFloat(heading.fontSize);
+    if(size>=12&&size<=60)root.style.setProperty("--sca-bpm-base",`${Math.round(size*.78*10)/10}px`);
+    const section=window.getComputedStyle(anchor.section);
+    root.style.marginBottom=section.marginTop!=="0px"?section.marginTop:"2.4em";
+  }
   function refresh() {
     if(!document.body)return;
     const shown=currentGame(window);
@@ -688,9 +791,14 @@ function createTracker(window,windowType) {
       alignNativeWidth(existing);layoutRows();placeHeaderStat();placementState='inline-sidebar';return;
     }
     if(bigPicture){
-      if(existing?.isConnected){makeStyle();layoutRows();placementState='big-picture';return;}
+      // On the Your Stuff tab, where Steam puts its own Achievements: above Media.
+      if(existing?.isConnected&&currentAnchor?.section.isConnected&&shownNode(currentAnchor.section)&&existing.nextElementSibling===currentAnchor.section){makeStyle();placementState='big-picture';return;}
+      existing?.remove();
+      const anchor=findBigPictureSection();currentAnchor=anchor;
+      if(!anchor){placementState='waiting-for-your-stuff';return;}
       makeStyle();const root=el('section');root.id=ROOT_ID;root.className='sca-bpm';root.dataset.scaPlacement='big-picture';
-      document.body.appendChild(root);placementState='big-picture';render();return;
+      matchBigPictureStyle(root,anchor);
+      anchor.section.parentElement.insertBefore(root,anchor.section);placementState='big-picture';render();return;
     }
     const anchor=findSidebar();
     if(!anchor){placementState='waiting-for-sidebar';return;}

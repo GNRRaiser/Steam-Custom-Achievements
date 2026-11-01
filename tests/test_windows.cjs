@@ -17,7 +17,7 @@ function makeWindow(name, saved) {
   const errors = [];
   const virtualConsole = new VirtualConsole();
   virtualConsole.on('jsdomError', e => errors.push(e));
-  const dom = new JSDOM('<!doctype html><html><head></head><body><main><article id=content>Game content</article><aside id=sidebar><section id=friends><h2>FRIENDS WHO PLAY</h2><div class=native-card>Friend activity</div></section><section><h2>ADDITIONAL CONTENT</h2><div class=native-card>Manual</div></section></aside></main></body></html>', {
+  const dom = new JSDOM('<!doctype html><html><head></head><body><nav role=tablist><span role=tab>YOUR STUFF</span></nav><div id=yourstuff><section id=media><h2>Media</h2><div>Screenshots</div></section></div><main><article id=content>Game content</article><aside id=sidebar><section id=friends><h2>FRIENDS WHO PLAY</h2><div class=native-card>Friend activity</div></section><section><h2>ADDITIONAL CONTENT</h2><div class=native-card>Manual</div></section></aside></main></body></html>', {
     url: 'https://steamloopback.host/index.html', runScripts: 'outside-only', virtualConsole,
   });
   const window = dom.window;
@@ -106,6 +106,16 @@ function check(label) { console.log('PASS', label); passes++; }
   runtime.refresh();
   assert.equal(gamepad.window.document.getElementById(id).dataset.scaPlacement, 'big-picture');
   assert.ok(gamepad.window.document.getElementById(id).classList.contains('sca-bpm'));
+  assert.ok(gamepad.window.document.getElementById(id).compareDocumentPosition(gamepad.window.document.getElementById('media')) & 4, 'Big Picture: above Media on the Your Stuff tab (exact spot is checked with real layout in Chromium)');
+  assert.equal(gamepad.window.document.querySelector('#' + id + ' .sca-bpm-title').textContent, 'Achievements');
+  assert.equal(main.window.document.querySelector('#media').previousElementSibling, null, 'the desktop window keeps its sidebar card');
+  gamepad.window.document.getElementById('yourstuff').style.display = 'none';
+  gamepad.window.document.querySelector('main').style.display = 'none';
+  runtime.refresh();
+  assert.equal(gamepad.window.document.getElementById(id), null, 'another tab hides it');
+  gamepad.window.document.getElementById('yourstuff').style.display = '';
+  gamepad.window.document.querySelector('main').style.display = '';
+  runtime.refresh();
   assert.match(gamepad.window.document.querySelector('.sca-count').textContent, /1\/51/);
   runtime.refresh();
   assert.equal(gamepad.window.document.querySelectorAll('#' + id).length, 1);
