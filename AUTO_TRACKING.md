@@ -10,16 +10,16 @@ The detector requires a valid ACII save header and a completed Mission record. I
 | Arrivederci Abstergo | A completed story memory proves this mandatory introduction was passed; catch-up occurs on a later autosave. |
 | Welcome to the Animus 2.0 | A completed story memory proves this mandatory introduction was passed; catch-up occurs on a later autosave. |
 | The Pain of Betrayal | DNA Sequence 1: completion flag 100 for final memory Last Man Standing. |
-| Vengeance | DNA Sequence 2: completion flag 100 for final memory Arrivederci. |
+| Vengeance | DNA Sequence 2: completion flag 100 for final memory Arrivederci (record 39E0A284; v0.33.0 moved it from 39E0A287, which is Laying Low). |
 | Exit the Son | DNA Sequence 3: completion flag 100 for final memory A Change of Plans. |
 | Bloody Sunday | DNA Sequence 4: completion flag 100 for final memory Farewell Francesco. |
 | Undertaker | Completed tomb mission: Novella's Secret. |
-| The Conspirators | DNA Sequence 5: completion flag 100 for final memory With Friends Like These. |
+| The Conspirators | DNA Sequence 5: completion flag 100 for final memory With Friends Like These (record 44F3E3E1; v0.33.0 moved it from 44F3E3DB, an earlier memory). |
 | An Unexpected Journey | DNA Sequence 6: completion flag 100 for final memory Tutti a Bordo. |
 | Bleeding Effect | A completed story memory in Sequence 7 or later proves the mandatory hideout training was passed. |
 | The Merchant of Venice | DNA Sequence 7: completion flag 100 for final memory Everything Must Go. |
 | The Impenetrable Palazzo | DNA Sequence 8: completion flag 100 for final memory Infrequent Flier. |
-| Masquerade | DNA Sequence 9: completion flag 100 for final memory Having a Blast. |
+| Masquerade | DNA Sequence 9: completion flag 100 for final memory Having a Blast (record 635BC916; v0.33.0 moved it from 635BC90D, the memory before). |
 | Bianca's Man | DNA Sequence 10: completion flag 100 for final memory Two Birds, One Blade. |
 | The Prophet | DNA Sequence 11: completion flag 100 for final memory Play Along. |
 | The Vault | DNA Sequence 14: completion flag 100 for final memory In Bocca al Lupo. |
@@ -62,3 +62,22 @@ The actual detector and watcher passed tests under LuaJIT 2.1, the runtime used 
 ## Runtime compatibility
 
 The detector reads little-endian integers with byte arithmetic. It uses no `string.pack`, `string.unpack`, or 64-bit integer arithmetic, which are unavailable in standard LuaJIT 2.1. The Mission type is matched by its exact bytes. A slot -1 container is recognized for diagnostics but never grants achievements.
+
+## Sequence end check (v0.33.0)
+
+The AC2AP name table skips the short introduction memories some sequences start with, so its names drift by one in those sequences. Each sequence rule was rechecked against the order in which the game creates mission records (it creates them as memories open) and the pcsavegames.com save pack (one save per memory): the rule must be the last record of its sequence and must still be 0 in a save made inside the sequence's last memory.
+
+| Sequence | Records | Rule | Result |
+| --- | --- | --- | --- |
+| 1 | 385B98EB, 3904C2E5..3904EC4D (12) | 3904EC4D | last, unchanged |
+| 2 | 397E179C (intro), 397E179F, 39E0A28D, 39E0A28A, 39E0A287, 39E0A284 | 39E0A284 | was 39E0A287 (one early; seen in play) |
+| 3 | 53E662CA..53E662ED (5) | 53E662ED | last, unchanged |
+| 4 | 38EA7247..38EA7256, 747EB081 | 747EB081 | last, unchanged |
+| 5 | 44F3E3CF, 900AFDA9, 44F3E3D2, D8, DE, DB, D5, E1 | 44F3E3E1 | was 44F3E3DB (already 100 with two memories left) |
+| 6 | 45112AA2, 53AC7948, D2AD7C12, 45112AA8 | 45112AA8 | last, unchanged |
+| 7 | 9 records ending 0DB13BF3 | 0DB13BF3 | last, unchanged |
+| 8 | 44C119BD..44C119C9 (5) | 44C119C9 | last; 0 in the Seq 8 Memory 5 save |
+| 9 | 635BC901..635BC916 (8) | 635BC916 | was 635BC90D (one early) |
+| 10 | 635BC9A6..635BC9B2 (5) | 635BC9B2 | last, unchanged |
+| 11 | 63904392, 63904398 | 63904398 | last, unchanged |
+| 14 | 2532C038, D2365A19 | D2365A19 | not in the pack (no Sequence 14 save); unverified |

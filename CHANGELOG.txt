@@ -1,4 +1,4 @@
-STEAM CUSTOM ACHIEVEMENTS v0.32.2 - MULTI-GAME
+STEAM CUSTOM ACHIEVEMENTS v0.33.0 - MULTI-GAME
 
 Adds the Xbox 360 achievement list to the Steam Library page of games whose
 Steam version has no achievements. Each supported game gets the same ACHIEVEMENTS
@@ -19,6 +19,18 @@ GAMES IN THIS BUILD
 
 Automatic entries unlock by themselves a few seconds after the game writes its
 progress. Everything else has a "Mark as unlocked" button in the popup.
+
+NEW IN v0.33.0
+- Assassin's Creed II: three "Complete DNA Sequence" achievements unlocked
+  one memory early. They now wait for the sequence's real last memory:
+  Vengeance (Sequence 2, was firing at Laying Low), The Conspirators
+  (Sequence 5) and Masquerade (Sequence 9). The other sequences were
+  checked against a save made in every sequence and already line up.
+  Achievements that already unlocked stay unlocked.
+- Every other game's automatic rules were checked for timing: they read the
+  game's own achievement record (AC1, ACB, Fable III, Mass Effect 1 and 2) or
+  the exact mission / quest the achievement names (CoD 4, World at War,
+  Fallout 3, Thrillville), so nothing else changed.
 
 NEW IN v0.32.2
 - Big Picture: moving through the full screen list is lighter. The list

@@ -160,6 +160,17 @@ assert {0, 1} <= earned(save_with([0x6697F883])) and 2 not in earned(save_with([
 assert {0, 1, 2} <= earned(save_with([0x6697F883, 0x9C1E07D6]))
 print('PASS new-game intro: Abstergo escape and entering the Animus unlock the first three')
 
+# v0.33.0: sequence ends. Every memory before a sequence's last one leaves its achievement locked.
+SEQUENCE_ENDS = {
+    4: ([0x397E179C, 0x397E179F, 0x39E0A28D, 0x39E0A28A, 0x39E0A287], 0x39E0A284),  # Vengeance; 287 = Laying Low
+    8: ([0x44F3E3CF, 0x900AFDA9, 0x44F3E3D2, 0x44F3E3D8, 0x44F3E3DE, 0x44F3E3DB, 0x44F3E3D5], 0x44F3E3E1),  # The Conspirators
+    13: ([0x635BC901, 0x635BC904, 0x635BC907, 0x635BC910, 0x635BC90A, 0x635BC913, 0x635BC90D], 0x635BC916),  # Masquerade
+}
+for index, (before, last) in SEQUENCE_ENDS.items():
+    assert index not in earned(save_with(before)), index
+    assert index in earned(save_with(before + [last])), index
+print('PASS Sequences 2, 5 and 9 unlock at their last memory, not the one before')
+
 
 def from_lua(value):
     if lua_type(value) != 'table':
