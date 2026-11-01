@@ -1,4 +1,4 @@
-Steam Custom Achievements v0.28.0 verification - 2026-10-31
+Steam Custom Achievements v0.33.1 verification - 2026-11-01
 PASS a new save in %APPDATA%\Ubisoft\Assassin's Creed\Saved Games is found; nothing unlocked
 PASS objective M03_S20_Animus_Tutorial_Complete finished unlocks Welcome to the Animus
 PASS references to an objective and objectives still open do not count
@@ -33,6 +33,8 @@ PASS Handy Man unlocks when a stronghold building is above its new-game level; o
 PASS Podesta of Monteriggioni unlocks at 120000, 80% of the 150000 in the game's villa manager; the count shows the value
 PASS duplicates, truncation, corrupt header, unknown format and wrong flag layout
 PASS new-game intro: Abstergo escape and entering the Animus unlock the first three
+PASS Sequences 2, 5 and 9 unlock at their last memory, not the one before
+PASS a detector error on a strange save is reported, earned unlocks stay, and tracking recovers
 PASS watcher waits for stable snapshots, grants only after completion and persists once
 PASS Steam-library save discovery, automatic-state retention and privacy-limited status
 PASS invalid save selection does not replace the selected path or modify the game save
@@ -65,6 +67,15 @@ PASS a half-written save is not trusted; earned unlocks stay
 PASS XLiveEmu's Achievements.txt in the game folder (found through the Steam library list) unlocks The Guild Seal (69) and Hand in Hand (105)
 PASS IDs added later unlock too (75 For Albion!, 129 Adopt Or Die, Traitor's Keep 130 and 139); a file that is not a list of IDs is ignored and earned unlocks stay
 All Fable III detector tests passed.
+PASS a new character (level 1, nothing finished) unlocks nothing
+PASS a quest counts when its completed flag (0x02) is set; Growing Up Fast counts once started
+PASS DLC quests are matched by plugin name, whatever the load order (Broken Steel and Zeta share 0x802)
+PASS Pip-Boy statistics unlock at their targets (300 kills, 50 locks/terminals/speech, 100 locations, 10/20 bobbleheads)
+PASS level achievements follow the karma the save holds (good >= 250, bad <= -250)
+PASS Weaponsmith needs all 7 custom weapon counters (or the game's own done flag); 5 Behemoths killed
+PASS DLC quest script counters: 100 ingots (or the achievement flag), 25 recordings (-1 once awarded), 29 Point Lookout markers
+PASS files that are not Fallout 3 saves, or are cut short, are not read
+All Fallout 3 detector tests passed.
 PASS a new profile under Documents\BioWare\Mass Effect\Save is found; nothing unlocked; counters show progress
 PASS achievement slots unlock their Xbox achievement; a counter at its target unlocks too
 PASS 150 organic kills and level 50 unlock Dog of War and Power Gamer, not Extreme Power Gamer
@@ -107,10 +118,13 @@ PASS Fable III page has all 60 achievements automatic (Traitor's Keep included) 
 PASS Thrillville page has 18 automatic achievements (missions and owner levels), a save picker and capture
 PASS Mass Effect (45 automatic), Brotherhood (50 automatic), Mass Effect 2 (61 automatic) and AC1 (44 automatic): full lists with platinums, all 218 built-in pictures, save folders shown
 PASS the platinum (N7 Elite) unlocks once all others are unlocked, through Steam's own achievement toast (shown over games by the overlay)
+PASS a popup Steam silently drops is drawn by the plugin; one Steam queues is not
 PASS AC2 keeps its v0.1 progress; other games' pages show no card; diagnostics list every game
 All multi-game regression groups passed.
 PASS mounts in the visible Steam window, excluding hidden host and Settings
 PASS loads prior v0.1.2 progress and saves manual toggles to the original key
+PASS Big Picture shows the card on its own game page and opens the full list
+PASS Big Picture controller: down from the tabs or up from Media enters, A opens, B closes, the edges leave
 PASS new popup callback and m_popup wrapper work; both windows share live progress
 PASS achievement search and category filter work in the popup
 PASS backup, validated in-panel restore and privacy-limited status work without native prompts
@@ -119,7 +133,7 @@ PASS destroy and dismount remove UI and unregister popup hooks
 PASS real timer discovers late startup and recovers progress from the popup origin
 PASS blocked storage leaves the tracker usable and displays a saving warning
 PASS no network attempts or unhandled DOM errors across all lifecycle scenarios
-All 10 window and persistence regression groups passed.
+All 12 window and persistence regression groups passed.
 
 Real-save checks (files supplied by the user, not shipped):
 PASS Fable III: inflate.lua output is byte-identical to zlib on hero and main saves
@@ -233,3 +247,6 @@ PASS Thrillville: Off the Rails: each <Park>_English.ovl has an index of [hash][
 PASS Thrillville: Off the Rails: owner level is u32 0x576F0 (a tester's 2023 save 1, a 2026-10-27 save 2, a
      2026-10-29 capture 2, which the tester confirmed in-game), next to u32 0x576C0 = missions finished (4, 9, 10, matching
      the mission list); the 2023 save unlocks nothing new, both level-2 saves add Thrillville Talent
+PASS Assassin's Creed II sequence ends (v0.33.0): the real detector over a pcsavegames.com pack with one save per memory
+     (25 saves, Sequence 1 to 13) unlocks no "Complete DNA Sequence" achievement before that sequence's
+     last memory is done; v0.32.2 already had Sequence 5 complete inside its last memory
