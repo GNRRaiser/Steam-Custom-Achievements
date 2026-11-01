@@ -26,12 +26,15 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Rebuild the plugin from source/
-        run: python source/build.py
+      - name: Rebuild the plugin and website from source/
+        run: |
+          python source/build.py
+          python source/site.py
       - name: Generated files match what is committed
         run: |
-          if ! git diff --exit-code --stat; then
-            echo "::error::Generated files are out of date. Run 'python source/build.py' and commit the result."
+          if ! git diff --exit-code --stat || [ -n "$(git status --porcelain)" ]; then
+            git status --short
+            echo "::error::Generated files are out of date. Run 'python source/build.py' and 'python source/site.py' and commit the result."
             exit 1
           fi
       - name: Share ZIP builds

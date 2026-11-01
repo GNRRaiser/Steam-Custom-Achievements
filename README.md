@@ -1,29 +1,33 @@
-# Steam Custom Achievements
+# Steam Custom Achievements: Xbox 360 achievements for Steam games that have none
 
-Steam-style achievements for PC games that only had achievements on Xbox 360 and PS3, like Mass Effect, Assassin's Creed and Fable III. It's a [Millennium](https://steambrew.app) plugin: each supported game gets an ACHIEVEMENTS card on its Library page, an ACHIEVEMENTS stat next to PLAY TIME, and a full "View My Achievements" list.
+**Steam achievements for Mass Effect, Mass Effect 2, Assassin's Creed, Assassin's Creed II, Assassin's Creed Brotherhood, Call of Duty 4: Modern Warfare, Call of Duty: World at War, Fable III, Fallout 3 and Thrillville: Off the Rails.**
 
-Most achievements unlock by themselves: the plugin reads the game's saves (read-only) and unlocks an achievement a few seconds after the game records the progress. The rest have a "Mark as unlocked" button.
+These PC games never got achievements on Steam, even though their Xbox 360 and PS3 versions had them (several had Games for Windows Live achievements that are gone now). Steam Custom Achievements is a free [Millennium](https://steambrew.app) plugin that adds them back: each game gets an ACHIEVEMENTS card on its Steam Library page, an ACHIEVEMENTS stat next to PLAY TIME, unlock popups, and a full "View My Achievements" list, in desktop Steam and Big Picture mode.
+
+Most achievements unlock by themselves: the plugin reads the game's saves (read-only) and unlocks an achievement a few seconds after the game records the progress, including ones you earned before installing. The rest have a "Mark as unlocked" button.
 
 It's an unofficial fan plugin. The achievements only show in your own Steam client, not on your Steam profile.
 
-**Install guide on Steam:** https://steamcommunity.com/sharedfiles/filedetails/?id=3830564916
+- **Website:** https://gnrraiser.github.io/Steam-Custom-Achievements/ (one page per game with the full achievement list)
+- **Install guide on Steam:** https://steamcommunity.com/sharedfiles/filedetails/?id=3830564916
+- **Download:** [Releases](../../releases)
 
-## Supported games
+## Supported games and achievements
 
 The achievements come from each game's Xbox 360 list, plus the PS3 platinum. Mass Effect, Brotherhood and Fable III keep their own achievement list inside the game, which made those much easier to get working. When you unlock one while playing, it pops up in the bottom right corner with a sound, just like a real Steam achievement.
 
 | Game | Steam app ID | Achievements | Unlock automatically |
 | --- | --- | --- | --- |
-| Assassin's Creed | 15100 | 44 | 44 |
-| Assassin's Creed II | 33230 | 51 | 41 |
-| Assassin's Creed Brotherhood | 48190 | 61 | 50 |
-| Call of Duty 4: Modern Warfare | 7940 | 37 | 24 |
-| Call of Duty: World at War | 10090 | 67 | 22 |
-| Fable III | 105400 | 60 | 60 |
-| Fallout 3 - Game of the Year Edition | 22370 | 72 | 72 |
-| Mass Effect | 17460 | 50 | 45 |
-| Mass Effect 2 | 24980 | 63 | 61 |
-| Thrillville: Off the Rails | 6080 | 50 | 18 |
+| [Assassin's Creed Steam achievements](https://gnrraiser.github.io/Steam-Custom-Achievements/assassins-creed/) | 15100 | 44 | 44 |
+| [Assassin's Creed II Steam achievements](https://gnrraiser.github.io/Steam-Custom-Achievements/assassins-creed-2/) | 33230 | 51 | 41 |
+| [Assassin's Creed Brotherhood Steam achievements](https://gnrraiser.github.io/Steam-Custom-Achievements/assassins-creed-brotherhood/) | 48190 | 61 | 50 |
+| [Call of Duty 4: Modern Warfare Steam achievements](https://gnrraiser.github.io/Steam-Custom-Achievements/call-of-duty-4-modern-warfare/) | 7940 | 37 | 24 |
+| [Call of Duty: World at War Steam achievements](https://gnrraiser.github.io/Steam-Custom-Achievements/call-of-duty-world-at-war/) | 10090 | 67 | 22 |
+| [Fable III Steam achievements](https://gnrraiser.github.io/Steam-Custom-Achievements/fable-3/) | 105400 | 60 | 60 |
+| [Fallout 3 Game of the Year Edition Steam achievements](https://gnrraiser.github.io/Steam-Custom-Achievements/fallout-3/) | 22370 | 72 | 72 |
+| [Mass Effect Steam achievements](https://gnrraiser.github.io/Steam-Custom-Achievements/mass-effect/) | 17460 | 50 | 45 |
+| [Mass Effect 2 Steam achievements](https://gnrraiser.github.io/Steam-Custom-Achievements/mass-effect-2/) | 24980 | 63 | 61 |
+| [Thrillville: Off the Rails Steam achievements](https://gnrraiser.github.io/Steam-Custom-Achievements/thrillville-off-the-rails/) | 6080 | 50 | 18 |
 
 Totals include the PS3 platinum where the game has one. [AUTO_TRACKING.md](AUTO_TRACKING.md) explains what each automatic Assassin's Creed II achievement reads; [CHANGELOG.txt](CHANGELOG.txt) covers the other games.
 
@@ -55,7 +59,7 @@ Contributions are welcome. A game is one folder, `source/games/<slug>/`, with a 
 1. Create `source/games/<slug>/game.json`. Start with `"detector": null` so every achievement is manual (see the example in [ADDING_A_GAME.md](ADDING_A_GAME.md)). `appId` is the number in the game's Steam store URL.
 2. Optionally add pictures as `source/games/<slug>/art/<index>.webp` (or `.png`/`.jpg`), numbered in list order from 0.
 3. Add the slug to `ORDER` at the top of `source/build.py`.
-4. Run `python source/build.py`. It checks the game and regenerates `.millennium/Dist/index.js` and `backend/games.lua`. Commit those generated files too.
+4. Run `python source/build.py`. It checks the game and regenerates `.millennium/Dist/index.js` and `backend/games.lua`. Then add the game to `ORDER` and `GAME_INFO` in `source/site.py` and run it to make the game's web page. Commit the generated files too.
 5. Run the tests (below) and open a pull request.
 
 To make achievements unlock automatically, the plugin needs to understand the game's save. Games on the Call of Duty 4 engine just need rules in `game.json`. A new save format needs a `backend/detector_<name>.lua`. [ADDING_A_GAME.md](ADDING_A_GAME.md) covers both. The golden rule: a detector only reads files, and a save it doesn't fully understand must never unlock anything.
@@ -68,6 +72,7 @@ Requirements: Python 3, Node.js, `pip install lupa` and `npm install jsdom`.
 
 ```sh
 python source/build.py                 # regenerate the plugin from source/
+python source/site.py                  # regenerate the website in docs/
 for t in tests/test_*.py; do python "$t"; done
 for t in tests/test_*.cjs; do node "$t"; done
 python source/package.py ../steam-custom-achievements-vX.Y.Z-share.zip --share   # release ZIP
@@ -88,6 +93,7 @@ GitHub runs all of these automatically on every pull request and every push to `
 | `.millennium/Dist/index.js`, `backend/games.lua` | Generated by `build.py` |
 | `tools/Install-Plugin.ps1`, `*.cmd` | Windows installer and install check |
 | `tests/` | Tests with synthetic save fixtures |
+| `docs/` | The website (GitHub Pages), generated by `source/site.py` |
 | `CHANGELOG.txt` | What changed in each version |
 
 ## License
