@@ -748,7 +748,6 @@ html.sca-page-open body>*:not(#${DIALOG_ID}){visibility:hidden}
     for(const label of playTimeLabels()){const item=headerItem(label);if(item&&item.value&&item.item!==label&&!found.some(other=>other.item===item.item))found.push(item);}
     return found;
   }
-  function findHeaderStat() {return headerItems()[0]||null;}
   // What the header search sees, for Copy status when the stat does not appear.
   function headerInfo() {
     const labels=playTimeLabels();const stats=[...document.querySelectorAll(`.${STAT_CLASS}`)];

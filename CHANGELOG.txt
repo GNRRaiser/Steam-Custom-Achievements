@@ -1,4 +1,4 @@
-STEAM CUSTOM ACHIEVEMENTS v0.33.0 - MULTI-GAME
+STEAM CUSTOM ACHIEVEMENTS v0.33.1 - MULTI-GAME
 
 Adds the Xbox 360 achievement list to the Steam Library page of games whose
 Steam version has no achievements. Each supported game gets the same ACHIEVEMENTS
@@ -19,6 +19,14 @@ GAMES IN THIS BUILD
 
 Automatic entries unlock by themselves a few seconds after the game writes its
 progress. Everything else has a "Mark as unlocked" button in the popup.
+
+NEW IN v0.33.1
+- Sturdier tracking: if a game writes a save the plugin doesn't expect (cut off,
+  damaged, or from a game update), the status now says it couldn't read that
+  save and keeps watching. Before, an error there could stop automatic
+  tracking for that game until Steam restarted. Unlocks you already have stay.
+- Clean-up: removed two unused leftovers from the page code and a test helper.
+  No change to what unlocks or when.
 
 NEW IN v0.33.0
 - Assassin's Creed II: three "Complete DNA Sequence" achievements unlocked
