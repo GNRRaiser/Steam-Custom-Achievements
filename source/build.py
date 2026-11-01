@@ -6,7 +6,7 @@ import os
 import re
 from pathlib import Path
 
-VERSION = '0.33.1'
+VERSION = '0.34.0'
 BASE = Path(__file__).resolve().parent
 ROOT = BASE.parent
 PLUGIN = ROOT
@@ -317,13 +317,23 @@ for slug in ORDER:
         data = 'data:image/webp;base64,' + base64.b64encode(picture.read_bytes()).decode() if picture.is_file() else None
         game['art'] = (game.get('art') or [None] * (len(achievements) - 1)) + [data]
     assert achievements and all({'name', 'detail', 'group'} <= a.keys() for a in achievements), slug
+    # Spoiler (hidden) achievements, as Steam calls them: name and description stay hidden in
+    # the list until unlocked or revealed. The story group is hidden by default; a game can
+    # name other groups in "spoilerGroups", and one achievement can say "hidden": true or false.
+    spoilers = set(game.get('spoilerGroups', ['Story']))
+    for achievement in achievements:
+        if 'hidden' not in achievement:
+            achievement['hidden'] = achievement['group'] in spoilers and not achievement.get('completion')
+        rarity = achievement.get('rarity')
+        # Optional unlock rate (percent of players), shown like Steam's global percentage.
+        assert rarity is None or (isinstance(rarity, (int, float)) and 0 <= rarity <= 100), achievement['name']
     assert len({a['name'] for a in achievements}) == len(achievements), slug
     if game['detector']:
         backend.update(progressKey=game.get('progressKey', f'autoProgress_{game["appId"]}_v1'),
                        pathKey=game.get('pathKey', f'savePath_{game["appId"]}_v1'),
                        setupHint=game.get('setupHint'), total=len(achievements))
     packs.append(backend)
-    keep = ('name', 'detail', 'group', 'automatic', 'icon', 'numeral', 'completion')
+    keep = ('name', 'detail', 'group', 'automatic', 'icon', 'numeral', 'completion', 'hidden', 'rarity')
     games.append({
         'appId': game['appId'], 'slug': slug, 'title': game['title'], 'platform': game.get('platform', 'Xbox 360'),
         'automatic': bool(game['detector']), 'trackingNote': game.get('trackingNote', ''),

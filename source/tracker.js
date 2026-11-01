@@ -6,7 +6,7 @@ function createTracker(window,windowType) {
   const bigPicture=windowType==="gamepad";
   const DIALOG_ID="sca-ac2-dialog";
   const ICON=48,ICON_GAP=8,STAT_ID="sca-ac2-headstat",STAT_CLASS="sca-headstat";
-  let query="",group="all",tab="achievements",message="",messageTimeout=null;
+  let query="",group="all",sort="default",tab="achievements",message="",messageTimeout=null;
   let placementState="waiting-for-ac2",dialogOpen=false,returnFocus=null,pictureTarget=null;
   let currentAnchor=null,nativeCard=null;
   // The game pack for the Library page on screen; null on any other page.
@@ -20,6 +20,14 @@ function createTracker(window,windowType) {
     return node;
   }
   const isUnlocked=index=>!!game.progress[String(index)];
+  // A spoiler (hidden) achievement keeps its name, description and picture hidden until it
+  // unlocks or the player chooses to reveal spoilers, as on Steam.
+  const isSecret=index=>!!game.achievements[index]?.hidden&&!isUnlocked(index)&&!game.revealSpoilers;
+  const HIDDEN_NAME="Hidden achievement",HIDDEN_DETAIL="Details for this achievement will be revealed once unlocked";
+  const HIDDEN_ICON="data:image/svg+xml,"+encodeURIComponent("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' fill='#2a2e36'/><text x='32' y='44' font-family='Arial,Helvetica,sans-serif' font-size='36' font-weight='700' fill='#8b929a' text-anchor='middle'>?</text></svg>");
+  const shownName=index=>isSecret(index)?HIDDEN_NAME:game.achievements[index].name;
+  const shownDetail=index=>isSecret(index)?HIDDEN_DETAIL:(game.achievements[index].detail||"");
+  const shownIcon=index=>isSecret(index)?HIDDEN_ICON:iconFor(game,index);
   function countUnlocked(){return game.achievements.reduce((n,_a,i)=>n+(isUnlocked(i)?1:0),0);}
   function percentDone(){return Math.round(countUnlocked()/game.achievements.length*100);}
   function findSidebar() {
@@ -248,6 +256,17 @@ html.sca-page-open body>*:not(#${DIALOG_ID}){visibility:hidden}
 #${DIALOG_ID} .sca-ach-meter{flex:0 1 220px;height:6px;border-radius:3px;background:#3d4450;overflow:hidden}
 #${DIALOG_ID} .sca-ach-meter>div{height:100%;background:linear-gradient(90deg,#1a44c2,#1a9fff)}
 #${DIALOG_ID} .sca-ach-tag{font-size:11px;color:#6f767e;margin-top:4px}
+#${DIALOG_ID} .sca-ach-rarity{display:flex;align-items:center;gap:10px;margin-top:6px;font-size:12px;color:#8b929a}
+#${DIALOG_ID} .sca-rarity-meter{flex:0 1 120px;height:4px;border-radius:2px;background:#3d4450;overflow:hidden}
+#${DIALOG_ID} .sca-rarity-meter>div{height:100%;background:#67707b}
+#${DIALOG_ID} .sca-rarity-rare{color:#e5b143}
+#${DIALOG_ID} .sca-rarity-rare .sca-rarity-meter>div{background:#e5b143}
+#${DIALOG_ID} .sca-hidden-summary{display:flex;align-items:center;gap:14px;min-height:64px;padding:12px 14px 12px 10px;margin-bottom:8px;background:#20242b;border:1px dashed #3d4450}
+#${DIALOG_ID} .sca-hidden-summary.sca-revealed{min-height:0}
+#${DIALOG_ID} .sca-hidden-icon{display:block}
+#${DIALOG_ID} .sca-hidden-icon:hover::after{display:none}
+#${DIALOG_ID} .sca-hidden-icon img,.sca-hidden-icon img{width:100%;height:100%;display:block}
+.sca-rare{box-shadow:0 0 0 2px #e5b143,0 0 10px #e5b14388!important}
 #${DIALOG_ID} .sca-ach-side{flex:none;display:flex;flex-direction:column;align-items:flex-end;gap:6px;text-align:right;font-size:12px;color:#8b929a;max-width:42%}
 #${DIALOG_ID} .sca-mark,#${DIALOG_ID} .sca-small{border:0;border-radius:2px;background:rgba(255,255,255,.1);color:#dcdedf;padding:6px 10px;font-size:12px}
 #${DIALOG_ID} .sca-mark:hover,#${DIALOG_ID} .sca-small:hover{background:rgba(255,255,255,.2);color:#fff}
@@ -301,10 +320,14 @@ html.sca-page-open body>*:not(#${DIALOG_ID}){visibility:hidden}
   const LOCK_SVG="<svg viewBox='0 0 24 24'><path fill='#e8e8e8' d='M7 10V7a5 5 0 0 1 10 0v3h1.5c.8 0 1.5.7 1.5 1.5v9c0 .8-.7 1.5-1.5 1.5h-13C4.7 22 4 21.3 4 20.5v-9C4 10.7 4.7 10 5.5 10zm2.5 0h5V7a2.5 2.5 0 0 0-5 0z'/></svg>";
   function art(index,unlocked,className) {
     const holder=el(className==="sca-tile"?"button":"span",className+(unlocked?"":" sca-locked-art"));
-    const img=el("img");img.alt="";img.src=iconFor(game,index);img.draggable=false;holder.appendChild(img);
+    const img=el("img");img.alt="";img.src=shownIcon(index);img.draggable=false;holder.appendChild(img);
+    if(unlocked&&isRare(index))holder.classList.add("sca-rare");
     if(!unlocked){const lock=el("span","sca-lock");lock.innerHTML=LOCK_SVG;holder.appendChild(lock);}
     return holder;
   }
+  const rarity=index=>rarityFor(game,index);
+  // Steam marks achievements fewer than 10% of players have as rare.
+  const isRare=index=>{const value=rarity(index);return value!==null&&value<10;};
   function formatUnlock(value) {
     if(typeof value!=="string")return "Unlocked";
     const date=new Date(value);
@@ -355,8 +378,8 @@ html.sca-page-open body>*:not(#${DIALOG_ID}){visibility:hidden}
     row.replaceChildren();
     for(const index of indices.slice(0,shown)) {
       const tile=art(index,unlocked,"sca-tile");tile.type="button";
-      const a=game.achievements[index];tile.title=`${a.name}\n${a.detail}`;
-      tile.setAttribute("aria-label",`${a.name} (${unlocked?"unlocked":"locked"})`);
+      tile.title=`${shownName(index)}\n${shownDetail(index)}`;
+      tile.setAttribute("aria-label",`${shownName(index)} (${unlocked?"unlocked":"locked"})`);
       tile.onclick=()=>openDialog(index);
       row.appendChild(tile);
     }
@@ -370,7 +393,7 @@ html.sca-page-open body>*:not(#${DIALOG_ID}){visibility:hidden}
     const unlocked=[],locked=[];
     game.achievements.forEach((_a,i)=>(isUnlocked(i)?unlocked:locked).push(i));
     document.querySelectorAll(`#${ROOT_ID} .sca-icons`).forEach(row=>{
-      fillIconRow(row,row.dataset.kind==="unlocked"?sortUnlocked(unlocked):locked,row.dataset.kind==="unlocked");
+      fillIconRow(row,row.dataset.kind==="unlocked"?sortUnlocked(unlocked):locked.sort((x,y)=>isSecret(x)-isSecret(y)||x-y),row.dataset.kind==="unlocked");
     });
   }
   // Most recent unlock first, like Steam.
@@ -395,21 +418,22 @@ html.sca-page-open body>*:not(#${DIALOG_ID}){visibility:hidden}
     // and locked ones get a row of small pictures. With nothing unlocked yet, the next locked
     // one is featured instead.
     const tile=(index,isOn,small)=>{
-      const b=game.achievements[index];
-      const node=el('button',"sca-bpm-icon"+(small?" sca-bpm-small":"")+(isOn?"":" sca-bpm-dim"));node.type='button';
-      const img=el('img');img.alt='';img.src=iconFor(game,index);img.draggable=false;node.appendChild(img);
-      node.title=`${b.name}\n${b.detail}`;node.setAttribute('aria-label',`${b.name} (${isOn?'unlocked':'locked'})`);
+      const node=el('button',"sca-bpm-icon"+(small?" sca-bpm-small":"")+(isOn?"":" sca-bpm-dim")+(isOn&&isRare(index)?" sca-rare":""));node.type='button';
+      const img=el('img');img.alt='';img.src=shownIcon(index);img.draggable=false;node.appendChild(img);
+      node.title=`${shownName(index)}\n${shownDetail(index)}`;node.setAttribute('aria-label',`${shownName(index)} (${isOn?'unlocked':'locked'})`);
       node.onclick=event=>{event.stopPropagation();openDialog(index);};return node;
     };
     const feature=(index,isOn)=>{
       const a=game.achievements[index];
-      const node=el('button','sca-bpm-feature');node.type='button';node.setAttribute('aria-label',`${a.name} (${isOn?'unlocked':'locked'})`);
-      const pic=el('span',"sca-bpm-icon"+(isOn?"":" sca-bpm-dim"));const img=el('img');img.alt='';img.src=iconFor(game,index);img.draggable=false;pic.appendChild(img);
-      const text=el('div','sca-bpm-text');text.append(el('div','sca-bpm-name',a.name),el('div','sca-bpm-desc',a.detail||''));
+      const node=el('button','sca-bpm-feature');node.type='button';node.setAttribute('aria-label',`${shownName(index)} (${isOn?'unlocked':'locked'})`);
+      const pic=el('span',"sca-bpm-icon"+(isOn?"":" sca-bpm-dim")+(isOn&&isRare(index)?" sca-rare":""));const img=el('img');img.alt='';img.src=shownIcon(index);img.draggable=false;pic.appendChild(img);
+      const text=el('div','sca-bpm-text');text.append(el('div','sca-bpm-name',shownName(index)),el('div','sca-bpm-desc',shownDetail(index)));
       text.appendChild(el('div','sca-bpm-when',isOn?formatUnlock(game.progress[String(index)]):(a.automatic?'Unlocks automatically':'Locked')));
       node.append(pic,text);node.onclick=event=>{event.stopPropagation();openDialog(index);};return node;
     };
     const sorted=sortUnlocked(unlocked);
+    // Spoilers go to the end of the locked row, so a hidden one is never the featured one.
+    locked.sort((x,y)=>isSecret(x)-isSecret(y)||x-y);
     if(sorted.length){
       const box=el('div','sca-bpm-group');const row=el('div','sca-bpm-row');
       row.appendChild(feature(sorted[0],true));for(const index of sorted.slice(1))row.appendChild(tile(index,true,false));
@@ -555,9 +579,19 @@ html.sca-page-open body>*:not(#${DIALOG_ID}){visibility:hidden}
       const search=el("input","sca-search");search.type="search";search.placeholder="Search";search.setAttribute("aria-label","Search achievements");search.value=query;
       search.oninput=()=>{query=search.value;updateList();};
       const select=el("select","sca-select");select.setAttribute("aria-label","Filter by category");
-      for(const value of ["all",...new Set(game.achievements.map(a=>a.group))]){const option=el("option","",value==="all"?"All types":value);option.value=value;select.appendChild(option);}
+      // Each category shows its own count, like Steam's per-set progress (DLC sets included).
+      for(const value of ["all",...new Set(game.achievements.map(a=>a.group))]){
+        const members=game.achievements.map((a,i)=>i).filter(i=>value==="all"||game.achievements[i].group===value);
+        const have=members.filter(isUnlocked).length;
+        const option=el("option","",`${value==="all"?"All types":value} (${have}/${members.length})`);option.value=value;select.appendChild(option);
+      }
       select.value=group;select.onchange=()=>{group=select.value;updateList();};
-      toolbar.append(search,select);body.append(toolbar,el("div","sca-list"));
+      toolbar.append(search,select);
+      if(game.achievements.some((_a,i)=>rarity(i)!==null)){
+        const order=el("select","sca-select sca-sort");order.setAttribute("aria-label","Sort achievements");
+        for(const [value,label] of [["default","Default order"],["rare","Rarest first"],["common","Most common first"]]){const option=el("option","",label);option.value=value;order.appendChild(option);}
+        order.value=sort;order.onchange=()=>{sort=order.value;updateList();};toolbar.appendChild(order);
+      } else sort="default";body.append(toolbar,el("div","sca-list"));
     } else buildSettings(body);
     updateDialog();updateAutomatic();
   }
@@ -565,7 +599,7 @@ html.sca-page-open body>*:not(#${DIALOG_ID}){visibility:hidden}
     const a=game.achievements[index],unlocked=isUnlocked(index);
     const row=el("div","sca-ach"+(unlocked?"":" sca-locked"));row.dataset.index=String(index);
     const icon=art(index,unlocked,"sca-ach-icon");
-    const change=el("button","sca-ach-icon"+(unlocked?"":" sca-locked-art"));change.type="button";
+    const change=el("button","sca-ach-icon"+(unlocked?"":" sca-locked-art")+(unlocked&&isRare(index)?" sca-rare":""));change.type="button";
     change.replaceChildren(...icon.childNodes);change.title="Change picture";change.setAttribute("aria-label",`Change picture for ${a.name}`);
     change.onclick=()=>{pictureTarget=index;const picker=document.querySelector(`#${DIALOG_ID} .sca-picker`);picker.multiple=false;picker.click();};
     const text=el("div","sca-ach-text");
@@ -575,6 +609,14 @@ html.sca-page-open body>*:not(#${DIALOG_ID}){visibility:hidden}
       const meter=el("div","sca-ach-meter");const fill=el("div");fill.style.width=`${Math.min(100,count.have/count.need*100)}%`;meter.appendChild(fill);
       const holder=el("div","sca-ach-progress");holder.append(meter,el("span","",`${count.have} / ${count.need}`));text.appendChild(holder);
     }
+    // Steam's global unlock rate: the share of players who have it, gold when rare.
+    const rate=rarity(index);
+    if(rate!==null){
+      const line=el("div","sca-ach-rarity"+(rate<10?" sca-rarity-rare":""));
+      const meter=el("div","sca-rarity-meter");const fill=el("div");fill.style.width=`${rate}%`;meter.appendChild(fill);
+      line.append(meter,el("span","",`${formatRarity(rate)} of players have this achievement`));text.appendChild(line);
+    }
+    if(a.hidden&&!unlocked)text.appendChild(el("div","sca-ach-tag sca-spoiler-tag","Spoiler · hidden until unlocked"));
     // Automatic ones carry no tag: the list is automatic unless a row says otherwise.
     if(!unlocked&&!a.automatic)text.appendChild(el("div","sca-ach-tag",a.completion?"Unlocks by itself when every other achievement is unlocked":"Manual · mark it when you earn it"));
     const side=el("div","sca-ach-side");
@@ -595,7 +637,7 @@ html.sca-page-open body>*:not(#${DIALOG_ID}){visibility:hidden}
     // save is read). Redraw only when what it shows changed, so scrolling and the controller's
     // place stay put and nothing heavy runs in between.
     let key;
-    try{key=JSON.stringify([game.appId,game.progress,game.auto?.counts||null,query,group,Object.entries(game.customIcons||{}).map(([k,v])=>`${k}:${String(v).length}`)]);}catch(_){key=null;}
+    try{key=JSON.stringify([game.appId,game.progress,game.auto?.counts||null,query,group,sort,game.revealSpoilers,game.customRarity,Object.entries(game.customIcons||{}).map(([k,v])=>`${k}:${String(v).length}`)]);}catch(_){key=null;}
     if(key!==null&&list.dataset.key===key)return;
     const body=list.closest(".sca-dbody");const scrollTop=body?body.scrollTop:0;
     const focusedIndex=list.querySelector(".sca-ach.sca-padfocus")?.dataset.index;
@@ -606,11 +648,34 @@ html.sca-page-open body>*:not(#${DIALOG_ID}){visibility:hidden}
       if(group!=="all"&&group!==a.group)return false;
       return !needle||`${a.name} ${a.detail}`.toLowerCase().includes(needle);
     };
-    const unlocked=[],locked=[];
-    game.achievements.forEach((_a,i)=>{if(matches(i))(isUnlocked(i)?unlocked:locked).push(i);});
-    if(unlocked.length){list.appendChild(el("div","sca-section-title","Unlocked Achievements"));for(const i of sortUnlocked(unlocked))list.appendChild(achievementRow(i));}
-    if(locked.length){list.appendChild(el("div","sca-section-title","Locked Achievements"));for(const i of locked)list.appendChild(achievementRow(i));}
-    if(!unlocked.length&&!locked.length)list.appendChild(el("div","sca-empty","No achievements match your search."));
+    const unlocked=[],locked=[],secret=[];
+    game.achievements.forEach((a,i)=>{
+      if(isSecret(i)){if(group==="all"||group===a.group)secret.push(i);return;}
+      if(matches(i))(isUnlocked(i)?unlocked:locked).push(i);
+    });
+    const byRate=list=>{
+      if(sort==="default")return list;
+      const value=i=>rarity(i)??(sort==="rare"?101:-1);
+      return list.slice().sort((x,y)=>(sort==="rare"?value(x)-value(y):value(y)-value(x))||x-y);
+    };
+    if(unlocked.length){list.appendChild(el("div","sca-section-title","Unlocked Achievements"));for(const i of byRate(sortUnlocked(unlocked)))list.appendChild(achievementRow(i));}
+    if(locked.length||secret.length)list.appendChild(el("div","sca-section-title","Locked Achievements"));
+    for(const i of byRate(locked))list.appendChild(achievementRow(i));
+    if(secret.length){
+      // Like Steam: one line for the spoilers left, with a choice to reveal them.
+      const row=el("div","sca-hidden-summary");
+      const text=el("div","sca-ach-text");
+      text.append(el("div","sca-ach-name",`${secret.length} hidden achievement${secret.length===1?"":"s"} remaining`),el("div","sca-ach-desc","Details for each achievement will be revealed once unlocked"));
+      const reveal=el("button","sca-small sca-reveal","Show spoilers");reveal.type="button";reveal.onclick=()=>setRevealSpoilers(game,true);
+      const pic=el("span","sca-ach-icon sca-hidden-icon");const img=el("img");img.alt="";img.src=HIDDEN_ICON;pic.appendChild(img);
+      row.append(pic,text,reveal);list.appendChild(row);
+    } else if(game.revealSpoilers&&game.achievements.some((a,i)=>a.hidden&&!isUnlocked(i))){
+      const row=el("div","sca-hidden-summary sca-revealed");
+      const text=el("div","sca-ach-text");text.append(el("div","sca-ach-desc","Spoilers are shown. Hide them again to keep story achievements secret until they unlock."));
+      const hide=el("button","sca-small sca-reveal","Hide spoilers");hide.type="button";hide.onclick=()=>setRevealSpoilers(game,false);
+      row.append(text,hide);list.appendChild(row);
+    }
+    if(!unlocked.length&&!locked.length&&!secret.length)list.appendChild(el("div","sca-empty","No achievements match your search."));
     if(key!==null)list.dataset.key=key;
     if(body)body.scrollTop=scrollTop;
     if(focusedIndex!==undefined){const row=list.querySelector(`.sca-ach[data-index="${focusedIndex}"]`);if(row){row.tabIndex=-1;row.classList.add("sca-padfocus");row.focus?.({preventScroll:true});}}
@@ -640,19 +705,23 @@ html.sca-page-open body>*:not(#${DIALOG_ID}){visibility:hidden}
     toggle.onclick=()=>{setPopupsEnabled(!popupsEnabled());label();};
     const test=el("button","sca-small sca-popup-test","Test in 10 seconds");test.type="button";
     test.onclick=()=>{note.textContent="Switch to your game now. The test popup shows in 10 seconds.";window.setTimeout(()=>{const pick=game.achievements.findIndex(a=>a.automatic);announceUnlocks(game,[pick>=0?pick:0],true);note.textContent="";},10000);};
-    buttons.append(toggle,test);panel.append(buttons,note);
+    const progressTest=el("button","sca-small sca-progress-test","Test progress popup");progressTest.type="button";
+    progressTest.onclick=()=>{note.textContent="Switch to your game now. The progress popup shows in 10 seconds.";window.setTimeout(()=>{const counted=Object.keys(game.auto?.counts||{}).map(Number).find(i=>game.achievements[i]&&!game.achievements[i].hidden);const index=Number.isInteger(counted)?counted:Math.max(0,game.achievements.findIndex(a=>!a.hidden));const need=game.auto?.counts?.[String(index)]?.need||20;announceProgress(game,index,Math.max(1,Math.floor(need/2)),need,true);note.textContent="";},10000);};
+    buttons.append(toggle,test,progressTest);panel.append(buttons,note);
     return panel;
   }
   function buildCommonSettings(body,auto) {
     const pictures=el("div","sca-panel");
     pictures.append(el("h3","","Achievement pictures"),
       el("p","",`Click any achievement's picture in My Achievements to replace it with an image from your PC. To load many at once, pick several images named by list number (1.png to ${game.achievements.length}.png) or by achievement name (for example ${game.achievements[0].name.replace(/[^A-Za-z0-9 ]/g,"")}.jpg).`),
-      el("p","","To use the real Xbox pictures, open the game's achievement list (TrueAchievements, Exophase…) in Chrome or Edge, scroll until every picture has loaded, press Ctrl+S and save as \"Webpage, Single File\". Then choose that .mhtml file with Load from saved page."));
+      el("p","","To use the real Xbox pictures, open the game's achievement list (TrueAchievements, Exophase…) in Chrome or Edge, scroll until every picture has loaded, press Ctrl+S and save as \"Webpage, Single File\". Then choose that .mhtml file with Load from saved page. If the page lists how many players have each achievement (for example Exophase's percentages), those unlock rates are loaded too and shown like Steam's global percentages, with rare ones (under 10%) in gold."));
     const pictureButtons=el("div","sca-buttons");
     const many=el("button","sca-small","Choose pictures…");many.onclick=()=>{pictureTarget=null;const picker=document.querySelector(`#${DIALOG_ID} .sca-picker`);picker.multiple=true;picker.click();};
     const fromPage=el("button","sca-small sca-from-page","Load from saved page…");fromPage.onclick=()=>document.querySelector(`#${DIALOG_ID} .sca-page-picker`).click();
     pictureButtons.appendChild(fromPage);
     const reset=el("button","sca-small","Reset to built-in pictures");reset.onclick=()=>{game.customIcons={};writeIcons(game);showMessage("Built-in pictures restored");};
+    const clearRates=el("button","sca-small sca-clear-rates","Clear unlock rates");clearRates.type="button";clearRates.onclick=()=>{game.customRarity={};writeRarity(game);showMessage("Loaded unlock rates cleared");};
+    if(Object.keys(game.customRarity||{}).length)pictureButtons.appendChild(clearRates);
     pictureButtons.append(many,reset);pictures.appendChild(pictureButtons);
     const data=el("div","sca-panel sca-backup-area");
     data.append(el("h3","","Progress"),el("p","sca-storage-state"));
@@ -693,8 +762,9 @@ html.sca-page-open body>*:not(#${DIALOG_ID}){visibility:hidden}
         const image=new window.Image();
         image.onerror=()=>reject(new Error("Unreadable image"));
         image.onload=()=>{
-          const size=128,canvas=document.createElement("canvas");canvas.width=canvas.height=size;
+          // Steam's icon size is 256x256; smaller pictures keep their own size instead of being blown up.
           const side=Math.min(image.naturalWidth,image.naturalHeight);
+          const size=Math.max(1,Math.min(256,side)),canvas=document.createElement("canvas");canvas.width=canvas.height=size;
           const context=canvas.getContext("2d");
           context.drawImage(image,(image.naturalWidth-side)/2,(image.naturalHeight-side)/2,side,side,0,0,size,size);
           let url=canvas.toDataURL("image/webp",.9);

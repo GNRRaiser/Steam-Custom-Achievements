@@ -26,7 +26,10 @@
     Object.assign(game, {
       storageKey: `sca:progress:${game.appId}:v1`,
       iconKey: `sca:icons:${game.appId}:v1`,
-      progress: {}, customIcons: {}, iconsLoaded: false, storageFound: false, dirty: false,
+      rarityKey: `sca:rarity:${game.appId}:v1`,
+      revealKey: `sca:reveal:${game.appId}:v1`,
+      milestoneKey: `sca:milestones:${game.appId}:v1`,
+      progress: {}, customIcons: {}, customRarity: {}, revealSpoilers: false, milestones: null, iconsLoaded: false, storageFound: false, dirty: false,
       auto: game.automatic
         ? {status:"connecting",message:"Connecting automatic tracking",progress:{},supportedIndices:[]}
         : {status:"manual",message:"Manual tracking: mark each achievement when you earn it.",progress:{},supportedIndices:[]},
@@ -127,11 +130,74 @@
     const announce = game.storageFound;
     if (fresh.length) writeProgress(game);
     if (announce && fresh.length) announceUnlocks(game, fresh);
+    checkMilestones(game);
     game.captureOn = !!next.capture?.enabled;
     // Never replace a focused filter or a half-written restore/save-path field.
     if (before!==JSON.stringify(next)) {
       for (const view of views.values()) if (view.game()===game) view.updateAutomatic?.();
     }
+  }
+
+  // Progress popups, like Steam's IndicateAchievementProgress: when a counter achievement
+  // passes a quarter of the way (25%, 50%, 75%), one popup shows "12 / 30". Never at 100%,
+  // which is the unlock popup's job, and never for a hidden (spoiler) one.
+  function readJson(key) {
+    for (const store of new Set([selectedStorage, ...storageCandidates])) {
+      if (!store) continue;
+      try { const raw = store.getItem(key); if (raw !== null) return JSON.parse(raw); } catch (_) { /* try the next store */ }
+    }
+    return null;
+  }
+  function writeJson(key, value) {
+    for (const store of new Set([selectedStorage, ...storageCandidates])) {
+      if (!store) continue;
+      try { store.setItem(key, JSON.stringify(value)); return true; } catch (error) { report("storage-save-failed", error); }
+    }
+    return false;
+  }
+  function checkMilestones(game) {
+    const counts = game.auto?.counts;
+    if (!counts || typeof counts !== "object") return;
+    if (!game.milestones) { const saved = readJson(game.milestoneKey); game.milestones = saved && typeof saved === "object" && !Array.isArray(saved) ? saved : {}; }
+    let changed = false;
+    for (const [key, count] of Object.entries(counts)) {
+      const index = Number(key), a = game.achievements[index];
+      if (!a || a.completion || game.progress[key] || !count) continue;
+      const have = Number(count.have), need = Number(count.need);
+      if (!Number.isFinite(have) || !Number.isFinite(need) || need < 4 || have < 0) continue;
+      const quarter = Math.max(0, Math.min(3, Math.floor(have / need * 4)));
+      const before = game.milestones[key];
+      if (before === quarter) continue;
+      game.milestones[key] = quarter; changed = true;
+      // The first reading only sets the starting point, so old progress never pops up.
+      if (Number.isInteger(before) && quarter > before && !a.hidden) announceProgress(game, index, Math.floor(have), Math.floor(need));
+    }
+    if (changed) writeJson(game.milestoneKey, game.milestones);
+  }
+  function announceProgress(game, index, have, need, force = false) {
+    if (!force && !popupsEnabled()) return;
+    const a = game.achievements[index];
+    if (!a) return;
+    let icon = null;
+    try { icon = iconFor(game, index); } catch (_) { /* no picture */ }
+    toastQueue.push({ count: 1, icon, title: "Achievement Progress", name: a.name, detail: a.detail || "",
+      appId: game.appId, key: `sca-${index}`, progress: { have, need }, rarity: rarityFor(game, index) });
+    showNextToast();
+  }
+  // The unlock rate shown for an achievement: one loaded from a saved page wins over the pack's.
+  function rarityFor(game, index) {
+    const value = game.customRarity?.[String(index)] ?? game.achievements[index]?.rarity;
+    return typeof value === "number" && Number.isFinite(value) && value >= 0 && value <= 100 ? value : null;
+  }
+  function writeRarity(game) {
+    const saved = writeJson(game.rarityKey, game.customRarity);
+    redrawViews();
+    return saved;
+  }
+  function setRevealSpoilers(game, on) {
+    game.revealSpoilers = !!on;
+    writeJson(game.revealKey, game.revealSpoilers);
+    redrawViews();
   }
 
   // "Achievement unlocked" popups styled like Steam's own toast, drawn in every
@@ -229,6 +295,27 @@
       detail.style.cssText = "font-size:12px;color:#acb2b8;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden";
       text.appendChild(detail);
     }
+    if (item.progress) {
+      const line = document.createElement("div");
+      line.className = "sca-toast-progress";
+      line.style.cssText = "display:flex;align-items:center;gap:8px;margin-top:5px;font-size:12px;color:#acb2b8";
+      const meter = document.createElement("div");
+      meter.style.cssText = "flex:1;height:6px;border-radius:3px;background:#3d4450;overflow:hidden";
+      const fill = document.createElement("div");
+      fill.style.cssText = `height:100%;width:${Math.min(100, item.progress.have / item.progress.need * 100)}%;background:linear-gradient(90deg,#1a44c2,#1a9fff)`;
+      meter.appendChild(fill);
+      const label = document.createElement("span");
+      label.textContent = `${item.progress.have} / ${item.progress.need}`;
+      line.append(meter, label);
+      text.appendChild(line);
+    } else if (typeof item.rarity === "number") {
+      const rare = document.createElement("div");
+      rare.className = "sca-toast-rarity";
+      rare.textContent = `${formatRarity(item.rarity)} of players have this achievement`;
+      rare.style.cssText = `font-size:11px;margin-top:3px;color:${item.rarity < 10 ? "#e5b143" : "#8f98a0"}`;
+      text.appendChild(rare);
+    }
+    if (typeof item.rarity === "number" && item.rarity < 10 && !item.progress) badge.style.boxShadow = "0 0 0 2px #e5b143,0 0 12px #e5b14399";
     toast.append(badge, text);
     host.appendChild(toast);
     target.setTimeout(() => { toast.style.opacity = "1"; toast.style.transform = "none"; }, 30);
@@ -241,6 +328,9 @@
   // CClientNotificationAchievement). The plugin's own toast is the fallback.
   const ACHIEVEMENT_NOTIFICATION = 5;
   let steamToastState = "untried", steamToastId = 900000;
+  function formatRarity(value) {
+    return `${value < 10 ? value.toFixed(1) : Math.round(value * 10) / 10}%`;
+  }
   function protobuf(fields) {
     const out = [];
     const utf8 = text => Array.from(unescape(encodeURIComponent(text)), c => c.charCodeAt(0));
@@ -248,6 +338,11 @@
     for (const [number, kind, value] of fields) {
       if (value === undefined || value === null || value === "") continue;
       if (kind === "string") { const bytes = utf8(String(value)); varint(number * 8 + 2); varint(bytes.length); for (const b of bytes) out.push(b); }
+      else if (kind === "float") {
+        varint(number * 8 + 5);
+        const bytes = new Uint8Array(new Float32Array([value]).buffer);
+        for (const b of bytes) out.push(b);
+      }
       else { varint(number * 8); varint(kind === "bool" ? (value ? 1 : 0) : value); }
     }
     return new Uint8Array(out);
@@ -259,8 +354,11 @@
       const id = Number.isInteger(store.m_nNextTestNotificationID) ? store.m_nNextTestNotificationID++ : steamToastId++;
       store.OnNotification(id, ACHIEVEMENT_NOTIFICATION, protobuf([
         [1, "string", item.key], [2, "uint", item.appId], [3, "string", item.name],
-        [4, "string", item.steamDetail || item.detail], [5, "string", item.steamIcon || item.icon], [6, "bool", true],
-        [7, "uint", Date.now() / 1000],
+        [4, "string", item.steamDetail || item.detail], [5, "string", item.steamIcon || item.icon], [6, "bool", !item.progress],
+        // Unlocks carry their time; progress popups carry min, current and max progress the way
+        // Steam's own IndicateAchievementProgress does, and either can carry the unlock rate.
+        ...(item.progress ? [[8, "float", 0], [9, "float", item.progress.have], [10, "float", item.progress.need]] : [[7, "uint", Date.now() / 1000]]),
+        [11, "float", item.rarity ?? undefined],
       ]));
       // Steam drops a toast without an error when its settings or UI mode say so.
       // If it neither queued nor showed ours, draw the plugin's own.
@@ -315,7 +413,7 @@
         let icon = null;
         try { icon = iconFor(game, index); } catch (_) { /* the badge shows a number instead */ }
         toastQueue.push({ count: 1, icon, title: "Achievement Unlocked!", name: a.name, detail: a.detail || "",
-          appId: game.appId, key: `sca-${index}` });
+          appId: game.appId, key: `sca-${index}`, rarity: rarityFor(game, index) });
       }
     }
     showNextToast();
@@ -425,6 +523,18 @@
     }
   }
 
+  function loadExtras(game) {
+    if (game.extrasLoaded) return;
+    const rarity = readJson(game.rarityKey);
+    if (rarity && typeof rarity === "object" && !Array.isArray(rarity)) {
+      for (const [key, value] of Object.entries(rarity)) {
+        if (game.achievements[Number(key)] && typeof value === "number" && value >= 0 && value <= 100) game.customRarity[key] = value;
+      }
+    }
+    game.revealSpoilers = readJson(game.revealKey) === true;
+    game.extrasLoaded = storageCandidates.size > 0;
+  }
+
   function loadProgress(game) {
     if (game.storageFound || game.dirty) return;
     for (const store of storageCandidates) {
@@ -458,7 +568,7 @@
     } catch (error) {
       report("storage-access-blocked", error);
     }
-    for (const game of GAMES) { loadIcons(game); loadProgress(game); }
+    for (const game of GAMES) { loadIcons(game); loadProgress(game); loadExtras(game); }
   }
 
   // The platinum entry unlocks by itself once every other achievement is unlocked,

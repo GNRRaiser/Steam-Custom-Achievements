@@ -24,6 +24,11 @@ checks the pack and regenerates `.millennium/Dist/index.js` and `backend/games.l
 - `icon` is a symbol from `ICON_SYMBOLS` in `source/icons.js` (skull, medal, tank, plane, flame,
   key, flower, book, house, music, ring, coaster, coins, crown, star, target, sword, ...).
   Players can still replace any picture from the popup.
+- Spoilers: achievements in the `Story` group are hidden (name, description and picture) until they
+  unlock or the player reveals spoilers. Set `"spoilerGroups": ["Story", "Ending"]` on the game to
+  change which groups, or `"hidden": true` / `"hidden": false` on one achievement.
+- Optional `"rarity": 12.5` on an achievement is its unlock rate (percent of players), shown like
+  Steam's global percentage; under 10 counts as rare. Players can also load rates from a saved page.
 - Optional `saveFolders` (with `saveFolderHint` for the placeholder text) lets capture and record
   mode find a manual game's saves without a pasted path. Each entry is an environment variable
   (`USERPROFILE`, `APPDATA`, `LOCALAPPDATA`, `ProgramFiles(x86)` or `ProgramFiles`) followed by folder
