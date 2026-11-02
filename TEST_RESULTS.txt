@@ -1,4 +1,4 @@
-Steam Custom Achievements v0.35.0 verification - 2026-11-02
+Steam Custom Achievements v0.35.1 verification - 2026-11-02
 PASS a new save in %APPDATA%\Ubisoft\Assassin's Creed\Saved Games is found; nothing unlocked
 PASS objective M03_S20_Animus_Tutorial_Complete finished unlocks Welcome to the Animus
 PASS references to an objective and objectives still open do not count
@@ -46,6 +46,8 @@ All LuaJIT 2.1 detector/watcher tests passed. Windows Steam integration remains 
 PASS the chapter byte unlocks Freshman to Graduate, one per finished chapter
 PASS stats screen counters (distances as metres, eggs, wedgies, sodas bought, knockouts, ...) unlock at their totals
 PASS counters show n / total
+PASS classes count once all five levels are passed (Keener, Teacher's Pet, Boy Genius)
+PASS The Champion needs all 14 bike races, Mission Accomplished the game's all-missions-passed entry
 PASS Perfectionist needs 100% in the slot's FileTableBully entry, which must agree with the save
 PASS files that are not Bully saves, cut off or with another layout unlock nothing
 PASS 38 Xbox 360 + 5 PS4 + 12 Anniversary Edition achievements, plus the Valedictorian platinum
@@ -121,8 +123,8 @@ PASS automatic backend state unlocks progress while another page is selected; ca
 PASS card and popup fit at 1200px, 480px and 320px widths
 PASS popup destruction/recreation, complete cleanup, no external requests or script exceptions
 Real Chromium window regression passed: 153.0.8010.12
-[Steam Custom Achievements 0.35.0] Attached to desktop Steam window
-[Steam Custom Achievements 0.35.0] Ready for 11 games; waiting for a visible Steam window if necessary
+[Steam Custom Achievements 0.35.1] Attached to desktop Steam window
+[Steam Custom Achievements 0.35.1] Ready for 11 games; waiting for a visible Steam window if necessary
 PASS CoD 4 page shows its own 37 achievements, automatic unlocks, intel progress and raw campaign value
 PASS record mode: pick an achievement, Start, Done; the matching value and the saved copies are shown; a second pass narrows
 PASS a new automatic unlock shows a Steam-style popup with its picture; popups can be turned off
@@ -271,4 +273,10 @@ PASS Bully: Scholarship Edition: three community saves (12%, about 40%, 100%) sh
      matches FileTableBully (0 and 5); the 100% save earns the five chapters, Perfectionist, Marathon, Skate Pro,
      Tour de Bullworth, Soda-licious and Kleptomania, the 12% save Marathon and Tour de Bullworth (its screenshot
      shows Tour de Bullworth unlocking at 101 km), Watch Your Step and Soda-licious
+PASS Bully: Scholarship Edition mission table (v0.35.1): the save's 510 entries at 0x53C follow the mission nodes of
+     Act\Missions.act in file order (dummy, chap1-5, classes, minigames, ...); node names are the game's uppercase
+     h = h*131 + c hash and match its MissionName list (1_01, C_Chem_5, 3_R08_Rich7, ...). The 12% save has exactly
+     Welcome to Bullworth parts 1-3 (1_01, 1_02, 1_02A) passed; the 100% save has every class's fifth level, all 14
+     bike races and 6_PassAll (the "all missions passed" node) passed and earns Mission Accomplished, Keener, Teacher's
+     Pet, Boy Genius and The Champion; the chapter 3 save earns none of them (1 / 14 races, 0 classes finished)
 PASS Pictures: all 38 Bully Xbox 360 icons matched by name and checked on a contact sheet

@@ -6,7 +6,7 @@ import os
 import re
 from pathlib import Path
 
-VERSION = '0.35.0'
+VERSION = '0.35.1'
 BASE = Path(__file__).resolve().parent
 ROOT = BASE.parent
 PLUGIN = ROOT
@@ -236,7 +236,9 @@ for slug in ORDER:
         backend['rules'] = rules
     elif game['detector'] == 'bully':
         # Bully: a stat from the save's statistics block (the stats screen's index, f32 metres for
-        # distances), the chapter the save is in (0-based), or the slot's game completion %.
+        # distances), the chapter the save is in (0-based), the slot's game completion %, or
+        # entries of the save's mission table (0-509, Act\Missions.act order): one mission, n of a
+        # list, or n groups with any mission passed (classes).
         rules = []
         for index, achievement in enumerate(game['achievements']):
             rule = achievement.get('rule')
@@ -247,6 +249,15 @@ for slug in ORDER:
                 assert not rule.get('float') or 5 <= rule['stat'] <= 11, slug
             elif 'chapter' in rule:
                 assert set(rule) == {'chapter'} and 1 <= rule['chapter'] <= 5, slug
+            elif 'mission' in rule:
+                assert set(rule) == {'mission'} and 0 <= rule['mission'] < 510, slug
+            elif 'missions' in rule:
+                assert set(rule) == {'missions', 'need', 'label'} and rule['label'], slug
+                assert all(0 <= n < 510 for n in rule['missions']) and 0 < rule['need'] <= len(rule['missions']), slug
+            elif 'groups' in rule:
+                assert set(rule) == {'groups', 'need', 'label'} and rule['label'], slug
+                assert all(group and all(0 <= n < 510 for n in group) for group in rule['groups']), slug
+                assert 0 < rule['need'] <= len(rule['groups']), slug
             else:
                 assert set(rule) == {'completion'} and 0 < rule['completion'] <= 100, slug
             rules.append({'index': index, **rule})

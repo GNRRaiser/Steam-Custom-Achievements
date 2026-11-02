@@ -3,7 +3,7 @@
   "title": "Bully: Scholarship Edition",
   "platform": "Xbox 360",
   "detector": "bully",
-  "trackingNote": "The plugin reads your newest save in Documents\\Bully Scholarship Edition (BullyFile1-6) when the game saves. The five chapter achievements unlock from the save's chapter, Perfectionist at 100% on the load screen, and the counter achievements (distances, eggs, wedgies, taunts, knockouts, sodas, bottles, room trophies, bikes jacked and more) from the game's own Stats screen numbers, which show here as n / total. Missions, classes, errands, races, jobs, kisses and carnival or arcade achievements are marked by hand for now. The 12 Anniversary Edition achievements are multiplayer ones from the mobile version and can only be marked by hand.",
+  "trackingNote": "The plugin reads your newest save in Documents\\Bully Scholarship Edition (BullyFile1-6) when the game saves. The five chapter achievements unlock from the save's chapter, Perfectionist at 100% on the load screen, Mission Accomplished when the game marks every mission passed, the class achievements from how many classes you have finished all five levels of, The Champion from the 14 bike races, and the counter achievements (distances, eggs, wedgies, taunts, knockouts, sodas, bottles, room trophies, bikes jacked and more) from the game's own Stats screen numbers, which show here as n / total. Errands, go-kart races, jobs, kisses and carnival or arcade achievements are marked by hand for now. The 12 Anniversary Edition achievements are multiplayer ones from the mobile version and can only be marked by hand.",
   "setupHint": "Save in Bully, or select a BullyFile save in Settings.",
   "pathPlaceholder": "Path to Documents\\Bully Scholarship Edition (or a BullyFile save)",
   "autoTag": "Unlocks automatically from your Bully save",
@@ -92,7 +92,10 @@
       "detail": "Complete All Missions.",
       "group": "Completion",
       "points": 75,
-      "icon": "star"
+      "icon": "star",
+      "rule": {
+        "mission": 120
+      }
     },
     {
       "name": "Perfectionist",
@@ -111,7 +114,44 @@
       "detail": "Complete 3 Classes.",
       "group": "Classes",
       "points": 20,
-      "icon": "book"
+      "icon": "book",
+      "rule": {
+        "groups": [
+          [
+            126
+          ],
+          [
+            132
+          ],
+          [
+            138,
+            143
+          ],
+          [
+            148
+          ],
+          [
+            153
+          ],
+          [
+            159
+          ],
+          [
+            170
+          ],
+          [
+            176
+          ],
+          [
+            182
+          ],
+          [
+            188
+          ]
+        ],
+        "need": 3,
+        "label": "Classes finished (all 5 levels)"
+      }
     },
     {
       "name": "Teacher's Pet",
@@ -119,7 +159,44 @@
       "detail": "Complete 6 Classes.",
       "group": "Classes",
       "points": 20,
-      "icon": "book"
+      "icon": "book",
+      "rule": {
+        "groups": [
+          [
+            126
+          ],
+          [
+            132
+          ],
+          [
+            138,
+            143
+          ],
+          [
+            148
+          ],
+          [
+            153
+          ],
+          [
+            159
+          ],
+          [
+            170
+          ],
+          [
+            176
+          ],
+          [
+            182
+          ],
+          [
+            188
+          ]
+        ],
+        "need": 6,
+        "label": "Classes finished (all 5 levels)"
+      }
     },
     {
       "name": "Boy Genius",
@@ -127,7 +204,44 @@
       "detail": "Complete 9 Classes.",
       "group": "Classes",
       "points": 30,
-      "icon": "medal"
+      "icon": "medal",
+      "rule": {
+        "groups": [
+          [
+            126
+          ],
+          [
+            132
+          ],
+          [
+            138,
+            143
+          ],
+          [
+            148
+          ],
+          [
+            153
+          ],
+          [
+            159
+          ],
+          [
+            170
+          ],
+          [
+            176
+          ],
+          [
+            182
+          ],
+          [
+            188
+          ]
+        ],
+        "need": 9,
+        "label": "Classes finished (all 5 levels)"
+      }
     },
     {
       "name": "Helping Hand",
@@ -191,7 +305,27 @@
       "detail": "Complete All Bike Races.",
       "group": "Races",
       "points": 20,
-      "icon": "medal"
+      "icon": "medal",
+      "rule": {
+        "missions": [
+          49,
+          50,
+          51,
+          52,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59,
+          60,
+          61,
+          62
+        ],
+        "need": 14,
+        "label": "Bike races won"
+      }
     },
     {
       "name": "Marathon",

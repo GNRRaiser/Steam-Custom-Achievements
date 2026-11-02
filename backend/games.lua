@@ -1196,8 +1196,31 @@ return {
       index = 4,
       chapter = 5,
     }, {
+      index = 5,
+      mission = 120,
+    }, {
       index = 6,
       completion = 100,
+    }, {
+      index = 7,
+      groups = { { 126 }, { 132 }, { 138, 143 }, { 148 }, { 153 }, { 159 }, { 170 }, { 176 }, { 182 }, { 188 } },
+      need = 3,
+      label = "Classes finished (all 5 levels)",
+    }, {
+      index = 8,
+      groups = { { 126 }, { 132 }, { 138, 143 }, { 148 }, { 153 }, { 159 }, { 170 }, { 176 }, { 182 }, { 188 } },
+      need = 6,
+      label = "Classes finished (all 5 levels)",
+    }, {
+      index = 9,
+      groups = { { 126 }, { 132 }, { 138, 143 }, { 148 }, { 153 }, { 159 }, { 170 }, { 176 }, { 182 }, { 188 } },
+      need = 9,
+      label = "Classes finished (all 5 levels)",
+    }, {
+      index = 17,
+      missions = { 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62 },
+      need = 14,
+      label = "Bike races won",
     }, {
       index = 18,
       stat = 5,

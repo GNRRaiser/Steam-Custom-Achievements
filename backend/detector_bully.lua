@@ -17,14 +17,25 @@
 --            cars damaged (24) 11, crates (27) 28, chocolates (37) 10, flowers (39) 10, sodas
 --            drunk (40) 637, ConSumo (217-219) 1 / 2005 / 50 cents, Nut Shots high score (224)
 --            52450, FS Racer 3D (228-229) 2 / 150 cents.
+--   0x52C    the mission table: u32 1, u32 3204 (block size), u32 510, then 510 entries of three
+--            u16 (attempts, passes, flags) from 0x53C. Entry n is the game's mission n: the
+--            mission nodes of Act\Missions.act in file order (a dummy, chap1-5, classes,
+--            minigames, punishments, tutorials, doors, debug); a mission is passed once its pass
+--            count is above 0. Checked against the 12% save (only Welcome to Bullworth parts 1-3,
+--            entries 4-6) and the 100% save (every class and bike race passed).
 -- Rules: { stat = n, need = x, float = true? } (a stat reaching x), { chapter = n } (the save is
--- at least in chapter n, 0-based, so 1 means Chapter 1 is finished) and { completion = 100 }
--- (FileTableBully's game completion for this slot).
+-- at least in chapter n, 0-based, so 1 means Chapter 1 is finished), { completion = 100 }
+-- (FileTableBully's game completion for this slot), { mission = n } (mission n passed),
+-- { missions = { n, ... }, need = x } (x of those missions passed) and { groups = { { n, ... },
+-- ... }, need = x } (x groups with any of their missions passed, used for classes, where a class
+-- counts once its fifth level is passed).
 local D = { maxBytes = 65536, followFolder = true }
 
 local SIZE = 22260
 local STATS = 0x2F4C
 local STAT_COUNT = 260
+local MISSIONS = 0x53C
+local MISSION_COUNT = 510
 local ENTRY = 56
 local RECORD = 'SCAB'
 
@@ -90,14 +101,22 @@ function D.parse(bytes)
     if u32(bytes, 0x2F3C) ~= 1 or u32(bytes, 0x2F40) ~= 1468 or u32(bytes, 0x2F44) ~= STAT_COUNT then
         return nil, 'This Bully save has an unknown layout'
     end
+    if u32(bytes, 0x52C) ~= 1 or u32(bytes, 0x530) ~= 3204 or u32(bytes, 0x534) ~= MISSION_COUNT then
+        return nil, 'This Bully save has an unknown layout'
+    end
     local chapter = bytes:byte(0x75 + 1)
     if chapter > 9 then return nil, 'This Bully save has an unknown layout' end
     local stats = {}
     for n = 0, STAT_COUNT - 1 do stats[n] = i32(bytes, STATS + n * 4) end
+    local passed = {}
+    for n = 0, MISSION_COUNT - 1 do
+        local at = MISSIONS + n * 6 + 2
+        passed[n] = bytes:byte(at + 1) + bytes:byte(at + 2) * 256 > 0
+    end
     local slot = read_entry(entry)
     -- The slot entry is only trusted when it agrees with the save about the chapter.
     if slot and slot.chapter ~= chapter then slot = nil end
-    return { chapter = chapter, completion = slot and slot.completion or nil, stats = stats, bytes = bytes }
+    return { chapter = chapter, completion = slot and slot.completion or nil, stats = stats, passed = passed, bytes = bytes }
 end
 
 local function stat(parsed, rule)
@@ -105,13 +124,38 @@ local function stat(parsed, rule)
     return parsed.stats[rule.stat]
 end
 
+-- How many of a rule's missions (or mission groups) are passed.
+local function passed_count(parsed, rule)
+    local count = 0
+    if rule.missions then
+        for _, n in ipairs(rule.missions) do
+            if parsed.passed[n] then count = count + 1 end
+        end
+    else
+        for _, group in ipairs(rule.groups) do
+            for _, n in ipairs(group) do
+                if parsed.passed[n] then count = count + 1; break end
+            end
+        end
+    end
+    return count
+end
+
+local function value_of(parsed, rule)
+    if rule.stat then return stat(parsed, rule) end
+    if rule.missions or rule.groups then return passed_count(parsed, rule) end
+    return nil
+end
+
 function D.evaluate(parsed, game)
     local list = {}
     for _, rule in ipairs(game.rules) do
         local hit = false
-        if rule.stat then
-            local value = stat(parsed, rule)
+        if rule.stat or rule.missions or rule.groups then
+            local value = value_of(parsed, rule)
             hit = value ~= nil and value >= rule.need
+        elseif rule.mission then
+            hit = parsed.passed[rule.mission] == true
         elseif rule.chapter then
             hit = parsed.chapter >= rule.chapter
         elseif rule.completion then
@@ -125,8 +169,8 @@ end
 function D.counts(parsed, game)
     local counts = {}
     for _, rule in ipairs(game.rules) do
-        if rule.stat and rule.label then
-            local value = stat(parsed, rule)
+        if rule.label then
+            local value = value_of(parsed, rule)
             if value then
                 counts[tostring(rule.index)] = { have = math.max(0, math.min(math.floor(value), rule.need)), need = rule.need, label = rule.label }
             end
@@ -139,7 +183,7 @@ function D.describe(parsed, fileName)
     local chapter = parsed.chapter < 5 and ('Chapter ' .. (parsed.chapter + 1)) or 'after the final chapter'
     local detail = chapter
     if parsed.completion then detail = detail .. string.format(', %.2f%% complete', parsed.completion) end
-    return 'watching', 'Watching ' .. fileName .. ' for chapters and stats.', detail
+    return 'watching', 'Watching ' .. fileName .. ' for chapters, missions, classes and stats.', detail
 end
 
 local function scan_folder(ctx, folder)
