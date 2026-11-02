@@ -1,3 +1,14 @@
+<p align="center">
+  <img src=".github/assets/banner.png" alt="Steam Custom Achievements: Xbox 360 achievements for Steam games that never got them" width="100%">
+</p>
+
+<p align="center">
+  <a href="https://github.com/GNRRaiser/Steam-Custom-Achievements/releases"><img alt="Downloads" src="https://img.shields.io/github/downloads/GNRRaiser/Steam-Custom-Achievements/total?label=downloads&color=66c0f4"></a>
+  <a href="https://github.com/GNRRaiser/Steam-Custom-Achievements/releases/latest"><img alt="Latest release" src="https://img.shields.io/github/v/release/GNRRaiser/Steam-Custom-Achievements?label=latest&color=d4a338"></a>
+  <a href="https://github.com/GNRRaiser/Steam-Custom-Achievements/actions/workflows/tests.yml"><img alt="Tests" src="https://img.shields.io/github/actions/workflow/status/GNRRaiser/Steam-Custom-Achievements/tests.yml?branch=main&label=tests"></a>
+  <a href="LICENSE"><img alt="License: MIT" src="https://img.shields.io/github/license/GNRRaiser/Steam-Custom-Achievements?color=8f98a0"></a>
+</p>
+
 # Steam Custom Achievements: Xbox 360 achievements for Steam games that have none
 
 **Steam achievements for Mass Effect, Mass Effect 2, Assassin's Creed, Assassin's Creed II, Assassin's Creed Brotherhood, Call of Duty 4: Modern Warfare, Call of Duty: World at War, Fable III, Fallout 3 and Thrillville: Off the Rails.**
