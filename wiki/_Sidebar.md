@@ -11,6 +11,7 @@
 - [Assassin's Creed](Assassins-Creed)
 - [Assassin's Creed II](Assassins-Creed-II)
 - [Assassin's Creed Brotherhood](Assassins-Creed-Brotherhood)
+- [Bully: Scholarship Edition](Bully-Scholarship-Edition)
 - [Call of Duty 4](Call-of-Duty-4)
 - [Call of Duty: World at War](Call-of-Duty-World-at-War)
 - [Fable III](Fable-III)

@@ -587,13 +587,14 @@
     for (const game of GAMES) { loadIcons(game); loadProgress(game); loadExtras(game); }
   }
 
-  // The platinum entry unlocks by itself once every other achievement is unlocked,
+  // The platinum entry unlocks by itself once every other achievement is unlocked (except
+  // groups the game leaves out, marked skipCompletion),
   // and locks again when one of them is locked. Returns its index when it just unlocked.
   function syncCompletion(game) {
     const index = game.achievements.findIndex(a => a.completion);
     if (index < 0) return null;
     const key = String(index);
-    const all = game.achievements.every((_a, i) => i === index || !!game.progress[String(i)]);
+    const all = game.achievements.every((a, i) => i === index || a.skipCompletion || !!game.progress[String(i)]);
     if (all && !game.progress[key]) { game.progress[key] = new Date().toISOString(); return index; }
     if (!all && game.progress[key]) delete game.progress[key];
     return null;

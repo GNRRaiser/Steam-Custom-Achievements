@@ -4,8 +4,8 @@ What's done, what's planned, what might come, and what isn't possible. Nothing h
 
 ## Done
 
-- **10 games** with their Xbox 360 lists (plus PS3 platinums): Assassin's Creed I, II and Brotherhood, Call of Duty 4 and World at War, Fable III, Fallout 3, Mass Effect 1 and 2, Thrillville: Off the Rails.
-- **Automatic unlocks** from saves for 437 of 555 achievements. Assassin's Creed, Fable III and Fallout 3 are fully automatic.
+- **11 games** with their Xbox 360 lists (plus PS3 platinums): Assassin's Creed I, II and Brotherhood, Bully: Scholarship Edition (with its PS4 and Anniversary Edition extras), Call of Duty 4 and World at War, Fable III, Fallout 3, Mass Effect 1 and 2, Thrillville: Off the Rails.
+- **Automatic unlocks** from saves for 458 of 611 achievements. Assassin's Creed, Fable III and Fallout 3 are fully automatic.
 - **Looks like Steam:** Library card and stat, unlock and progress popups, Steam-style list and date format, unlock rates, rare gold glow, hidden story achievements, category counts, sorting.
 - **Big Picture mode** with controller support.
 - **Website** with a page per game, **automatic tests** on every change, and **GitHub Releases** starting with v0.34.9.
@@ -18,6 +18,7 @@ What's done, what's planned, what might come, and what isn't possible. Nothing h
 | --- | --- | --- |
 | Mass Effect | Scholar, Completionist, Tactician, Medal of Exploration | A game profile where each one is unlocked, to confirm where the game stores it. Community profiles welcome. |
 | Thrillville: Off the Rails | Money Maker, crowd and arcade achievements | Saves with matching in-game numbers to map the save's statistics. Paused for now. |
+| Bully: Scholarship Edition | Missions, classes, errands, races, jobs and kisses | Matching the save's mission table to the game's mission names, and the kiss counters. Your own saves before and after one of these help. |
 | Assassin's Creed Brotherhood | Feather count | Checking the feather count against the game's own count on more saves. |
 
 ### Smaller improvements

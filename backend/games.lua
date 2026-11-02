@@ -1176,6 +1176,114 @@ return {
     total = 61,
   },
   {
+    appId = 12200,
+    slug = "bully",
+    title = "Bully: Scholarship Edition",
+    detector = "bully",
+    rules = { {
+      index = 0,
+      chapter = 1,
+    }, {
+      index = 1,
+      chapter = 2,
+    }, {
+      index = 2,
+      chapter = 3,
+    }, {
+      index = 3,
+      chapter = 4,
+    }, {
+      index = 4,
+      chapter = 5,
+    }, {
+      index = 6,
+      completion = 100,
+    }, {
+      index = 18,
+      stat = 5,
+      need = 100000,
+      float = true,
+      label = "Metres on foot",
+    }, {
+      index = 19,
+      stat = 6,
+      need = 50000,
+      float = true,
+      label = "Metres on the skateboard",
+    }, {
+      index = 20,
+      stat = 49,
+      need = 200,
+      label = "Wheelies",
+    }, {
+      index = 21,
+      stat = 7,
+      need = 100000,
+      float = true,
+      label = "Metres on the bike",
+    }, {
+      index = 22,
+      stat = 198,
+      need = 200,
+      label = "People knocked out",
+    }, {
+      index = 23,
+      stat = 22,
+      need = 25,
+      label = "Cars egged",
+    }, {
+      index = 24,
+      stat = 78,
+      need = 25,
+      label = "People tripped with marbles",
+    }, {
+      index = 25,
+      stat = 197,
+      need = 100,
+      label = "Taunts",
+    }, {
+      index = 26,
+      stat = 75,
+      need = 50,
+      label = "Stink bomb hits",
+    }, {
+      index = 27,
+      stat = 32,
+      need = 50,
+      label = "Wedgies given",
+    }, {
+      index = 28,
+      stat = 43,
+      need = 100,
+      label = "Soccer balls kicked",
+    }, {
+      index = 34,
+      stat = 238,
+      need = 300,
+      label = "Bottles broken at the shooting gallery",
+    }, {
+      index = 36,
+      stat = 194,
+      need = 100,
+      label = "Sodas bought",
+    }, {
+      index = 38,
+      stat = 1,
+      need = 40,
+      label = "Room trophies",
+    }, {
+      index = 42,
+      stat = 46,
+      need = 20,
+      label = "Bikes jacked",
+    } },
+    saveFolders = { { "USERPROFILE", "Documents", "Bully Scholarship Edition" }, { "USERPROFILE", "OneDrive", "Documents", "Bully Scholarship Edition" } },
+    progressKey = "autoProgress_12200_v1",
+    pathKey = "savePath_12200_v1",
+    setupHint = "Save in Bully, or select a BullyFile save in Settings.",
+    total = 56,
+  },
+  {
     appId = 7940,
     slug = "cod4",
     title = "Call of Duty 4: Modern Warfare",

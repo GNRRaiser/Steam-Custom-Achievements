@@ -1,4 +1,4 @@
-Steam Custom Achievements v0.34.9 verification - 2026-11-02
+Steam Custom Achievements v0.35.0 verification - 2026-11-02
 PASS a new save in %APPDATA%\Ubisoft\Assassin's Creed\Saved Games is found; nothing unlocked
 PASS objective M03_S20_Animus_Tutorial_Complete finished unlocks Welcome to the Animus
 PASS references to an objective and objectives still open do not count
@@ -43,6 +43,13 @@ PASS invalid save selection does not replace the selected path or modify the gam
 PASS a newer save slot is picked up without restarting Steam
 PASS a chosen slot file still follows a new game in another slot, and Reset to locked does not block it
 All LuaJIT 2.1 detector/watcher tests passed. Windows Steam integration remains a client-side check.
+PASS the chapter byte unlocks Freshman to Graduate, one per finished chapter
+PASS stats screen counters (distances as metres, eggs, wedgies, sodas bought, knockouts, ...) unlock at their totals
+PASS counters show n / total
+PASS Perfectionist needs 100% in the slot's FileTableBully entry, which must agree with the save
+PASS files that are not Bully saves, cut off or with another layout unlock nothing
+PASS 38 Xbox 360 + 5 PS4 + 12 Anniversary Edition achievements, plus the Valedictorian platinum
+All Bully detector tests passed.
 PASS a hero save written during play is copied (before and after) and its stat changes are logged
 PASS later saves add one copy each, only after the file stops changing; game folder untouched
 PASS Thrillville capture works from a pasted folder and falls back to prefixed files
@@ -114,8 +121,8 @@ PASS automatic backend state unlocks progress while another page is selected; ca
 PASS card and popup fit at 1200px, 480px and 320px widths
 PASS popup destruction/recreation, complete cleanup, no external requests or script exceptions
 Real Chromium window regression passed: 153.0.8010.12
-[Steam Custom Achievements 0.34.9] Attached to desktop Steam window
-[Steam Custom Achievements 0.34.9] Ready for 10 games; waiting for a visible Steam window if necessary
+[Steam Custom Achievements 0.35.0] Attached to desktop Steam window
+[Steam Custom Achievements 0.35.0] Ready for 11 games; waiting for a visible Steam window if necessary
 PASS CoD 4 page shows its own 37 achievements, automatic unlocks, intel progress and raw campaign value
 PASS record mode: pick an achievement, Start, Done; the matching value and the saved copies are shown; a second pass narrows
 PASS a new automatic unlock shows a Steam-style popup with its picture; popups can be turned off
@@ -124,6 +131,7 @@ PASS Fable III page has all 60 achievements automatic (Traitor's Keep included) 
 PASS Thrillville page has 18 automatic achievements (missions and owner levels), a save picker and capture
 PASS Mass Effect (45 automatic), Brotherhood (50 automatic), Mass Effect 2 (61 automatic) and AC1 (44 automatic): full lists with platinums, all 218 built-in pictures, save folders shown
 PASS the platinum (N7 Elite) unlocks once all others are unlocked, through Steam's own achievement toast (shown over games by the overlay)
+PASS Bully's Valedictorian platinum skips the 12 Anniversary Edition multiplayer achievements
 PASS a popup Steam silently drops is drawn by the plugin; one Steam queues is not
 PASS progress popups go to Steam's toast at each quarter, never for spoilers
 PASS AC2 keeps its v0.1 progress; other games' pages show no card; diagnostics list every game
@@ -257,3 +265,10 @@ PASS Thrillville: Off the Rails: owner level is u32 0x576F0 (a tester's 2023 sav
 PASS Assassin's Creed II sequence ends (v0.33.0): the real detector over a pcsavegames.com pack with one save per memory
      (25 saves, Sequence 1 to 13) unlocks no "Complete DNA Sequence" achievement before that sequence's
      last memory is done; v0.32.2 already had Sequence 5 complete inside its last memory
+PASS Bully: Scholarship Edition: three community saves (12%, about 40%, 100%) share one fixed layout on PC and
+     Anniversary Edition; the stats block at 0x2F4C matches the 12% save's in-game Stats screen (money $1030.00,
+     104.67 km on foot, 101.32 km by bike, sodas 637, ConSumo 2005, Nut Shots 52450, ...) and the chapter byte
+     matches FileTableBully (0 and 5); the 100% save earns the five chapters, Perfectionist, Marathon, Skate Pro,
+     Tour de Bullworth, Soda-licious and Kleptomania, the 12% save Marathon and Tour de Bullworth (its screenshot
+     shows Tour de Bullworth unlocking at 101 km), Watch Your Step and Soda-licious
+PASS Pictures: all 38 Bully Xbox 360 icons matched by name and checked on a contact sheet

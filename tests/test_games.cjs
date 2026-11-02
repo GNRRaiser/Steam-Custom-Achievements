@@ -53,7 +53,7 @@ const tick = () => new Promise(resolve => setTimeout(resolve, 0));
   } };
   host.localStorage.setItem('sca:progress:33230:v1', JSON.stringify({'20': '2026-10-01T00:00:00Z'}));
   // The older checks below expect every row listed, so spoilers start revealed here.
-  for (const app of [15100, 33230, 48190, 7940, 10090, 105400, 22370, 17460, 24980, 6080]) host.localStorage.setItem(`sca:reveal:${app}:v1`, 'true');
+  for (const app of [15100, 33230, 48190, 12200, 7940, 10090, 105400, 22370, 17460, 24980, 6080]) host.localStorage.setItem(`sca:reveal:${app}:v1`, 'true');
   host.Audio = undefined; // jsdom cannot play sound; the chime fallback finds no AudioContext either
   host.eval(script);
   await tick(); await tick();
@@ -257,6 +257,35 @@ const tick = () => new Promise(resolve => setTimeout(resolve, 0));
   await new Promise(r => setTimeout(r, 6000));
   console.log('PASS the platinum (N7 Elite) unlocks once all others are unlocked, through Steam\'s own achievement toast (shown over games by the overlay)');
 
+  // Bully's platinum (Valedictorian) does not wait for the 12 mobile-only Anniversary Edition achievements.
+  {
+    const bully = JSON.parse(JSON.stringify(runtime.diagnostics())).games.find(g => g.appId === 12200);
+    assert.ok(bully, 'Bully is listed');
+    const bullyAuto = [0, 1, 2, 3, 4, 6, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 34, 36, 38, 42];
+    const bullyStamp = '2026-11-02T12:00:00Z';
+    backend[12200] = {schemaVersion:1, appId:12200, status:'watching', message:'Watching BullyFile1', progress:{}, supportedIndices:bullyAuto};
+    host.MainWindowBrowserManager.m_lastLocation = {pathname:'/routes/library/app/12200'};
+    runtime.refresh(); await tick();
+    doc.querySelector('.sca-view').click();
+    const valedictorian = doc.querySelector('.sca-ach[data-index="55"]');
+    assert.match(valedictorian.textContent, /Valedictorian/);
+    assert.match(valedictorian.textContent, /0 \/ 43/, 'the platinum counts the 43 Xbox 360 and PS4 achievements only');
+    backend[12200] = {...backend[12200], progress:Object.fromEntries(bullyAuto.map(i => [String(i), bullyStamp]))};
+    await new Promise(r => setTimeout(r, 1500)); runtime.refresh(); await tick(); await tick();
+    for (let guard = 0; guard < 60; guard++) {
+      const next = [...doc.querySelectorAll('.sca-mark[aria-label$=": locked, click to toggle"]')].find(b => Number(b.closest('.sca-ach').dataset.index) < 43);
+      if (!next) break;
+      next.click();
+    }
+    await tick(); await tick();
+    const saved = JSON.parse(host.localStorage.getItem('sca:progress:12200:v1'));
+    assert.equal(Object.keys(saved).length, 44, 'the 43 plus the platinum');
+    assert.ok(saved['55'], 'Valedictorian unlocks without the Anniversary Edition achievements');
+    assert.equal([43, 44, 54].filter(i => saved[String(i)]).length, 0);
+    await new Promise(r => setTimeout(r, 6000));
+    console.log('PASS Bully\'s Valedictorian platinum skips the 12 Anniversary Edition multiplayer achievements');
+  }
+
   // Steam can take the notification and drop it without an error (its settings, or Big
   // Picture). Then nothing is queued, and the plugin draws its own popup instead.
   const dropped = [];
@@ -322,7 +351,7 @@ const tick = () => new Promise(resolve => setTimeout(resolve, 0));
   runtime.refresh(); await tick();
   assert.equal(doc.getElementById(id), null);
   const diag = JSON.parse(JSON.stringify(runtime.diagnostics()));
-  assert.deepEqual(diag.games.map(g => g.appId), [15100, 33230, 48190, 7940, 10090, 105400, 22370, 17460, 24980, 6080]);
+  assert.deepEqual(diag.games.map(g => g.appId), [15100, 33230, 48190, 12200, 7940, 10090, 105400, 22370, 17460, 24980, 6080]);
   assert.equal(diag.games.find(g => g.appId === 7940).unlocked, 1, 'one unlock since the reset');
   assert.equal(diag.popups.enabled, true);
   console.log('PASS AC2 keeps its v0.1 progress; other games\' pages show no card; diagnostics list every game');

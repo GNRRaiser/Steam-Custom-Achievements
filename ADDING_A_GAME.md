@@ -35,7 +35,8 @@ from 0. Steam's own icons are 256x256, so that size or smaller is best.
 - Optional `"rarity": 12.5` on an achievement is its unlock rate (percent of players), shown like
   Steam's global percentage; under 10 counts as rare. Players can also load rates from a saved page.
 - Optional `"completion": {"name": "Platinum", "detail": "...", "picture": "platinum.webp"}` on the
-  game adds a PS3-style platinum that unlocks once every other achievement is unlocked.
+  game adds a PS3-style platinum that unlocks once every other achievement is unlocked. Add
+  `"excludeGroups": ["..."]` to leave groups out of it (Bully leaves out its mobile-only multiplayer list).
 - Achievements with a counter (a rule with `need` and `label`) show progress as n / total and get
   Steam progress popups at 25%, 50% and 75% when `need` is at least 4.
 - Optional `saveFolders` (with `saveFolderHint` for the placeholder text) lets capture and record
@@ -107,6 +108,7 @@ The rest follow the same pattern; each file's header comment describes its forma
 | --- | --- | --- |
 | `ac1` | Assassin's Creed | the .sav progress block, which is the game's own record of all 44 achievements |
 | `ac2` | Assassin's Creed II | autosave mission records, the game's own checklists, villa data (see [AUTO_TRACKING.md](AUTO_TRACKING.md)) |
+| `bully` | Bully: Scholarship Edition | the chapter, the Stats screen numbers (`{"stat": n, "need": x}`, n from the game's SStats.lua) and the load screen's completion % |
 | `acb` | Assassin's Creed Brotherhood | mission records in the .SAV, plus the achievement bits the game keeps in OPTIONS |
 | `fable3` | Fable III | the XLiveEmu `Achievements.txt` unlock list (`"xlive": <id>` per achievement) |
 | `me2` | Mass Effect 2 | the achievement bits in the `Player1.prf` profile |

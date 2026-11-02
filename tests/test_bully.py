@@ -1,0 +1,84 @@
+"""Execute the Bully: Scholarship Edition detector with synthetic saves (no game data).
+Optional developer dependency: pip install lupa. A save is 22260 bytes: version 21 at 0x04, the
+size at 0x08, the chapter byte at 0x75 and the statistics block at 0x2F3C (stat n at 0x2F4C + 4n).
+FileTableBully has one 56-byte entry per slot: valid, completion %, chapter, ..."""
+import json
+import struct
+from pathlib import Path
+from lupa.luajit21 import LuaRuntime
+
+ROOT = Path(__file__).resolve().parent.parent
+GAME = json.loads((ROOT / 'source/games/bully/game.json').read_text())
+NAMES = [a['name'] for a in GAME['achievements']]
+
+
+def save(chapter=0, ints=None, floats=None):
+    data = bytearray(22260)
+    struct.pack_into('<III', data, 4, 21, 22260, 3)
+    data[0x75] = chapter
+    struct.pack_into('<IIII', data, 0x2F3C, 1, 1468, 260, 38)
+    for n, value in (ints or {}).items():
+        struct.pack_into('<i', data, 0x2F4C + 4 * n, value)
+    for n, value in (floats or {}).items():
+        struct.pack_into('<f', data, 0x2F4C + 4 * n, value)
+    return bytes(data)
+
+
+def entry(completion, chapter, valid=1):
+    return struct.pack('<IfI', valid, completion, chapter) + bytes(44)
+
+
+def wrapped(data, slot_entry):
+    return b'SCAB' + b'%08x' % len(data) + data + slot_entry
+
+
+lua = LuaRuntime(encoding=None, unpack_returned_tuples=True)
+lua.execute(b'package.path = ... .. ";" .. package.path', str(ROOT / 'backend/?.lua').encode())
+D = lua.eval(b'require("detector_bully")')
+games = lua.eval(b'require("games")')
+game = next(g for g in games.values() if g[b'appId'] == 12200)
+
+
+def earned(data):
+    parsed = D[b'parse'](data)
+    assert not isinstance(parsed, tuple), parsed
+    return {NAMES[i] for i in D[b'evaluate'](parsed, game).values()}
+
+
+assert earned(save()) == set()
+assert earned(save(chapter=1)) == {'Freshman'}
+assert earned(save(chapter=5)) == {'Freshman', 'Sophomore', 'Junior', 'Senior', 'Graduate'}
+print('PASS the chapter byte unlocks Freshman to Graduate, one per finished chapter')
+
+assert earned(save(floats={5: 99999.5, 6: 50000.0, 7: 100000.25})) == {'Skate Pro', 'Tour de Bullworth'}
+assert earned(save(ints={22: 25, 32: 49, 43: 100, 49: 200, 75: 50, 78: 24})) == {'Eggsellent!', "Kickin' the Balls", 'The Wheel Deal', 'Smell Ya Later'}
+assert earned(save(ints={194: 100, 197: 100, 198: 200, 238: 300, 1: 40, 46: 20})) == {
+    'Soda-licious', 'Smart Mouth', 'Down for the Count', 'Glass Dismissed', 'Kleptomania', 'The (Expert) Bicycle Thief'}
+assert earned(save(ints={40: 5000})) == set(), 'sodas drunk are not sodas bought'
+print('PASS stats screen counters (distances as metres, eggs, wedgies, sodas bought, knockouts, ...) unlock at their totals')
+
+parsed = D[b'parse'](save(ints={32: 12}, floats={5: 21265.75}))
+counts = {NAMES[int(k)]: (v[b'have'], v[b'need']) for k, v in D[b'counts'](parsed, game).items()}
+assert counts['Skidmark'] == (12, 50) and counts['Marathon'] == (21265, 100000), counts
+print('PASS counters show n / total')
+
+full = save(chapter=5)
+assert 'Perfectionist' in earned(wrapped(full, entry(100.0, 5)))
+assert 'Perfectionist' not in earned(wrapped(full, entry(99.9, 5)))
+assert 'Perfectionist' not in earned(wrapped(full, entry(100.0, 4))), 'an entry for another save is not trusted'
+assert 'Perfectionist' not in earned(wrapped(full, entry(100.0, 5, valid=0)))
+assert 'Perfectionist' not in earned(full), 'no FileTableBully, no completion'
+print('PASS Perfectionist needs 100% in the slot\'s FileTableBully entry, which must agree with the save')
+
+for bad in (b'', b'not a save', save()[:-1], save()[:4] + struct.pack('<I', 20) + save()[8:]):
+    assert isinstance(D[b'parse'](bad), tuple), bad[:12]
+broken = bytearray(save(chapter=5))
+struct.pack_into('<I', broken, 0x2F40, 1000)
+assert isinstance(D[b'parse'](bytes(broken)), tuple)
+assert isinstance(D[b'parse'](b'SCAB' + b'%08x' % 22260 + save()[:100]), tuple)
+print('PASS files that are not Bully saves, cut off or with another layout unlock nothing')
+
+packed = [a for a in GAME['achievements'] if a['group'] == 'Anniversary Edition']
+assert len(packed) == 12 and len(GAME['achievements']) == 55
+print('PASS 38 Xbox 360 + 5 PS4 + 12 Anniversary Edition achievements, plus the Valedictorian platinum')
+print('All Bully detector tests passed.')

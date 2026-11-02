@@ -6,13 +6,13 @@ import os
 import re
 from pathlib import Path
 
-VERSION = '0.34.9'
+VERSION = '0.35.0'
 BASE = Path(__file__).resolve().parent
 ROOT = BASE.parent
 PLUGIN = ROOT
 GAMES_DIR = BASE / 'games'
-ORDER = ['ac1', 'ac2', 'acb', 'cod4', 'codwaw', 'fable3', 'fallout3', 'me1', 'me2', 'thrillville-otr']
-DETECTORS = {'ac1', 'ac2', 'cod', 'fable3', 'me1', 'me2', 'acb', 'thrillville', 'fallout3', None}
+ORDER = ['ac1', 'ac2', 'acb', 'bully', 'cod4', 'codwaw', 'fable3', 'fallout3', 'me1', 'me2', 'thrillville-otr']
+DETECTORS = {'ac1', 'ac2', 'cod', 'fable3', 'me1', 'me2', 'acb', 'thrillville', 'fallout3', 'bully', None}
 DECODERS = {'acb', 'thrillville'}
 
 
@@ -234,6 +234,24 @@ for slug in ORDER:
             rules.append(out)
             achievement['automatic'] = True
         backend['rules'] = rules
+    elif game['detector'] == 'bully':
+        # Bully: a stat from the save's statistics block (the stats screen's index, f32 metres for
+        # distances), the chapter the save is in (0-based), or the slot's game completion %.
+        rules = []
+        for index, achievement in enumerate(game['achievements']):
+            rule = achievement.get('rule')
+            if not rule:
+                continue
+            if 'stat' in rule:
+                assert set(rule) <= {'stat', 'need', 'label', 'float'} and 0 <= rule['stat'] < 260 and rule['need'] > 0 and rule['label'], slug
+                assert not rule.get('float') or 5 <= rule['stat'] <= 11, slug
+            elif 'chapter' in rule:
+                assert set(rule) == {'chapter'} and 1 <= rule['chapter'] <= 5, slug
+            else:
+                assert set(rule) == {'completion'} and 0 < rule['completion'] <= 100, slug
+            rules.append({'index': index, **rule})
+            achievement['automatic'] = True
+        backend['rules'] = rules
     elif game['detector'] == 'me2':
         # Mass Effect 2 profile: the PC AchievementID (0-63), one bit of profile settings 0x32/0x33.
         rules = []
@@ -316,6 +334,12 @@ for slug in ORDER:
     if completion:
         # The PS3 platinum: unlocks by itself once every other achievement is unlocked.
         # It goes last so the indices of the Xbox 360 list (and saved progress) stay the same.
+        # "excludeGroups": groups the platinum does not wait for (Bully's mobile-only multiplayer list).
+        skip = set(completion.get('excludeGroups', []))
+        assert skip <= {a['group'] for a in achievements}, slug
+        for achievement in achievements:
+            if achievement['group'] in skip:
+                achievement['skipCompletion'] = True
         achievements.append({'name': completion['name'], 'detail': completion['detail'],
                              'group': 'Platinum', 'icon': 'crown', 'completion': True})
         picture = folder / 'art' / completion['picture']
@@ -338,7 +362,7 @@ for slug in ORDER:
                        pathKey=game.get('pathKey', f'savePath_{game["appId"]}_v1'),
                        setupHint=game.get('setupHint'), total=len(achievements))
     packs.append(backend)
-    keep = ('name', 'detail', 'group', 'automatic', 'icon', 'numeral', 'completion', 'hidden', 'rarity')
+    keep = ('name', 'detail', 'group', 'automatic', 'icon', 'numeral', 'completion', 'hidden', 'rarity', 'skipCompletion')
     games.append({
         'appId': game['appId'], 'slug': slug, 'title': game['title'], 'platform': game.get('platform', 'Xbox 360'),
         'automatic': bool(game['detector']), 'trackingNote': game.get('trackingNote', ''),

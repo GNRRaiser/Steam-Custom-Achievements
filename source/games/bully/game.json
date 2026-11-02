@@ -1,0 +1,537 @@
+{
+  "appId": 12200,
+  "title": "Bully: Scholarship Edition",
+  "platform": "Xbox 360",
+  "detector": "bully",
+  "trackingNote": "The plugin reads your newest save in Documents\\Bully Scholarship Edition (BullyFile1-6) when the game saves. The five chapter achievements unlock from the save's chapter, Perfectionist at 100% on the load screen, and the counter achievements (distances, eggs, wedgies, taunts, knockouts, sodas, bottles, room trophies, bikes jacked and more) from the game's own Stats screen numbers, which show here as n / total. Missions, classes, errands, races, jobs, kisses and carnival or arcade achievements are marked by hand for now. The 12 Anniversary Edition achievements are multiplayer ones from the mobile version and can only be marked by hand.",
+  "setupHint": "Save in Bully, or select a BullyFile save in Settings.",
+  "pathPlaceholder": "Path to Documents\\Bully Scholarship Edition (or a BullyFile save)",
+  "autoTag": "Unlocks automatically from your Bully save",
+  "spoilerGroups": [],
+  "completion": {
+    "name": "Valedictorian",
+    "detail": "Unlock every other achievement except the Anniversary Edition multiplayer ones.",
+    "picture": "platinum.webp",
+    "excludeGroups": [
+      "Anniversary Edition"
+    ]
+  },
+  "saveFolders": [
+    [
+      "USERPROFILE",
+      "Documents",
+      "Bully Scholarship Edition"
+    ],
+    [
+      "USERPROFILE",
+      "OneDrive",
+      "Documents",
+      "Bully Scholarship Edition"
+    ]
+  ],
+  "saveFolderHint": "Documents\\Bully Scholarship Edition",
+  "achievements": [
+    {
+      "name": "Freshman",
+      "rarity": 81,
+      "detail": "Complete Chapter 1.",
+      "group": "Chapters",
+      "points": 20,
+      "icon": "book",
+      "rule": {
+        "chapter": 1
+      }
+    },
+    {
+      "name": "Sophomore",
+      "rarity": 62,
+      "detail": "Complete Chapter 2.",
+      "group": "Chapters",
+      "points": 20,
+      "icon": "book",
+      "rule": {
+        "chapter": 2
+      }
+    },
+    {
+      "name": "Junior",
+      "rarity": 50,
+      "detail": "Complete Chapter 3.",
+      "group": "Chapters",
+      "points": 20,
+      "icon": "book",
+      "rule": {
+        "chapter": 3
+      }
+    },
+    {
+      "name": "Senior",
+      "rarity": 44,
+      "detail": "Complete Chapter 4.",
+      "group": "Chapters",
+      "points": 20,
+      "icon": "book",
+      "rule": {
+        "chapter": 4
+      }
+    },
+    {
+      "name": "Graduate",
+      "rarity": 40,
+      "detail": "Complete Chapter 5.",
+      "group": "Chapters",
+      "points": 40,
+      "icon": "medal",
+      "rule": {
+        "chapter": 5
+      }
+    },
+    {
+      "name": "Mission Accomplished",
+      "rarity": 26,
+      "detail": "Complete All Missions.",
+      "group": "Completion",
+      "points": 75,
+      "icon": "star"
+    },
+    {
+      "name": "Perfectionist",
+      "rarity": 15,
+      "detail": "100% completion.",
+      "group": "Completion",
+      "points": 125,
+      "icon": "crown",
+      "rule": {
+        "completion": 100
+      }
+    },
+    {
+      "name": "Keener",
+      "rarity": 98,
+      "detail": "Complete 3 Classes.",
+      "group": "Classes",
+      "points": 20,
+      "icon": "book"
+    },
+    {
+      "name": "Teacher's Pet",
+      "rarity": 84,
+      "detail": "Complete 6 Classes.",
+      "group": "Classes",
+      "points": 20,
+      "icon": "book"
+    },
+    {
+      "name": "Boy Genius",
+      "rarity": 76,
+      "detail": "Complete 9 Classes.",
+      "group": "Classes",
+      "points": 30,
+      "icon": "medal"
+    },
+    {
+      "name": "Helping Hand",
+      "rarity": 54,
+      "detail": "Complete 10 Errand Missions.",
+      "group": "Errands and Jobs",
+      "points": 20,
+      "icon": "heart"
+    },
+    {
+      "name": "Little Angel",
+      "rarity": 37,
+      "detail": "Complete 20 Errand Missions.",
+      "group": "Errands and Jobs",
+      "points": 20,
+      "icon": "heart"
+    },
+    {
+      "name": "Momma's Boy",
+      "rarity": 26,
+      "detail": "Complete 30 Errand Missions.",
+      "group": "Errands and Jobs",
+      "points": 25,
+      "icon": "heart"
+    },
+    {
+      "name": "Green Thumb",
+      "rarity": 40,
+      "detail": "Complete All Lawn Mowing Jobs.",
+      "group": "Errands and Jobs",
+      "points": 20,
+      "icon": "flower"
+    },
+    {
+      "name": "Black & White & Read All Over",
+      "rarity": 34,
+      "detail": "Complete All Paper Route Missions.",
+      "group": "Errands and Jobs",
+      "points": 20,
+      "icon": "letter"
+    },
+    {
+      "name": "Speed Freak",
+      "rarity": 38,
+      "detail": "Complete ½ of all Go Kart Races.",
+      "group": "Races",
+      "points": 20,
+      "icon": "flag"
+    },
+    {
+      "name": "Pole Position",
+      "rarity": 31,
+      "detail": "Complete All Go Kart Races.",
+      "group": "Races",
+      "points": 20,
+      "icon": "flag"
+    },
+    {
+      "name": "The Champion",
+      "rarity": 27,
+      "detail": "Complete All Bike Races.",
+      "group": "Races",
+      "points": 20,
+      "icon": "medal"
+    },
+    {
+      "name": "Marathon",
+      "rarity": 37,
+      "detail": "Travel 100,000 meters on foot.",
+      "group": "Getting Around",
+      "points": 25,
+      "icon": "target",
+      "rule": {
+        "stat": 5,
+        "need": 100000,
+        "float": true,
+        "label": "Metres on foot"
+      }
+    },
+    {
+      "name": "Skate Pro",
+      "rarity": 30,
+      "detail": "Travel 50,000 meters on the skateboard.",
+      "group": "Getting Around",
+      "points": 25,
+      "icon": "target",
+      "rule": {
+        "stat": 6,
+        "need": 50000,
+        "float": true,
+        "label": "Metres on the skateboard"
+      }
+    },
+    {
+      "name": "The Wheel Deal",
+      "rarity": 31,
+      "detail": "Perform 200 wheelies on the bike.",
+      "group": "Getting Around",
+      "points": 25,
+      "icon": "gear",
+      "rule": {
+        "stat": 49,
+        "need": 200,
+        "label": "Wheelies"
+      }
+    },
+    {
+      "name": "Tour de Bullworth",
+      "rarity": 26,
+      "detail": "Travel 100 km on the bike.",
+      "group": "Getting Around",
+      "points": 25,
+      "icon": "gear",
+      "rule": {
+        "stat": 7,
+        "need": 100000,
+        "float": true,
+        "label": "Metres on the bike"
+      }
+    },
+    {
+      "name": "Down for the Count",
+      "rarity": 49,
+      "detail": "Beat up 200 opponents.",
+      "group": "Mischief",
+      "points": 20,
+      "icon": "fist",
+      "rule": {
+        "stat": 198,
+        "need": 200,
+        "label": "People knocked out"
+      }
+    },
+    {
+      "name": "Eggsellent!",
+      "rarity": 33,
+      "detail": "Egg 25 cars.",
+      "group": "Mischief",
+      "points": 20,
+      "icon": "drops",
+      "rule": {
+        "stat": 22,
+        "need": 25,
+        "label": "Cars egged"
+      }
+    },
+    {
+      "name": "Watch Your Step",
+      "rarity": 38,
+      "detail": "Trip 25 people with marbles.",
+      "group": "Mischief",
+      "points": 20,
+      "icon": "coins",
+      "rule": {
+        "stat": 78,
+        "need": 25,
+        "label": "People tripped with marbles"
+      }
+    },
+    {
+      "name": "Smart Mouth",
+      "rarity": 44,
+      "detail": "Say 100 taunts.",
+      "group": "Mischief",
+      "points": 25,
+      "icon": "bell",
+      "rule": {
+        "stat": 197,
+        "need": 100,
+        "label": "Taunts"
+      }
+    },
+    {
+      "name": "Smell Ya Later",
+      "rarity": 37,
+      "detail": "Hit people with stink bombs 50 times.",
+      "group": "Mischief",
+      "points": 25,
+      "icon": "poison",
+      "rule": {
+        "stat": 75,
+        "need": 50,
+        "label": "Stink bomb hits"
+      }
+    },
+    {
+      "name": "Skidmark",
+      "rarity": 33,
+      "detail": "Give 50 wedgies.",
+      "group": "Mischief",
+      "points": 25,
+      "icon": "fist",
+      "rule": {
+        "stat": 32,
+        "need": 50,
+        "label": "Wedgies given"
+      }
+    },
+    {
+      "name": "Kickin' the Balls",
+      "rarity": 36,
+      "detail": "Kick 100 soccer balls.",
+      "group": "Mischief",
+      "points": 20,
+      "icon": "target",
+      "rule": {
+        "stat": 43,
+        "need": 100,
+        "label": "Soccer balls kicked"
+      }
+    },
+    {
+      "name": "After Hours",
+      "rarity": 80,
+      "detail": "Spend 5 hours out after curfew.",
+      "group": "Mischief",
+      "points": 20,
+      "icon": "eye"
+    },
+    {
+      "name": "Casanova",
+      "rarity": 48,
+      "detail": "Receive 25 kisses from the ladies.",
+      "group": "Romance",
+      "points": 20,
+      "icon": "heart"
+    },
+    {
+      "name": "Over the Rainbow",
+      "rarity": 30,
+      "detail": "Receive 20 kisses from the gents.",
+      "group": "Romance",
+      "points": 20,
+      "icon": "heart"
+    },
+    {
+      "name": "Dual Nebula",
+      "rarity": 23,
+      "detail": "Achieve A High Score on Consumo, Nut Shots, and Monkey Fling Arcade Games.",
+      "group": "Carnival and Arcade",
+      "points": 20,
+      "icon": "puzzle"
+    },
+    {
+      "name": "It's All in the Wrists",
+      "rarity": 57,
+      "detail": "Complete All 4 of the Carnival Games once.",
+      "group": "Carnival and Arcade",
+      "points": 20,
+      "icon": "target"
+    },
+    {
+      "name": "Glass Dismissed",
+      "rarity": 26,
+      "detail": "Break 300 bottles at the shooting gallery.",
+      "group": "Carnival and Arcade",
+      "points": 25,
+      "icon": "target",
+      "rule": {
+        "stat": 238,
+        "need": 300,
+        "label": "Bottles broken at the shooting gallery"
+      }
+    },
+    {
+      "name": "Green Thumbs Up",
+      "rarity": 30,
+      "detail": "Pick 50 flowers.",
+      "group": "Collecting",
+      "points": 20,
+      "icon": "flower"
+    },
+    {
+      "name": "Soda-licious",
+      "rarity": 39,
+      "detail": "Buy 100 sodas.",
+      "group": "Collecting",
+      "points": 20,
+      "icon": "coin",
+      "rule": {
+        "stat": 194,
+        "need": 100,
+        "label": "Sodas bought"
+      }
+    },
+    {
+      "name": "Sharp Dressed Man",
+      "rarity": 23,
+      "detail": "Collect 250 clothing items.",
+      "group": "Collecting",
+      "points": 25,
+      "icon": "cape"
+    },
+    {
+      "name": "Kleptomania",
+      "detail": "Acquire all room trophies.",
+      "group": "PS4",
+      "icon": "crown",
+      "rule": {
+        "stat": 1,
+        "need": 40,
+        "label": "Room trophies"
+      }
+    },
+    {
+      "name": "Rich Kid Blues",
+      "detail": "Have $1,000 in pocket change.",
+      "group": "PS4",
+      "icon": "coins"
+    },
+    {
+      "name": "Popularity Contest",
+      "detail": "Gain 100% respect from 2 cliques simultaneously.",
+      "group": "PS4",
+      "icon": "heart"
+    },
+    {
+      "name": "Problem Child",
+      "detail": "Amass 160,000 trouble points.",
+      "group": "PS4",
+      "icon": "skull"
+    },
+    {
+      "name": "The (Expert) Bicycle Thief",
+      "detail": "Jack 20 bicycles.",
+      "group": "PS4",
+      "icon": "gear",
+      "rule": {
+        "stat": 46,
+        "need": 20,
+        "label": "Bikes jacked"
+      }
+    },
+    {
+      "name": "Back to School",
+      "detail": "Win your first multiplayer match.",
+      "group": "Anniversary Edition",
+      "icon": "medal"
+    },
+    {
+      "name": "Ready to Learn",
+      "detail": "Complete all single round multiplayer games once.",
+      "group": "Anniversary Edition",
+      "icon": "book"
+    },
+    {
+      "name": "Head of the Class",
+      "detail": "Win each of the multiplayer game types 5 times each.",
+      "group": "Anniversary Edition",
+      "icon": "medal"
+    },
+    {
+      "name": "Honor Roll",
+      "detail": "Win each of the multiplayer game types 10 times each.",
+      "group": "Anniversary Edition",
+      "icon": "crown"
+    },
+    {
+      "name": "Frienemies",
+      "detail": "Challenge a friend to a rematch and win 3 times.",
+      "group": "Anniversary Edition",
+      "icon": "swords"
+    },
+    {
+      "name": "Bookworm",
+      "detail": "Win a School tournament.",
+      "group": "Anniversary Edition",
+      "icon": "book"
+    },
+    {
+      "name": "Prepares to Qualify",
+      "detail": "Win an Arcade Tournament.",
+      "group": "Anniversary Edition",
+      "icon": "puzzle"
+    },
+    {
+      "name": "Dunce",
+      "detail": "Lose 3 multiplayer matches in a row.",
+      "group": "Anniversary Edition",
+      "icon": "skull"
+    },
+    {
+      "name": "Super Social",
+      "detail": "Play against 3 different friends.",
+      "group": "Anniversary Edition",
+      "icon": "heart"
+    },
+    {
+      "name": "The Kind of Streak",
+      "detail": "Win 3 matches in a row and get a winning streak.",
+      "group": "Anniversary Edition",
+      "icon": "flame"
+    },
+    {
+      "name": "Over Achiever",
+      "detail": "Win 5 School tournaments.",
+      "group": "Anniversary Edition",
+      "icon": "star"
+    },
+    {
+      "name": "All of the Quarters",
+      "detail": "Win 5 Arcade Tournaments.",
+      "group": "Anniversary Edition",
+      "icon": "coins"
+    }
+  ]
+}
