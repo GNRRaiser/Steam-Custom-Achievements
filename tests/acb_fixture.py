@@ -69,11 +69,20 @@ def save(missions, key=b'testkey', slot=1):
     return bytes(header) + bytes(plain)
 
 
-def steam_save(missions):
-    """The Steam version's plain ACBROTHERHOODSAVEGAME<n>.SAV: the same blocks, no wrapper or key."""
+def world_object(object_id, standing):
+    """A world object record as the game writes it: id property, then the "still standing" bool."""
+    return (b'\x11\x00\x00\x00' + bytes.fromhex('416f6a5b') + bytes(6) + b'\x07\x00\x0b' + struct.pack('<I', object_id)
+            + b'\x0e\x00\x00\x00' + bytes.fromhex('b66ca572') + bytes(8) + b'\x0b' + bytes([1 if standing else 0])
+            + b'\x0e\x00\x00\x00' + bytes.fromhex('cdde09b8') + bytes(8) + b'\x0b\x00')
+
+
+def steam_save(missions, objects=None):
+    """The Steam version's plain ACBROTHERHOODSAVEGAME<n>.SAV: the same blocks, no wrapper or key.
+    objects: {world object id: standing} records added after the missions."""
     first = struct.pack('<II', 0x16, 0x00FEDBAC) + struct.pack('<II', 0xCF, 0x11B)
     plain = first + block(b'\x00' * 40 + b'Desmond \x00' + bytes(20))
-    return plain + block(b''.join(mission(i, d) for i, d in missions.items()) + bytes(300))
+    world = b''.join(world_object(i, s) for i, s in (objects or {}).items())
+    return plain + block(b''.join(mission(i, d) for i, d in missions.items()) + world + bytes(300))
 
 
 def options(bits, prop=0x496F8780):

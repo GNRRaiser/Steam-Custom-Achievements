@@ -178,4 +178,26 @@ with tempfile.TemporaryDirectory() as temporary:
     assert parsed.completedCount == 1
     print('PASS Ubisoft Connect saves (scrambled) decode to the same missions')
 
+    # Borgia flags: each listed world object reads 1 until its flag is taken.
+    games = lua.eval('require("games")')
+    G = next(v for v in games.values() if v['appId'] == 48190)
+    flag_ids = [int(x, 16) for x in ACB['borgiaFlags']]
+    assert len(flag_ids) == 101
+    capture = str(index_of('Capture the Flag'))
+
+    def flag_count(objects, districts=()):
+        parsed = D.parse(acb_fixture.steam_save({M[n]: True for n in districts}, objects), G)
+        return from_lua(D.counts(parsed, G)).get(capture)
+
+    standing = {i: True for i in flag_ids}
+    assert flag_count(standing) == {'have': 0, 'need': 101, 'label': 'Borgia flags removed'}
+    standing[flag_ids[7]] = False
+    assert flag_count(standing)['have'] == 1
+    # Missing objects, or none standing while the districts say otherwise, fall back to districts.
+    assert flag_count({i: True for i in flag_ids[:50]})['label'] == 'Districts cleared of Borgia flags'
+    assert flag_count({i: False for i in flag_ids})['label'] == 'Districts cleared of Borgia flags'
+    all_districts = ('BorgiaFlags_Rome_Downtown', 'BorgiaFlags_Rome_Countryside', 'BorgiaFlags_Rome_Antique', 'BorgiaFlags_Rome_Vatican')
+    assert flag_count({i: False for i in flag_ids}, all_districts) == {'have': 101, 'need': 101, 'label': 'Borgia flags removed'}
+    print('PASS Capture the Flag counts flags out of 101 from the world objects, falling back to districts')
+
 print('All Brotherhood detector tests passed.')

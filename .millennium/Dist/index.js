@@ -1,4 +1,4 @@
-/* Steam Custom Achievements v0.34.6
+/* Steam Custom Achievements v0.34.7
  * Millennium 3.6.2 loose-file plugin: Xbox 360 achievement lists for Steam games
  * that have none, with read-only Lua detectors for games whose saves are mapped.
  * The entrypoint runs in SharedJSContext. UI belongs to popup.window.document.
@@ -8,7 +8,7 @@
   "use strict";
   const hostWindow = window;
   const PLUGIN_NAME = "steam-custom-achievements";
-  const BUILD_VERSION = "0.34.6";
+  const BUILD_VERSION = "0.34.7";
   const SHARE_BUILD = false;
   const ROOT_ID = "sca-ac2-root";
   const STYLE_ID = "sca-ac2-css";
