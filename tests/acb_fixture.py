@@ -69,11 +69,22 @@ def save(missions, key=b'testkey', slot=1):
     return bytes(header) + bytes(plain)
 
 
-def steam_save(missions):
-    """The Steam version's plain ACBROTHERHOODSAVEGAME<n>.SAV: the same blocks, no wrapper or key."""
+TAKEN = bytes.fromhex('3bf0d7eaab7590c600001d090b01')
+
+
+def taken_list(ids):
+    """A list of taken world objects (property EAD7F03B): u32 count, then the object ids."""
+    return TAKEN + struct.pack('<I', len(ids)) + b''.join(struct.pack('<I', i) for i in ids)
+
+
+def steam_save(missions, taken=()):
+    """The Steam version's plain ACBROTHERHOODSAVEGAME<n>.SAV: the same blocks, no wrapper or key.
+    taken: world object ids (flags, feathers) the save lists as taken, split over two lists."""
     first = struct.pack('<II', 0x16, 0x00FEDBAC) + struct.pack('<II', 0xCF, 0x11B)
     plain = first + block(b'\x00' * 40 + b'Desmond \x00' + bytes(20))
-    return plain + block(b''.join(mission(i, d) for i, d in missions.items()) + bytes(300))
+    taken = list(taken)
+    lists = taken_list(taken[:len(taken) // 2]) + bytes(8) + taken_list(taken[len(taken) // 2:]) if taken else b''
+    return plain + block(b''.join(mission(i, d) for i, d in missions.items()) + lists + bytes(300))
 
 
 def options(bits, prop=0x496F8780):

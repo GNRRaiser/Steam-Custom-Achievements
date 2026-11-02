@@ -13,6 +13,8 @@ import acb_fixture
 ROOT = Path(__file__).resolve().parent.parent
 ACB = json.loads((ROOT / 'source/games/acb/game.json').read_text())
 M = {name: int(value, 16) for name, value in ACB['missions'].items()}
+FLAGS = [int(value, 16) for value in ACB['borgiaFlags']]
+FEATHERS = [int(value, 16) for value in ACB['feathers']]
 
 
 def from_lua(value):
@@ -85,11 +87,11 @@ with tempfile.TemporaryDirectory() as temporary:
         tick()
         return tick()
 
-    def write(done, started=()):
+    def write(done, started=(), taken=()):
         missions = dict(opening)
         missions.update({M[name]: True for name in done})
         missions.update({M[name]: False for name in started})
-        file.write_bytes(acb_fixture.steam_save(missions))
+        file.write_bytes(acb_fixture.steam_save(missions, taken))
 
     def unlocked():
         tick()
@@ -100,7 +102,8 @@ with tempfile.TemporaryDirectory() as temporary:
     assert state['saveFileName'] == 'ACBROTHERHOODSAVEGAME0.SAV'
     assert not state['progress'], state['progress']
     assert len(state['supportedIndices']) == 50, state['supportedIndices']
-    assert state['counts'][str(index_of('Capture the Flag'))] == {'have': 0, 'need': 4, 'label': 'Districts cleared of Borgia flags'}
+    assert state['counts'][str(index_of('Capture the Flag'))] == {'have': 0, 'need': 101, 'label': 'Borgia flags removed'}
+    assert state['counts'][str(index_of('In Memoriam'))] == {'have': 0, 'need': 100, 'label': 'Feathers collected'}
     assert str(base) not in json.dumps(state)
     print('PASS the Steam save in Saved Games is found; the opening memory alone unlocks nothing')
 
@@ -127,6 +130,15 @@ with tempfile.TemporaryDirectory() as temporary:
     assert {index_of('Requiescat In Pace'), index_of('A Knife to the Heart')} <= unlocked()
     print('PASS Sequence 9 started unlocks Technical Difficulties; the ending unlocks the last two story achievements')
 
+    # Per-item counts: each flag or feather taken is listed in the save by its object id.
+    write([], taken=FLAGS[:5] + FEATHERS[:3] + [0x12345678])
+    state = settle()
+    assert state['counts'][str(index_of('Capture the Flag'))]['have'] == 5, state['counts']
+    assert state['counts'][str(index_of('In Memoriam'))]['have'] == 3, state['counts']
+    got = set(map(int, state['progress']))
+    assert index_of('Capture the Flag') not in got and index_of('In Memoriam') not in got
+    print('PASS Borgia flags count out of 101 and feathers out of 100 from the taken objects in the save')
+
     # Collections need every district; side activities name their own mission.
     flags = ['BorgiaFlags_Rome_Downtown', 'BorgiaFlags_Rome_Countryside', 'BorgiaFlags_Rome_Antique']
     write(flags + ['LGS302_Catacombs', 'EXO_04_Tank', 'Harlequin_achieve_complete', 'DLC_04_M08'])
@@ -134,10 +146,10 @@ with tempfile.TemporaryDirectory() as temporary:
     got = set(map(int, tick()['progress']))
     assert index_of('Capture the Flag') not in got
     assert {index_of('Undertaker 2.0'), index_of('Kaboom!'), index_of('Clowning Around'), index_of('GPS')} <= got
-    assert tick()['counts'][str(index_of('Capture the Flag'))]['have'] == 3
     write(flags + ['BorgiaFlags_Rome_Vatican', 'Feathers_All'])
     assert {index_of('Capture the Flag'), index_of('In Memoriam')} <= unlocked()
     print('PASS all four Rome flag districts unlock Capture the Flag; lairs, machines, feathers and the DLC unlock')
+
 
     # Manual entries stay manual, and a damaged file is not trusted.
     for name in ('Synchronization Established', 'Download Complete', 'Ahead of the Curve'):
@@ -177,5 +189,15 @@ with tempfile.TemporaryDirectory() as temporary:
     parsed = D.parse(acb_fixture.save({M['SQ01M99_Outro']: True}, key=b'somekey'))
     assert parsed.completedCount == 1
     print('PASS Ubisoft Connect saves (scrambled) decode to the same missions')
+
+    lua.execute('for _, g in pairs(require("games")) do if type(g) == "table" and g.appId == 48190 then ACB = g end end')
+    game = lua.globals().ACB
+
+    def evaluated(taken):
+        return set(from_lua(D.evaluate(D.parse(acb_fixture.steam_save({}, taken), game), game)) or [])
+
+    assert index_of('Capture the Flag') in evaluated(FLAGS) and index_of('In Memoriam') not in evaluated(FLAGS + FEATHERS[:99])
+    assert index_of('In Memoriam') in evaluated(FEATHERS)
+    print('PASS taking all 101 flags or all 100 feathers unlocks the achievement')
 
 print('All Brotherhood detector tests passed.')

@@ -5,6 +5,12 @@
 --         story mission, so a missed outro still counts once the next sequence starts)
 --   all   unlock when every one of these is complete (flags, feathers, towers)
 --   seen  unlock when any of these missions has a record at all (it has been reached)
+--   objects  per-item progress (Borgia flags, feathers): world objects listed in game.json
+--         that the save lists as taken. Unlocking still comes from the rules above, or from
+--         every listed object being taken.
+-- Taken world objects: the save keeps lists of object ids (property EAD7F03B, type C69075AB,
+-- {u32 count, count x u32 id}). A flag's or feather's id is added when it is taken (found
+-- with a tester's captures: 1 id per flag; 101 flag and 100 feather ids in 100% saves).
 -- The game also keeps its own achievement record in OPTIONS (same folder, same block
 -- format): a 64-bit property, one bit per achievement (game.profileBits).
 local reader = require('decoder_acb')
@@ -28,6 +34,23 @@ function D.read(ctx, path)
     local options = ctx.read_small(ctx.fs.join(ctx.fs.parent_path(path), 'OPTIONS'), 1048576)
     if not options then return save end
     return 'SCA\0' .. string.format('%08x', #save) .. save .. options
+end
+
+-- Ids of every taken world object: { [id] = true }.
+local TAKEN = '\59\240\215\234\171\117\144\198\0\0\29\9\11\1'
+local function taken_objects(objects)
+    local found, at = {}, 1
+    while true do
+        local p = objects:find(TAKEN, at, true)
+        if not p then break end
+        local i = p + #TAKEN
+        local n = i + 3 <= #objects and u32(objects, i) or 0
+        if n > 0 and n <= 4096 and i + 3 + n * 4 <= #objects then
+            for k = 0, n - 1 do found[u32(objects, i + 4 + k * 4)] = true end
+        end
+        at = p + 1
+    end
+    return found
 end
 
 -- Bit positions set in the achievement property: { [bit] = true }, or nil if absent.
@@ -60,7 +83,8 @@ function D.parse(data, game)
     local bits = profile and options and achievement_bits(options, profile.property)
     local recorded = 0
     for _ in pairs(bits or {}) do recorded = recorded + 1 end
-    return { done = done, completedCount = total, missionRecords = records, bits = bits, recorded = recorded }
+    return { done = done, completedCount = total, missionRecords = records, bits = bits, recorded = recorded,
+             taken = taken_objects(objects) }
 end
 
 local function any_done(parsed, ids)
@@ -68,6 +92,14 @@ local function any_done(parsed, ids)
         if parsed.done[id] == 1 then return true end
     end
     return false
+end
+
+local function count_taken(parsed, ids)
+    local have = 0
+    for _, id in ipairs(ids) do
+        if parsed.taken and parsed.taken[id] then have = have + 1 end
+    end
+    return have
 end
 
 local function count_done(parsed, ids)
@@ -83,6 +115,7 @@ function D.evaluate(parsed, game)
     for _, rule in ipairs(game.rules) do
         local ok = any_done(parsed, rule.done)
         if not ok and rule.all and #rule.all > 0 then ok = count_done(parsed, rule.all) == #rule.all end
+        if not ok and rule.objects then ok = count_taken(parsed, rule.objects) == #rule.objects end
         if not ok and rule.seen then
             for _, id in ipairs(rule.seen) do
                 if parsed.done[id] ~= nil then ok = true; break end
@@ -102,7 +135,9 @@ end
 function D.counts(parsed, game)
     local counts = {}
     for _, rule in ipairs(game.rules) do
-        if rule.all and rule.label then
+        if rule.objects then
+            counts[tostring(rule.index)] = { have = count_taken(parsed, rule.objects), need = #rule.objects, label = rule.objectsLabel }
+        elseif rule.all and rule.label then
             counts[tostring(rule.index)] = { have = count_done(parsed, rule.all), need = #rule.all, label = rule.label }
         end
     end
