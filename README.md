@@ -41,14 +41,14 @@ It's an unofficial fan plugin. The achievements only show in your own Steam clie
 
 ## Supported games and achievements
 
-The achievements come from each game's Xbox 360 list, plus the PS3 platinum (Bully also gets its PS4 and Anniversary Edition extras). Mass Effect, Brotherhood and Fable III keep their own achievement list inside the game, which made those much easier to get working. When you unlock one while playing, it pops up in the bottom right corner with a sound, just like a real Steam achievement.
+The achievements come from each game's Xbox 360 list, plus the PS3 platinum (Bully also gets its 5 PS4 extras). Mass Effect, Brotherhood and Fable III keep their own achievement list inside the game, which made those much easier to get working. When you unlock one while playing, it pops up in the bottom right corner with a sound, just like a real Steam achievement.
 
 | Game | Steam app ID | Achievements | Unlock automatically |
 | --- | --- | --- | --- |
 | [Assassin's Creed Steam achievements](https://gnrraiser.github.io/Steam-Custom-Achievements/assassins-creed/) | 15100 | 44 | 44 |
 | [Assassin's Creed II Steam achievements](https://gnrraiser.github.io/Steam-Custom-Achievements/assassins-creed-2/) | 33230 | 51 | 41 |
 | [Assassin's Creed Brotherhood Steam achievements](https://gnrraiser.github.io/Steam-Custom-Achievements/assassins-creed-brotherhood/) | 48190 | 61 | 50 |
-| [Bully: Scholarship Edition Steam achievements](https://gnrraiser.github.io/Steam-Custom-Achievements/bully-scholarship-edition/) | 12200 | 56 | 26 |
+| [Bully: Scholarship Edition Steam achievements](https://gnrraiser.github.io/Steam-Custom-Achievements/bully-scholarship-edition/) | 12200 | 44 | 26 |
 | [Call of Duty 4: Modern Warfare Steam achievements](https://gnrraiser.github.io/Steam-Custom-Achievements/call-of-duty-4-modern-warfare/) | 7940 | 37 | 24 |
 | [Call of Duty: World at War Steam achievements](https://gnrraiser.github.io/Steam-Custom-Achievements/call-of-duty-world-at-war/) | 10090 | 67 | 22 |
 | [Fable III Steam achievements](https://gnrraiser.github.io/Steam-Custom-Achievements/fable-3/) | 105400 | 60 | 60 |

@@ -257,7 +257,7 @@ const tick = () => new Promise(resolve => setTimeout(resolve, 0));
   await new Promise(r => setTimeout(r, 6000));
   console.log('PASS the platinum (N7 Elite) unlocks once all others are unlocked, through Steam\'s own achievement toast (shown over games by the overlay)');
 
-  // Bully's platinum (Valedictorian) does not wait for the 12 mobile-only Anniversary Edition achievements.
+  // Bully's platinum (Valedictorian) counts the 38 Xbox 360 and 5 PS4 achievements.
   {
     const bully = JSON.parse(JSON.stringify(runtime.diagnostics())).games.find(g => g.appId === 12200);
     assert.ok(bully, 'Bully is listed');
@@ -267,9 +267,9 @@ const tick = () => new Promise(resolve => setTimeout(resolve, 0));
     host.MainWindowBrowserManager.m_lastLocation = {pathname:'/routes/library/app/12200'};
     runtime.refresh(); await tick();
     doc.querySelector('.sca-view').click();
-    const valedictorian = doc.querySelector('.sca-ach[data-index="55"]');
+    const valedictorian = doc.querySelector('.sca-ach[data-index="43"]');
     assert.match(valedictorian.textContent, /Valedictorian/);
-    assert.match(valedictorian.textContent, /0 \/ 43/, 'the platinum counts the 43 Xbox 360 and PS4 achievements only');
+    assert.match(valedictorian.textContent, /0 \/ 43/, 'the platinum counts the 43 Xbox 360 and PS4 achievements');
     backend[12200] = {...backend[12200], progress:Object.fromEntries(bullyAuto.map(i => [String(i), bullyStamp]))};
     await new Promise(r => setTimeout(r, 1500)); runtime.refresh(); await tick(); await tick();
     for (let guard = 0; guard < 60; guard++) {
@@ -280,10 +280,13 @@ const tick = () => new Promise(resolve => setTimeout(resolve, 0));
     await tick(); await tick();
     const saved = JSON.parse(host.localStorage.getItem('sca:progress:12200:v1'));
     assert.equal(Object.keys(saved).length, 44, 'the 43 plus the platinum');
-    assert.ok(saved['55'], 'Valedictorian unlocks without the Anniversary Edition achievements');
-    assert.equal([43, 44, 54].filter(i => saved[String(i)]).length, 0);
+    assert.ok(saved['43'], 'Valedictorian unlocks once the other 43 are unlocked');
     await new Promise(r => setTimeout(r, 6000));
-    console.log('PASS Bully\'s Valedictorian platinum skips the 12 Anniversary Edition multiplayer achievements');
+    console.log('PASS Bully\'s Valedictorian platinum unlocks once its 38 Xbox 360 and 5 PS4 achievements are unlocked');
+    // Back to the Mass Effect 2 page the next checks use.
+    host.MainWindowBrowserManager.m_lastLocation = {pathname:'/routes/library/app/24980'};
+    runtime.refresh(); await tick();
+    doc.querySelector('.sca-view').click(); await tick();
   }
 
   // Steam can take the notification and drop it without an error (its settings, or Big

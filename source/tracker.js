@@ -645,7 +645,7 @@ html.sca-page-open body>*:not(#${DIALOG_ID}){visibility:hidden}
     change.onclick=()=>{pictureTarget=index;const picker=document.querySelector(`#${DIALOG_ID} .sca-picker`);picker.multiple=false;picker.click();};
     const text=el("div","sca-ach-text");
     text.append(el("div","sca-ach-name",a.name),el("div","sca-ach-desc",a.detail));
-    const count=a.completion?{have:game.achievements.filter((b,i)=>i!==index&&!b.skipCompletion&&isUnlocked(i)).length,need:game.achievements.filter((b,i)=>i!==index&&!b.skipCompletion).length}:game.auto.counts?.[String(index)];
+    const count=a.completion?{have:game.achievements.filter((_b,i)=>i!==index&&isUnlocked(i)).length,need:game.achievements.length-1}:game.auto.counts?.[String(index)];
     if(!unlocked&&count&&Number.isFinite(count.have)&&Number.isFinite(count.need)&&count.need>0) {
       const meter=el("div","sca-ach-meter");const fill=el("div");fill.style.width=`${Math.min(100,count.have/count.need*100)}%`;meter.appendChild(fill);
       const holder=el("div","sca-ach-progress");holder.append(meter,el("span","",`${count.have} / ${count.need}`));text.appendChild(holder);

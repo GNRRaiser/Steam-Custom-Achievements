@@ -3,18 +3,15 @@
   "title": "Bully: Scholarship Edition",
   "platform": "Xbox 360",
   "detector": "bully",
-  "trackingNote": "The plugin reads your newest save in Documents\\Bully Scholarship Edition (BullyFile1-6) when the game saves. The five chapter achievements unlock from the save's chapter, Perfectionist at 100% on the load screen, Mission Accomplished when the game marks every mission passed, the class achievements from how many classes you have finished all five levels of, The Champion from the 14 bike races, and the counter achievements (distances, eggs, wedgies, taunts, knockouts, sodas, bottles, room trophies, bikes jacked and more) from the game's own Stats screen numbers, which show here as n / total. Errands, go-kart races, jobs, kisses and carnival or arcade achievements are marked by hand for now. The 12 Anniversary Edition achievements are multiplayer ones from the mobile version and can only be marked by hand.",
+  "trackingNote": "The plugin reads your newest save in Documents\\Bully Scholarship Edition (BullyFile1-6) when the game saves. The five chapter achievements unlock from the save's chapter, Perfectionist at 100% on the load screen, Mission Accomplished when the game marks every mission passed, the class achievements from how many classes you have finished all five levels of, The Champion from the 14 bike races, and the counter achievements (distances, eggs, wedgies, taunts, knockouts, sodas, bottles, room trophies, bikes jacked and more) from the game's own Stats screen numbers, which show here as n / total. Errands, go-kart races, jobs, kisses and carnival or arcade achievements are marked by hand for now.",
   "setupHint": "Save in Bully, or select a BullyFile save in Settings.",
   "pathPlaceholder": "Path to Documents\\Bully Scholarship Edition (or a BullyFile save)",
   "autoTag": "Unlocks automatically from your Bully save",
   "spoilerGroups": [],
   "completion": {
     "name": "Valedictorian",
-    "detail": "Unlock every other achievement except the Anniversary Edition multiplayer ones.",
-    "picture": "platinum.webp",
-    "excludeGroups": [
-      "Anniversary Edition"
-    ]
+    "detail": "Unlock every other achievement.",
+    "picture": "platinum.webp"
   },
   "saveFolders": [
     [
@@ -594,78 +591,6 @@
         "need": 20,
         "label": "Bikes jacked"
       }
-    },
-    {
-      "name": "Back to School",
-      "detail": "Win your first multiplayer match.",
-      "group": "Anniversary Edition",
-      "icon": "medal"
-    },
-    {
-      "name": "Ready to Learn",
-      "detail": "Complete all single round multiplayer games once.",
-      "group": "Anniversary Edition",
-      "icon": "book"
-    },
-    {
-      "name": "Head of the Class",
-      "detail": "Win each of the multiplayer game types 5 times each.",
-      "group": "Anniversary Edition",
-      "icon": "medal"
-    },
-    {
-      "name": "Honor Roll",
-      "detail": "Win each of the multiplayer game types 10 times each.",
-      "group": "Anniversary Edition",
-      "icon": "crown"
-    },
-    {
-      "name": "Frienemies",
-      "detail": "Challenge a friend to a rematch and win 3 times.",
-      "group": "Anniversary Edition",
-      "icon": "swords"
-    },
-    {
-      "name": "Bookworm",
-      "detail": "Win a School tournament.",
-      "group": "Anniversary Edition",
-      "icon": "book"
-    },
-    {
-      "name": "Prepares to Qualify",
-      "detail": "Win an Arcade Tournament.",
-      "group": "Anniversary Edition",
-      "icon": "puzzle"
-    },
-    {
-      "name": "Dunce",
-      "detail": "Lose 3 multiplayer matches in a row.",
-      "group": "Anniversary Edition",
-      "icon": "skull"
-    },
-    {
-      "name": "Super Social",
-      "detail": "Play against 3 different friends.",
-      "group": "Anniversary Edition",
-      "icon": "heart"
-    },
-    {
-      "name": "The Kind of Streak",
-      "detail": "Win 3 matches in a row and get a winning streak.",
-      "group": "Anniversary Edition",
-      "icon": "flame"
-    },
-    {
-      "name": "Over Achiever",
-      "detail": "Win 5 School tournaments.",
-      "group": "Anniversary Edition",
-      "icon": "star"
-    },
-    {
-      "name": "All of the Quarters",
-      "detail": "Win 5 Arcade Tournaments.",
-      "group": "Anniversary Edition",
-      "icon": "coins"
     }
   ]
 }

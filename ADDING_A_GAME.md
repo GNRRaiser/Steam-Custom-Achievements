@@ -35,8 +35,7 @@ from 0. Steam's own icons are 256x256, so that size or smaller is best.
 - Optional `"rarity": 12.5` on an achievement is its unlock rate (percent of players), shown like
   Steam's global percentage; under 10 counts as rare. Players can also load rates from a saved page.
 - Optional `"completion": {"name": "Platinum", "detail": "...", "picture": "platinum.webp"}` on the
-  game adds a PS3-style platinum that unlocks once every other achievement is unlocked. Add
-  `"excludeGroups": ["..."]` to leave groups out of it (Bully leaves out its mobile-only multiplayer list).
+  game adds a PS3-style platinum that unlocks once every other achievement is unlocked.
 - Achievements with a counter (a rule with `need` and `label`) show progress as n / total and get
   Steam progress popups at 25%, 50% and 75% when `need` is at least 4.
 - Optional `saveFolders` (with `saveFolderHint` for the placeholder text) lets capture and record

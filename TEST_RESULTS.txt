@@ -1,4 +1,4 @@
-Steam Custom Achievements v0.35.1 verification - 2026-11-02
+Steam Custom Achievements v0.35.2 verification - 2026-11-02
 PASS a new save in %APPDATA%\Ubisoft\Assassin's Creed\Saved Games is found; nothing unlocked
 PASS objective M03_S20_Animus_Tutorial_Complete finished unlocks Welcome to the Animus
 PASS references to an objective and objectives still open do not count
@@ -50,7 +50,7 @@ PASS classes count once all five levels are passed (Keener, Teacher's Pet, Boy G
 PASS The Champion needs all 14 bike races, Mission Accomplished the game's all-missions-passed entry
 PASS Perfectionist needs 100% in the slot's FileTableBully entry, which must agree with the save
 PASS files that are not Bully saves, cut off or with another layout unlock nothing
-PASS 38 Xbox 360 + 5 PS4 + 12 Anniversary Edition achievements, plus the Valedictorian platinum
+PASS 38 Xbox 360 + 5 PS4 achievements, plus the Valedictorian platinum (no mobile multiplayer ones)
 All Bully detector tests passed.
 PASS a hero save written during play is copied (before and after) and its stat changes are logged
 PASS later saves add one copy each, only after the file stops changing; game folder untouched
@@ -123,8 +123,8 @@ PASS automatic backend state unlocks progress while another page is selected; ca
 PASS card and popup fit at 1200px, 480px and 320px widths
 PASS popup destruction/recreation, complete cleanup, no external requests or script exceptions
 Real Chromium window regression passed: 153.0.8010.12
-[Steam Custom Achievements 0.35.1] Attached to desktop Steam window
-[Steam Custom Achievements 0.35.1] Ready for 11 games; waiting for a visible Steam window if necessary
+[Steam Custom Achievements 0.35.2] Attached to desktop Steam window
+[Steam Custom Achievements 0.35.2] Ready for 11 games; waiting for a visible Steam window if necessary
 PASS CoD 4 page shows its own 37 achievements, automatic unlocks, intel progress and raw campaign value
 PASS record mode: pick an achievement, Start, Done; the matching value and the saved copies are shown; a second pass narrows
 PASS a new automatic unlock shows a Steam-style popup with its picture; popups can be turned off
@@ -133,7 +133,7 @@ PASS Fable III page has all 60 achievements automatic (Traitor's Keep included) 
 PASS Thrillville page has 18 automatic achievements (missions and owner levels), a save picker and capture
 PASS Mass Effect (45 automatic), Brotherhood (50 automatic), Mass Effect 2 (61 automatic) and AC1 (44 automatic): full lists with platinums, all 218 built-in pictures, save folders shown
 PASS the platinum (N7 Elite) unlocks once all others are unlocked, through Steam's own achievement toast (shown over games by the overlay)
-PASS Bully's Valedictorian platinum skips the 12 Anniversary Edition multiplayer achievements
+PASS Bully's Valedictorian platinum unlocks once its 38 Xbox 360 and 5 PS4 achievements are unlocked
 PASS a popup Steam silently drops is drawn by the plugin; one Steam queues is not
 PASS progress popups go to Steam's toast at each quarter, never for spoilers
 PASS AC2 keeps its v0.1 progress; other games' pages show no card; diagnostics list every game

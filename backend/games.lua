@@ -1304,7 +1304,7 @@ return {
     progressKey = "autoProgress_12200_v1",
     pathKey = "savePath_12200_v1",
     setupHint = "Save in Bully, or select a BullyFile save in Settings.",
-    total = 56,
+    total = 44,
   },
   {
     appId = 7940,

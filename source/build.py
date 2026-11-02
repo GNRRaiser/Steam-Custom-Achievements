@@ -6,7 +6,7 @@ import os
 import re
 from pathlib import Path
 
-VERSION = '0.35.1'
+VERSION = '0.35.2'
 BASE = Path(__file__).resolve().parent
 ROOT = BASE.parent
 PLUGIN = ROOT
@@ -345,12 +345,6 @@ for slug in ORDER:
     if completion:
         # The PS3 platinum: unlocks by itself once every other achievement is unlocked.
         # It goes last so the indices of the Xbox 360 list (and saved progress) stay the same.
-        # "excludeGroups": groups the platinum does not wait for (Bully's mobile-only multiplayer list).
-        skip = set(completion.get('excludeGroups', []))
-        assert skip <= {a['group'] for a in achievements}, slug
-        for achievement in achievements:
-            if achievement['group'] in skip:
-                achievement['skipCompletion'] = True
         achievements.append({'name': completion['name'], 'detail': completion['detail'],
                              'group': 'Platinum', 'icon': 'crown', 'completion': True})
         picture = folder / 'art' / completion['picture']
@@ -373,7 +367,7 @@ for slug in ORDER:
                        pathKey=game.get('pathKey', f'savePath_{game["appId"]}_v1'),
                        setupHint=game.get('setupHint'), total=len(achievements))
     packs.append(backend)
-    keep = ('name', 'detail', 'group', 'automatic', 'icon', 'numeral', 'completion', 'hidden', 'rarity', 'skipCompletion')
+    keep = ('name', 'detail', 'group', 'automatic', 'icon', 'numeral', 'completion', 'hidden', 'rarity')
     games.append({
         'appId': game['appId'], 'slug': slug, 'title': game['title'], 'platform': game.get('platform', 'Xbox 360'),
         'automatic': bool(game['detector']), 'trackingNote': game.get('trackingNote', ''),

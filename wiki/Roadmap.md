@@ -4,8 +4,8 @@ What's done, what's planned, what might come, and what isn't possible. Nothing h
 
 ## Done
 
-- **11 games** with their Xbox 360 lists (plus PS3 platinums): Assassin's Creed I, II and Brotherhood, Bully: Scholarship Edition (with its PS4 and Anniversary Edition extras), Call of Duty 4 and World at War, Fable III, Fallout 3, Mass Effect 1 and 2, Thrillville: Off the Rails.
-- **Automatic unlocks** from saves for 463 of 611 achievements. Assassin's Creed, Fable III and Fallout 3 are fully automatic.
+- **11 games** with their Xbox 360 lists (plus PS3 platinums): Assassin's Creed I, II and Brotherhood, Bully: Scholarship Edition (with its PS4 extras), Call of Duty 4 and World at War, Fable III, Fallout 3, Mass Effect 1 and 2, Thrillville: Off the Rails.
+- **Automatic unlocks** from saves for 463 of 599 achievements. Assassin's Creed, Fable III and Fallout 3 are fully automatic.
 - **Looks like Steam:** Library card and stat, unlock and progress popups, Steam-style list and date format, unlock rates, rare gold glow, hidden story achievements, category counts, sorting.
 - **Big Picture mode** with controller support.
 - **Website** with a page per game, **automatic tests** on every change, and **GitHub Releases** starting with v0.34.9.

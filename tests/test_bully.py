@@ -105,7 +105,7 @@ assert isinstance(D[b'parse'](bytes(broken)), tuple), 'another mission table siz
 assert isinstance(D[b'parse'](b'SCAB' + b'%08x' % 22260 + save()[:100]), tuple)
 print('PASS files that are not Bully saves, cut off or with another layout unlock nothing')
 
-packed = [a for a in GAME['achievements'] if a['group'] == 'Anniversary Edition']
-assert len(packed) == 12 and len(GAME['achievements']) == 55
-print('PASS 38 Xbox 360 + 5 PS4 + 12 Anniversary Edition achievements, plus the Valedictorian platinum')
+assert len(GAME['achievements']) == 43 and {a['group'] for a in GAME['achievements']} >= {'PS4'}
+assert not any(a['group'] == 'Anniversary Edition' for a in GAME['achievements'])
+print('PASS 38 Xbox 360 + 5 PS4 achievements, plus the Valedictorian platinum (no mobile multiplayer ones)')
 print('All Bully detector tests passed.')
