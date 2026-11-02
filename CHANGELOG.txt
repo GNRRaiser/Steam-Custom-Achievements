@@ -1,4 +1,4 @@
-STEAM CUSTOM ACHIEVEMENTS v0.34.6 - MULTI-GAME
+STEAM CUSTOM ACHIEVEMENTS v0.34.8 - MULTI-GAME
 
 Adds the Xbox 360 achievement list to the Steam Library page of games whose
 Steam version has no achievements. Each supported game gets the same ACHIEVEMENTS
@@ -19,6 +19,12 @@ GAMES IN THIS BUILD
 
 Automatic entries unlock by themselves a few seconds after the game writes its
 progress. Everything else has a "Mark as unlocked" button in the popup.
+
+NEW IN v0.34.8
+- Brotherhood: Capture the Flag now counts Borgia flags out of 101 and
+  In Memoriam counts feathers out of 100, one by one. The save keeps a list
+  of every flag and feather you have taken, and the count is read from it.
+  Taking all of them also unlocks the achievement.
 
 NEW IN v0.34.6
 - Automatic unlocks pop sooner while you play. The game you are playing, and
