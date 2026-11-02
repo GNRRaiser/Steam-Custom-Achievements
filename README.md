@@ -6,6 +6,14 @@ These PC games never got achievements on Steam, even though their Xbox 360 and P
 
 Most achievements unlock by themselves: the plugin reads the game's saves (read-only) and unlocks an achievement a few seconds after the game records the progress, including ones you earned before installing. The rest have a "Mark as unlocked" button.
 
+It looks and works like Steam's own achievements:
+
+- **Unlock rates:** every achievement shows how many players have it (for example "63% of players have this achievement"), from the real Xbox 360 percentages. You can sort by rarest or most common.
+- **Rare glow:** unlocked achievements that fewer than 10% of players have get Steam's gold glow.
+- **Hidden achievements:** locked story achievements stay hidden until you unlock them. **Show spoilers** reveals them.
+- **Progress popups:** achievements with a counter (feathers, kills and so on) show a Steam progress popup at 25%, 50% and 75%.
+- **Steam's layout:** a near full-height window with a trophy summary, category counts such as "Broken Steel (2/6)", Steam's date style and pictures up to 256x256.
+
 It's an unofficial fan plugin. The achievements only show in your own Steam client, not on your Steam profile.
 
 - **Website:** https://gnrraiser.github.io/Steam-Custom-Achievements/ (one page per game with the full achievement list)
@@ -29,7 +37,9 @@ The achievements come from each game's Xbox 360 list, plus the PS3 platinum. Mas
 | [Mass Effect 2 Steam achievements](https://gnrraiser.github.io/Steam-Custom-Achievements/mass-effect-2/) | 24980 | 63 | 61 |
 | [Thrillville: Off the Rails Steam achievements](https://gnrraiser.github.io/Steam-Custom-Achievements/thrillville-off-the-rails/) | 6080 | 50 | 18 |
 
-Totals include the PS3 platinum where the game has one. [AUTO_TRACKING.md](AUTO_TRACKING.md) explains what each automatic Assassin's Creed II achievement reads; [CHANGELOG.txt](CHANGELOG.txt) covers the other games.
+Totals include the PS3 platinum where the game has one. [AUTO_TRACKING.md](AUTO_TRACKING.md) explains how automatic unlocks work and what each Assassin's Creed II achievement reads; [CHANGELOG.txt](CHANGELOG.txt) covers the other games.
+
+Unlock rates come from TrueAchievements (the share of tracked players who earned each achievement on Xbox 360). A few World at War Map Pack 3 achievements don't have one yet. To use your own numbers, save a game's achievement page from TrueAchievements or Exophase (Ctrl+S, as .mhtml or .html) and load it in View My Achievements > SETTINGS; it fills in the rates, and a saved .mhtml page also fills in the pictures.
 
 ## Install
 
@@ -43,6 +53,8 @@ You need Windows, Steam and [Millennium](https://steambrew.app) 3.x.
 6. Open a supported game in your Library. The ACHIEVEMENTS section is under Friends Who Play.
 
 To update, repeat steps 1 to 5 with the new ZIP. Your unlocks are kept. `CHECK_INSTALL.cmd` checks an install without changing anything.
+
+Automatic unlocks pop a second or two after the game writes its save. Some games only save at checkpoints, so an unlock can come a little after the moment you earned it.
 
 If nothing unlocks, open View My Achievements > SETTINGS and click Auto-detect save, or paste your save folder's path. The [Steam guide](https://steamcommunity.com/sharedfiles/filedetails/?id=3830564916) covers the common problems.
 

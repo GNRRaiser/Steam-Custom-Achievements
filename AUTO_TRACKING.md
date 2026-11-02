@@ -1,4 +1,14 @@
-# Assassin's Creed II automatic tracking (since v0.1.8)
+# Automatic tracking
+
+## How it works (all games)
+
+The plugin's backend reads each supported game's save or profile files, read-only, and never changes them. When a file changes, it is read again and an unlock is only awarded once two reads in a row match, so a half-written save never counts. A save it doesn't fully understand never unlocks anything.
+
+The game you're playing, the game shown in Steam, and any game whose save just changed are checked every second (since v0.34.6). The other supported games take turns in the background, so progress made while Steam shows another page is still recorded. Unlocks can only be as quick as the game's own saving: many games save at checkpoints or at the end of a memory, so the popup can arrive a little after the moment you earned it. Achievements you earned before installing unlock the first time the save is read.
+
+Achievements with a counter show Steam-style progress popups at 25%, 50% and 75% (counters of at least 4 only; hidden and platinum entries never get one). What each game reads is listed in [CHANGELOG.txt](CHANGELOG.txt) and [ADDING_A_GAME.md](ADDING_A_GAME.md); the rest of this page is the full Assassin's Creed II breakdown.
+
+# Assassin's Creed II (since v0.1.8)
 
 This build unlocks 41 of the 50 Xbox 360 entries from read-only autosave evidence (plus the PS3 platinum once all others are unlocked). It does not claim that all achievements have live memory detection.
 
@@ -48,11 +58,11 @@ The detector requires a valid ACII save header and a completed Mission record. I
 
 ## Timing and current limits
 
-Two consecutive matching snapshots are required; polling normally occurs about every two seconds while Steam is running. These are autosave-triggered detections, not frame-by-frame RAM checks. The earliest introduction and hideout-training checks intentionally catch up from later mandatory memories.
+Two consecutive matching snapshots are required (see How it works above for how often saves are checked). These are autosave-triggered detections, not frame-by-frame RAM checks. The earliest introduction and hideout-training checks intentionally catch up from later mandatory memories.
 
 The remaining 9 entries stay manual: Street Cleaner, Fly Swatter, Messer Sandman, Doctor, No-hitter, Lightning Strike, Sweeper, High Dive and Mailman. They are one-off moments with no checklist in the game's data and nothing in the save that records them (captures around Lightning Strike and High Dive confirmed this), so there is nothing to read. No save counter is treated as feathers or viewpoints merely because it changes.
 
-Existing saved progress is kept. This first AC2 pack uses the same per-PC/app progress scope as earlier builds, rather than separate Steam-account/save-slot profiles.
+Existing saved progress is kept. Progress is stored per PC and per game, not per Steam account or save slot.
 
 ## Source and attribution
 
@@ -62,7 +72,7 @@ Header validation was cross-checked with [Starman12976/AssassinsCreedIISaveFileV
 
 ## Verification
 
-The actual detector and watcher passed tests under LuaJIT 2.1, the runtime used by Millennium 3.6.2. The supplied real gameplay save parsed successfully and produced 23 supported achievements from 190 mission records. The supplied slot -1 file produced none. The uploaded saves are not included in this package. The native game and Windows Steam client have not been run here, so event timing and integration still need the user’s client-side test.
+The detector and watcher are tested under LuaJIT 2.1, the runtime used by Millennium, with synthetic fixtures in `tests/`. The rules were checked against real gameplay saves and the pcsavegames.com save pack, and unlock timing has been confirmed in the Windows Steam client. No real saves are included in the repo or the release ZIP.
 
 ## Runtime compatibility
 
