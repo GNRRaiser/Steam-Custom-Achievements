@@ -6,7 +6,7 @@
   <a href="https://github.com/GNRRaiser/Steam-Custom-Achievements/releases"><img alt="Downloads" src="https://img.shields.io/github/downloads/GNRRaiser/Steam-Custom-Achievements/total?label=downloads&color=66c0f4"></a>
   <a href="https://github.com/GNRRaiser/Steam-Custom-Achievements/releases/latest"><img alt="Latest release" src="https://img.shields.io/github/v/release/GNRRaiser/Steam-Custom-Achievements?label=latest&color=d4a338"></a>
   <a href="https://github.com/GNRRaiser/Steam-Custom-Achievements/actions/workflows/tests.yml"><img alt="Tests" src="https://img.shields.io/github/actions/workflow/status/GNRRaiser/Steam-Custom-Achievements/tests.yml?branch=main&label=tests"></a>
-  <a href="LICENSE"><img alt="License: MIT" src="https://img.shields.io/github/license/GNRRaiser/Steam-Custom-Achievements?color=8f98a0"></a>
+  <a href="LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-8f98a0"></a>
 </p>
 
 # Steam Custom Achievements: Xbox 360 achievements for Steam games that have none
@@ -14,6 +14,14 @@
 **Steam achievements for Mass Effect, Mass Effect 2, Assassin's Creed, Assassin's Creed II, Assassin's Creed Brotherhood, Call of Duty 4: Modern Warfare, Call of Duty: World at War, Fable III, Fallout 3 and Thrillville: Off the Rails.**
 
 These PC games never got achievements on Steam, even though their Xbox 360 and PS3 versions had them (several had Games for Windows Live achievements that are gone now). Steam Custom Achievements is a free [Millennium](https://steambrew.app) plugin that adds them back: each game gets an ACHIEVEMENTS card on its Steam Library page, an ACHIEVEMENTS stat next to PLAY TIME, unlock popups, and a full "View My Achievements" list, in desktop Steam and Big Picture mode.
+
+Here's Assassin's Creed Brotherhood in a real Steam library with the plugin installed:
+
+<p align="center">
+  <img src=".github/assets/screenshot-stats-bar.png" alt="The ACHIEVEMENTS 17/61 stat next to PLAY TIME on the Steam Library page" width="100%">
+  <br><br>
+  <img src=".github/assets/screenshot-achievements-card.png" alt="The ACHIEVEMENTS card on the Steam Library page: 17 of 61 unlocked, with unlocked and locked achievement icons" width="738">
+</p>
 
 Most achievements unlock by themselves: the plugin reads the game's saves (read-only) and unlocks an achievement a few seconds after the game records the progress, including ones you earned before installing. The rest have a "Mark as unlocked" button.
 
