@@ -5,10 +5,6 @@
 --         story mission, so a missed outro still counts once the next sequence starts)
 --   all   unlock when every one of these is complete (flags, feathers, towers)
 --   seen  unlock when any of these missions has a record at all (it has been reached)
---   objects  per-item progress (Borgia flags): world objects listed in game.json whose
---         "still standing" flag is 0. Unlocking still needs the district rule above.
--- World objects are records {41 6F 6A 5B id property, then B6 6C A5 72 standing bool}; a flag
--- reads 1 until it is taken (101 flags at 1 in an early save, one went to 0 per flag taken).
 -- The game also keeps its own achievement record in OPTIONS (same folder, same block
 -- format): a 64-bit property, one bit per achievement (game.profileBits).
 local reader = require('decoder_acb')
@@ -32,23 +28,6 @@ function D.read(ctx, path)
     local options = ctx.read_small(ctx.fs.join(ctx.fs.parent_path(path), 'OPTIONS'), 1048576)
     if not options then return save end
     return 'SCA\0' .. string.format('%08x', #save) .. save .. options
-end
-
--- World object id -> standing flag (0 or 1), for every object record in the save.
-local OBJECT_ID = '\65\111\106\91' .. string.rep('\0', 6) .. '\7\0\11'
-local STANDING = '\14\0\0\0\182\108\165\114' .. string.rep('\0', 8) .. '\11'
-local function world_objects(objects)
-    local found, at = {}, 1
-    while true do
-        local p = objects:find(OBJECT_ID, at, true)
-        if not p then break end
-        if p + 34 <= #objects and objects:sub(p + 17, p + 33) == STANDING then
-            local v = byte(objects, p + 34)
-            if v == 0 or v == 1 then found[u32(objects, p + 13)] = v end
-        end
-        at = p + 1
-    end
-    return found
 end
 
 -- Bit positions set in the achievement property: { [bit] = true }, or nil if absent.
@@ -81,8 +60,7 @@ function D.parse(data, game)
     local bits = profile and options and achievement_bits(options, profile.property)
     local recorded = 0
     for _ in pairs(bits or {}) do recorded = recorded + 1 end
-    return { done = done, completedCount = total, missionRecords = records, bits = bits, recorded = recorded,
-             objects = world_objects(objects) }
+    return { done = done, completedCount = total, missionRecords = records, bits = bits, recorded = recorded }
 end
 
 local function any_done(parsed, ids)
@@ -124,21 +102,7 @@ end
 function D.counts(parsed, game)
     local counts = {}
     for _, rule in ipairs(game.rules) do
-        local taken
-        if rule.objects and parsed.objects then
-            -- Only when every listed object is in the save; otherwise fall back to districts.
-            taken = 0
-            for _, id in ipairs(rule.objects) do
-                local v = parsed.objects[id]
-                if v == nil then taken = nil; break end
-                if v == 0 then taken = taken + 1 end
-            end
-            -- A save where none is standing yet is not trusted unless the districts agree.
-            if taken == #rule.objects and count_done(parsed, rule.all or {}) < #(rule.all or {}) then taken = nil end
-        end
-        if taken then
-            counts[tostring(rule.index)] = { have = taken, need = #rule.objects, label = rule.objectsLabel }
-        elseif rule.all and rule.label then
+        if rule.all and rule.label then
             counts[tostring(rule.index)] = { have = count_done(parsed, rule.all), need = #rule.all, label = rule.label }
         end
     end

@@ -6,7 +6,7 @@ import os
 import re
 from pathlib import Path
 
-VERSION = '0.34.7'
+VERSION = '0.34.6'
 BASE = Path(__file__).resolve().parent
 ROOT = BASE.parent
 PLUGIN = ROOT
@@ -275,14 +275,9 @@ for slug in ORDER:
         for index, achievement in enumerate(game['achievements']):
             rule = achievement.get('rule')
             if rule:
-                assert set(rule) <= {'done', 'all', 'seen', 'label', 'objects', 'objectsLabel'}, slug
+                assert set(rule) <= {'done', 'all', 'seen', 'label'}, slug
                 rules.append({'index': index, 'label': rule.get('label'),
                               **{key: [ids[name] for name in rule[key]] for key in ('done', 'all', 'seen') if rule.get(key)}})
-                if rule.get('objects'):
-                    # Per-item progress: world objects (game.json list) whose "still there" flag is 0.
-                    objects = [int(value, 16) for value in game[rule['objects']]]
-                    assert len(set(objects)) == len(objects) and rule.get('objectsLabel'), slug
-                    rules[-1].update(objects=objects, objectsLabel=rule['objectsLabel'])
                 achievement['automatic'] = True
         backend.update(rules=rules, missionNames={value: name for name, value in sorted(ids.items(), key=lambda item: item[1])})
         bits = game.get('profileBits')

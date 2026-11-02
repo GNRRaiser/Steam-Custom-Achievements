@@ -104,7 +104,7 @@ The rest follow the same pattern; each file's header comment describes its forma
 | --- | --- | --- |
 | `ac1` | Assassin's Creed | the .sav progress block, which is the game's own record of all 44 achievements |
 | `ac2` | Assassin's Creed II | autosave mission records, the game's own checklists, villa data (see [AUTO_TRACKING.md](AUTO_TRACKING.md)) |
-| `acb` | Assassin's Creed Brotherhood | mission records in the .SAV, the achievement bits the game keeps in OPTIONS, and per-flag world objects (a rule's `objects` names a list in game.json) |
+| `acb` | Assassin's Creed Brotherhood | mission records in the .SAV, plus the achievement bits the game keeps in OPTIONS |
 | `fable3` | Fable III | the XLiveEmu `Achievements.txt` unlock list (`"xlive": <id>` per achievement) |
 | `me2` | Mass Effect 2 | the achievement bits in the `Player1.prf` profile |
 | `thrillville` | Thrillville: Off the Rails | park save mission statuses and owner level |
