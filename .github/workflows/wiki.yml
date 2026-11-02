@@ -1,0 +1,38 @@
+# Copies the pages in wiki/ to the repo's GitHub wiki whenever they change on main.
+# Edit the pages in wiki/ (not on the wiki itself): edits made on the wiki are
+# replaced the next time this runs.
+name: Wiki
+
+on:
+  push:
+    branches: [main]
+    paths: ['wiki/**', '.github/workflows/wiki.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: wiki
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    name: Publish wiki/ to the wiki
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Copy pages and push
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git clone "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.wiki.git" ../wiki-repo
+          cd ../wiki-repo
+          find . -maxdepth 1 -name '*.md' -delete
+          cp "$GITHUB_WORKSPACE"/wiki/*.md .
+          git add -A
+          if git diff --cached --quiet; then echo "Wiki already up to date"; exit 0; fi
+          git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
+            commit -m "Update wiki from ${GITHUB_SHA::7}"
+          git push origin HEAD
