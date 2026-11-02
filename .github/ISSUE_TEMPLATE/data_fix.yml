@@ -1,0 +1,38 @@
+name: Wrong achievement data
+description: A name, description, picture, category or unlock rate is wrong or missing.
+labels: [data]
+body:
+  - type: dropdown
+    id: game
+    attributes:
+      label: Game
+      options:
+        - "Assassin's Creed"
+        - "Assassin's Creed II"
+        - "Assassin's Creed Brotherhood"
+        - "Call of Duty 4: Modern Warfare"
+        - "Call of Duty: World at War"
+        - "Fable III"
+        - "Fallout 3"
+        - "Mass Effect"
+        - "Mass Effect 2"
+        - "Thrillville: Off the Rails"
+    validations:
+      required: true
+  - type: input
+    id: achievement
+    attributes:
+      label: Achievement
+    validations:
+      required: true
+  - type: textarea
+    id: wrong
+    attributes:
+      label: What's wrong, and what it should be
+    validations:
+      required: true
+  - type: input
+    id: source
+    attributes:
+      label: Source
+      description: A link that shows the correct value.

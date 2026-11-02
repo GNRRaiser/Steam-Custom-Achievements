@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Security problem
+    url: https://github.com/GNRRaiser/Steam-Custom-Achievements/security/policy
+    about: Report it privately instead of in a public issue.
+  - name: Help with installing or using the plugin
+    url: https://github.com/GNRRaiser/Steam-Custom-Achievements/wiki/Troubleshooting
+    about: Answers to common problems are on the wiki.

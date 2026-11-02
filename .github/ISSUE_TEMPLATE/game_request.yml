@@ -1,0 +1,43 @@
+name: Game request
+description: Suggest a game whose Steam version has no achievements but another version had them.
+labels: [game request]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        A game fits if its Steam version has no achievements, but the Xbox 360, PS3 or Games for Windows Live version had them.
+  - type: input
+    id: game
+    attributes:
+      label: Game
+    validations:
+      required: true
+  - type: input
+    id: store
+    attributes:
+      label: Steam store link
+      placeholder: https://store.steampowered.com/app/...
+    validations:
+      required: true
+  - type: dropdown
+    id: platforms
+    attributes:
+      label: Where did it have achievements?
+      multiple: true
+      options:
+        - Xbox 360
+        - PS3
+        - Games for Windows Live
+        - Other
+    validations:
+      required: true
+  - type: input
+    id: list
+    attributes:
+      label: Achievement list
+      description: A link to a page that lists them (with unlock rates if possible).
+  - type: textarea
+    id: notes
+    attributes:
+      label: Anything else
+      description: For example where the game keeps its saves, or whether you could help test.

@@ -1,0 +1,65 @@
+name: Bug report
+description: An achievement doesn't unlock, something looks wrong, or the plugin doesn't load.
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting. Please don't attach save files here, since issues are public. For a security problem, use the Security tab instead.
+  - type: dropdown
+    id: game
+    attributes:
+      label: Game
+      options:
+        - "Assassin's Creed"
+        - "Assassin's Creed II"
+        - "Assassin's Creed Brotherhood"
+        - "Call of Duty 4: Modern Warfare"
+        - "Call of Duty: World at War"
+        - "Fable III"
+        - "Fallout 3"
+        - "Mass Effect"
+        - "Mass Effect 2"
+        - "Thrillville: Off the Rails"
+        - "More than one, or not game-specific"
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Plugin version
+      description: It is in the Copy status text below, and in the name of the ZIP you downloaded.
+      placeholder: v0.34.9
+    validations:
+      required: true
+  - type: dropdown
+    id: mode
+    attributes:
+      label: Where does it happen?
+      multiple: true
+      options:
+        - Desktop Steam
+        - Big Picture mode
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: Which achievement (if any), what you expected, and what happened instead.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: How to make it happen
+      description: What you did in the game or in Steam before it went wrong.
+  - type: textarea
+    id: status
+    attributes:
+      label: Copy status
+      description: Open View My Achievements > Settings, click Copy status and paste it here.
+      render: text
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots
+      description: Optional. Drag images here.
