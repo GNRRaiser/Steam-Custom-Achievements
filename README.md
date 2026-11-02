@@ -6,7 +6,7 @@
   <a href="https://github.com/GNRRaiser/Steam-Custom-Achievements/releases"><img alt="Downloads" src="https://img.shields.io/github/downloads/GNRRaiser/Steam-Custom-Achievements/total?label=downloads&color=66c0f4"></a>
   <a href="https://github.com/GNRRaiser/Steam-Custom-Achievements/releases/latest"><img alt="Latest release" src="https://img.shields.io/github/v/release/GNRRaiser/Steam-Custom-Achievements?label=latest&color=d4a338"></a>
   <a href="https://github.com/GNRRaiser/Steam-Custom-Achievements/actions/workflows/tests.yml"><img alt="Tests" src="https://img.shields.io/github/actions/workflow/status/GNRRaiser/Steam-Custom-Achievements/tests.yml?branch=main&label=tests"></a>
-  <a href="LICENSE"><img alt="License: MIT" src="https://img.shields.io/github/license/GNRRaiser/Steam-Custom-Achievements?color=8f98a0"></a>
+  <a href="LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-8f98a0"></a>
 </p>
 
 # Steam Custom Achievements: Xbox 360 achievements for Steam games that have none
