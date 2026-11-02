@@ -6,7 +6,7 @@ at 2560x640 with Playwright's Chromium:
 
     python .github/assets/make_banner.py
 
-Change ROWS to show other achievements, and the "10 games / 555 achievements"
+Change ROWS to show other achievements, and the "11 games / 599 achievements"
 chips in the template when games are added.
 """
 import base64, glob, html, json, pathlib

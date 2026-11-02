@@ -22,6 +22,7 @@ It's an unofficial fan plugin. The achievements show only in your own Steam clie
 | [Assassin's Creed](Assassins-Creed) | 44 | 44 |
 | [Assassin's Creed II](Assassins-Creed-II) | 51 | 41 |
 | [Assassin's Creed Brotherhood](Assassins-Creed-Brotherhood) | 61 | 50 |
+| [Bully: Scholarship Edition](Bully-Scholarship-Edition) | 44 | 26 |
 | [Call of Duty 4: Modern Warfare](Call-of-Duty-4) | 37 | 24 |
 | [Call of Duty: World at War](Call-of-Duty-World-at-War) | 67 | 22 |
 | [Fable III](Fable-III) | 60 | 60 |

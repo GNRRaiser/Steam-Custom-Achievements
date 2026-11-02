@@ -22,7 +22,7 @@ MILLENNIUM_URL = 'https://steambrew.app'
 # Site ownership check (the file method is docs/google54cf37509701d6b4.html).
 GOOGLE_VERIFICATION = 'zMGmcWJ9kuK8mSTHeUcNw-XrvxbpVxAqFteEe25JUVk'
 
-ORDER = ['ac1', 'ac2', 'acb', 'cod4', 'codwaw', 'fable3', 'fallout3', 'me1', 'me2', 'thrillville-otr']
+ORDER = ['ac1', 'ac2', 'acb', 'bully', 'cod4', 'codwaw', 'fable3', 'fallout3', 'me1', 'me2', 'thrillville-otr']
 
 # How many achievements unlock by themselves (the rest have a "Mark as
 # unlocked" button), and the short names people search for. Keep the counts
@@ -31,6 +31,7 @@ GAME_INFO = {
     'ac1': {'auto': 44, 'aka': ['AC1', 'Assassins Creed 1', "Assassin's Creed Director's Cut"], 'page': 'assassins-creed'},
     'ac2': {'auto': 41, 'aka': ['AC2', 'Assassins Creed 2'], 'page': 'assassins-creed-2'},
     'acb': {'auto': 50, 'aka': ['ACB', 'AC Brotherhood', 'Assassins Creed Brotherhood'], 'page': 'assassins-creed-brotherhood'},
+    'bully': {'auto': 26, 'aka': ['Bully', 'Bully SE', 'Canis Canem Edit', 'Bully Anniversary Edition'], 'page': 'bully-scholarship-edition'},
     'cod4': {'auto': 24, 'aka': ['COD4', 'CoD 4', 'Modern Warfare 1', 'COD4 MW'], 'page': 'call-of-duty-4-modern-warfare'},
     'codwaw': {'auto': 22, 'aka': ['COD WaW', 'CoD 5', 'World at War'], 'page': 'call-of-duty-world-at-war'},
     'fable3': {'auto': 60, 'aka': ['Fable 3', 'Fable III GFWL'], 'page': 'fable-3'},

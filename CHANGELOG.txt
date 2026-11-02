@@ -1,4 +1,4 @@
-STEAM CUSTOM ACHIEVEMENTS v0.34.9 - MULTI-GAME
+STEAM CUSTOM ACHIEVEMENTS v0.35.2 - MULTI-GAME
 
 Adds the Xbox 360 achievement list to the Steam Library page of games whose
 Steam version has no achievements. Each supported game gets the same ACHIEVEMENTS
@@ -9,6 +9,7 @@ GAMES IN THIS BUILD
   Assassin's Creed                  15100       44             44 (game's own record + save)
   Assassin's Creed II               33230       50             41 (autosave parser + game's checklists)
   Assassin's Creed Brotherhood      48190       60             50 (game's own record + save)
+  Bully: Scholarship Edition        12200       43             26 (save: chapters, missions, classes, stats)
   Call of Duty 4: Modern Warfare    7940        37             24 (profile config.cfg)
   Call of Duty: World at War        10090       66             22 (profile config.cfg)
   Fable III                         105400      60             60 (game's own record via XLiveEmu)
@@ -19,6 +20,30 @@ GAMES IN THIS BUILD
 
 Automatic entries unlock by themselves a few seconds after the game writes its
 progress. Everything else has a "Mark as unlocked" button in the popup.
+
+NEW IN v0.35.2
+- Bully: the 12 multiplayer achievements from the mobile Anniversary
+  Edition are gone, since the PC game has no multiplayer. The list is now the
+  38 Xbox 360 ones, the 5 PS4 ones and the Valedictorian platinum (44).
+
+NEW IN v0.35.1
+- Bully: the save's mission table is now read, so 5 more unlock by
+  themselves (26 in all): Mission Accomplished when the game marks every
+  mission passed, Keener, Teacher's Pet and Boy Genius from how many classes
+  you have finished all five levels of (shown as n / total), and The Champion
+  once all 14 bike races are won (also n / 14).
+
+NEW IN v0.35.0
+- New game: Bully: Scholarship Edition. 56 achievements: the 38 from the
+  Xbox 360, the 5 PS4-only ones (Kleptomania, Rich Kid Blues, Popularity
+  Contest, Problem Child, The (Expert) Bicycle Thief), the Valedictorian
+  platinum and the 12 multiplayer ones from the mobile Anniversary Edition,
+  with the real pictures and Xbox 360 unlock rates.
+- 21 unlock by themselves from your newest save (Documents\Bully Scholarship
+  Edition): the five chapters, Perfectionist at 100%, and the counters the
+  game's Stats screen keeps (distances, eggs, wedgies, taunts, knockouts,
+  sodas bought, bottles, room trophies, bikes jacked and more), which show
+  progress as n / total.
 
 NEW IN v0.34.9
 - Fallout 3: the level + karma achievements (Reaver, Mercenary, Protector up
