@@ -35,7 +35,10 @@ def main():
     page = page.replace('%%ROWS%%', ''.join(row(*r) for r in ROWS))
     from playwright.sync_api import sync_playwright
     with sync_playwright() as p:
-        browser = p.chromium.launch()
+        try:
+            browser = p.chromium.launch()
+        except Exception:  # Playwright's own Chromium is not installed: use Chrome
+            browser = p.chromium.launch(channel='chrome')
         tab = browser.new_page(viewport={'width': 1280, 'height': 320}, device_scale_factor=2)
         tab.set_content(page)
         tab.wait_for_timeout(300)
