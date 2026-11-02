@@ -15,6 +15,14 @@
 
 These PC games never got achievements on Steam, even though their Xbox 360 and PS3 versions had them (several had Games for Windows Live achievements that are gone now). Steam Custom Achievements is a free [Millennium](https://steambrew.app) plugin that adds them back: each game gets an ACHIEVEMENTS card on its Steam Library page, an ACHIEVEMENTS stat next to PLAY TIME, unlock popups, and a full "View My Achievements" list, in desktop Steam and Big Picture mode.
 
+Here's Assassin's Creed Brotherhood in a real Steam library with the plugin installed:
+
+<p align="center">
+  <img src=".github/assets/screenshot-stats-bar.png" alt="The ACHIEVEMENTS 17/61 stat next to PLAY TIME on the Steam Library page" width="100%">
+  <br><br>
+  <img src=".github/assets/screenshot-achievements-card.png" alt="The ACHIEVEMENTS card on the Steam Library page: 17 of 61 unlocked, with unlocked and locked achievement icons" width="738">
+</p>
+
 Most achievements unlock by themselves: the plugin reads the game's saves (read-only) and unlocks an achievement a few seconds after the game records the progress, including ones you earned before installing. The rest have a "Mark as unlocked" button.
 
 It looks and works like Steam's own achievements:
