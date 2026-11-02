@@ -122,7 +122,7 @@ local function header(s)
     local t = {}
     for i = 1, 8 do t[i] = u32(s, tableAt + (i - 1) * 4) end
     if not t[8] then return nil, 'Save is cut short' end
-    return { level = level, plugins = plugins, formIds = t[1], global1 = t[3], changeForms = t[4],
+    return { level = level, name = name, plugins = plugins, formIds = t[1], global1 = t[3], changeForms = t[4],
         global2 = t[5], global1Count = t[6], global2Count = t[7], changeFormCount = t[8] }
 end
 
@@ -241,7 +241,7 @@ local function summarize(s)
     local quests, player, vars, form_id = change_forms(s, h)
     if not quests then return 'error Unknown change form layout' end
     local globals = global_vars(s, h, form_id) or {}
-    local lines = { 'fo3 1', 'level ' .. h.level }
+    local lines = { 'fo3 1', 'level ' .. h.level, 'player ' .. h.name:gsub('%c', ' ') }
     local k = karma(player)
     if k then lines[#lines + 1] = 'karma ' .. k end
     for i = 0, 63 do if stats[i] then lines[#lines + 1] = 'stat ' .. i .. ' ' .. stats[i] end end
@@ -297,6 +297,7 @@ function D.parse(text)
         local word, rest = line:match('^(%S+) (.*)$')
         if word == 'level' then parsed.level = tonumber(rest)
         elseif word == 'karma' then parsed.karma = tonumber(rest)
+        elseif word == 'player' then parsed.player = rest
         elseif word == 'stat' then
             local i, v = rest:match('^(%d+) (%d+)$')
             if i then parsed.stats[tonumber(i)] = tonumber(v) end
@@ -326,7 +327,7 @@ end
 
 local function quest_key(q) return q.plugin .. ':' .. q.id end
 
-local function rule_met(parsed, rule)
+local function rule_met(parsed, rule, levelledUp)
     if rule.quests then
         for _, q in ipairs(rule.quests) do
             local state = parsed.quests[quest_key(q)]
@@ -344,7 +345,7 @@ local function rule_met(parsed, rule)
         return have ~= nil and have >= rule.need
     end
     if rule.level then
-        return (parsed.level or 0) >= rule.level and karma_kind(parsed.karma) == rule.karma
+        return levelledUp and (parsed.level or 0) >= rule.level and karma_kind(parsed.karma) == rule.karma
     end
     return false
 end
@@ -361,12 +362,28 @@ function D.have(parsed, rule)
     return nil
 end
 
-function D.evaluate(parsed, game)
+-- The game awards a karma achievement when the player levels up, for the karma held at that
+-- moment, so changing karma later does not unlock another one until the next level-up. With
+-- what the plugin last saw of this character (main.lua keeps it between Steam sessions), the
+-- level achievements count only when the level went up. A character it has not seen yet (a
+-- first read, another character) is judged by the karma the save holds now.
+local function levelled_up(parsed, memory)
+    if type(memory) ~= 'table' or type(memory.level) ~= 'number' then return true end
+    if memory.player ~= parsed.player then return true end
+    return (parsed.level or 0) > memory.level
+end
+
+function D.evaluate(parsed, game, memory)
     local list = {}
+    local up = levelled_up(parsed, memory)
     for _, rule in ipairs(game.rules) do
-        if rule_met(parsed, rule) then list[#list + 1] = rule.index end
+        if rule_met(parsed, rule, up) then list[#list + 1] = rule.index end
     end
     return list
+end
+
+function D.remember(parsed)
+    return { level = parsed.level, player = parsed.player }
 end
 
 function D.counts(parsed, game)

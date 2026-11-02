@@ -1,4 +1,4 @@
-Steam Custom Achievements v0.33.1 verification - 2026-11-01
+Steam Custom Achievements v0.34.9 verification - 2026-11-02
 PASS a new save in %APPDATA%\Ubisoft\Assassin's Creed\Saved Games is found; nothing unlocked
 PASS objective M03_S20_Animus_Tutorial_Complete finished unlocks Welcome to the Animus
 PASS references to an objective and objectives still open do not count
@@ -19,11 +19,13 @@ PASS the Steam save in Saved Games is found; the opening memory alone unlocks no
 PASS Sequence 1 unlocks Battle Wounds at its outro, not before
 PASS reaching Sequence 4 unlocks Sequences 1-3, Sanctuary and the Terme di Traiano lair (Halls of Nero)
 PASS Sequence 9 started unlocks Technical Difficulties; the ending unlocks the last two story achievements
+PASS Borgia flags count out of 101 and feathers out of 100 from the taken objects in the save
 PASS all four Rome flag districts unlock Capture the Flag; lairs, machines, feathers and the DLC unlock
 PASS a cut-off save is not trusted (earned unlocks stay)
 PASS Reset to locked holds what the save already has until an older save; earning it again unlocks it
 PASS the achievement record in OPTIONS unlocks single-player and DLC achievements; multiplayer stays manual
 PASS Ubisoft Connect saves (scrambled) decode to the same missions
+PASS taking all 101 flags or all 100 feathers unlocks the achievement
 All Brotherhood detector tests passed.
 PASS all 26 rules require a completed mission record of the correct type
 PASS statuette/feather rules need every distinct ID; duplicates and slot -1 never count
@@ -34,7 +36,7 @@ PASS Podesta of Monteriggioni unlocks at 120000, 80% of the 150000 in the game's
 PASS duplicates, truncation, corrupt header, unknown format and wrong flag layout
 PASS new-game intro: Abstergo escape and entering the Animus unlock the first three
 PASS Sequences 2, 5 and 9 unlock at their last memory, not the one before
-PASS a detector error on a strange save is reported, earned unlocks stay, and tracking recovers
+PASS a detector error on a strange save is reported once (not re-read until it changes), earned unlocks stay, and tracking recovers
 PASS watcher waits for stable snapshots, grants only after completion and persists once
 PASS Steam-library save discovery, automatic-state retention and privacy-limited status
 PASS invalid save selection does not replace the selected path or modify the game save
@@ -72,6 +74,7 @@ PASS a quest counts when its completed flag (0x02) is set; Growing Up Fast count
 PASS DLC quests are matched by plugin name, whatever the load order (Broken Steel and Zeta share 0x802)
 PASS Pip-Boy statistics unlock at their targets (300 kills, 50 locks/terminals/speech, 100 locations, 10/20 bobbleheads)
 PASS level achievements follow the karma the save holds (good >= 250, bad <= -250)
+PASS karma achievements need a level-up after the plugin has seen the character; changing karma alone unlocks nothing
 PASS Weaponsmith needs all 7 custom weapon counters (or the game's own done flag); 5 Behemoths killed
 PASS DLC quest script counters: 100 ingots (or the achievement flag), 25 recordings (-1 once awarded), 29 Point Lookout markers
 PASS files that are not Fallout 3 saves, or are cut short, are not read
@@ -103,6 +106,7 @@ All Thrillville detector tests passed.
 PASS native-style card sits below Friends Who Play, matches gradient card edges, shows icon rows
 PASS close button is inside the dialog and works on its edge
 PASS View My Achievements popup lists 50, toggles manual entries with dates, closes on Escape
+PASS unlock rates from a saved page (rare in gold, sort by rarity), category counts, hidden story spoilers
 PASS search, custom pictures by number/name and from a saved .mhtml page, settings restore, status and picture reset
 PASS real timer restores removed UI and stylesheet without duplicate registration
 PASS header stat matches the clock icon, skips a hidden PLAY TIME, goes into every header copy, appears without LAST PLAYED, and Copy status reports it
@@ -110,6 +114,8 @@ PASS automatic backend state unlocks progress while another page is selected; ca
 PASS card and popup fit at 1200px, 480px and 320px widths
 PASS popup destruction/recreation, complete cleanup, no external requests or script exceptions
 Real Chromium window regression passed: 153.0.8010.12
+[Steam Custom Achievements 0.34.9] Attached to desktop Steam window
+[Steam Custom Achievements 0.34.9] Ready for 10 games; waiting for a visible Steam window if necessary
 PASS CoD 4 page shows its own 37 achievements, automatic unlocks, intel progress and raw campaign value
 PASS record mode: pick an achievement, Start, Done; the matching value and the saved copies are shown; a second pass narrows
 PASS a new automatic unlock shows a Steam-style popup with its picture; popups can be turned off
@@ -119,6 +125,7 @@ PASS Thrillville page has 18 automatic achievements (missions and owner levels),
 PASS Mass Effect (45 automatic), Brotherhood (50 automatic), Mass Effect 2 (61 automatic) and AC1 (44 automatic): full lists with platinums, all 218 built-in pictures, save folders shown
 PASS the platinum (N7 Elite) unlocks once all others are unlocked, through Steam's own achievement toast (shown over games by the overlay)
 PASS a popup Steam silently drops is drawn by the plugin; one Steam queues is not
+PASS progress popups go to Steam's toast at each quarter, never for spoilers
 PASS AC2 keeps its v0.1 progress; other games' pages show no card; diagnostics list every game
 All multi-game regression groups passed.
 PASS mounts in the visible Steam window, excluding hidden host and Settings

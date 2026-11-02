@@ -114,6 +114,22 @@ assert earned(save(level=7, karma=-1000.0)) == set()
 assert earned(save(level=8, karma=249.0)) == {'Mercenary'}
 print('PASS level achievements follow the karma the save holds (good >= 250, bad <= -250)')
 
+def earned_after(data, memory):
+    parsed = D[b'parse'](D[b'summarize'](data))
+    return {NAMES[i] for i in D[b'evaluate'](parsed, game, lua.table_from(memory)).values()}
+
+def remember(data):
+    return dict(D[b'remember'](D[b'parse'](D[b'summarize'](data))).items())
+
+seen = remember(save(level=10, karma=1000.0))
+assert seen == {b'level': 10, b'player': b'Lone Wanderer'}, seen
+seen = {b'level': 10, b'player': b'Lone Wanderer'}
+assert earned_after(save(level=10, karma=-1000.0), seen) == set()
+assert earned_after(save(level=11, karma=-1000.0), seen) == {'Reaver'}
+assert earned_after(save(level=9, karma=0.0), seen) == set()
+assert earned_after(save(level=10, karma=0.0), {b'level': 30, b'player': b'Someone Else'}) == {'Mercenary'}
+print('PASS karma achievements need a level-up after the plugin has seen the character; changing karma alone unlocks nothing')
+
 for broken in (b'not a save', save(cut=True), save()[:1000]):
     parsed = D[b'parse'](D[b'summarize'](broken))
     assert isinstance(parsed, tuple) and parsed[0] is None, broken[:20]
