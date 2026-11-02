@@ -140,6 +140,8 @@ const tick = () => new Promise(resolve => setTimeout(resolve, 0));
   assert.match(doc.querySelector('.sca-reset-note').textContent, /stay locked until the game earns them again/);
   backend[7940].progress['5'] = '2026-10-26T20:30:00Z';
   await new Promise(r => setTimeout(r, 1500)); runtime.refresh(); await tick(); await tick();
+  // That unlock draws the plugin's own popup, which holds the popup queue for 6 seconds.
+  const ownPopupShown = Date.now();
   assert.deepEqual(Object.keys(JSON.parse(host.localStorage.getItem('sca:progress:7940:v1'))), ['5'], 'a later unlock is recorded again');
   console.log('PASS Reset to locked asks twice, clears manual and automatic unlocks, and later unlocks still arrive');
 
@@ -195,6 +197,9 @@ const tick = () => new Promise(resolve => setTimeout(resolve, 0));
     else assert.ok(calls.some(([m, a]) => m === 'GetTrackerState' && a === Number(app)), `${app}: automatic games ask the backend`);
   }
   console.log('PASS Mass Effect (45 automatic), Brotherhood (50 automatic), Mass Effect 2 (61 automatic) and AC1 (44 automatic): full lists with platinums, all 218 built-in pictures, save folders shown');
+
+  // Let that popup finish first, or a slow machine still has it holding the queue below.
+  await new Promise(r => setTimeout(r, Math.max(0, ownPopupShown + 6500 - Date.now())));
 
   // From here on Steam's own NotificationStore is present, as in the real client.
   const steamToasts = [];
