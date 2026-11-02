@@ -64,6 +64,9 @@ Write `backend/detector_<name>.lua` with the same functions as `detector_cod.lua
 to `$RelativeFiles` in `tools/Install-Plugin.ps1` and the file list in `source/package.py`.
 Detectors must only read files, and an unknown or damaged layout must never unlock anything.
 The watcher already waits for two identical snapshots before awarding.
+An optional `remember(parsed)` returns a small table the watcher keeps between Steam sessions and
+passes back as `evaluate(parsed, game, memory)`; Fallout 3 uses it so the karma achievements need a
+level-up, as in the game.
 
 Real saves are the only reliable way to map a format. For AC2 that meant comparing saves
 from before and after each milestone. Fable III (`detector_fable3.lua`) shows the other route:

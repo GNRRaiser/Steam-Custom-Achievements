@@ -136,11 +136,14 @@ end
 
 local function held_key(game) return game.progressKey .. '_held' end
 local function held_path_key(game) return game.progressKey .. '_heldPath' end
+local function memory_key(game) return game.progressKey .. '_memory' end
 
 local function apply(w, parsed)
     local state, game, detector = w.state, w.game, w.detector
     local changed, earned = false, {}
-    for _, index in ipairs(detector.evaluate(parsed, game)) do earned[tostring(index)] = true end
+    -- A detector may judge a save against what it saw before (Fallout 3's karma achievements
+    -- need a level-up); that memory is kept between Steam sessions.
+    for _, index in ipairs(detector.evaluate(parsed, game, w.memory)) do earned[tostring(index)] = true end
     -- After "Reset to locked", what the save already had stays locked until a save no
     -- longer has it (an older save or a new game); earning it again then unlocks it.
     -- Held keys belong to the save that was open at the reset; another save file (a new
@@ -157,6 +160,13 @@ local function apply(w, parsed)
         end
     end
     if changed then millennium.config.set(game.progressKey, w.automatic) end
+    if detector.remember then
+        local memory = detector.remember(parsed, w.memory)
+        if type(memory) == 'table' then
+            w.memory = memory
+            millennium.config.set(memory_key(game), memory)
+        end
+    end
     state.recordCount = parsed.recordCount or 0
     state.missionRecords, state.slot = parsed.missionRecords, parsed.slot
     state.counts = detector.counts(parsed, game)
@@ -196,13 +206,18 @@ local function poll(w)
             -- Award only from a snapshot that is identical across two polls.
             w.pendingBytes = bytes
             state.status, state.message = 'stabilizing', 'Waiting for the save to finish writing.'
+        elseif bytes == w.failedBytes then
+            -- The same unreadable save: it is read again only once the game writes it again.
+            state.status, state.message = 'unsupported-save', w.failedMessage
         elseif bytes ~= w.parsedBytes then
             local parsed, reason = w.detector.parse(bytes, w.game)
             local ok, err = true, nil
             if parsed then ok, err = pcall(apply, w, parsed) end
             if not parsed or not ok then
                 state.status, state.message = 'unsupported-save', reason or ('Could not check this save (' .. tostring(err) .. ').')
+                w.failedBytes, w.failedMessage = bytes, state.message
             else
+                w.failedBytes, w.failedMessage = nil, nil
                 describe(w)
                 w.parsedBytes = bytes
             end
@@ -247,7 +262,7 @@ function SetSavePath(payload)
         elseif reason ~= 'no-gameplay-save' then error(reason or 'Cannot read that file') end
     end
     w.configuredPath, w.selectedPath, w.lastLocate = path, nil, -LOCATE_INTERVAL
-    w.pendingBytes, w.parsedBytes, w.cachedReply = nil, nil, nil
+    w.pendingBytes, w.parsedBytes, w.failedBytes, w.cachedReply = nil, nil, nil, nil
     millennium.config.set(w.game.pathKey, path)
     return poll(w)
 end
@@ -456,7 +471,7 @@ function ResetProgress(payload)
     millennium.config.set(w.game.progressKey, w.automatic)
     millennium.config.set(held_key(w.game), w.held)
     millennium.config.set(held_path_key(w.game), path or '')
-    w.parsedBytes, w.cachedReply = nil, nil
+    w.parsedBytes, w.failedBytes, w.cachedReply = nil, nil, nil
     return poll(w)
 end
 
@@ -505,6 +520,8 @@ local function on_load()
                     if held[tostring(index)] == true then w.held[tostring(index)] = true end
                 end
             end
+            local memory = millennium.config.get(memory_key(w.game))
+            if type(memory) == 'table' then w.memory = memory end
             local path = millennium.config.get(w.game.pathKey)
             if type(path) == 'string' then w.configuredPath = path end
         end
