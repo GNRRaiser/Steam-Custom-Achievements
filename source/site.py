@@ -31,7 +31,7 @@ GAME_INFO = {
     'ac1': {'auto': 44, 'aka': ['AC1', 'Assassins Creed 1', "Assassin's Creed Director's Cut"], 'page': 'assassins-creed'},
     'ac2': {'auto': 41, 'aka': ['AC2', 'Assassins Creed 2'], 'page': 'assassins-creed-2'},
     'acb': {'auto': 50, 'aka': ['ACB', 'AC Brotherhood', 'Assassins Creed Brotherhood'], 'page': 'assassins-creed-brotherhood'},
-    'bully': {'auto': 26, 'aka': ['Bully', 'Bully SE', 'Canis Canem Edit', 'Bully Anniversary Edition'], 'page': 'bully-scholarship-edition'},
+    'bully': {'auto': 34, 'aka': ['Bully', 'Bully SE', 'Canis Canem Edit', 'Bully Anniversary Edition'], 'page': 'bully-scholarship-edition'},
     'cod4': {'auto': 24, 'aka': ['COD4', 'CoD 4', 'Modern Warfare 1', 'COD4 MW'], 'page': 'call-of-duty-4-modern-warfare'},
     'codwaw': {'auto': 22, 'aka': ['COD WaW', 'CoD 5', 'World at War'], 'page': 'call-of-duty-world-at-war'},
     'fable3': {'auto': 60, 'aka': ['Fable 3', 'Fable III GFWL'], 'page': 'fable-3'},

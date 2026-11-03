@@ -59,11 +59,26 @@ assert earned(save(ints={22: 25, 32: 49, 43: 100, 49: 200, 75: 50, 78: 24})) == 
 assert earned(save(ints={194: 100, 197: 100, 198: 200, 238: 300, 1: 40, 46: 20})) == {
     'Soda-licious', 'Smart Mouth', 'Down for the Count', 'Glass Dismissed', 'Kleptomania', 'The (Expert) Bicycle Thief'}
 assert earned(save(ints={40: 5000})) == set(), 'sodas drunk are not sodas bought'
+assert earned(save(ints={129: 25, 132: 19, 38: 50, 66: 250, 154: 160000})) == {
+    'Casanova', 'Green Thumbs Up', 'Sharp Dressed Man', 'Problem Child'}
+assert earned(save(ints={132: 20, 129: 24, 39: 500, 154: 159999})) == {'Over the Rainbow'}, 'flowers obtained are not flowers picked'
+print('PASS kisses, flowers picked, clothes bought and trouble points unlock at their totals')
+assert earned(save(ints={156: 299999})) == set() and earned(save(ints={156: 300000})) == {'After Hours'}
+print('PASS After Hours: time out after curfew is saved in ms, 1000 per in-game minute, so 5 hours is 300000')
+assert earned(save(ints={55: 3})) == set()
+assert earned(save(ints={55: 2, 57: 2})) == {'Speed Freak'}
+assert earned(save(ints={55: 5, 57: 2})) == {'Speed Freak'}
+assert earned(save(ints={55: 5, 57: 3})) == {'Speed Freak', 'Pole Position'}
+assert earned(save(ints={54: 9, 56: 9})) == set(), 'races raced are not races won'
+print('PASS Speed Freak and Pole Position add carnival and street go-kart wins (4 and 8 of the 8 races)')
 print('PASS stats screen counters (distances as metres, eggs, wedgies, sodas bought, knockouts, ...) unlock at their totals')
 
 parsed = D[b'parse'](save(ints={32: 12}, floats={5: 21265.75}))
 counts = {NAMES[int(k)]: (v[b'have'], v[b'need']) for k, v in D[b'counts'](parsed, game).items()}
 assert counts['Skidmark'] == (12, 50) and counts['Marathon'] == (21265, 100000), counts
+parsed = D[b'parse'](save(ints={156: 252263, 55: 1, 57: 1}))
+counts = {NAMES[int(k)]: (v[b'have'], v[b'need']) for k, v in D[b'counts'](parsed, game).items()}
+assert counts['After Hours'] == (252, 300) and counts['Pole Position'] == (2, 8), counts
 print('PASS counters show n / total')
 
 CHEM, ART, GYM, PHOTO, ENGLISH = [122, 123, 124, 125, 126], [128, 129, 130, 131, 132], [134, 135, 136, 137, 138], 148, 153

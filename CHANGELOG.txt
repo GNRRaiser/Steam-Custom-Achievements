@@ -1,4 +1,4 @@
-STEAM CUSTOM ACHIEVEMENTS v0.35.2 - MULTI-GAME
+STEAM CUSTOM ACHIEVEMENTS v0.35.3 - MULTI-GAME
 
 Adds the Xbox 360 achievement list to the Steam Library page of games whose
 Steam version has no achievements. Each supported game gets the same ACHIEVEMENTS
@@ -9,7 +9,7 @@ GAMES IN THIS BUILD
   Assassin's Creed                  15100       44             44 (game's own record + save)
   Assassin's Creed II               33230       50             41 (autosave parser + game's checklists)
   Assassin's Creed Brotherhood      48190       60             50 (game's own record + save)
-  Bully: Scholarship Edition        12200       43             26 (save: chapters, missions, classes, stats)
+  Bully: Scholarship Edition        12200       43             34 (save: chapters, missions, classes, stats)
   Call of Duty 4: Modern Warfare    7940        37             24 (profile config.cfg)
   Call of Duty: World at War        10090       66             22 (profile config.cfg)
   Fable III                         105400      60             60 (game's own record via XLiveEmu)
@@ -20,6 +20,15 @@ GAMES IN THIS BUILD
 
 Automatic entries unlock by themselves a few seconds after the game writes its
 progress. Everything else has a "Mark as unlocked" button in the popup.
+
+NEW IN v0.35.3
+- Bully: 8 more unlock by themselves from the Stats screen numbers in the
+  save (34 in all), each shown as n / total: After Hours (time out after
+  curfew, in in-game minutes), Casanova and Over the Rainbow (kisses from
+  the ladies and from the gents), Green Thumbs Up (flowers found), Sharp
+  Dressed Man (clothing items bought), Speed Freak and Pole Position
+  (carnival and street go-kart races won, 4 and 8 of the 8 races) and the
+  PS4 Problem Child (trouble points accumulated).
 
 NEW IN v0.35.2
 - Bully: the 12 multiplayer achievements from the mobile Anniversary

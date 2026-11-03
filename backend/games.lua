@@ -1217,6 +1217,16 @@ return {
       need = 9,
       label = "Classes finished (all 5 levels)",
     }, {
+      index = 15,
+      stats = { 55, 57 },
+      need = 4,
+      label = "Go-kart races won",
+    }, {
+      index = 16,
+      stats = { 55, 57 },
+      need = 8,
+      label = "Go-kart races won",
+    }, {
       index = 17,
       missions = { 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62 },
       need = 14,
@@ -1280,20 +1290,51 @@ return {
       need = 100,
       label = "Soccer balls kicked",
     }, {
+      index = 29,
+      stat = 156,
+      div = 1000,
+      need = 300,
+      label = "In-game minutes out after curfew",
+    }, {
+      index = 30,
+      stat = 129,
+      need = 25,
+      label = "Kisses from the ladies",
+    }, {
+      index = 31,
+      stat = 132,
+      need = 20,
+      label = "Kisses from the gents",
+    }, {
       index = 34,
       stat = 238,
       need = 300,
       label = "Bottles broken at the shooting gallery",
+    }, {
+      index = 35,
+      stat = 38,
+      need = 50,
+      label = "Flowers picked",
     }, {
       index = 36,
       stat = 194,
       need = 100,
       label = "Sodas bought",
     }, {
+      index = 37,
+      stat = 66,
+      need = 250,
+      label = "Clothing items bought",
+    }, {
       index = 38,
       stat = 1,
       need = 40,
       label = "Room trophies",
+    }, {
+      index = 41,
+      stat = 154,
+      need = 160000,
+      label = "Trouble points",
     }, {
       index = 42,
       stat = 46,

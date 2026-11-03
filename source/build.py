@@ -6,7 +6,7 @@ import os
 import re
 from pathlib import Path
 
-VERSION = '0.35.2'
+VERSION = '0.35.3'
 BASE = Path(__file__).resolve().parent
 ROOT = BASE.parent
 PLUGIN = ROOT
@@ -236,7 +236,8 @@ for slug in ORDER:
         backend['rules'] = rules
     elif game['detector'] == 'bully':
         # Bully: a stat from the save's statistics block (the stats screen's index, f32 metres for
-        # distances), the chapter the save is in (0-based), the slot's game completion %, or
+        # distances, divided by `div` when the stats screen shows another unit), the sum of several
+        # stats, the chapter the save is in (0-based), the slot's game completion %, or
         # entries of the save's mission table (0-509, Act\Missions.act order): one mission, n of a
         # list, or n groups with any mission passed (classes).
         rules = []
@@ -245,8 +246,12 @@ for slug in ORDER:
             if not rule:
                 continue
             if 'stat' in rule:
-                assert set(rule) <= {'stat', 'need', 'label', 'float'} and 0 <= rule['stat'] < 260 and rule['need'] > 0 and rule['label'], slug
+                assert set(rule) <= {'stat', 'need', 'label', 'float', 'div'} and 0 <= rule['stat'] < 260 and rule['need'] > 0 and rule['label'], slug
                 assert not rule.get('float') or 5 <= rule['stat'] <= 11, slug
+                assert 'div' not in rule or (isinstance(rule['div'], int) and rule['div'] > 0), slug
+            elif 'stats' in rule:
+                assert set(rule) == {'stats', 'need', 'label'} and rule['label'] and rule['need'] > 0, slug
+                assert len(rule['stats']) > 1 and all(0 <= n < 260 and not 5 <= n <= 11 for n in rule['stats']), slug
             elif 'chapter' in rule:
                 assert set(rule) == {'chapter'} and 1 <= rule['chapter'] <= 5, slug
             elif 'mission' in rule:
