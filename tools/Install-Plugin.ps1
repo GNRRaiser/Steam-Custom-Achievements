@@ -212,7 +212,7 @@ try {
     if ($matching.Count -ne 1) { throw 'Duplicate or missing plugin manifests remain. Send this report.' }
     Write-Report ''
     Write-Report 'FILES VERIFIED. Steam recognition has not been checked by this script.'
-    Write-Report 'Start Steam, open Millennium > Plugins, then enable Steam Custom Achievements (Local).'
+    Write-Report 'Start Steam, open Millennium > Plugins, then enable Steam Custom Achievements.'
     Write-Report 'If it is still absent, send INSTALL_REPORT.txt and a screenshot of the Plugins page.'
 } catch {
     $ExitCode = 1

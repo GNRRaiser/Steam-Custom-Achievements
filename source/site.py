@@ -126,7 +126,7 @@ def install_steps():
 <li>Install <a href="{MILLENNIUM_URL}">Millennium</a> 3.x for Steam on Windows.</li>
 <li>Download the latest <code>steam-custom-achievements-vX.Y.Z-share.zip</code> from <a href="{REPO_URL}/releases">GitHub Releases</a>.</li>
 <li>Exit Steam completely (Steam &gt; Exit), extract the ZIP and run <code>INSTALL_OR_REPAIR.cmd</code>.</li>
-<li>Start Steam, check that <strong>Steam Custom Achievements (Local)</strong> is on in Millennium &gt; Plugins, and open a supported game in your Library.</li>
+<li>Start Steam, check that <strong>Steam Custom Achievements</strong> is on in Millennium &gt; Plugins, and open a supported game in your Library.</li>
 </ol>
 <p>The <a href="{GUIDE_URL}">step by step Steam guide</a> has pictures and fixes for common problems.</p>"""
 
