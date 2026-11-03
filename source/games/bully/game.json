@@ -3,7 +3,7 @@
   "title": "Bully: Scholarship Edition",
   "platform": "Xbox 360",
   "detector": "bully",
-  "trackingNote": "The plugin reads your newest save in Documents\\Bully Scholarship Edition (BullyFile1-6) when the game saves. The five chapter achievements unlock from the save's chapter, Perfectionist at 100% on the load screen, Mission Accomplished when the game marks every mission passed, the class achievements from how many classes you have finished all five levels of, The Champion from the 14 bike races, and the counter achievements (distances, eggs, wedgies, taunts, knockouts, sodas, bottles, room trophies, bikes jacked and more) from the game's own Stats screen numbers, which show here as n / total. Errands, go-kart races, jobs, kisses and carnival or arcade achievements are marked by hand for now.",
+  "trackingNote": "The plugin reads your newest save in Documents\\Bully Scholarship Edition (BullyFile1-6) when the game saves. The five chapter achievements unlock from the save's chapter, Perfectionist at 100% on the load screen, Mission Accomplished when the game marks every mission passed, the class achievements from how many classes you have finished all five levels of, The Champion from the 14 bike races, and the counter achievements (distances, go-kart wins, time out after curfew, kisses, flowers, clothes, trouble points, eggs, wedgies, taunts, knockouts, sodas, bottles, room trophies, bikes jacked and more) from the game's own Stats screen numbers, which show here as n / total. Errands, jobs, the paper route, money, respect and the carnival and arcade games are marked by hand for now.",
   "setupHint": "Save in Bully, or select a BullyFile save in Settings.",
   "pathPlaceholder": "Path to Documents\\Bully Scholarship Edition (or a BullyFile save)",
   "autoTag": "Unlocks automatically from your Bully save",
@@ -286,7 +286,15 @@
       "detail": "Complete ½ of all Go Kart Races.",
       "group": "Races",
       "points": 20,
-      "icon": "flag"
+      "icon": "flag",
+      "rule": {
+        "stats": [
+          55,
+          57
+        ],
+        "need": 4,
+        "label": "Go-kart races won"
+      }
     },
     {
       "name": "Pole Position",
@@ -294,7 +302,15 @@
       "detail": "Complete All Go Kart Races.",
       "group": "Races",
       "points": 20,
-      "icon": "flag"
+      "icon": "flag",
+      "rule": {
+        "stats": [
+          55,
+          57
+        ],
+        "need": 8,
+        "label": "Go-kart races won"
+      }
     },
     {
       "name": "The Champion",
@@ -476,7 +492,13 @@
       "detail": "Spend 5 hours out after curfew.",
       "group": "Mischief",
       "points": 20,
-      "icon": "eye"
+      "icon": "eye",
+      "rule": {
+        "stat": 156,
+        "div": 1000,
+        "need": 300,
+        "label": "In-game minutes out after curfew"
+      }
     },
     {
       "name": "Casanova",
@@ -484,7 +506,12 @@
       "detail": "Receive 25 kisses from the ladies.",
       "group": "Romance",
       "points": 20,
-      "icon": "heart"
+      "icon": "heart",
+      "rule": {
+        "stat": 129,
+        "need": 25,
+        "label": "Kisses from the ladies"
+      }
     },
     {
       "name": "Over the Rainbow",
@@ -492,7 +519,12 @@
       "detail": "Receive 20 kisses from the gents.",
       "group": "Romance",
       "points": 20,
-      "icon": "heart"
+      "icon": "heart",
+      "rule": {
+        "stat": 132,
+        "need": 20,
+        "label": "Kisses from the gents"
+      }
     },
     {
       "name": "Dual Nebula",
@@ -529,7 +561,12 @@
       "detail": "Pick 50 flowers.",
       "group": "Collecting",
       "points": 20,
-      "icon": "flower"
+      "icon": "flower",
+      "rule": {
+        "stat": 38,
+        "need": 50,
+        "label": "Flowers picked"
+      }
     },
     {
       "name": "Soda-licious",
@@ -550,7 +587,12 @@
       "detail": "Collect 250 clothing items.",
       "group": "Collecting",
       "points": 25,
-      "icon": "cape"
+      "icon": "cape",
+      "rule": {
+        "stat": 66,
+        "need": 250,
+        "label": "Clothing items bought"
+      }
     },
     {
       "name": "Kleptomania",
@@ -579,7 +621,12 @@
       "name": "Problem Child",
       "detail": "Amass 160,000 trouble points.",
       "group": "PS4",
-      "icon": "skull"
+      "icon": "skull",
+      "rule": {
+        "stat": 154,
+        "need": 160000,
+        "label": "Trouble points"
+      }
     },
     {
       "name": "The (Expert) Bicycle Thief",

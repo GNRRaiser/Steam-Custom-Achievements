@@ -2,7 +2,7 @@
 
 | Steam app ID | Achievements | Unlock automatically |
 | --- | --- | --- |
-| 12200 | 44 | 26 |
+| 12200 | 44 | 34 |
 
 Full list with pictures: [Bully: Scholarship Edition on the website](https://gnrraiser.github.io/Steam-Custom-Achievements/bully-scholarship-edition/)
 
@@ -19,11 +19,12 @@ The list is the 38 Xbox 360 achievements, the 5 achievements only the PS4 versio
 - Mission Accomplished unlocks when the game marks every mission as passed.
 - Keener, Teacher's Pet and Boy Genius count the classes you have finished all five levels of (3, 6 and 9 of the 10), shown as n / total.
 - The Champion unlocks once all 14 bike races are won, shown as n / 14.
-- Counter achievements unlock from the game's own Stats screen numbers and show n / total: Marathon, Skate Pro, Tour de Bullworth (distances), Eggsellent! (cars egged), Skidmark (wedgies), Kickin' the Balls (soccer balls kicked), The Wheel Deal (wheelies), Smell Ya Later (stink bomb hits), Watch Your Step (people tripped with marbles), Soda-licious (sodas bought), Smart Mouth (taunts), Down for the Count (people knocked out), Glass Dismissed (shooting gallery bottles), and the PS4 Kleptomania (room trophies) and The (Expert) Bicycle Thief (bikes jacked).
+- Counter achievements unlock from the game's own Stats screen numbers and show n / total: Marathon, Skate Pro, Tour de Bullworth (distances), Eggsellent! (cars egged), Skidmark (wedgies), Kickin' the Balls (soccer balls kicked), The Wheel Deal (wheelies), Smell Ya Later (stink bomb hits), Watch Your Step (people tripped with marbles), Soda-licious (sodas bought), Smart Mouth (taunts), Down for the Count (people knocked out), Glass Dismissed (shooting gallery bottles), After Hours (time out after curfew, counted in in-game minutes), Casanova and Over the Rainbow (kisses from the ladies and from the gents), Green Thumbs Up (flowers found), Sharp Dressed Man (clothing items bought), and the PS4 Kleptomania (room trophies), Problem Child (trouble points accumulated) and The (Expert) Bicycle Thief (bikes jacked).
+- Speed Freak and Pole Position count the go-kart races won at the carnival and in the street (4 and all 8 of the 8 races), shown as n / 8.
 - Valedictorian unlocks once every other achievement is unlocked.
 
 ## Marked by hand
 
-Errands, go-kart races, lawn mowing, the paper route, kisses, the carnival and arcade games, Green Thumbs Up, Sharp Dressed Man, Rich Kid Blues, Popularity Contest and Problem Child.
+Errands, lawn mowing, the paper route, the carnival and arcade games (It's All in the Wrists, Dual Nebula), Rich Kid Blues (money) and Popularity Contest (respect). The game doesn't save these as Stats screen numbers.
 
 If nothing unlocks, see [Troubleshooting](Troubleshooting).

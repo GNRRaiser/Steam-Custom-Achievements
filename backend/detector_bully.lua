@@ -23,7 +23,15 @@
 --            minigames, punishments, tutorials, doors, debug); a mission is passed once its pass
 --            count is above 0. Checked against the 12% save (only Welcome to Bullworth parts 1-3,
 --            entries 4-6) and the 100% save (every class and bike race passed).
--- Rules: { stat = n, need = x, float = true? } (a stat reaching x), { chapter = n } (the save is
+--            More stats screen entries, checked against the video of a new game's stats screen
+--            and the 100% save: kisses from ladies (129, 25 in the 100% save) and from gents (132),
+--            trouble points accumulated (154), time out after curfew (156, in milliseconds of real
+--            time, so 1000 per in-game minute), flowers found (38), clothing items purchased (66,
+--            263 in the 100% save) and go-kart races won at the carnival (55) and in the street
+--            (57), 5 and 3 in the 100% save. Entries above 259 on the stats screen (percentages,
+--            totals, class and carnival counts) are worked out by the game, not saved.
+-- Rules: { stat = n, need = x, float = true?, div = d? } (a stat, divided by d, reaching x),
+-- { stats = { n, ... }, need = x } (the sum of several stats reaching x), { chapter = n } (the save is
 -- at least in chapter n, 0-based, so 1 means Chapter 1 is finished), { completion = 100 }
 -- (FileTableBully's game completion for this slot), { mission = n } (mission n passed),
 -- { missions = { n, ... }, need = x } (x of those missions passed) and { groups = { { n, ... },
@@ -121,7 +129,19 @@ end
 
 local function stat(parsed, rule)
     if rule.float then return f32(parsed.bytes, STATS + rule.stat * 4) end
-    return parsed.stats[rule.stat]
+    local value = parsed.stats[rule.stat]
+    if value and rule.div then value = value / rule.div end
+    return value
+end
+
+local function stat_sum(parsed, rule)
+    local total = 0
+    for _, n in ipairs(rule.stats) do
+        local value = parsed.stats[n]
+        if not value then return nil end
+        total = total + math.max(0, value)
+    end
+    return total
 end
 
 -- How many of a rule's missions (or mission groups) are passed.
@@ -143,6 +163,7 @@ end
 
 local function value_of(parsed, rule)
     if rule.stat then return stat(parsed, rule) end
+    if rule.stats then return stat_sum(parsed, rule) end
     if rule.missions or rule.groups then return passed_count(parsed, rule) end
     return nil
 end
@@ -151,7 +172,7 @@ function D.evaluate(parsed, game)
     local list = {}
     for _, rule in ipairs(game.rules) do
         local hit = false
-        if rule.stat or rule.missions or rule.groups then
+        if rule.stat or rule.stats or rule.missions or rule.groups then
             local value = value_of(parsed, rule)
             hit = value ~= nil and value >= rule.need
         elseif rule.mission then

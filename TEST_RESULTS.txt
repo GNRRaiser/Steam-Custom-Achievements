@@ -1,4 +1,4 @@
-Steam Custom Achievements v0.35.2 verification - 2026-11-02
+Steam Custom Achievements v0.35.3 verification - 2026-11-03
 PASS a new save in %APPDATA%\Ubisoft\Assassin's Creed\Saved Games is found; nothing unlocked
 PASS objective M03_S20_Animus_Tutorial_Complete finished unlocks Welcome to the Animus
 PASS references to an objective and objectives still open do not count
@@ -44,6 +44,9 @@ PASS a newer save slot is picked up without restarting Steam
 PASS a chosen slot file still follows a new game in another slot, and Reset to locked does not block it
 All LuaJIT 2.1 detector/watcher tests passed. Windows Steam integration remains a client-side check.
 PASS the chapter byte unlocks Freshman to Graduate, one per finished chapter
+PASS kisses, flowers picked, clothes bought and trouble points unlock at their totals
+PASS After Hours: time out after curfew is saved in ms, 1000 per in-game minute, so 5 hours is 300000
+PASS Speed Freak and Pole Position add carnival and street go-kart wins (4 and 8 of the 8 races)
 PASS stats screen counters (distances as metres, eggs, wedgies, sodas bought, knockouts, ...) unlock at their totals
 PASS counters show n / total
 PASS classes count once all five levels are passed (Keener, Teacher's Pet, Boy Genius)
@@ -123,8 +126,8 @@ PASS automatic backend state unlocks progress while another page is selected; ca
 PASS card and popup fit at 1200px, 480px and 320px widths
 PASS popup destruction/recreation, complete cleanup, no external requests or script exceptions
 Real Chromium window regression passed: 153.0.8010.12
-[Steam Custom Achievements 0.35.2] Attached to desktop Steam window
-[Steam Custom Achievements 0.35.2] Ready for 11 games; waiting for a visible Steam window if necessary
+[Steam Custom Achievements 0.35.3] Attached to desktop Steam window
+[Steam Custom Achievements 0.35.3] Ready for 11 games; waiting for a visible Steam window if necessary
 PASS CoD 4 page shows its own 37 achievements, automatic unlocks, intel progress and raw campaign value
 PASS record mode: pick an achievement, Start, Done; the matching value and the saved copies are shown; a second pass narrows
 PASS a new automatic unlock shows a Steam-style popup with its picture; popups can be turned off
@@ -280,3 +283,10 @@ PASS Bully: Scholarship Edition mission table (v0.35.1): the save's 510 entries 
      bike races and 6_PassAll (the "all missions passed" node) passed and earns Mission Accomplished, Keener, Teacher's
      Pet, Boy Genius and The Champion; the chapter 3 save earns none of them (1 / 14 races, 0 classes finished)
 PASS Pictures: all 38 Bully Xbox 360 icons matched by name and checked on a contact sheet
+PASS Bully: Scholarship Edition Stats screen (v0.35.3): a video of a new game's Stats screen, read page by page against
+     SStats.lua's layout, names the stats used: kisses received from ladies (129) and gents (132), trouble points
+     accumulated (154), time out after curfew (156), flowers found (38), clothing items purchased (66) and carnival and
+     street go-kart races won (55, 57). Entries above 259 are worked out by the game (percentages, totals, class and
+     carnival counts) and are not in the save. The 100% save has 25 kisses from ladies, 263 clothing items, 5 + 3
+     go-kart races won (the 8 races) and 3632154 ms after curfew, and earns Casanova, Sharp Dressed Man, Speed Freak,
+     Pole Position and After Hours; the chapter 3 save shows After Hours at 252 / 300 in-game minutes and 1 / 8 races
