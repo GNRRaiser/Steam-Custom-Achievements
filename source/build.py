@@ -6,7 +6,7 @@ import os
 import re
 from pathlib import Path
 
-VERSION = '0.35.3'
+VERSION = '0.35.4'
 BASE = Path(__file__).resolve().parent
 ROOT = BASE.parent
 PLUGIN = ROOT
@@ -397,7 +397,7 @@ for marker in ('__TRACKER_SOURCE__', '__ICONS_SOURCE__', '__GAMES_DATA__'):
     assert template.count(marker) == 1, marker
 bundle = (template.replace('__ICONS_SOURCE__', icons).replace('__TRACKER_SOURCE__', tracker)
           .replace('__BUILD_VERSION__', VERSION)
-          .replace('__SHARE_BUILD__', 'true' if os.environ.get('SCA_SHARE_BUILD') == '1' else 'false')
+          .replace('__SHARE_BUILD__', 'false' if os.environ.get('SCA_SHARE_BUILD') == '0' else 'true')
           .replace('__GAMES_DATA__', json.dumps(games, ensure_ascii=False, separators=(',', ':'))))
 output = PLUGIN / '.millennium' / 'Dist' / 'index.js'
 output.parent.mkdir(parents=True, exist_ok=True)
@@ -410,12 +410,13 @@ output.write_text(bundle, encoding='utf-8')
 automatic = sum(sum(1 for a in g['achievements'] if a.get('automatic')) for g in games)
 manifest = {
     'name': 'steam-custom-achievements',
-    'common_name': 'Steam Custom Achievements (Local)',
+    'common_name': 'Steam Custom Achievements',
     'description': 'Xbox 360 achievement lists for Steam games that have none: '
                    + ', '.join(g['title'] for g in games) + '.',
     'version': VERSION,
     'useBackend': True,
     'backendType': 'lua',
+    'include': ['third_party'],
 }
 (PLUGIN / 'plugin.json').write_text(json.dumps(manifest, indent=2) + '\n', encoding='utf-8')
 for g in games:

@@ -69,7 +69,7 @@ You need Windows, Steam and [Millennium](https://steambrew.app) 3.x.
 2. Exit Steam completely (Steam > Exit).
 3. Right-click the ZIP and choose Extract All.
 4. Open the `steam-custom-achievements` folder and run `INSTALL_OR_REPAIR.cmd`. If Windows warns you, click More info > Run anyway.
-5. Start Steam. In Millennium > Plugins, make sure **Steam Custom Achievements (Local)** is turned on.
+5. Start Steam. In Millennium > Plugins, make sure **Steam Custom Achievements** is turned on.
 6. Open a supported game in your Library. The ACHIEVEMENTS section is under Friends Who Play.
 
 To update, repeat steps 1 to 5 with the new ZIP. Your unlocks are kept. `CHECK_INSTALL.cmd` checks an install without changing anything.

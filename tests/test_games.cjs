@@ -7,7 +7,10 @@ const path = require('node:path');
 const { JSDOM } = require(process.env.SCA_TEST_MODULES
   ? path.join(process.env.SCA_TEST_MODULES, 'jsdom') : 'jsdom');
 const root = path.resolve(__dirname, '..');
-const script = fs.readFileSync(path.join(root, '.millennium/Dist/index.js'), 'utf8');
+// The committed bundle is the share build; the tests also cover the test panels of the full build.
+const shareScript = fs.readFileSync(path.join(root, '.millennium/Dist/index.js'), 'utf8');
+if (!shareScript.includes('const SHARE_BUILD = true;')) throw new Error('the committed bundle must be the share build');
+const script = shareScript.replace('const SHARE_BUILD = true;', 'const SHARE_BUILD = false;');
 const id = 'sca-ac2-root';
 const page = '<!doctype html><html><head></head><body><main><aside><section><h2>FRIENDS WHO PLAY</h2><div>Friends</div></section><section><h2>ADDITIONAL CONTENT</h2><div>Manual</div></section></aside></main></body></html>';
 

@@ -32,7 +32,7 @@ Needs Steam with Millennium 3.x.
    custom-achievement-backups and installs this one. (Or replace the
    steam-custom-achievements folder in Millennium's plugins folder by hand with
    this whole folder, including backend and .millennium.)
-4. Start Steam and confirm Steam Custom Achievements (Local) is enabled under
+4. Start Steam and confirm Steam Custom Achievements is enabled under
    Millennium > Plugins.
 5. Open a supported game's Library page. The ACHIEVEMENTS section appears below
    Friends Who Play; View My Achievements opens the full list.
@@ -87,5 +87,6 @@ with ZipFile(output) as archive:
 if args.share:
     with ZipFile(output) as archive:
         assert b'const SHARE_BUILD = true;' in archive.read(FOLDER + '/.millennium/Dist/index.js')
-    subprocess.run([sys.executable, str(ROOT / 'source/build.py')], check=True, env={**os.environ, 'SCA_SHARE_BUILD': '0'}, stdout=subprocess.DEVNULL)
+# Leave the committed files as the default build (the share build, which is what Millennium's plugin store ships).
+subprocess.run([sys.executable, str(ROOT / 'source/build.py')], check=True, env={k: v for k, v in os.environ.items() if k != 'SCA_SHARE_BUILD'}, stdout=subprocess.DEVNULL)
 print(output)

@@ -1,4 +1,4 @@
-STEAM CUSTOM ACHIEVEMENTS v0.35.3 - MULTI-GAME
+STEAM CUSTOM ACHIEVEMENTS v0.35.4 - MULTI-GAME
 
 Adds the Xbox 360 achievement list to the Steam Library page of games whose
 Steam version has no achievements. Each supported game gets the same ACHIEVEMENTS
@@ -20,6 +20,16 @@ GAMES IN THIS BUILD
 
 Automatic entries unlock by themselves a few seconds after the game writes its
 progress. Everything else has a "Mark as unlocked" button in the popup.
+
+NEW IN v0.35.4
+- The plugin is now called "Steam Custom Achievements" in Millennium >
+  Plugins (no more "(Local)").
+- The files in the repository are now the same as the download: the
+  popup test, capture and record panels only appear in a full test build
+  (source/package.py without --share). This is the copy Millennium's plugin
+  store installs.
+- plugin.json includes the third_party folder so the AC2AP license ships
+  with every copy.
 
 NEW IN v0.35.3
 - Bully: 8 more unlock by themselves from the Stats screen numbers in the

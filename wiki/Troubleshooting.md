@@ -2,7 +2,7 @@
 
 ## No ACHIEVEMENTS section on the game page
 
-- Check that **Steam Custom Achievements (Local)** is turned on in **Millennium > Plugins**, then restart Steam.
+- Check that **Steam Custom Achievements** is turned on in **Millennium > Plugins**, then restart Steam.
 - Make sure it's one of the [supported games](Home#supported-games). The card only appears on that game's own Library page.
 - Run `CHECK_INSTALL.cmd` from the extracted folder. It checks the install without changing anything.
 - Run `INSTALL_OR_REPAIR.cmd` again with Steam closed.
