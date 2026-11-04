@@ -1217,6 +1217,26 @@ return {
       need = 9,
       label = "Classes finished (all 5 levels)",
     }, {
+      index = 10,
+      value = "errands",
+      need = 10,
+      label = "Errands done",
+    }, {
+      index = 11,
+      value = "errands",
+      need = 20,
+      label = "Errands done",
+    }, {
+      index = 12,
+      value = "errands",
+      need = 30,
+      label = "Errands done",
+    }, {
+      index = 14,
+      value = "paper",
+      need = 5,
+      label = "Paper routes finished",
+    }, {
       index = 15,
       stats = { 55, 57 },
       need = 4,
@@ -1306,6 +1326,11 @@ return {
       need = 20,
       label = "Kisses from the gents",
     }, {
+      index = 32,
+      value = "arcade",
+      need = 3,
+      label = "Arcade games where you hold the top score",
+    }, {
       index = 34,
       stat = 238,
       need = 300,
@@ -1330,6 +1355,16 @@ return {
       stat = 1,
       need = 40,
       label = "Room trophies",
+    }, {
+      index = 39,
+      value = "money",
+      need = 1000,
+      label = "Dollars in your pocket",
+    }, {
+      index = 40,
+      value = "cliques",
+      need = 2,
+      label = "Cliques at 100% respect",
     }, {
       index = 41,
       stat = 154,

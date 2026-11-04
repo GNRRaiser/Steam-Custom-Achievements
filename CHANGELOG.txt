@@ -1,4 +1,4 @@
-STEAM CUSTOM ACHIEVEMENTS v0.35.4 - MULTI-GAME
+STEAM CUSTOM ACHIEVEMENTS v0.35.5 - MULTI-GAME
 
 Adds the Xbox 360 achievement list to the Steam Library page of games whose
 Steam version has no achievements. Each supported game gets the same ACHIEVEMENTS
@@ -9,7 +9,7 @@ GAMES IN THIS BUILD
   Assassin's Creed                  15100       44             44 (game's own record + save)
   Assassin's Creed II               33230       50             41 (autosave parser + game's checklists)
   Assassin's Creed Brotherhood      48190       60             50 (game's own record + save)
-  Bully: Scholarship Edition        12200       43             34 (save: chapters, missions, classes, stats)
+  Bully: Scholarship Edition        12200       43             41 (save: chapters, missions, errands, stats, ...)
   Call of Duty 4: Modern Warfare    7940        37             24 (profile config.cfg)
   Call of Duty: World at War        10090       66             22 (profile config.cfg)
   Fable III                         105400      60             60 (game's own record via XLiveEmu)
@@ -20,6 +20,19 @@ GAMES IN THIS BUILD
 
 Automatic entries unlock by themselves a few seconds after the game writes its
 progress. Everything else has a "Mark as unlocked" button in the popup.
+
+NEW IN v0.35.5
+- Bully: 7 more unlock by themselves (41 of 43 now), most shown as n / total:
+  - Helping Hand, Little Angel and Momma's Boy count the errands passed in
+    the save's errand list (10, 20 and 30 of the 50).
+  - Black & White & Read All Over: the first paper route plus the paper
+    route at each of its four difficulties.
+  - Dual Nebula: you hold the top score on ConSumo, Monkey Fling and Nut
+    Shots in the save's arcade high score tables.
+  - Rich Kid Blues: $1,000 in your pocket.
+  - Popularity Contest: two cliques at 100% respect.
+- Green Thumb (lawn mowing jobs) and It's All in the Wrists (carnival games)
+  stay manual: their entries in the save's mission list aren't placed yet.
 
 NEW IN v0.35.4
 - The plugin is now called "Steam Custom Achievements" in Millennium >

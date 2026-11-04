@@ -13,13 +13,32 @@ GAME = json.loads((ROOT / 'source/games/bully/game.json').read_text())
 NAMES = [a['name'] for a in GAME['achievements']]
 
 
-def save(chapter=0, ints=None, floats=None, passed=()):
+def save(chapter=0, ints=None, floats=None, passed=(), passes=None, money=None, respect=None, errands=None, tops=None):
     data = bytearray(22260)
     struct.pack_into('<III', data, 4, 21, 22260, 3)
     data[0x75] = chapter
     struct.pack_into('<III', data, 0x52C, 1, 3204, 510)
     for n in passed:
         struct.pack_into('<HHH', data, 0x53C + 6 * n, 1, 1, 16)
+    for n, count in (passes or {}).items():
+        struct.pack_into('<HHH', data, 0x53C + 6 * n, count, count, 16)
+    if money is not None or respect is not None:
+        # Player block: money in cents at 0x38, respect for the five cliques from 0xA4.
+        struct.pack_into('<I', data, 0x10, 364)
+        struct.pack_into('<I', data, 0x38, money or 0)
+        for k, value in enumerate(respect or [50, 50, 0, 50, 50]):
+            struct.pack_into('<I', data, 0xA4 + 4 * k, value)
+    if errands is not None:
+        struct.pack_into('<III', data, 0x4D0C, 1, 412, 50)
+        for n in errands:
+            struct.pack_into('<HH', data, 0x4D18 + 4 * n, 1, 1)
+    if tops is not None:
+        # Arcade tables with their built-in scores; tops = {table: score at the top}.
+        struct.pack_into('<5I', data, 0x4578, 1, 1004, 10, 5, 3)
+        for table in range(10):
+            struct.pack_into('<5I', data, 0x471C + 20 * table, 1010, 875, 723, 641, 320)
+        for table, score in tops.items():
+            struct.pack_into('<I', data, 0x471C + 20 * table, score)
     struct.pack_into('<IIII', data, 0x2F3C, 1, 1468, 260, 38)
     for n, value in (ints or {}).items():
         struct.pack_into('<i', data, 0x2F4C + 4 * n, value)
@@ -71,6 +90,33 @@ assert earned(save(ints={55: 5, 57: 2})) == {'Speed Freak'}
 assert earned(save(ints={55: 5, 57: 3})) == {'Speed Freak', 'Pole Position'}
 assert earned(save(ints={54: 9, 56: 9})) == set(), 'races raced are not races won'
 print('PASS Speed Freak and Pole Position add carnival and street go-kart wins (4 and 8 of the 8 races)')
+
+assert earned(save(errands=range(9))) == set()
+assert earned(save(errands=range(10))) == {'Helping Hand'}
+assert earned(save(errands=range(20, 50))) == {'Helping Hand', 'Little Angel', "Momma's Boy"}
+attempted = bytearray(save(errands=()))
+for n in range(50):
+    struct.pack_into('<HH', attempted, 0x4D18 + 4 * n, 3, 0)
+assert earned(bytes(attempted)) == set(), 'errands attempted but not passed do not count'
+broken = bytearray(save(errands=range(50)))
+struct.pack_into('<I', broken, 0x4D14, 49)
+assert earned(bytes(broken)) == set(), 'an errand list of another size is ignored'
+print('PASS Helping Hand, Little Angel and Momma\'s Boy count passed errands in the save\'s 50-entry errand list')
+assert earned(save(money=99999)) == set() and earned(save(money=100000)) == {'Rich Kid Blues'}
+assert earned(save(respect=[100, 99, 0, 50, 100])) == {'Popularity Contest'}
+assert earned(save(respect=[100, 99, 0, 50, 50])) == set()
+nohead = bytearray(save(money=500000, respect=[100] * 5))
+struct.pack_into('<I', nohead, 0x10, 360)
+assert earned(bytes(nohead)) == set(), 'a player block of another size is ignored'
+print('PASS Rich Kid Blues at $1,000 in pocket, Popularity Contest with two cliques at 100% respect')
+assert earned(save(ints={218: 1043, 221: 340, 224: 75500}, tops={5: 1043, 1: 340, 2: 75500})) == {'Dual Nebula'}
+assert earned(save(ints={218: 1043, 221: 340, 224: 52450}, tops={5: 1043, 1: 340, 2: 69900})) == set(), 'second place on Nut Shots'
+assert earned(save(ints={218: 0, 221: 0, 224: 0}, tops={5: 0, 1: 0, 2: 0})) == set(), 'no games played'
+print('PASS Dual Nebula once the player holds the top score on ConSumo, Monkey Fling and Nut Shots')
+assert earned(save(passes={40: 1, 41: 3})) == set()
+assert earned(save(passes={40: 1, 41: 4})) == {'Black & White & Read All Over'}
+assert earned(save(passes={41: 9})) == set(), 'the first paper route is part of it'
+print('PASS Black & White & Read All Over after the first paper route and all four 2_R03_X difficulties')
 print('PASS stats screen counters (distances as metres, eggs, wedgies, sodas bought, knockouts, ...) unlock at their totals')
 
 parsed = D[b'parse'](save(ints={32: 12}, floats={5: 21265.75}))
@@ -79,6 +125,11 @@ assert counts['Skidmark'] == (12, 50) and counts['Marathon'] == (21265, 100000),
 parsed = D[b'parse'](save(ints={156: 252263, 55: 1, 57: 1}))
 counts = {NAMES[int(k)]: (v[b'have'], v[b'need']) for k, v in D[b'counts'](parsed, game).items()}
 assert counts['After Hours'] == (252, 300) and counts['Pole Position'] == (2, 8), counts
+parsed = D[b'parse'](save(money=16650, respect=[85, 45, 0, 50, 100], errands=[9, 18, 19, 29, 34, 42], passes={40: 1, 41: 1}))
+counts = {NAMES[int(k)]: (v[b'have'], v[b'need']) for k, v in D[b'counts'](parsed, game).items()}
+assert counts['Helping Hand'] == (6, 10) and counts['Rich Kid Blues'] == (166, 1000), counts
+assert counts['Popularity Contest'] == (1, 2) and counts['Black & White & Read All Over'] == (2, 5), counts
+assert 'Dual Nebula' not in counts, 'no high score tables, no counter'
 print('PASS counters show n / total')
 
 CHEM, ART, GYM, PHOTO, ENGLISH = [122, 123, 124, 125, 126], [128, 129, 130, 131, 132], [134, 135, 136, 137, 138], 148, 153

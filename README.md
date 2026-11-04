@@ -48,7 +48,7 @@ The achievements come from each game's Xbox 360 list, plus the PS3 platinum (Bul
 | [Assassin's Creed Steam achievements](https://gnrraiser.github.io/Steam-Custom-Achievements/assassins-creed/) | 15100 | 44 | 44 |
 | [Assassin's Creed II Steam achievements](https://gnrraiser.github.io/Steam-Custom-Achievements/assassins-creed-2/) | 33230 | 51 | 41 |
 | [Assassin's Creed Brotherhood Steam achievements](https://gnrraiser.github.io/Steam-Custom-Achievements/assassins-creed-brotherhood/) | 48190 | 61 | 50 |
-| [Bully: Scholarship Edition Steam achievements](https://gnrraiser.github.io/Steam-Custom-Achievements/bully-scholarship-edition/) | 12200 | 44 | 34 |
+| [Bully: Scholarship Edition Steam achievements](https://gnrraiser.github.io/Steam-Custom-Achievements/bully-scholarship-edition/) | 12200 | 44 | 41 |
 | [Call of Duty 4: Modern Warfare Steam achievements](https://gnrraiser.github.io/Steam-Custom-Achievements/call-of-duty-4-modern-warfare/) | 7940 | 37 | 24 |
 | [Call of Duty: World at War Steam achievements](https://gnrraiser.github.io/Steam-Custom-Achievements/call-of-duty-world-at-war/) | 10090 | 67 | 22 |
 | [Fable III Steam achievements](https://gnrraiser.github.io/Steam-Custom-Achievements/fable-3/) | 105400 | 60 | 60 |

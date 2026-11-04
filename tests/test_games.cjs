@@ -264,7 +264,7 @@ const tick = () => new Promise(resolve => setTimeout(resolve, 0));
   {
     const bully = JSON.parse(JSON.stringify(runtime.diagnostics())).games.find(g => g.appId === 12200);
     assert.ok(bully, 'Bully is listed');
-    const bullyAuto = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 34, 35, 36, 37, 38, 41, 42];
+    const bullyAuto = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 34, 35, 36, 37, 38, 39, 40, 41, 42];
     const bullyStamp = '2026-11-02T12:00:00Z';
     backend[12200] = {schemaVersion:1, appId:12200, status:'watching', message:'Watching BullyFile1', progress:{}, supportedIndices:bullyAuto};
     host.MainWindowBrowserManager.m_lastLocation = {pathname:'/routes/library/app/12200'};

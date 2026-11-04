@@ -3,7 +3,7 @@
   "title": "Bully: Scholarship Edition",
   "platform": "Xbox 360",
   "detector": "bully",
-  "trackingNote": "The plugin reads your newest save in Documents\\Bully Scholarship Edition (BullyFile1-6) when the game saves. The five chapter achievements unlock from the save's chapter, Perfectionist at 100% on the load screen, Mission Accomplished when the game marks every mission passed, the class achievements from how many classes you have finished all five levels of, The Champion from the 14 bike races, and the counter achievements (distances, go-kart wins, time out after curfew, kisses, flowers, clothes, trouble points, eggs, wedgies, taunts, knockouts, sodas, bottles, room trophies, bikes jacked and more) from the game's own Stats screen numbers, which show here as n / total. Errands, jobs, the paper route, money, respect and the carnival and arcade games are marked by hand for now.",
+  "trackingNote": "The plugin reads your newest save in Documents\\Bully Scholarship Edition (BullyFile1-6) when the game saves. The five chapter achievements unlock from the save's chapter, Perfectionist at 100% on the load screen, Mission Accomplished when the game marks every mission passed, the class achievements from how many classes you have finished all five levels of, The Champion from the 14 bike races, the errand achievements from the save's errand list, Black & White & Read All Over from the paper route, Dual Nebula from the arcade high score tables, Rich Kid Blues from your money, Popularity Contest from clique respect, and the counter achievements (distances, go-kart wins, time out after curfew, kisses, flowers, clothes, trouble points, eggs, wedgies, taunts, knockouts, sodas, bottles, room trophies, bikes jacked and more) from the game's own Stats screen numbers. Most show your progress as n / total. Green Thumb (lawn mowing jobs) and It's All in the Wrists (carnival games) are marked by hand for now.",
   "setupHint": "Save in Bully, or select a BullyFile save in Settings.",
   "pathPlaceholder": "Path to Documents\\Bully Scholarship Edition (or a BullyFile save)",
   "autoTag": "Unlocks automatically from your Bully save",
@@ -246,7 +246,12 @@
       "detail": "Complete 10 Errand Missions.",
       "group": "Errands and Jobs",
       "points": 20,
-      "icon": "heart"
+      "icon": "heart",
+      "rule": {
+        "value": "errands",
+        "need": 10,
+        "label": "Errands done"
+      }
     },
     {
       "name": "Little Angel",
@@ -254,7 +259,12 @@
       "detail": "Complete 20 Errand Missions.",
       "group": "Errands and Jobs",
       "points": 20,
-      "icon": "heart"
+      "icon": "heart",
+      "rule": {
+        "value": "errands",
+        "need": 20,
+        "label": "Errands done"
+      }
     },
     {
       "name": "Momma's Boy",
@@ -262,7 +272,12 @@
       "detail": "Complete 30 Errand Missions.",
       "group": "Errands and Jobs",
       "points": 25,
-      "icon": "heart"
+      "icon": "heart",
+      "rule": {
+        "value": "errands",
+        "need": 30,
+        "label": "Errands done"
+      }
     },
     {
       "name": "Green Thumb",
@@ -278,7 +293,12 @@
       "detail": "Complete All Paper Route Missions.",
       "group": "Errands and Jobs",
       "points": 20,
-      "icon": "letter"
+      "icon": "letter",
+      "rule": {
+        "value": "paper",
+        "need": 5,
+        "label": "Paper routes finished"
+      }
     },
     {
       "name": "Speed Freak",
@@ -532,7 +552,12 @@
       "detail": "Achieve A High Score on Consumo, Nut Shots, and Monkey Fling Arcade Games.",
       "group": "Carnival and Arcade",
       "points": 20,
-      "icon": "puzzle"
+      "icon": "puzzle",
+      "rule": {
+        "value": "arcade",
+        "need": 3,
+        "label": "Arcade games where you hold the top score"
+      }
     },
     {
       "name": "It's All in the Wrists",
@@ -609,13 +634,23 @@
       "name": "Rich Kid Blues",
       "detail": "Have $1,000 in pocket change.",
       "group": "PS4",
-      "icon": "coins"
+      "icon": "coins",
+      "rule": {
+        "value": "money",
+        "need": 1000,
+        "label": "Dollars in your pocket"
+      }
     },
     {
       "name": "Popularity Contest",
       "detail": "Gain 100% respect from 2 cliques simultaneously.",
       "group": "PS4",
-      "icon": "heart"
+      "icon": "heart",
+      "rule": {
+        "value": "cliques",
+        "need": 2,
+        "label": "Cliques at 100% respect"
+      }
     },
     {
       "name": "Problem Child",

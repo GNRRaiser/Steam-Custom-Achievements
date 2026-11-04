@@ -1,4 +1,4 @@
-Steam Custom Achievements v0.35.3 verification - 2026-11-03
+Steam Custom Achievements v0.35.5 verification - 2026-11-04
 PASS a new save in %APPDATA%\Ubisoft\Assassin's Creed\Saved Games is found; nothing unlocked
 PASS objective M03_S20_Animus_Tutorial_Complete finished unlocks Welcome to the Animus
 PASS references to an objective and objectives still open do not count
@@ -47,6 +47,10 @@ PASS the chapter byte unlocks Freshman to Graduate, one per finished chapter
 PASS kisses, flowers picked, clothes bought and trouble points unlock at their totals
 PASS After Hours: time out after curfew is saved in ms, 1000 per in-game minute, so 5 hours is 300000
 PASS Speed Freak and Pole Position add carnival and street go-kart wins (4 and 8 of the 8 races)
+PASS Helping Hand, Little Angel and Momma's Boy count passed errands in the save's 50-entry errand list
+PASS Rich Kid Blues at $1,000 in pocket, Popularity Contest with two cliques at 100% respect
+PASS Dual Nebula once the player holds the top score on ConSumo, Monkey Fling and Nut Shots
+PASS Black & White & Read All Over after the first paper route and all four 2_R03_X difficulties
 PASS stats screen counters (distances as metres, eggs, wedgies, sodas bought, knockouts, ...) unlock at their totals
 PASS counters show n / total
 PASS classes count once all five levels are passed (Keener, Teacher's Pet, Boy Genius)
@@ -126,8 +130,8 @@ PASS automatic backend state unlocks progress while another page is selected; ca
 PASS card and popup fit at 1200px, 480px and 320px widths
 PASS popup destruction/recreation, complete cleanup, no external requests or script exceptions
 Real Chromium window regression passed: 153.0.8010.12
-[Steam Custom Achievements 0.35.3] Attached to desktop Steam window
-[Steam Custom Achievements 0.35.3] Ready for 11 games; waiting for a visible Steam window if necessary
+[Steam Custom Achievements 0.35.5] Attached to desktop Steam window
+[Steam Custom Achievements 0.35.5] Ready for 11 games; waiting for a visible Steam window if necessary
 PASS CoD 4 page shows its own 37 achievements, automatic unlocks, intel progress and raw campaign value
 PASS record mode: pick an achievement, Start, Done; the matching value and the saved copies are shown; a second pass narrows
 PASS a new automatic unlock shows a Steam-style popup with its picture; popups can be turned off
@@ -290,3 +294,10 @@ PASS Bully: Scholarship Edition Stats screen (v0.35.3): a video of a new game's 
      carnival counts) and are not in the save. The 100% save has 25 kisses from ladies, 263 clothing items, 5 + 3
      go-kart races won (the 8 races) and 3632154 ms after curfew, and earns Casanova, Sharp Dressed Man, Speed Freak,
      Pole Position and After Hours; the chapter 3 save shows After Hours at 252 / 300 in-game minutes and 1 / 8 races
+PASS Bully: Scholarship Edition errands, money, respect, arcade and paper route (v0.35.5): the save's errand list at
+     0x4D0C (50 entries, in the order the errand scripts number themselves for MinigameSetErrandCompletion) has all
+     50 passed in the 100% save and 6 in the chapter 3 save; money at 0x38 is $674.00 / $166.50 / $100,000.00; clique
+     respect from 0xA4 shows Townies at 0 and Preps at 100 after Chapter 2 in the chapter 3 save and all 100 in the 100%
+     save; the arcade tables at 0x4578 match the stats screen's best scores (ConSumo 1043, Monkey Fling 340, Nut Shots
+     75500 at the top in the 100% save). The 100% save now also earns Helping Hand, Little Angel, Momma's Boy, Dual
+     Nebula, Rich Kid Blues and Popularity Contest; it finished the paper route twice, so Black & White shows 2 / 5

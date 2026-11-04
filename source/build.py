@@ -6,7 +6,7 @@ import os
 import re
 from pathlib import Path
 
-VERSION = '0.35.4'
+VERSION = '0.35.5'
 BASE = Path(__file__).resolve().parent
 ROOT = BASE.parent
 PLUGIN = ROOT
@@ -249,6 +249,10 @@ for slug in ORDER:
                 assert set(rule) <= {'stat', 'need', 'label', 'float', 'div'} and 0 <= rule['stat'] < 260 and rule['need'] > 0 and rule['label'], slug
                 assert not rule.get('float') or 5 <= rule['stat'] <= 11, slug
                 assert 'div' not in rule or (isinstance(rule['div'], int) and rule['div'] > 0), slug
+            elif 'value' in rule:
+                # Other save values worked out by the detector (see detector_bully.lua).
+                assert set(rule) == {'value', 'need', 'label'} and rule['label'] and rule['need'] > 0, slug
+                assert rule['value'] in ('errands', 'money', 'cliques', 'paper', 'arcade'), slug
             elif 'stats' in rule:
                 assert set(rule) == {'stats', 'need', 'label'} and rule['label'] and rule['need'] > 0, slug
                 assert len(rule['stats']) > 1 and all(0 <= n < 260 and not 5 <= n <= 11 for n in rule['stats']), slug
