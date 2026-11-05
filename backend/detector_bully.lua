@@ -30,7 +30,19 @@
 --            263 in the 100% save) and go-kart races won at the carnival (55) and in the street
 --            (57), 5 and 3 in the 100% save. Entries above 259 on the stats screen (percentages,
 --            totals, class and carnival counts) are worked out by the game, not saved.
--- Rules: { stat = n, need = x, float = true?, div = d? } (a stat, divided by d, reaching x),
+--   0x0C     the player block: u32 3, u32 364, then money in cents (u32 at 0x38) and clique respect
+--            0-100 (u32 at 0xA4 + 4k for Nerds, Jocks, Townies, Greasers, Preps). A new game shows
+--            "Hated Most By: Townies" with Townies at 0; Preps are at 100 after Chapter 2.
+--   0x4578   the arcade high score tables: u32 1, u32 1004, u32 10 (tables), u32 5 (entries), u32 3
+--            (letters), 50 names, then 10 tables of 5 u32 scores from 0x471C (best first). Monkey
+--            Fling is table 1, Nut Shots table 2 and ConSumo table 5: the player's best on the stats
+--            screen (221, 224 and 218) heads them once it beats the built-in scores.
+--   0x4D0C   the errands: u32 1, u32 412, u32 50, then 50 entries of u16 attempts, u16 passes from
+--            0x4D18. Entry n is errand n, the first number each errand script passes to
+--            MinigameSetErrandCompletion (Algie1 0 to TheWidow 49).
+-- Rules: { value = name, need = x } (errands passed, dollars held, cliques at 100% respect, paper
+-- routes finished (2_R03 once, then 2_R03_X at each of its four difficulties), arcade games whose
+-- top score is the player's), { stat = n, need = x, float = true?, div = d? } (a stat, divided by d, reaching x),
 -- { stats = { n, ... }, need = x } (the sum of several stats reaching x), { chapter = n } (the save is
 -- at least in chapter n, 0-based, so 1 means Chapter 1 is finished), { completion = 100 }
 -- (FileTableBully's game completion for this slot), { mission = n } (mission n passed),
@@ -45,6 +57,12 @@ local STAT_COUNT = 260
 local MISSIONS = 0x53C
 local MISSION_COUNT = 510
 local ENTRY = 56
+local PLAYER = 0x0C
+local SCORES = 0x4578
+local ERRANDS = 0x4D0C
+local PAPER_ROUTE, PAPER_ROUTE_X = 40, 41
+-- { stats screen best score, high score table } for ConSumo, Monkey Fling and Nut Shots.
+local ARCADE = { { 218, 5 }, { 221, 1 }, { 224, 2 } }
 local RECORD = 'SCAB'
 
 local function u32(s, at)
@@ -116,15 +134,44 @@ function D.parse(bytes)
     if chapter > 9 then return nil, 'This Bully save has an unknown layout' end
     local stats = {}
     for n = 0, STAT_COUNT - 1 do stats[n] = i32(bytes, STATS + n * 4) end
-    local passed = {}
+    local passed, passes = {}, {}
     for n = 0, MISSION_COUNT - 1 do
         local at = MISSIONS + n * 6 + 2
-        passed[n] = bytes:byte(at + 1) + bytes:byte(at + 2) * 256 > 0
+        passes[n] = bytes:byte(at + 1) + bytes:byte(at + 2) * 256
+        passed[n] = passes[n] > 0
     end
+    local values = {}
+    if u32(bytes, PLAYER) == 3 and u32(bytes, PLAYER + 4) == 364 then
+        values.money = math.floor(u32(bytes, 0x38) / 100)
+        local cliques = 0
+        for k = 0, 4 do
+            if u32(bytes, 0xA4 + k * 4) >= 100 then cliques = cliques + 1 end
+        end
+        values.cliques = cliques
+    end
+    if u32(bytes, ERRANDS) == 1 and u32(bytes, ERRANDS + 4) == 412 and u32(bytes, ERRANDS + 8) == 50 then
+        local done = 0
+        for n = 0, 49 do
+            local at = ERRANDS + 12 + n * 4 + 2
+            if bytes:byte(at + 1) + bytes:byte(at + 2) * 256 > 0 then done = done + 1 end
+        end
+        values.errands = done
+    end
+    if u32(bytes, SCORES) == 1 and u32(bytes, SCORES + 4) == 1004 and u32(bytes, SCORES + 8) == 10
+        and u32(bytes, SCORES + 12) == 5 then
+        local tops = 0
+        for _, game in ipairs(ARCADE) do
+            local best = i32(bytes, STATS + game[1] * 4)
+            local top = u32(bytes, SCORES + 420 + game[2] * 20)
+            if best and best > 0 and best >= top then tops = tops + 1 end
+        end
+        values.arcade = tops
+    end
+    values.paper = math.min(passes[PAPER_ROUTE], 1) + math.min(passes[PAPER_ROUTE_X], 4)
     local slot = read_entry(entry)
     -- The slot entry is only trusted when it agrees with the save about the chapter.
     if slot and slot.chapter ~= chapter then slot = nil end
-    return { chapter = chapter, completion = slot and slot.completion or nil, stats = stats, passed = passed, bytes = bytes }
+    return { chapter = chapter, completion = slot and slot.completion or nil, stats = stats, passed = passed, values = values, bytes = bytes }
 end
 
 local function stat(parsed, rule)
@@ -162,6 +209,7 @@ local function passed_count(parsed, rule)
 end
 
 local function value_of(parsed, rule)
+    if rule.value then return parsed.values[rule.value] end
     if rule.stat then return stat(parsed, rule) end
     if rule.stats then return stat_sum(parsed, rule) end
     if rule.missions or rule.groups then return passed_count(parsed, rule) end
@@ -172,7 +220,7 @@ function D.evaluate(parsed, game)
     local list = {}
     for _, rule in ipairs(game.rules) do
         local hit = false
-        if rule.stat or rule.stats or rule.missions or rule.groups then
+        if rule.value or rule.stat or rule.stats or rule.missions or rule.groups then
             local value = value_of(parsed, rule)
             hit = value ~= nil and value >= rule.need
         elseif rule.mission then
@@ -204,7 +252,7 @@ function D.describe(parsed, fileName)
     local chapter = parsed.chapter < 5 and ('Chapter ' .. (parsed.chapter + 1)) or 'after the final chapter'
     local detail = chapter
     if parsed.completion then detail = detail .. string.format(', %.2f%% complete', parsed.completion) end
-    return 'watching', 'Watching ' .. fileName .. ' for chapters, missions, classes and stats.', detail
+    return 'watching', 'Watching ' .. fileName .. ' for chapters, missions, classes, errands, respect, money, high scores and stats.', detail
 end
 
 local function scan_folder(ctx, folder)
