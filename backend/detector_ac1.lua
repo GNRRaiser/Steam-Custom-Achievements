@@ -281,18 +281,27 @@ function D.decoders(game)
     } }
 end
 
+-- Remembers a save's summary while the file is unchanged (main.lua); tests pass no cache.
+local function cached(ctx, path, compute)
+    if ctx.cached then return ctx.cached(path, compute) end
+    return compute()
+end
+
 -- Newest readable save in a folder, plus summaries for the settings panel.
 local function scan_folder(ctx, folder, game)
     local best, bestTime, summaries = nil, -1, {}
     for _, entry in ipairs(ctx.safe_list(folder)) do
         if entry.is_file and not entry.is_symlink and save_name(entry.name) then
-            local bytes = ctx.read_small(entry.path, D.maxBytes)
-            local parsed = bytes and D.parse(bytes, game)
+            local info = cached(ctx, entry.path, function()
+                local bytes = ctx.read_small(entry.path, D.maxBytes)
+                local parsed = bytes and D.parse(bytes, game)
+                return { bytes = bytes and #bytes or 0, ok = parsed and true or false,
+                    detail = parsed and (parsed.objectives .. ' story objectives') or 'unsupported format' }
+            end)
             local time = ctx.fs.last_write_time(entry.path) or 0
-            summaries[#summaries + 1] = { name = entry.name, bytes = bytes and #bytes or 0,
-                kind = parsed and 'gameplay-slot' or 'unsupported',
-                detail = parsed and (parsed.objectives .. ' story objectives') or 'unsupported format' }
-            if parsed and time > bestTime then best, bestTime = entry.path, time end
+            summaries[#summaries + 1] = { name = entry.name, bytes = info.bytes,
+                kind = info.ok and 'gameplay-slot' or 'unsupported', detail = info.detail }
+            if info.ok and time > bestTime then best, bestTime = entry.path, time end
         end
     end
     table.sort(summaries, function(a, b) return a.name < b.name end)
