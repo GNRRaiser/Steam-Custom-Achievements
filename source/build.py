@@ -424,14 +424,36 @@ manifest = {
 }
 (PLUGIN / 'plugin.json').write_text(json.dumps(manifest, indent=2) + '\n', encoding='utf-8')
 
-# The README's "latest" badge is a fixed picture (shields.io's live GitHub
-# release badge kept failing to load), so keep its version in step here.
-readme = ROOT / 'README.md'
-readme_text = readme.read_text(encoding='utf-8')
-new_readme = re.sub(r'img\.shields\.io/badge/latest-v[0-9.]+-', f'img.shields.io/badge/latest-v{VERSION}-', readme_text)
-assert new_readme.count(f'badge/latest-v{VERSION}-') == 1, 'README latest badge not found'
-if new_readme != readme_text:
-    readme.write_bytes(new_readme.encode('utf-8'))
+# README badges for the latest version and the license are SVG files in the
+# repository, so they load even when shields.io is down. Widths use Verdana
+# 11px character widths, the font GitHub's badges use.
+BADGE_WIDTHS = {'.': 3.9, ' ': 3.9, 'I': 4.6, 'M': 9.9, 'T': 6.8, 'a': 6.7, 'c': 5.8, 'e': 6.6, 'i': 3.0,
+                'l': 3.0, 'n': 7.0, 's': 5.7, 't': 4.3, 'v': 6.5}
+
+
+def badge_svg(label, message, color):
+    def width(text):
+        return round(sum(BADGE_WIDTHS.get(c, 7.0) for c in text))
+    lw, mw = width(label) + 10, width(message) + 10
+    total = lw + mw
+    return (f'<svg xmlns="http://www.w3.org/2000/svg" width="{total}" height="20" role="img" '
+            f'aria-label="{label}: {message}"><title>{label}: {message}</title>'
+            '<linearGradient id="s" x2="0" y2="100%"><stop offset="0" stop-color="#bbb" stop-opacity=".1"/>'
+            '<stop offset="1" stop-opacity=".1"/></linearGradient>'
+            f'<clipPath id="r"><rect width="{total}" height="20" rx="3" fill="#fff"/></clipPath>'
+            f'<g clip-path="url(#r)"><rect width="{lw}" height="20" fill="#555"/>'
+            f'<rect x="{lw}" width="{mw}" height="20" fill="{color}"/>'
+            f'<rect width="{total}" height="20" fill="url(#s)"/></g>'
+            '<g fill="#fff" text-anchor="middle" font-family="Verdana,Geneva,DejaVu Sans,sans-serif" font-size="11">'
+            f'<text x="{lw / 2:g}" y="15" fill="#010101" fill-opacity=".3" textLength="{lw - 10}">{label}</text>'
+            f'<text x="{lw / 2:g}" y="14" textLength="{lw - 10}">{label}</text>'
+            f'<text x="{lw + mw / 2:g}" y="15" fill="#010101" fill-opacity=".3" textLength="{mw - 10}">{message}</text>'
+            f'<text x="{lw + mw / 2:g}" y="14" textLength="{mw - 10}">{message}</text></g></svg>\n')
+
+
+for name, label, message, color in (('latest', 'latest', f'v{VERSION}', '#d4a338'),
+                                    ('license', 'license', 'MIT', '#8f98a0')):
+    (ROOT / '.github' / 'assets' / f'badge-{name}.svg').write_bytes(badge_svg(label, message, color).encode('utf-8'))
 for g in games:
     print(f"{g['title']}: {len(g['achievements'])} achievements, "
           f"{sum(1 for a in g['achievements'] if a.get('automatic'))} automatic")
