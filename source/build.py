@@ -423,6 +423,15 @@ manifest = {
     'include': ['third_party'],
 }
 (PLUGIN / 'plugin.json').write_text(json.dumps(manifest, indent=2) + '\n', encoding='utf-8')
+
+# The README's "latest" badge is a fixed picture (shields.io's live GitHub
+# release badge kept failing to load), so keep its version in step here.
+readme = ROOT / 'README.md'
+readme_text = readme.read_text(encoding='utf-8')
+new_readme = re.sub(r'img\.shields\.io/badge/latest-v[0-9.]+-', f'img.shields.io/badge/latest-v{VERSION}-', readme_text)
+assert new_readme.count(f'badge/latest-v{VERSION}-') == 1, 'README latest badge not found'
+if new_readme != readme_text:
+    readme.write_bytes(new_readme.encode('utf-8'))
 for g in games:
     print(f"{g['title']}: {len(g['achievements'])} achievements, "
           f"{sum(1 for a in g['achievements'] if a.get('automatic'))} automatic")
