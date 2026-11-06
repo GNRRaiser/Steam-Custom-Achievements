@@ -76,17 +76,30 @@ local function recorded_ids(text)
     return ids, count
 end
 
-local function emulator_records(ctx)
-    local texts = {}
+local function record_paths(ctx)
+    local paths = {}
     for _, install in ipairs(ctx.install_dirs and ctx.install_dirs() or {}) do
         for _, entry in ipairs(ctx.safe_list(ctx.fs.join(install, 'XLiveEmu'))) do
             if entry.is_directory and not entry.is_symlink then
-                local text = ctx.read_small(ctx.fs.join(entry.path, 'Achievements', 'Achievements.txt'), 65536)
-                if text and recorded_ids(text) then texts[#texts + 1] = text end
+                paths[#paths + 1] = ctx.fs.join(entry.path, 'Achievements', 'Achievements.txt')
             end
         end
     end
+    return paths
+end
+
+local function emulator_records(ctx)
+    local texts = {}
+    for _, path in ipairs(record_paths(ctx)) do
+        local text = ctx.read_small(path, 65536)
+        if text and recorded_ids(text) then texts[#texts + 1] = text end
+    end
     return #texts > 0 and table.concat(texts, '\n') or nil
+end
+
+-- Other files D.read reads, so main.lua can tell from sizes and times that nothing changed.
+function D.watch(ctx)
+    return record_paths(ctx)
 end
 
 -- The hero save, plus XLiveEmu's achievement record when there is one, as one string so a

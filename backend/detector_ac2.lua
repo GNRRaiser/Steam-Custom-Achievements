@@ -233,21 +233,30 @@ local function plausible_name(name)
     return name:match('^%d+%.save$') ~= nil or name:match('^save%d+$') ~= nil
 end
 
+-- Remembers a save's summary while the file is unchanged (main.lua); tests pass no cache.
+local function cached(ctx, path, compute)
+    if ctx.cached then return ctx.cached(path, compute) end
+    return compute()
+end
+
 local function scan_folder(ctx, folder)
     local best,bestTime,bestRecords=nil,-1,-1
     local summaries={}
     for _,entry in ipairs(ctx.safe_list(folder)) do
         if entry.is_file and not entry.is_symlink and plausible_name(entry.name)
             and not entry.name:find('999',1,true) then
-            local bytes=ctx.read_small(entry.path,D.maxBytes)
-            local parsed=bytes and D.parse(bytes)
+            local info=cached(ctx,entry.path,function()
+                local bytes=ctx.read_small(entry.path,D.maxBytes)
+                local parsed=bytes and D.parse(bytes)
+                return {bytes=bytes and #bytes or 0,slot=parsed and parsed.slot or nil,kind=parsed and parsed.kind or 'unsupported',
+                    records=parsed and parsed.missionRecords or nil,
+                    detail=parsed and (parsed.slot==-1 and 'unassigned slot' or (parsed.missionRecords..' mission records')) or 'unsupported format'}
+            end)
             local time=ctx.fs.last_write_time(entry.path) or 0
-            summaries[#summaries+1]={name=entry.name,bytes=bytes and #bytes or 0,
-                slot=parsed and parsed.slot or nil,kind=parsed and parsed.kind or 'unsupported',
-                detail=parsed and (parsed.slot==-1 and 'unassigned slot' or (parsed.missionRecords..' mission records')) or 'unsupported format'}
-            if parsed and parsed.slot>=0 and (time>bestTime
-                or (time==bestTime and parsed.missionRecords>bestRecords)) then
-                best,bestTime,bestRecords=entry.path,time,parsed.missionRecords
+            summaries[#summaries+1]={name=entry.name,bytes=info.bytes,slot=info.slot,kind=info.kind,detail=info.detail}
+            if info.slot and info.slot>=0 and (time>bestTime
+                or (time==bestTime and info.records>bestRecords)) then
+                best,bestTime,bestRecords=entry.path,time,info.records
             end
         end
     end

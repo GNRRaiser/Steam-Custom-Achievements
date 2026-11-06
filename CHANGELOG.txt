@@ -1,4 +1,4 @@
-STEAM CUSTOM ACHIEVEMENTS v0.35.5 - MULTI-GAME
+STEAM CUSTOM ACHIEVEMENTS v0.35.6 - MULTI-GAME
 
 Adds the Xbox 360 achievement list to the Steam Library page of games whose
 Steam version has no achievements. Each supported game gets the same ACHIEVEMENTS
@@ -20,6 +20,20 @@ GAMES IN THIS BUILD
 
 Automatic entries unlock by themselves a few seconds after the game writes its
 progress. Everything else has a "Mark as unlocked" button in the popup.
+
+NEW IN v0.35.6
+- Lighter on the PC while a game runs. A save that has not changed since it
+  was last read is no longer read again every second: only its size and
+  write time are checked (and it is still read in full once a minute).
+  Changes are picked up exactly as before.
+- Save folder searches (every 10 seconds) only re-read saves that changed,
+  instead of opening and decoding every save in the folder each time.
+- Steam's library list and game install info are looked up again only when
+  Steam changes them, not on every search (Fable III did this every second).
+- Sturdier: a save that disappears while the folder is being searched (games
+  that write a temporary file and rename it) no longer causes a detector
+  error, and a failed search keeps watching the save already found.
+- Fallout 3's level memory is saved only when it changes.
 
 NEW IN v0.35.5
 - Bully: 7 more unlock by themselves (41 of 43 now), most shown as n / total:
