@@ -93,7 +93,7 @@ function Test-PluginFiles([string]$Directory) {
 }
 
 try {
-    Write-Report 'STEAM CUSTOM ACHIEVEMENTS - MULTI-GAME (AC2, CoD 4, CoD WaW, Fable III, Thrillville)'
+    Write-Report 'STEAM CUSTOM ACHIEVEMENTS - INSTALL REPORT'
     Write-Report ('Time: ' + (Get-Date -Format 'yyyy-MM-dd HH:mm:ss'))
     Write-Report ('Mode: ' + $(if ($CheckOnly) { 'Check existing files' } else { 'Install / repair' }))
     Write-Report ('Package folder: ' + $PackageRoot)

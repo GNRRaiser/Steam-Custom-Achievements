@@ -228,6 +228,17 @@ local function held_key(game) return game.progressKey .. '_held' end
 local function held_path_key(game) return game.progressKey .. '_heldPath' end
 local function memory_key(game) return game.progressKey .. '_memory' end
 
+-- Which game a save belongs to, for "Reset to locked": the save file, unless the detector
+-- can tell its saves apart better (Fallout 3 writes a new file for every save, so there it
+-- is the character).
+local function hold_id(w, path, parsed)
+    if parsed and w.detector.holdId then
+        local ok, id = pcall(w.detector.holdId, parsed)
+        if ok and type(id) == 'string' and id ~= '' then return id end
+    end
+    return path
+end
+
 local function apply(w, parsed)
     local state, game, detector = w.state, w.game, w.detector
     local changed, earned = false, {}
@@ -238,7 +249,7 @@ local function apply(w, parsed)
     -- longer has it (an older save or a new game); earning it again then unlocks it.
     -- Held keys belong to the save that was open at the reset; another save file (a new
     -- game in another slot) releases them all.
-    local released, other = false, w.heldPath ~= w.selectedPath
+    local released, other = false, w.heldPath ~= hold_id(w, w.selectedPath, parsed)
     for key in pairs(w.held) do
         if other or not earned[key] then w.held[key], released = nil, true end
     end
@@ -481,7 +492,7 @@ local function rule_verdict(w, index)
     local bytes = path and read_progress(w, path)
     local parsed = bytes and w.detector.parse(bytes, w.game)
     if not parsed then return 'could not read ' .. (path and fs.filename(path) or 'the save') .. ' to check it' end
-    for _, earned in ipairs(w.detector.evaluate(parsed, w.game)) do
+    for _, earned in ipairs(w.detector.evaluate(parsed, w.game, w.memory)) do
         if earned == index then return 'unlocked by the plugin' end
     end
     local count = w.detector.counts(parsed, w.game)[tostring(index)]
@@ -576,13 +587,15 @@ function ResetProgress(payload)
     local bytes = path and read_progress(w, path)
     local parsed = bytes and w.detector.parse(bytes, w.game)
     if parsed then
-        for _, index in ipairs(w.detector.evaluate(parsed, w.game)) do held[tostring(index)] = true end
+        -- With the detector's memory, as apply() judges saves (Fallout 3's karma achievements
+        -- count only after a level-up, so they are not held when the save does not earn them).
+        for _, index in ipairs(w.detector.evaluate(parsed, w.game, w.memory)) do held[tostring(index)] = true end
     end
-    w.automatic, w.held, w.heldPath = {}, held, path
+    w.automatic, w.held, w.heldPath = {}, held, hold_id(w, path, parsed or nil)
     w.state.progress = w.automatic
     millennium.config.set(w.game.progressKey, w.automatic)
     millennium.config.set(held_key(w.game), w.held)
-    millennium.config.set(held_path_key(w.game), path or '')
+    millennium.config.set(held_path_key(w.game), w.heldPath or '')
     w.parsedBytes, w.failedBytes, w.cachedReply = nil, nil, nil
     w.stampKey, w.quietKey = nil, nil
     return poll(w)

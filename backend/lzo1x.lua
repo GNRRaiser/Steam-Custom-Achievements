@@ -5,14 +5,20 @@ local M = {}
 local byte, char, concat, floor = string.byte, string.char, table.concat, math.floor
 local unpack = unpack or table.unpack
 
-local function run(src, ip)
+local function run(src, ip, limit)
     local out, len = {}, 0
+    -- Damaged data can ask for very long runs; output past the expected size is an error.
+    local function room(k)
+        if len + k > limit then error('too long') end
+    end
     local function literals(k)
+        room(k)
         for i = 0, k - 1 do out[len + 1 + i] = byte(src, ip + i) or error('truncated') end
         len, ip = len + k, ip + k
     end
     local function copy(dist, k)
         if dist < 1 or dist > len then error('bad distance') end
+        room(k)
         for _ = 1, k do len = len + 1; out[len] = out[len - dist] end
     end
     local function next_byte()
@@ -84,9 +90,10 @@ local function run(src, ip)
     return concat(parts)
 end
 
--- Decompresses src from byte position start; nil when the data is damaged.
-function M.decompress(src, start)
-    local ok, result = pcall(run, src, start or 1)
+-- Decompresses src from byte position start; nil when the data is damaged or would come out
+-- longer than maxOut bytes (16 MB when not given).
+function M.decompress(src, start, maxOut)
+    local ok, result = pcall(run, src, start or 1, maxOut or 16777216)
     if ok then return result end
     return nil
 end

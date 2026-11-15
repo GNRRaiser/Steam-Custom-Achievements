@@ -1,4 +1,4 @@
-/* Steam Custom Achievements v0.35.6
+/* Steam Custom Achievements v0.35.7
  * Millennium 3.6.2 loose-file plugin: Xbox 360 achievement lists for Steam games
  * that have none, with read-only Lua detectors for games whose saves are mapped.
  * The entrypoint runs in SharedJSContext. UI belongs to popup.window.document.
@@ -8,7 +8,7 @@
   "use strict";
   const hostWindow = window;
   const PLUGIN_NAME = "steam-custom-achievements";
-  const BUILD_VERSION = "0.35.6";
+  const BUILD_VERSION = "0.35.7";
   const SHARE_BUILD = true;
   const ROOT_ID = "sca-ac2-root";
   const STYLE_ID = "sca-ac2-css";
@@ -565,10 +565,12 @@
           continue;
         }
         selectedStorage = store;
-        // Keep automatic unlocks that arrived before storage was readable.
+        // Keep automatic unlocks that arrived before storage was readable, and save them now,
+        // or they would pop up again as new the next time Steam starts.
+        const arrived = Object.keys(game.progress).some(key => !(key in clean));
         game.progress = {...clean, ...game.progress};
         game.storageFound = true;
-        if (syncCompletion(game) !== null) writeProgress(game);
+        if (syncCompletion(game) !== null || arrived) writeProgress(game);
         redrawViews();
         return;
       } catch (error) {
@@ -604,7 +606,6 @@
     const platinum = syncCompletion(game);
     // After the caller's own popups, so the platinum comes last.
     if (announce && platinum !== null) Promise.resolve().then(() => { if (active) announceUnlocks(game, [platinum]); });
-    game.dirty = true;
     const stores = new Set([selectedStorage, ...storageCandidates]);
     storageAvailable = false;
     for (const store of stores) {
@@ -614,6 +615,9 @@
         selectedStorage = store;
         storageAvailable = true;
         game.storageFound = true;
+        // Only a write that was kept stops saved progress from loading later: automatic
+        // unlocks that arrive before storage can be read are merged with it, not put over it.
+        game.dirty = true;
         break;
       } catch (error) {
         report("progress-save-failed", error);
@@ -2005,7 +2009,7 @@ html.sca-page-open body>*:not(#${DIALOG_ID}){visibility:hidden}
   // Unlock popups: on/off, plus a delayed test so it can be seen over a game.
   function buildPopupPanel() {
     const panel=el("div","sca-panel sca-popup-panel");
-    panel.append(el("h3","","Unlock popups"),el("p","","When the plugin unlocks an achievement while you play, a Steam-style popup shows in the corner with an unlock sound. Manual marks never pop up."));
+    panel.append(el("h3","","Unlock popups"),el("p","","When the plugin unlocks an achievement while you play, or you mark one as unlocked, a Steam-style popup shows in the corner with an unlock sound."));
     const buttons=el("div","sca-buttons"),note=el("p","sca-popup-note");
     const toggle=el("button","sca-small sca-popup-toggle");toggle.type="button";
     const label=()=>{toggle.textContent=popupsEnabled()?"Popups: on":"Popups: off";};label();

@@ -4,6 +4,7 @@ The synthetic profile copies the layout of a real PC Player1.prf: LZO1X-compress
 Engine 3 profile settings, where settings 0x32 and 0x33 hold one bit per PC AchievementID.
 """
 import json
+import struct
 from pathlib import Path
 import tempfile
 from lupa.luajit21 import LuaRuntime, lua_type
@@ -123,5 +124,14 @@ with tempfile.TemporaryDirectory() as temporary:
     assert state['pathConfigured'] and state['saveFileName'] == 'Player1.prf', state
     assert state['selectionNote'] == 'Selected Player1.prf.', state
     print('PASS the Mass Effect 2 folder can be pasted in Settings; Player1.prf inside it is used')
+
+    # The decompressor stops at the size the profile declares, so damaged data that asks for
+    # very long runs cannot fill memory.
+    unpacked = lua.eval('function(src, limit) local out = require("lzo1x").decompress(src, 25, limit); return out and #out or false end')
+    packed = profile({1, 48})
+    size = struct.unpack('>I', packed[20:24])[0]
+    assert unpacked(packed, size) == size
+    assert unpacked(packed, size - 1) is False
+    print('PASS profile data that comes out longer than its declared size is refused')
 
 print('All Mass Effect 2 detector tests passed.')

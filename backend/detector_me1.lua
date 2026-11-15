@@ -99,10 +99,19 @@ function D.parse(bytes)
     return { states = states, stats = stats, base = base, unlocked = unlocked, slots = #states }
 end
 
+-- A counter's target (UnlockedAt), or nil when the profile does not give a usable one: a
+-- target of 0 would make any value count, and a profile the plugin does not fully
+-- understand must not unlock anything.
+local function target(stat, rule)
+    local need = stat.UnlockedAt
+    if type(need) == 'number' and need > 0 then return need end
+    return rule.need
+end
+
 local function earned(parsed, rule)
     if rule.stat then
         local stat = parsed.stats[rule.stat]
-        if stat and ((stat.IsAchievementUnlocked or 0) ~= 0 or (stat.Value or 0) >= (stat.UnlockedAt or rule.need or 1e12)) then
+        if stat and ((stat.IsAchievementUnlocked or 0) ~= 0 or (stat.Value or 0) >= (target(stat, rule) or 1e12)) then
             return true
         end
     end
@@ -121,8 +130,9 @@ function D.counts(parsed, game)
     local counts = {}
     for _, rule in ipairs(game.rules) do
         local stat = rule.stat and parsed.stats[rule.stat]
-        if stat and stat.Value then
-            counts[tostring(rule.index)] = { have = math.max(stat.Value, 0), need = stat.UnlockedAt or rule.need, label = rule.label }
+        local need = stat and target(stat, rule)
+        if stat and stat.Value and need then
+            counts[tostring(rule.index)] = { have = math.max(stat.Value, 0), need = need, label = rule.label }
         end
     end
     return counts

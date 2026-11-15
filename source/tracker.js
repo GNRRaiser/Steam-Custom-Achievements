@@ -738,7 +738,7 @@ html.sca-page-open body>*:not(#${DIALOG_ID}){visibility:hidden}
   // Unlock popups: on/off, plus a delayed test so it can be seen over a game.
   function buildPopupPanel() {
     const panel=el("div","sca-panel sca-popup-panel");
-    panel.append(el("h3","","Unlock popups"),el("p","","When the plugin unlocks an achievement while you play, a Steam-style popup shows in the corner with an unlock sound. Manual marks never pop up."));
+    panel.append(el("h3","","Unlock popups"),el("p","","When the plugin unlocks an achievement while you play, or you mark one as unlocked, a Steam-style popup shows in the corner with an unlock sound."));
     const buttons=el("div","sca-buttons"),note=el("p","sca-popup-note");
     const toggle=el("button","sca-small sca-popup-toggle");toggle.type="button";
     const label=()=>{toggle.textContent=popupsEnabled()?"Popups: on":"Popups: off";};label();

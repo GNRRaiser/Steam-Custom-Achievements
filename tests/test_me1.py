@@ -115,6 +115,12 @@ with tempfile.TemporaryDirectory() as temporary:
     assert index_of('Colonial Savior') in earned and index_of('Undisputed') not in earned, earned
     print('PASS the slot layout is checked against counters the game already marked unlocked')
 
+    # A counter without a usable target (UnlockedAt 0) never unlocks by its value alone.
+    odd = D.parse(profile((), {'MachineKills': 3}, (), targets={'MachineKills': 0}))
+    assert index_of('Geth Hunter') not in set(from_lua(D.evaluate(odd, pack)) or []), 'UnlockedAt 0 must not unlock'
+    assert str(index_of('Geth Hunter')) not in (from_lua(D.counts(odd, pack)) or {}), 'no n / 0 progress'
+    print('PASS a counter whose target reads 0 does not unlock its achievement')
+
     # Manual entries stay manual, and a damaged file is not trusted.
     for name in ('Scholar', 'Completionist', 'Tactician', 'Medal of Exploration'):
         assert index_of(name) not in state['supportedIndices']
