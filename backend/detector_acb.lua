@@ -27,6 +27,11 @@ local function le32(v)
     return string.char(v % 256, math.floor(v / 256) % 256, math.floor(v / 65536) % 256, math.floor(v / 16777216) % 256)
 end
 
+-- Other files D.read reads, so main.lua can tell from sizes and times that nothing changed.
+function D.watch(ctx, path)
+    return { ctx.fs.join(ctx.fs.parent_path(path), 'OPTIONS') }
+end
+
 -- The save, plus OPTIONS when it is there, as one string so a change to either is seen.
 function D.read(ctx, path)
     local save = ctx.read_small(path, D.maxBytes)
@@ -176,17 +181,26 @@ function D.decoders(game)
 end
 
 -- Newest readable save in a folder, plus summaries for the settings panel.
+-- Remembers a save's summary while the file is unchanged (main.lua); tests pass no cache.
+local function cached(ctx, path, compute)
+    if ctx.cached then return ctx.cached(path, compute) end
+    return compute()
+end
+
 local function scan_folder(ctx, folder)
     local best, bestTime, summaries = nil, -1, {}
     for _, entry in ipairs(ctx.safe_list(folder)) do
         if entry.is_file and not entry.is_symlink and reader.save_name(entry.name) then
-            local bytes = ctx.read_small(entry.path, D.maxBytes)
-            local parsed = bytes and D.parse(bytes)
+            local info = cached(ctx, entry.path, function()
+                local bytes = ctx.read_small(entry.path, D.maxBytes)
+                local parsed = bytes and D.parse(bytes)
+                return { bytes = bytes and #bytes or 0, ok = parsed and true or false,
+                    detail = parsed and (parsed.missionRecords .. ' mission records') or 'unsupported format' }
+            end)
             local time = ctx.fs.last_write_time(entry.path) or 0
-            summaries[#summaries + 1] = { name = entry.name, bytes = bytes and #bytes or 0,
-                kind = parsed and 'gameplay-slot' or 'unsupported',
-                detail = parsed and (parsed.missionRecords .. ' mission records') or 'unsupported format' }
-            if parsed and time > bestTime then best, bestTime = entry.path, time end
+            summaries[#summaries + 1] = { name = entry.name, bytes = info.bytes,
+                kind = info.ok and 'gameplay-slot' or 'unsupported', detail = info.detail }
+            if info.ok and time > bestTime then best, bestTime = entry.path, time end
         end
     end
     table.sort(summaries, function(a, b) return a.name < b.name end)

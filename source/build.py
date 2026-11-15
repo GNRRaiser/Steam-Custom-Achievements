@@ -6,7 +6,7 @@ import os
 import re
 from pathlib import Path
 
-VERSION = '0.35.5'
+VERSION = '0.35.6'
 BASE = Path(__file__).resolve().parent
 ROOT = BASE.parent
 PLUGIN = ROOT

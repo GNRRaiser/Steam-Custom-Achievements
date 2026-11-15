@@ -1,4 +1,4 @@
-Steam Custom Achievements v0.35.5 verification - 2026-11-04
+Steam Custom Achievements v0.35.6 verification - 2026-11-06
 PASS a new save in %APPDATA%\Ubisoft\Assassin's Creed\Saved Games is found; nothing unlocked
 PASS objective M03_S20_Animus_Tutorial_Complete finished unlocks Welcome to the Animus
 PASS references to an objective and objectives still open do not count
@@ -119,6 +119,13 @@ PASS files that are not park saves, or have no missions, are not read
 PASS the collect-all-6 hunts, the brand-new coaster and mini golf design missions and the whoa coaster missions unlock when finished
 PASS owner levels 2, 5 and 10 unlock Talent, Sensation and Phenomenon; the level is read only when the statistics match the missions
 All Thrillville detector tests passed.
+PASS an unchanged save is not read again every poll (only its size and time), and is fully re-read once a minute
+PASS a save rewritten at the same size but a later time is still read, settled and parsed
+PASS a change to (or removal of) another file the detector reads is picked up
+PASS an error while searching for saves keeps the watched save and tracking goes on
+PASS folder scans parse a save again only after it changes
+PASS Steam library folders and app manifests are re-read only when the library list changes
+All watcher tests passed.
 PASS native-style card sits below Friends Who Play, matches gradient card edges, shows icon rows
 PASS close button is inside the dialog and works on its edge
 PASS View My Achievements popup lists 50, toggles manual entries with dates, closes on Escape
@@ -130,8 +137,8 @@ PASS automatic backend state unlocks progress while another page is selected; ca
 PASS card and popup fit at 1200px, 480px and 320px widths
 PASS popup destruction/recreation, complete cleanup, no external requests or script exceptions
 Real Chromium window regression passed: 153.0.8010.12
-[Steam Custom Achievements 0.35.5] Attached to desktop Steam window
-[Steam Custom Achievements 0.35.5] Ready for 11 games; waiting for a visible Steam window if necessary
+[Steam Custom Achievements 0.35.6] Attached to desktop Steam window
+[Steam Custom Achievements 0.35.6] Ready for 11 games; waiting for a visible Steam window if necessary
 PASS CoD 4 page shows its own 37 achievements, automatic unlocks, intel progress and raw campaign value
 PASS record mode: pick an achievement, Start, Done; the matching value and the saved copies are shown; a second pass narrows
 PASS a new automatic unlock shows a Steam-style popup with its picture; popups can be turned off

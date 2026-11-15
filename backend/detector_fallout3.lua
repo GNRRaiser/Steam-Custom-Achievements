@@ -270,6 +270,9 @@ local function summarize(s)
 end
 D.summarize = summarize
 
+-- D.read reads only the save, so main.lua can tell from its size and time that nothing changed.
+function D.watch() return {} end
+
 local cache = {}
 function D.read(ctx, path)
     local file = io.open(path, 'rb')
@@ -277,14 +280,19 @@ function D.read(ctx, path)
     local size = file:seek('end')
     local time = ctx.fs.last_write_time(path) or 0
     local key = path .. '|' .. tostring(size) .. '|' .. tostring(time)
-    if cache.key == key then file:close(); return cache.summary end
+    if cache.key == key and cache.summary then file:close(); return cache.summary end
     if not size or size > D.maxBytes then file:close(); return nil end
     file:seek('set', 0)
     local bytes = file:read('*a')
     file:close()
     if not bytes or #bytes ~= size then return nil end
-    cache.key, cache.summary = key, summarize(bytes)
-    return cache.summary
+    local summary = summarize(bytes)
+    -- Write times can count in whole seconds, so a second write in the same second would keep
+    -- the key. The summary is kept only once the key has stayed the same for a few seconds.
+    local now = os.time()
+    if cache.key ~= key then cache.key, cache.seen, cache.summary = key, now, nil
+    elseif now - cache.seen >= 3 then cache.summary = summary end
+    return summary
 end
 
 function D.parse(text)

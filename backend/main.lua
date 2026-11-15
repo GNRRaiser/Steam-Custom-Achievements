@@ -25,6 +25,15 @@ local readers = { acb = require('decoder_acb'), thrillville = require('decoder_t
 local recorder = require('recorder')
 local capture = require('capture')
 local LOCATE_INTERVAL = 10
+-- Steam's library list and app manifests change only when a game is installed or moved.
+local LIBRARY_INTERVAL = 60
+-- A file whose size and write time have not changed for this long is treated as unchanged
+-- until either changes. The wait covers write times that count in whole seconds (or two,
+-- on FAT drives): a write in the same second as the last one cannot hide behind it.
+local STABLE_SECONDS = 3
+-- Even an unchanged-looking save is read in full this often, in case a file system does
+-- not update the write time.
+local FULL_READ_INTERVAL = 60
 -- This file's folder, so record mode can write next to the plugin (backend\..\recordings).
 local SCRIPT = debug and debug.getinfo and (debug.getinfo(1, 'S').source or '') or ''
 
@@ -42,35 +51,94 @@ local function read_small(path, limit)
     return bytes
 end
 
+-- Some fs calls throw when a file disappears between listing and checking it (a game that
+-- writes a temporary file and renames it). Detectors get versions that answer nil instead.
+local function guarded(fn, fallback)
+    return function(...)
+        local ok, value = pcall(fn, ...)
+        if ok then return value end
+        return fallback
+    end
+end
+local safe_fs = setmetatable({
+    last_write_time = guarded(fs.last_write_time, nil),
+    is_file = guarded(fs.is_file, false),
+    is_directory = guarded(fs.is_directory, false),
+}, { __index = fs })
+
+-- "size|write time" of a file, or nil when either cannot be read.
+local function stamp(path)
+    local time = safe_fs.last_write_time(path)
+    if time == nil then return nil end
+    local file = io.open(path, 'rb')
+    if not file then return nil end
+    local size = file:seek('end')
+    file:close()
+    if not size then return nil end
+    return size .. '|' .. tostring(time)
+end
+
+-- Remembers what compute() found for a file while the file stays the same, so folder scans
+-- (every few seconds, for every save in the folder) parse only saves that changed. A result
+-- is kept only once the file has looked the same for STABLE_SECONDS.
+local scanCache = {}
+local function cached(path, compute)
+    local key, now, entry = stamp(path), os.time(), scanCache[path]
+    if not key then scanCache[path] = nil; return compute() end
+    if entry and entry.key == key then
+        if entry.trusted then return entry.value end
+        if now - entry.seen >= STABLE_SECONDS then
+            entry.value, entry.trusted = compute(), true
+            return entry.value
+        end
+        return compute()
+    end
+    scanCache[path] = { key = key, seen = now }
+    return compute()
+end
+
 -- Steam libraries can live on another drive. Read only their install metadata.
+-- Steam rewrites libraryfolders.vdf when a game is installed or a library added, so the
+-- lists are worked out again when it changes (and once a minute in any case).
+local libraryCache = { at = nil, key = nil, libraries = nil, dirs = {} }
 local function steam_libraries()
+    local now = os.time()
     local steam = millennium.steam_path()
+    local list = fs.join(steam, 'steamapps', 'libraryfolders.vdf')
+    local key = stamp(list) or 'none'
+    if libraryCache.libraries and key == libraryCache.key and now - libraryCache.at < LIBRARY_INTERVAL then
+        return libraryCache.libraries
+    end
     local libraries, seen = {}, {}
     local function add(path)
         if path and not seen[path] then seen[path], libraries[#libraries + 1] = true, path end
     end
     add(steam)
-    local vdf = read_small(fs.join(steam, 'steamapps', 'libraryfolders.vdf'), 1048576)
+    local vdf = read_small(list, 1048576)
     if vdf then
         for value in vdf:gmatch('"path"%s*"([^"]+)"') do add((value:gsub('\\\\', '\\'))) end
     end
+    libraryCache.at, libraryCache.key, libraryCache.libraries, libraryCache.dirs = now, key, libraries, {}
     return libraries
 end
 
 local function install_dirs(appId)
+    local libraries = steam_libraries()
+    if libraryCache.dirs[appId] then return libraryCache.dirs[appId] end
     local found = {}
-    for _, library in ipairs(steam_libraries()) do
+    for _, library in ipairs(libraries) do
         local manifest = read_small(fs.join(library, 'steamapps', 'appmanifest_' .. appId .. '.acf'), 1048576)
         local directory = manifest and manifest:match('"installdir"%s*"([^"]+)"')
         if directory and not directory:find('..', 1, true) and not directory:find('[\\/]') then
             found[#found + 1] = fs.join(library, 'steamapps', 'common', directory)
         end
     end
+    libraryCache.dirs[appId] = found
     return found
 end
 
 local function context(game)
-    return { fs = fs, safe_list = safe_list, read_small = read_small, getenv = os.getenv,
+    return { fs = safe_fs, safe_list = safe_list, read_small = read_small, getenv = os.getenv, cached = cached,
         install_dirs = function() return install_dirs(game.appId) end }
 end
 
@@ -90,7 +158,7 @@ local watchers, order = {}, {}
 local function new_watcher(game)
     local detector = detectors[game.detector]
     local w = { game = game, detector = detector, ctx = context(game), automatic = {}, held = {},
-        configuredPath = '', lastLocate = -LOCATE_INTERVAL, lastPoll = 0 }
+        configuredPath = '', lastLocate = -LOCATE_INTERVAL, lastPoll = 0, lastRead = 0 }
     w.state = { schemaVersion = 1, appId = game.appId, status = detector and 'searching' or 'manual',
         message = detector and ('Looking for ' .. game.title .. ' progress') or 'Manual tracking only.',
         supportedIndices = detector and supported_for(game, detector) or {},
@@ -102,6 +170,26 @@ for _, game in ipairs(games) do
     local w = new_watcher(game)
     watchers[game.appId] = w
     order[#order + 1] = w
+end
+
+-- Size and write time of everything read_progress reads, or nil when that cannot be told
+-- cheaply (a detector that reads other files must name them in watch()).
+local function progress_stamp(w, path)
+    local paths = { path }
+    if w.detector.read then
+        if not w.detector.watch then return nil end
+        local ok, extra = pcall(w.detector.watch, w.ctx, path)
+        if not ok or type(extra) ~= 'table' then return nil end
+        for _, p in ipairs(extra) do paths[#paths + 1] = p end
+    end
+    local parts = {}
+    for i, p in ipairs(paths) do
+        -- A missing extra file (no OPTIONS yet) is part of the stamp; a missing save is not.
+        local s = stamp(p)
+        if not s and i == 1 then return nil end
+        parts[i] = p .. '=' .. (s or 'none')
+    end
+    return table.concat(parts, '\n')
 end
 
 -- A detector may read more than the save itself (Brotherhood adds the OPTIONS file).
@@ -119,8 +207,9 @@ local function select_path(w)
     if w.configuredPath ~= '' then
         local path, reason, note, saves = w.detector.resolve(w.ctx, w.configuredPath, w.game)
         -- A chosen slot file stands for its folder: the newest slot written there is the game
-        -- being played, so a new game or another loaded slot is followed.
-        if path and w.detector.followFolder then
+        -- being played, so a new game or another loaded slot is followed. (A chosen folder
+        -- was already searched for its newest slot.)
+        if path and w.detector.followFolder and not safe_fs.is_directory(w.configuredPath) then
             local newest, _, _, all = w.detector.resolve(w.ctx, fs.parent_path(path), w.game)
             if newest then path, saves = newest, all or saves end
         end
@@ -163,7 +252,8 @@ local function apply(w, parsed)
     if changed then millennium.config.set(game.progressKey, w.automatic) end
     if detector.remember then
         local memory = detector.remember(parsed, w.memory)
-        if type(memory) == 'table' then
+        -- Written only when it changed (Fallout 3: a new level or character).
+        if type(memory) == 'table' and (type(w.memory) ~= 'table' or json.encode(memory) ~= json.encode(w.memory)) then
             w.memory = memory
             millennium.config.set(memory_key(game), memory)
         end
@@ -186,8 +276,9 @@ local function poll(w)
     if w.cachedReply and now == w.lastPoll then return w.cachedReply end
     w.lastPoll = now
     -- Re-check every few seconds, so a new save slot (a new game) is picked up while Steam runs.
-    local found = select_path(w)
-    if found then w.selectedPath = found end
+    -- A folder that cannot be searched this time keeps the save already being watched.
+    local okFound, found = pcall(select_path, w)
+    if okFound and found then w.selectedPath = found end
     state.pathConfigured = w.configuredPath ~= ''
     state.lastScan = now
     state.progress = w.automatic
@@ -196,7 +287,15 @@ local function poll(w)
         state.message = 'No ' .. w.game.title .. ' progress file found yet. ' .. (w.game.setupHint or 'Select it in Settings.')
         if state.selectionIssue == 'path-not-found' then state.message = 'Path not found. Paste the full file or folder path.' end
     else
+        -- While the game is running its save is checked every second or so. A save whose size
+        -- and write time have stayed the same since it was last read in full is not read again.
+        local key = progress_stamp(w, w.selectedPath)
+        if key and key == w.quietKey and now - w.lastRead < FULL_READ_INTERVAL then
+            w.cachedReply = json.encode(state)
+            return w.cachedReply
+        end
         local bytes = read_progress(w, w.selectedPath)
+        w.lastRead = now
         state.saveFound = bytes ~= nil
         state.saveFileName = fs.filename(w.selectedPath)
         state.saveBytes = bytes and #bytes or 0
@@ -224,6 +323,17 @@ local function poll(w)
             end
         else
             describe(w)
+        end
+        -- Settled (read, parsed or found unreadable, and unchanged across polls): once the
+        -- stamp has stayed the same for STABLE_SECONDS, later polls can skip the read.
+        local settled = bytes ~= nil and bytes == w.pendingBytes and (bytes == w.parsedBytes or bytes == w.failedBytes)
+        w.quietKey = nil
+        if not settled or not key then
+            w.stampKey = nil
+        elseif key ~= w.stampKey then
+            w.stampKey, w.stampSeen = key, now
+        elseif now - w.stampSeen >= STABLE_SECONDS then
+            w.quietKey = key
         end
     end
     w.cachedReply = json.encode(state)
@@ -264,6 +374,7 @@ function SetSavePath(payload)
     end
     w.configuredPath, w.selectedPath, w.lastLocate = path, nil, -LOCATE_INTERVAL
     w.pendingBytes, w.parsedBytes, w.failedBytes, w.cachedReply = nil, nil, nil, nil
+    w.stampKey, w.quietKey = nil, nil
     millennium.config.set(w.game.pathKey, path)
     return poll(w)
 end
@@ -473,6 +584,7 @@ function ResetProgress(payload)
     millennium.config.set(held_key(w.game), w.held)
     millennium.config.set(held_path_key(w.game), path or '')
     w.parsedBytes, w.failedBytes, w.cachedReply = nil, nil, nil
+    w.stampKey, w.quietKey = nil, nil
     return poll(w)
 end
 
