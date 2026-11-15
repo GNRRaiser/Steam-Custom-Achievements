@@ -58,7 +58,7 @@ function D.parse(bytes)
     if type(bytes) ~= 'string' or #bytes < 28 then return nil, 'Pick Player1.prf' end
     local size = u32be(bytes, 21)
     if not size or size < 4 or size > 65536 then return nil, 'Pick Player1.prf' end
-    local data = lzo.decompress(bytes, 25)
+    local data = lzo.decompress(bytes, 25, size)
     if not data or #data ~= size then return nil, 'Unrecognized profile layout' end
     local values = settings(data)
     if not values or not values[MASKS[0]] or not values[MASKS[1]] then return nil, 'Unrecognized profile layout' end

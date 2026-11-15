@@ -565,10 +565,12 @@
           continue;
         }
         selectedStorage = store;
-        // Keep automatic unlocks that arrived before storage was readable.
+        // Keep automatic unlocks that arrived before storage was readable, and save them now,
+        // or they would pop up again as new the next time Steam starts.
+        const arrived = Object.keys(game.progress).some(key => !(key in clean));
         game.progress = {...clean, ...game.progress};
         game.storageFound = true;
-        if (syncCompletion(game) !== null) writeProgress(game);
+        if (syncCompletion(game) !== null || arrived) writeProgress(game);
         redrawViews();
         return;
       } catch (error) {
@@ -604,7 +606,6 @@
     const platinum = syncCompletion(game);
     // After the caller's own popups, so the platinum comes last.
     if (announce && platinum !== null) Promise.resolve().then(() => { if (active) announceUnlocks(game, [platinum]); });
-    game.dirty = true;
     const stores = new Set([selectedStorage, ...storageCandidates]);
     storageAvailable = false;
     for (const store of stores) {
@@ -614,6 +615,9 @@
         selectedStorage = store;
         storageAvailable = true;
         game.storageFound = true;
+        // Only a write that was kept stops saved progress from loading later: automatic
+        // unlocks that arrive before storage can be read are merged with it, not put over it.
+        game.dirty = true;
         break;
       } catch (error) {
         report("progress-save-failed", error);

@@ -1,4 +1,4 @@
-Steam Custom Achievements v0.35.6 verification - 2026-11-06
+Steam Custom Achievements v0.35.7 verification - 2026-11-15
 PASS a new save in %APPDATA%\Ubisoft\Assassin's Creed\Saved Games is found; nothing unlocked
 PASS objective M03_S20_Animus_Tutorial_Complete finished unlocks Welcome to the Animus
 PASS references to an objective and objectives still open do not count
@@ -99,6 +99,7 @@ PASS a new profile under Documents\BioWare\Mass Effect\Save is found; nothing un
 PASS achievement slots unlock their Xbox achievement; a counter at its target unlocks too
 PASS 150 organic kills and level 50 unlock Dog of War and Power Gamer, not Extreme Power Gamer
 PASS the slot layout is checked against counters the game already marked unlocked
+PASS a counter whose target reads 0 does not unlock its achievement
 PASS a cut-off profile is not trusted (earned unlocks stay); missing files are refused
 All Mass Effect detector tests passed.
 PASS a new profile under Documents\BioWare\Mass Effect 2\BIOGame\Profile is found; nothing unlocked
@@ -106,6 +107,7 @@ PASS bit 1 of setting 0x32 and bit 16 of 0x33 unlock Missing in Action and Fashi
 PASS geth, Horizon, top-bit, Shadow Broker, Zaeed and Arrival IDs map to their Xbox achievements
 PASS a cut-off profile is not trusted (earned unlocks stay); missing files are refused
 PASS the Mass Effect 2 folder can be pasted in Settings; Player1.prf inside it is used
+PASS profile data that comes out longer than its declared size is refused
 All Mass Effect 2 detector tests passed.
 PASS Fable III: the gnome counter reaching 50 is listed first, the plugin rule agrees, copies are saved
 PASS CoD 4: config.cfg lines are paired by dvar; intel counting toward 15 is flagged
@@ -113,6 +115,11 @@ PASS Thrillville: pasted folder, binary counter 19 -> 20 matches "1st in 20 race
 PASS narrowing: progress, no-progress and progress recordings leave only the race counter 20 -> 21 -> 22
 PASS no change gives an empty report; Cancel discards the snapshot
 All record mode tests passed.
+PASS Reset to locked holds back what the save earns; karma ones wait for the next level-up instead
+PASS a new save file of the same character (Autosave, Quicksave) keeps reset achievements locked
+PASS after a reset, the karma achievements unlock again at the next level-up
+PASS a different character releases the held achievements
+All Reset to locked tests passed.
 PASS Bribery 101! (P1_G_WinPrizes) unlocks Critics only once finished, with any medal
 PASS Alien Antics, Trance-Cendtal, Clearance Sale and Traitor's Arena unlock their achievements; an open mission unlocks its park
 PASS files that are not park saves, or have no missions, are not read
@@ -137,8 +144,8 @@ PASS automatic backend state unlocks progress while another page is selected; ca
 PASS card and popup fit at 1200px, 480px and 320px widths
 PASS popup destruction/recreation, complete cleanup, no external requests or script exceptions
 Real Chromium window regression passed: 153.0.8010.12
-[Steam Custom Achievements 0.35.6] Attached to desktop Steam window
-[Steam Custom Achievements 0.35.6] Ready for 11 games; waiting for a visible Steam window if necessary
+[Steam Custom Achievements 0.35.7] Attached to desktop Steam window
+[Steam Custom Achievements 0.35.7] Ready for 11 games; waiting for a visible Steam window if necessary
 PASS CoD 4 page shows its own 37 achievements, automatic unlocks, intel progress and raw campaign value
 PASS record mode: pick an achievement, Start, Done; the matching value and the saved copies are shown; a second pass narrows
 PASS a new automatic unlock shows a Steam-style popup with its picture; popups can be turned off
@@ -152,6 +159,10 @@ PASS a popup Steam silently drops is drawn by the plugin; one Steam queues is no
 PASS progress popups go to Steam's toast at each quarter, never for spoilers
 PASS AC2 keeps its v0.1 progress; other games' pages show no card; diagnostics list every game
 All multi-game regression groups passed.
+[Steam Custom Achievements 0.35.7] Ready for 11 games; waiting for a visible Steam window if necessary
+[Steam Custom Achievements 0.35.7] Attached to desktop Steam window
+PASS automatic unlocks that arrive before storage is readable are merged with the saved list, not put over it
+All storage tests passed.
 PASS mounts in the visible Steam window, excluding hidden host and Settings
 PASS loads prior v0.1.2 progress and saves manual toggles to the original key
 PASS Big Picture shows the card on its own game page and opens the full list

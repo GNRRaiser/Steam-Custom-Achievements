@@ -394,6 +394,13 @@ function D.remember(parsed)
     return { level = parsed.level, player = parsed.player }
 end
 
+-- Fallout 3 writes a new file for every save (Save 12, Autosave, Quicksave), so "Reset to
+-- locked" holds achievements back for the character, not for one save file (main.lua).
+function D.holdId(parsed)
+    if type(parsed.player) == 'string' and parsed.player ~= '' then return 'fallout3 character: ' .. parsed.player end
+    return nil
+end
+
 function D.counts(parsed, game)
     local counts = {}
     for _, rule in ipairs(game.rules) do

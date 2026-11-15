@@ -12,10 +12,11 @@ NAMES = ['None', 'ArrayProperty', 'IntProperty', 'StrProperty', 'BoolProperty', 
          'BioGamerProfile', 'Profile', 'Class', 'Core']
 
 
-def profile(unlocked_ids=(), values=None, flagged=(), slot_base=0):
+def profile(unlocked_ids=(), values=None, flagged=(), slot_base=0, targets=None):
     """unlocked_ids: achievement IDs (1-50) set in anAchievementStates. values: stat -> Value.
-    flagged: stat names with IsAchievementUnlocked set. slot_base 1 shifts the array by one."""
-    values = values or {}
+    flagged: stat names with IsAchievementUnlocked set. slot_base 1 shifts the array by one.
+    targets: stat -> UnlockedAt, in place of the game's usual target."""
+    values, targets = values or {}, targets or {}
     n = {name: i for i, name in enumerate(NAMES)}
     name = lambda s: struct.pack('<ii', n[s], 0)
 
@@ -34,7 +35,7 @@ def profile(unlocked_ids=(), values=None, flagged=(), slot_base=0):
     items = b''
     for sname, aid, need in STATS:
         items += (prop('sName', 'StrProperty', fstring(sname)) + prop('Value', 'IntProperty', struct.pack('<i', values.get(sname, 0)))
-                  + prop('UnlockedAt', 'IntProperty', struct.pack('<i', need)) + prop('AchievementId', 'IntProperty', struct.pack('<i', aid))
+                  + prop('UnlockedAt', 'IntProperty', struct.pack('<i', targets.get(sname, need))) + prop('AchievementId', 'IntProperty', struct.pack('<i', aid))
                   + name('IsAchievementUnlocked') + name('BoolProperty') + struct.pack('<ii', 0, 0) + struct.pack('<i', 1 if sname in flagged else 0)
                   + prop('TalenTreeID', 'IntProperty', struct.pack('<i', 0)) + name('None'))
     body += prop('RewardStats', 'ArrayProperty', struct.pack('<i', len(STATS)) + items)

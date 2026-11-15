@@ -1,4 +1,4 @@
-STEAM CUSTOM ACHIEVEMENTS v0.35.6 - MULTI-GAME
+STEAM CUSTOM ACHIEVEMENTS v0.35.7 - MULTI-GAME
 
 Adds the Xbox 360 achievement list to the Steam Library page of games whose
 Steam version has no achievements. Each supported game gets the same ACHIEVEMENTS
@@ -20,6 +20,24 @@ GAMES IN THIS BUILD
 
 Automatic entries unlock by themselves a few seconds after the game writes its
 progress. Everything else has a "Mark as unlocked" button in the popup.
+
+NEW IN v0.35.7
+A check of the whole plugin for mistakes. Fixed:
+- Fallout 3: "Reset to locked" holds back what your character has already
+  earned until you start a different character. Before, the next autosave
+  or quicksave (a new save file) brought it all straight back. The karma
+  achievements are not held; they unlock again at your next level-up.
+- Achievements you marked by hand are no longer hidden when a game's
+  automatic unlocks arrive before Steam lets the plugin read its saved list
+  (for example, Steam starting while the game is already running). Both
+  are kept and saved together.
+- Mass Effect: a counter achievement whose target the profile gives as 0
+  no longer unlocks at once; the plugin's own target is used instead.
+- Mass Effect 2: a damaged profile can no longer make the plugin unpack far
+  more data than the profile says it holds.
+- The Unlock popups setting now says popups also show when you mark an
+  achievement as unlocked yourself (they have done so since v0.12.1).
+- The install report's title no longer lists only five of the 11 games.
 
 NEW IN v0.35.6
 - Lighter on the PC while a game runs. A save that has not changed since it
